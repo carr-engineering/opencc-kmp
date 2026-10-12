@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "baseline": "android-initial.json",
+  "method": "Per-profile incremental APK and dependency-artifact bytes; allow 5% plus 4096 bytes above the measured baseline",
+  "relative_allowance": 0.05,
+  "absolute_allowance_bytes": 4096
+}

@@ -181,6 +181,20 @@ checkbox is completed only when its implementation and relevant checks exist.
   async preparation and typed missing-resource errors on both web targets.
 - Complete/selective data acceptance tests and full JVM packaged-resource tests still pass.
 
+### Independent consumers and initial APK size baseline
+
+- Added a separate Maven-only consumer build for Android, JVM, iOS simulator, JS and Wasm. One-config
+  synchronous and asynchronous resource loading passed on JVM/Node/Chrome/iOS simulator; web runs
+  asserted 12 real HTTP requests per pair of JS/Wasm tests, including missing-resource failures.
+- Android release APKs built with default R8 shrinking and no OpenCC keep rules. Five measured
+  profiles cover baseline, engine/inline, s2t, s2t+t2s and complete offline data. Their incremental APK
+  sizes were 0, 14,074, 534,496, 569,810 and 6,710,293 bytes respectively.
+- Every packaged resource matched its manifest hash and selected closure; no native runtime libraries,
+  duplicate entries or nested data archives were present. Runtime artifact download sizes/hashes and
+  raw/compressed data/DEX contributions are recorded in `measurements/android-initial.json`.
+- Added initial measured regression allowances. Play-specific download sizes, device startup/memory,
+  installed Android/Swift app runtime checks and browser/Native production size profiles remain open.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

@@ -22,7 +22,7 @@ Without `opencc.targets`, all planned targets are configured. Android builds req
 Apple executable/framework tests require Xcode. JVM bytecode targets Java 17. Kotlin 2.4.0 and
 Gradle 8.14.3 are pinned; macOS x64 is retained despite upstream compiler deprecation.
 
-Core has no data, networking or tooling dependencies. Consumers will be able to select data packs
+Core has no data, networking or tooling dependencies. Consumers can select generated data packs
 and optional tooling, or use `opencc-all` for the complete upstream library surface and offline data.
 Public APIs use Kotlin text, collection, error and ownership conventions; native pointer/allocation
 conventions are mapped to equivalent operations rather than copied.
@@ -89,10 +89,14 @@ under `opencc-data/build/selected`. Manifest entries record sizes, SHA-256 hashe
 and the complete config dependency graph. Selection includes optional dictionaries and deduplicates
 shared resources. The zip is kept outside runtime resource folders to avoid shipping duplicate data.
 
-JVM consumers of `opencc-data` can use `ClasspathResourceProvider`. Other hosts can copy selected
-resources into Android assets or Apple bundles and use the corresponding provider, or supply a
-`FileResourceProvider`/custom provider. Gradle automation for final mobile/browser application
-packaging and published consumer fixtures remains in progress.
+JVM consumers of `opencc-data` can use `ClasspathResourceProvider`. Published ZIP classifiers can be
+staged into Android assets or Apple bundles. Browser/Node JS and Wasm adapters support host resources
+and asynchronous preparation. [Resource delivery](docs/RESOURCE_DELIVERY.md) describes the independent
+Maven consumer fixtures and the checks already run.
+
+[Initial size baselines](docs/SIZE_BASELINES.md) record actual release APK and dependency-artifact
+measurements for engine-only, one-config, multi-config and complete offline deployments, with
+regression budgets. Device startup/memory and production web/Native size gates remain in progress.
 
 The full data distribution includes experimental Jieba assets. The Kotlin Jieba segmentation port
 is still pending; adding its resources alone does not enable those configurations.
