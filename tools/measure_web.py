@@ -109,6 +109,17 @@ def measure(output, profiles, chrome):
             validate_resources(files, profile)
             report = sizes(files)
             report["runs"] = [run_browser(files, chrome) for _ in range(3)]
+            for run in report["runs"]:
+                assert run["fixture"]["profile"] == profile
+                requested = {name for name in run["actual_http_files"] if name.startswith("opencc/")}
+                if profile in ("baseline", "engine"):
+                    assert not requested
+                else:
+                    manifest = json.loads(files["opencc/manifest.json"])
+                    configs = ["s2t"] if profile == "one" else ["s2t", "t2s"]
+                    expected = {"opencc/" + config + ".json" for config in configs}
+                    expected |= {"opencc/" + name for config in configs for name in manifest["configs"][config]}
+                    assert requested == expected, (profile, requested, expected)
             results[profile][target] = report
     if "baseline" in results:
         for row in results.values():

@@ -96,7 +96,9 @@ Maven consumer fixtures and the checks already run.
 
 [Initial size baselines](docs/SIZE_BASELINES.md) record actual release APK and dependency-artifact
 measurements for engine-only, one-config, multi-config and complete offline deployments, with
-regression budgets. Device startup/memory and production web/Native size gates remain in progress.
+regression budgets. [Production web and Swift measurements](docs/WEB_AND_APPLE_MEASUREMENTS.md)
+add JS/Wasm distribution sizes, installed iOS simulator checks and Native size-option evidence.
+Physical-device performance, complete memory profiling and release gates remain in progress.
 
 The full data distribution includes experimental Jieba assets. The Kotlin Jieba segmentation port
 is still pending; adding its resources alone does not enable those configurations.

@@ -15,8 +15,9 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 ## Current acceptance priorities
 
-1. Published-artifact Android/iOS/JS/Wasm consumer fixtures, resource delivery and initial application
-   size/download/startup/memory baselines. These remain outstanding despite working JVM resources.
+1. Reduce dictionary-preparation allocations and complete owned cache/concurrency contracts. Initial
+   published consumers and package-size baselines exist across Android, Swift/iOS and JS/Wasm;
+   physical-device performance, broader peak-memory evidence and production delivery gates remain.
 2. Encoded-input/NUL/malformed-input contracts, complete JSON diagnostics and owned concurrent caches.
 3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
@@ -194,6 +195,24 @@ checkbox is completed only when its implementation and relevant checks exist.
   raw/compressed data/DEX contributions are recorded in `measurements/android-initial.json`.
 - Added initial measured regression allowances. Play-specific download sizes, device startup/memory,
   installed Android/Swift app runtime checks and browser/Native production size profiles remain open.
+
+### Production web distributions and installed Swift consumers
+
+- Added isolated production profiles, shared controlled measurement code, JS minification/DCE,
+  optimized Wasm distributions and a small Swift facade around the published Kotlin libraries.
+- All five web profiles passed three fresh Chrome navigations each on JS and Wasm. Complete
+  packaged-data bytes and actual lazy HTTP payloads are recorded separately; gzip transport uses
+  browser decoding with no additional engine codec. Source maps are excluded from measured apps.
+- All five Swift profiles passed three installations/launches on a temporary iOS simulator, loading
+  resources from the installed application bundle. Manifest contents/hashes and app containers were
+  verified; only the runner's own simulator was removed afterward.
+- Incremental package measurements and initial size budgets are recorded in web/apple JSON reports
+  and `docs/WEB_AND_APPLE_MEASUREMENTS.md`. The web size gate reproduced successfully.
+- Native smallBinary reduced the s2t app ZIP by 41,076 bytes. It remains off by default. The first
+  debug test run explicitly ignored this option; validation was corrected to release test binaries,
+  and 57 common Native tests passed. Three installed smallBinary app launches also passed.
+- Measured data preparation and process/heap footprints expose further optimization work. These
+  host/simulator observations do not prove physical-device p95 targets or complete peak-memory gates.
 
 ## Completion policy
 

@@ -50,7 +50,8 @@ python3 tools/test_consumers.py
 python3 tools/test_consumers.py :kit:jsBrowserTest :kit:wasmJsBrowserTest
 ```
 
-These are local Maven publications, not a Maven Central release. Android runtime/device checks,
-an installed Swift/iOS application, additional resource profiles and production web/Native size
-measurements remain acceptance work. Tests against one selected pack do not prove all delivery
-profiles or the still-pending Jieba implementation.
+These are local Maven publications, not a Maven Central release. Production JS/Wasm distributions
+and installed Swift apps now exercise all five deployment profiles; detailed evidence is in
+[WEB_AND_APPLE_MEASUREMENTS.md](WEB_AND_APPLE_MEASUREMENTS.md). Android runtime/device checks,
+physical-device performance and full memory/CI gates remain acceptance work. Packaged resources
+do not prove the still-pending Jieba algorithm's conformance.

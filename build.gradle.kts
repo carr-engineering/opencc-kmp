@@ -2,6 +2,8 @@ import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithTests
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
     kotlin("multiplatform") version "2.4.0" apply false
@@ -47,6 +49,15 @@ subprojects {
         if (!isCli && enabled("js")) js { browser(); nodejs() }
         if (!isCli && enabled("wasmJs")) wasmJs { browser(); nodejs() }
         applyDefaultHierarchyTemplate()
+        if (providers.gradleProperty("opencc.native.smallBinary").orElse("false").get().toBooleanStrict()) {
+            targets.withType<KotlinNativeTarget>().configureEach {
+                if (this is KotlinNativeTargetWithTests<*>) {
+                    binaries.test(listOf(NativeBuildType.RELEASE))
+                    testRuns.named("test") { setExecutionSourceFrom(binaries.getTest("", NativeBuildType.RELEASE)) }
+                }
+                binaries.all { binaryOption("smallBinary", "true") }
+            }
+        }
         sourceSets.commonTest.dependencies { implementation(kotlin("test")) }
         if (isCli) targets.withType<KotlinNativeTarget>().configureEach {
             binaries.executable { entryPoint = "io.github.opencckmp.cli.main" }

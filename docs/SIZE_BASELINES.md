@@ -43,3 +43,7 @@ incremental APK and dependency-artifact sizes. Update baselines only with a revi
 measurement and passing conformance. This is an initial Android size gate, not completion of the
 plan's browser/Native delivery, startup, peak-memory, physical-device performance or compression
 tradeoff gates. Those remain required before release.
+
+Production web and installed Swift profile evidence now supplements these APK measurements; see
+[WEB_AND_APPLE_MEASUREMENTS.md](WEB_AND_APPLE_MEASUREMENTS.md) for their separate baselines,
+reproducible size gates, Native size-option evaluation and measurement limitations.

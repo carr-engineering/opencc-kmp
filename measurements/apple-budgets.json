@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "baseline": "apple-initial.json",
+  "relative_allowance": 0.05,
+  "absolute_allowance_bytes": 4096,
+  "metric": "incremental_zip_container_bytes"
+}
