@@ -12,7 +12,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "opencc-kmp"
-include("opencc-core", "opencc-platform", "opencc-dictionary-tools", "opencc-data",
+include("opencc-core", "opencc-platform", "opencc-cache", "opencc-dictionary-tools", "opencc-data",
     "opencc-phrase-extract", "opencc-cli", "opencc-detect", "opencc-all")
 
 // A pack coordinate encodes its sorted selection, so different contents never share a coordinate.

@@ -16,7 +16,7 @@ class Lexicon(entries: List<DictEntry>) : Iterable<DictEntry> {
     val entries: List<DictEntry> get() = storedEntries.toList()
     val size: Int get() = storedEntries.size
     operator fun get(index: Int): DictEntry = storedEntries[index]
-    override fun iterator(): Iterator<DictEntry> = storedEntries.iterator()
+    override fun iterator(): Iterator<DictEntry> = readOnlyIterator(storedEntries)
     fun sorted(): Lexicon = Lexicon(storedEntries.sortedWith { a, b -> UTF8Util.compare(a.key, b.key) })
     fun isSorted(): Boolean = storedEntries.zipWithNext().all { (a, b) -> UTF8Util.compare(a.key, b.key) <= 0 }
     fun isUnique(): Boolean = storedEntries.map { it.key }.toSet().size == storedEntries.size
@@ -35,6 +35,16 @@ class Lexicon(entries: List<DictEntry>) : Iterable<DictEntry> {
             }
             return Lexicon(entries)
         }
+    }
+}
+
+/** Do not leak a platform collection's mutable iterator through an immutable public value. */
+internal fun <T> readOnlyIterator(values: List<T>): Iterator<T> = object : Iterator<T> {
+    private var index = 0
+    override fun hasNext(): Boolean = index < values.size
+    override fun next(): T {
+        if (!hasNext()) throw NoSuchElementException()
+        return values[index++]
     }
 }
 

@@ -35,6 +35,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | PhraseExtract::Extract / step operations / Reset / release operations | PhraseExtract.extract / extractSuffixes / extractPrefixes / calculateFrequency / calculateCohesions / calculateSuffixEntropy / calculatePrefixEntropy / extractWordCandidates / selectWords / reset / releaseSuffixes / releasePrefixes | Separate phrase module; owned mutable session; call reset before reuse; reset retains length options and restores default filters |
 | PhraseExtract setters / Words / WordCandidates / Signals / statistic accessors | Length/filter properties, words / wordCandidates / signal / frequency / probability / logProbability / cohesion / entropy / prefixEntropy / suffixEntropy | Unicode scalar length units, String candidates, immutable signal snapshots and copied lists; filter true excludes a candidate |
 | ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
+| Kotlin resource/cache extensions | DictionaryCache, ResourceDigest, VerifiedResourceProvider / VerifiedAsyncResourceProvider | Explicit cache ownership, content/version/format identity, concurrent initialization and trusted-manifest byte verification |
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
 | Platform-native wide strings / paths | String and platform resource adapters | No separate wchar_t representation required |
@@ -55,7 +56,6 @@ strings merely because they contain a NUL.
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
 | Bundled Jieba segmentation extension | Common extension interface implemented; algorithm/data port pending |
-| Cache lifecycle and cross-load sharing | Per-load dictionary sharing implemented; owned cache implementations pending |
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
 with each milestone; conformance counts in PROGRESS.md describe exactly what was tested.
@@ -67,3 +67,5 @@ full resource closure, including optional dictionaries.
 
 `convertWithMap` and the optional `ScriptDetector` are Kotlin extensions beyond upstream; their
 contracts and selection examples live in [ALIGNMENT_AND_DETECTION.md](ALIGNMENT_AND_DETECTION.md).
+Cache/concurrency, resource verification and shared dictionary lifetimes are specified in
+[CACHES_AND_OWNERSHIP.md](CACHES_AND_OWNERSHIP.md).

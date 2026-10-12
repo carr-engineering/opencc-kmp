@@ -98,6 +98,12 @@ Maven consumer fixtures and the checks already run.
 measurements for engine-only, one-config, multi-config and complete offline deployments, with
 regression budgets. [Production web and Swift measurements](docs/WEB_AND_APPLE_MEASUREMENTS.md)
 add JS/Wasm distribution sizes, installed iOS simulator checks and Native size-option evidence.
+
+Loaded dictionaries and converters can be shared across threads. Select optional `opencc-cache`
+and pass a caller-owned
+`DictionaryCache` for repeated config loads, or verified resource providers for host-delivered
+bytes. [Cache identity and ownership](docs/CACHES_AND_OWNERSHIP.md) explains initialization,
+eviction, close/clear behavior, async preparation and resource verification.
 Physical-device performance, complete memory profiling and release gates remain in progress.
 
 The full data distribution includes experimental Jieba assets. The Kotlin Jieba segmentation port

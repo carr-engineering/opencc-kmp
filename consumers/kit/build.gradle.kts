@@ -54,6 +54,8 @@ kotlin {
                 if (pack == null) "src/noDataHost/kotlin" else "src/dataHost/${target.name}/kotlin")
         }
         commonTest.dependencies { implementation(kotlin("test")) }
+        if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-cache:0.1.0-SNAPSHOT") }
+        if (profile != "baseline") commonTest { kotlin.srcDir("src/engineTest/kotlin") }
         commonMain { resources.srcDir(layout.buildDirectory.dir("fixture.bundle")) }
     }
 }

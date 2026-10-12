@@ -8,12 +8,14 @@ fun interface SegmentationFactory {
     fun create(properties: Map<String, String>, resources: ResourceProvider): Segmentation
 }
 
-/** Stateless loader. Dictionaries are shared within one load; cross-load caching is provider-owned. */
+/** Stateless loader. Optional caller-owned [dictionaryCache] shares dictionaries across loads. */
 class Config(
     private val provider: ResourceProvider = ResourceProvider { throw FileNotFound(it) },
     readers: List<DictionaryReader> = standardDictionaryReaders,
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
     private val warningSink: (ConfigWarning) -> Unit = {},
+    private val dictionaryCache: DictionaryCache? = null,
+    private val cacheIdentity: Any = provider,
 ) {
     private val readers = readers.associateBy { it.type }
     private val segmentationFactories = segmentationFactories.toMap()
@@ -62,7 +64,10 @@ class Config(
             }
             val reader = readers[type] ?: throw InvalidFormat("Unknown or unavailable dictionary type: $type")
             val file = resolveResource(configDirectory, doc.string("file"))
-            return loaded.getOrPut(type + "\n" + file) { reader.read(provider.read(file)) }
+            return loaded.getOrPut(type + "\n" + file) {
+                val bytes = provider.read(file)
+                dictionaryCache?.load(cacheIdentity, file, bytes, reader) ?: reader.read(bytes)
+            }
         }
         fun chain(value: JsonValue.Array, includeTofu: Boolean): ConversionChain = ConversionChain(
             value.values.mapNotNull { item ->

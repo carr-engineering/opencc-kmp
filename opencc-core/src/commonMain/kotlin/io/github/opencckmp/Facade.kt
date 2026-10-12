@@ -7,7 +7,10 @@ class SimpleConverter private constructor(internal val delegate: Converter) : Co
         provider: ResourceProvider,
         options: ConfigLoadOptions = ConfigLoadOptions(),
         readers: List<DictionaryReader> = standardDictionaryReaders,
-    ) : this(Config(provider, readers).newFromFile(configResourceName(configName), options))
+        dictionaryCache: DictionaryCache? = null,
+        cacheIdentity: Any = provider,
+    ) : this(Config(provider, readers, dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)
+        .newFromFile(configResourceName(configName), options))
 
     companion object {
         fun fromConfig(converter: Converter): SimpleConverter = SimpleConverter(converter)
@@ -63,6 +66,8 @@ suspend fun prepareConfig(
     options: ConfigLoadOptions = ConfigLoadOptions(),
     readers: List<DictionaryReader> = standardDictionaryReaders,
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
+    dictionaryCache: DictionaryCache? = null,
+    cacheIdentity: Any = provider,
 ): Converter {
     val name = configResourceName(configName).replace('\\', '/')
     val bytes = provider.read(name)
@@ -85,5 +90,6 @@ suspend fun prepareConfig(
     collect(root)
     val prepared = mutableMapOf(name to bytes)
     for (resource in names) if (!prepared.containsKey(resource)) prepared[resource] = provider.read(resource)
-    return Config(MemoryResourceProvider(prepared), readers, segmentationFactories).newFromFile(name, options)
+    return Config(MemoryResourceProvider(prepared), readers, segmentationFactories,
+        dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity).newFromFile(name, options)
 }

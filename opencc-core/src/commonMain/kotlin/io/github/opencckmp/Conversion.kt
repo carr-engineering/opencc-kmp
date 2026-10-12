@@ -10,7 +10,7 @@ class Segments(values: List<String>) : Iterable<String> {
     val values: List<String> get() = stored.toList()
     val size: Int get() = stored.size
     operator fun get(index: Int): String = stored[index]
-    override fun iterator(): Iterator<String> = stored.iterator()
+    override fun iterator(): Iterator<String> = readOnlyIterator(stored)
     override fun toString(): String = stored.joinToString("")
 }
 

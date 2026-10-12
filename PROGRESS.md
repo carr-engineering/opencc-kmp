@@ -15,10 +15,10 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 ## Current acceptance priorities
 
-1. Reduce dictionary-preparation allocations and complete owned cache/concurrency contracts. Initial
+1. Continue startup/memory profiling after the primitive-array builder and owned caches. Initial
    published consumers and package-size baselines exist across Android, Swift/iOS and JS/Wasm;
    physical-device performance, broader peak-memory evidence and production delivery gates remain.
-2. Encoded-input/NUL/malformed-input contracts, complete JSON diagnostics and owned concurrent caches.
+2. Encoded-input/NUL/malformed-input contracts and complete JSON diagnostics.
 3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
    infrastructure/documentation. Public publication requires configured ownership and credentials.
@@ -224,6 +224,28 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Three installed s2t simulator launches measured 152–154 MiB peak RSS, down from 196–198 MiB in the
   initial run. Production web/Swift consumer reports and the rejected direct-MARISA tradeoff are
   documented in `docs/WEB_AND_APPLE_MEASUREMENTS.md`; startup samples remain environment-limited.
+
+### Explicit cache ownership and resource verification
+
+- Core exposes a small DictionaryCache interface. Optional `opencc-cache` supplies concurrent LRU
+  initialization, SHA-256 content identity, retry after failure, eviction/clear/close and sync/async
+  verified-resource wrappers. The aggregate includes it; engine/data/platform dependencies do not.
+- Config, SimpleConverter and async preparation accept the owned cache and stable provider identity;
+  conversion state remains per call. Public lexicon/segment iterators no longer expose mutable
+  platform collection iterators. Closing a cache or facade handle preserves other converters.
+- Eight portable cache/integrity tests passed on JVM, JS, Wasm, macOS and iOS simulator. Five JVM
+  tests cover actual eight-thread initialization/failure sharing, concurrent conversion, pending
+  eviction, close/clear during a load and JDK digest parity. Four-thread Native initialization and
+  conversion passed on both macOS and iOS simulator. Published independent consumers passed on
+  JVM/JS/Wasm/iOS, including optional cache/verification APIs and actual resource acquisition.
+- The initial combined implementation exceeded the engine dependency-download budget despite R8
+  removing unused app code. Isolating optional implementations restored the unmodified budget:
+  engine download increment 166,071 bytes and APK increment 14,541 bytes. All five Android size
+  profiles passed; `measurements/android-cache-isolation.json` records exact resources/graphs/sizes.
+- All five production JS/Wasm profiles passed three fresh browser runs and unchanged size budgets;
+  all five installed Swift profiles passed three simulator launches and unchanged Native ZIP budgets.
+  The optional cache implementation is exercised through test-only published dependencies, so it
+  cannot silently increase the runtime graph of the uncached engine/data measurement profiles.
 
 ## Completion policy
 

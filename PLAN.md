@@ -149,6 +149,9 @@ such, without silently omitting them:
   operations through this module and the complete aggregate dependency.
 - `opencc-platform`: thin resource/I/O adapters for supported targets. Host-supplied implementations
   of the common interfaces remain supported without requiring the bundled adapters.
+- `opencc-cache`: optional common dictionary-cache and verified-resource implementations, depending
+  only on core. Core exposes the cache interface without pulling these implementations into engine
+  dependency downloads. Include this module in the complete aggregate dependency.
 - `opencc-data`: every upstream dictionary and config, in the formats upstream ships (`.ocd2` plus
   JSON), plus a manifest (file → SHA-256 → size and config → resource dependencies). Produced by a
   reproducible Gradle build from the pinned upstream release. Retain this complete offline bundle.
