@@ -105,8 +105,10 @@ if __name__ == "__main__":
     parser.add_argument("--configs", help="Comma-separated config names; omit for all built-in and Jieba data")
     parser.add_argument("--output", type=Path, default=ROOT / "opencc-data/build/bundle/opencc")
     parser.add_argument("--archive", type=Path, help="Optional zip destination outside runtime resource folders")
+    parser.add_argument("--oracle", type=Path, help="Already prepared pinned reference build (Gradle prepares it once)")
     args = parser.parse_args()
     try:
-        print(json.dumps(create_bundle(args.output, args.configs.split(',') if args.configs else None, archive=args.archive), indent=2))
+        print(json.dumps(create_bundle(args.output, args.configs.split(',') if args.configs else None,
+                                      oracle=args.oracle, archive=args.archive), indent=2))
     except ValueError as error:
         parser.error(str(error))

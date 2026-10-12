@@ -39,6 +39,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
 | Platform-native wide strings / paths | String and platform resource adapters | No separate wchar_t representation required |
 | Filesystem/provider-backed resources | FileResourceProvider / ClasspathResourceProvider / AndroidAssetResourceProvider / AppleBundleResourceProvider | Platform I/O stays outside core; Windows paths use UTF-16 at the boundary |
+| Browser/Node resource acquisition | BrowserResourceProvider / NodeFileResourceProvider | JS and Wasm adapters; suspend fetch preparation and synchronous local file loading; no networking in core |
 
 `prepareConfig` is a Kotlin extension: suspending host resource acquisition followed by synchronous
 conversion. It requires no coroutine or network dependency in core. Low-level encoded C-string
@@ -50,7 +51,7 @@ strings merely because they contain a NUL.
 | Requirement | Current status |
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
-| Environment/executable search paths, browser/Node resource helpers and zip adapters | Basic filesystem/classpath/Android asset/Apple bundle providers implemented; remaining adapters pending |
+| Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
 | Bundled Jieba segmentation extension | Common extension interface implemented; algorithm/data port pending |

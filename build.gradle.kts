@@ -53,6 +53,12 @@ subprojects {
         }
     }
     extensions.configure<PublishingExtension> {
+        repositories {
+            maven {
+                name = "Consumer"
+                url = rootProject.layout.projectDirectory.dir(".cache/maven").asFile.toURI()
+            }
+        }
         publications.withType<MavenPublication>().configureEach {
             pom {
                 name.set(project.name)
@@ -60,6 +66,26 @@ subprojects {
                 licenses { license { name.set("Apache License 2.0"); url.set("https://www.apache.org/licenses/LICENSE-2.0") } }
             }
         }
+    }
+    if (name == "opencc-data" || name.startsWith("opencc-data-")) {
+        val generateDataIdentity = tasks.register("generateDataIdentity") {
+            val destination = layout.buildDirectory.file("generated/kotlin/DataIdentity.kt")
+            outputs.file(destination)
+            doLast {
+                destination.get().asFile.apply {
+                    parentFile.mkdirs()
+                    writeText("package io.github.opencckmp.data.${project.name.replace('-', '_')}\ninternal const val upstreamDataVersion: String = \"1.4.2\"\n")
+                }
+            }
+        }
+        extensions.configure<KotlinMultiplatformExtension> {
+            sourceSets.commonMain { kotlin.srcDir(layout.buildDirectory.dir("generated/kotlin")) }
+            sourceSets.findByName("jvmMain")?.resources?.srcDir(layout.buildDirectory.dir("generated/resources"))
+        }
+        tasks.matching { it.name.startsWith("compile") || it.name.endsWith("SourcesJar") || it.name == "sourcesJar" }.configureEach {
+            dependsOn(generateDataIdentity)
+        }
+        apply(from = rootProject.file("gradle/data-pack.gradle.kts"))
     }
 }
 
@@ -74,5 +100,10 @@ tasks.register<Exec>("prepareNativeProbes") {
     workingDir(rootDir)
     commandLine("python3", "tools/build_probes.py")
     mustRunAfter(":opencc-core:prepareConformance")
+}
+
+tasks.register<Exec>("prepareDataReference") {
+    workingDir(rootDir)
+    commandLine("python3", "tools/build_oracle.py")
 }
 

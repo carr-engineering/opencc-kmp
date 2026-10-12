@@ -169,6 +169,18 @@ checkbox is completed only when its implementation and relevant checks exist.
   simulator. A JVM test with the real upstream dictionaries verified script/region examples and the
   two-versus-six resource closure. Heuristic regional tie/scoring behaviour is documented.
 
+### Published data packs and browser resources
+
+- Added configuration-identified data modules and deterministic ZIP classifiers on their KMP root
+  publications. Data modules no longer depend on core. JVM target JARs retain automatic classpath
+  resources; other hosts stage the published archive explicitly into their native resource system.
+- Verified local standard KMP publications for JVM, Android, Apple, JS and Wasm. Data-only native
+  variants required a tiny internal upstream-version declaration to produce valid klib artifacts.
+- Added browser fetch and Node filesystem adapters for JS/Wasm with no extra runtime libraries.
+  Fetch remains in the platform adapter, outside conversion. Independent HTTP consumers verified
+  async preparation and typed missing-resource errors on both web targets.
+- Complete/selective data acceptance tests and full JVM packaged-resource tests still pass.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,
