@@ -415,3 +415,26 @@ local preparation is not evidence of an actual public release.
   filesystem/argument audits remain, as do Windows/Linux runtime checks, Windows JVM link-count
   parity, public release/export/licensing checks and the outstanding size/performance/CI gates.
   No milestone is marked complete merely because these selected CLI process cases passed.
+
+### API baselines, documentation and actual publication payloads
+
+- Enabled Kotlin's integrated ABI validation and committed the initial JVM/KLIB baselines for every
+  declared target. Generated data selections have no public API and are excluded from baseline
+  storage. Added Dokka's combined HTML reference and explicit shared JVM/Android adapter ownership.
+- Fixed defects revealed by actual publication: the aggregate now builds a real Native carrier KLIB,
+  and CLI process exit uses a platform adapter so common metadata compiles as well as JVM/Native code.
+- Added module-specific license/provenance embedding before metadata/signing, plus artifact checksum,
+  notice and runtime graph verification. Preserved TCLAP MIT attribution for parser/help adaptations;
+  the pinned vendored help header was compared byte for byte with the official v1.2.5 release.
+- All-target ABI generation passed; ABI checks, Dokka, JVM platform tests and Android adapter
+  compilation passed. Refreshed all local publications for JVM/Android/JS/Wasm/macOS Arm64/iOS
+  simulator; 87 publication records and 199 artifact files pass embedded-notice/checksum/graph checks.
+  Published full-bundle JVM/JS/Wasm/iOS tests pass with 148 actual HTTP resource requests. Legal payload
+  placement, preserved compiled bytes, stale replacement and repeated-byte determinism are also tested.
+- A stricter graph check identified Kotlin's automatically added legacy DOM dependency in JS.
+  Disabled that unused dependency in libraries and consumers; refreshed metadata now enforces stdlib
+  as core's only runtime dependency. JS/Wasm module tests, all-target ABI checks and independent
+  full-bundle consumers pass after the change. Browser resource operations remain available.
+- Public ownership/credentials, remote CI, remaining export/API/resource audits and measured release
+  budgets are still open. Artifact notices add delivered bytes; those bytes must be included in the
+  next size run. Existing allowances have not been widened.

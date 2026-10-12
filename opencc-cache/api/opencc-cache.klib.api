@@ -1,0 +1,61 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-cache>
+final class io.github.opencckmp/LruDictionaryCache : io.github.opencckmp/DictionaryCache { // io.github.opencckmp/LruDictionaryCache|null[0]
+    constructor <init>(kotlin/Int = ...) // io.github.opencckmp/LruDictionaryCache.<init>|<init>(kotlin.Int){}[0]
+
+    final val capacity // io.github.opencckmp/LruDictionaryCache.capacity|{}capacity[0]
+        final fun <get-capacity>(): kotlin/Int // io.github.opencckmp/LruDictionaryCache.capacity.<get-capacity>|<get-capacity>(){}[0]
+    final val size // io.github.opencckmp/LruDictionaryCache.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.opencckmp/LruDictionaryCache.size.<get-size>|<get-size>(){}[0]
+
+    final fun clear() // io.github.opencckmp/LruDictionaryCache.clear|clear(){}[0]
+    final fun close() // io.github.opencckmp/LruDictionaryCache.close|close(){}[0]
+    final fun load(kotlin/Any, kotlin/String, kotlin/ByteArray, io.github.opencckmp/DictionaryReader): io.github.opencckmp/Dict // io.github.opencckmp/LruDictionaryCache.load|load(kotlin.Any;kotlin.String;kotlin.ByteArray;io.github.opencckmp.DictionaryReader){}[0]
+}
+
+final class io.github.opencckmp/ResourceIntegrity { // io.github.opencckmp/ResourceIntegrity|null[0]
+    constructor <init>(kotlin/Long, kotlin/String) // io.github.opencckmp/ResourceIntegrity.<init>|<init>(kotlin.Long;kotlin.String){}[0]
+
+    final val sha256 // io.github.opencckmp/ResourceIntegrity.sha256|{}sha256[0]
+        final fun <get-sha256>(): kotlin/String // io.github.opencckmp/ResourceIntegrity.sha256.<get-sha256>|<get-sha256>(){}[0]
+    final val size // io.github.opencckmp/ResourceIntegrity.size|{}size[0]
+        final fun <get-size>(): kotlin/Long // io.github.opencckmp/ResourceIntegrity.size.<get-size>|<get-size>(){}[0]
+
+    final fun component1(): kotlin/Long // io.github.opencckmp/ResourceIntegrity.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.opencckmp/ResourceIntegrity.component2|component2(){}[0]
+    final fun copy(kotlin/Long = ..., kotlin/String = ...): io.github.opencckmp/ResourceIntegrity // io.github.opencckmp/ResourceIntegrity.copy|copy(kotlin.Long;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/ResourceIntegrity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/ResourceIntegrity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/ResourceIntegrity.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/ResourceVerificationFailed : io.github.opencckmp/OpenCCException { // io.github.opencckmp/ResourceVerificationFailed|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // io.github.opencckmp/ResourceVerificationFailed.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val resourceName // io.github.opencckmp/ResourceVerificationFailed.resourceName|{}resourceName[0]
+        final fun <get-resourceName>(): kotlin/String // io.github.opencckmp/ResourceVerificationFailed.resourceName.<get-resourceName>|<get-resourceName>(){}[0]
+}
+
+final class io.github.opencckmp/VerifiedAsyncResourceProvider : io.github.opencckmp/AsyncResourceProvider { // io.github.opencckmp/VerifiedAsyncResourceProvider|null[0]
+    constructor <init>(io.github.opencckmp/AsyncResourceProvider, kotlin.collections/Map<kotlin/String, io.github.opencckmp/ResourceIntegrity>) // io.github.opencckmp/VerifiedAsyncResourceProvider.<init>|<init>(io.github.opencckmp.AsyncResourceProvider;kotlin.collections.Map<kotlin.String,io.github.opencckmp.ResourceIntegrity>){}[0]
+
+    final suspend fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp/VerifiedAsyncResourceProvider.read|read(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp/VerifiedResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp/VerifiedResourceProvider|null[0]
+    constructor <init>(io.github.opencckmp/ResourceProvider, kotlin.collections/Map<kotlin/String, io.github.opencckmp/ResourceIntegrity>) // io.github.opencckmp/VerifiedResourceProvider.<init>|<init>(io.github.opencckmp.ResourceProvider;kotlin.collections.Map<kotlin.String,io.github.opencckmp.ResourceIntegrity>){}[0]
+
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp/VerifiedResourceProvider.read|read(kotlin.String){}[0]
+}
+
+final object io.github.opencckmp/ResourceDigest { // io.github.opencckmp/ResourceDigest|null[0]
+    final fun sha256(kotlin/ByteArray): kotlin/String // io.github.opencckmp/ResourceDigest.sha256|sha256(kotlin.ByteArray){}[0]
+}
+
+final fun io.github.opencckmp/DictionaryCache(kotlin/Int = ...): io.github.opencckmp/DictionaryCache // io.github.opencckmp/DictionaryCache|DictionaryCache(kotlin.Int){}[0]

@@ -1,0 +1,750 @@
+public final class io/github/opencckmp/AlignmentKt {
+	public static final fun convertWithMap (Lio/github/opencckmp/Converter;Ljava/lang/String;)Lio/github/opencckmp/MappedConversion;
+}
+
+public final class io/github/opencckmp/AmbiguityStream {
+	public fun <init> (Lio/github/opencckmp/Converter;I)V
+	public synthetic fun <init> (Lio/github/opencckmp/Converter;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun convertChunk (Ljava/lang/String;)Lio/github/opencckmp/AmbiguityStream$Chunk;
+	public final fun finish (Ljava/lang/String;)Lio/github/opencckmp/AmbiguityStream$Chunk;
+	public static synthetic fun finish$default (Lio/github/opencckmp/AmbiguityStream;Ljava/lang/String;ILjava/lang/Object;)Lio/github/opencckmp/AmbiguityStream$Chunk;
+	public final fun getConverter ()Lio/github/opencckmp/Converter;
+	public final fun getMaxKeepChars ()I
+	public final fun getSourceCount ()I
+}
+
+public final class io/github/opencckmp/AmbiguityStream$Chunk {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/util/List;Z)Lio/github/opencckmp/AmbiguityStream$Chunk;
+	public static synthetic fun copy$default (Lio/github/opencckmp/AmbiguityStream$Chunk;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ZILjava/lang/Object;)Lio/github/opencckmp/AmbiguityStream$Chunk;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmbiguities ()Ljava/util/List;
+	public final fun getAnalyzed ()Z
+	public final fun getNewSources ()Ljava/util/List;
+	public final fun getOutput ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/AmbiguousSpan {
+	public fun <init> (III)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Lio/github/opencckmp/AmbiguousSpan;
+	public static synthetic fun copy$default (Lio/github/opencckmp/AmbiguousSpan;IIIILjava/lang/Object;)Lio/github/opencckmp/AmbiguousSpan;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOutputLength ()I
+	public final fun getOutputOffset ()I
+	public final fun getSourceIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/AnnotatedConversion {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/util/List;Z)Lio/github/opencckmp/AnnotatedConversion;
+	public static synthetic fun copy$default (Lio/github/opencckmp/AnnotatedConversion;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ZILjava/lang/Object;)Lio/github/opencckmp/AnnotatedConversion;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmbiguities ()Ljava/util/List;
+	public final fun getAnalyzed ()Z
+	public final fun getOutput ()Ljava/lang/String;
+	public final fun getSources ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class io/github/opencckmp/AsyncResourceProvider {
+	public abstract fun read (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class io/github/opencckmp/BinaryDict : io/github/opencckmp/Dict {
+	public static final field Companion Lio/github/opencckmp/BinaryDict$Companion;
+	public fun getGroupItems ()Ljava/util/List;
+	public fun getKeyMaxLength ()I
+	public fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/BinaryDict$Companion {
+	public final fun fromBytes ([BLio/github/opencckmp/DictionaryByteOrder;)Lio/github/opencckmp/BinaryDict;
+	public static synthetic fun fromBytes$default (Lio/github/opencckmp/BinaryDict$Companion;[BLio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)Lio/github/opencckmp/BinaryDict;
+}
+
+public final class io/github/opencckmp/CandidatesKt {
+	public static final fun convertWithAmbiguities (Lio/github/opencckmp/Converter;Ljava/lang/String;)Lio/github/opencckmp/AnnotatedConversion;
+	public static final fun getAllConversions (Lio/github/opencckmp/Converter;Ljava/lang/String;)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/Config {
+	public fun <init> ()V
+	public fun <init> (Lio/github/opencckmp/ResourceProvider;Ljava/util/List;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;)V
+	public synthetic fun <init> (Lio/github/opencckmp/ResourceProvider;Ljava/util/List;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun newFromFile (Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
+	public static synthetic fun newFromFile$default (Lio/github/opencckmp/Config;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
+	public final fun newFromString (Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
+	public static synthetic fun newFromString$default (Lio/github/opencckmp/Config;Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
+}
+
+public final class io/github/opencckmp/ConfigBasedConverter : io/github/opencckmp/PipelineConverter {
+	public fun <init> (Lio/github/opencckmp/Converter;Lio/github/opencckmp/Converter;)V
+	public fun getConversionChain ()Lio/github/opencckmp/ConversionChain;
+	public final fun getMainConverter ()Lio/github/opencckmp/Converter;
+	public final fun getNormalization ()Lio/github/opencckmp/Converter;
+	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
+}
+
+public final class io/github/opencckmp/ConfigLoadOptions {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lio/github/opencckmp/ConfigLoadOptions;
+	public static synthetic fun copy$default (Lio/github/opencckmp/ConfigLoadOptions;ZILjava/lang/Object;)Lio/github/opencckmp/ConfigLoadOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIncludeTofuRiskDictionaries ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/ConfigWarning {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lio/github/opencckmp/ConfigWarning;
+	public static synthetic fun copy$default (Lio/github/opencckmp/ConfigWarning;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lio/github/opencckmp/ConfigWarning;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKeyword ()Ljava/lang/String;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getSchemaPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/Conversion {
+	public fun <init> (Lio/github/opencckmp/Dict;)V
+	public final fun appendConverted (Ljava/lang/String;Ljava/lang/Appendable;)V
+	public final fun convert (Lio/github/opencckmp/Segments;)Lio/github/opencckmp/Segments;
+	public final fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public final fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8$default (Lio/github/opencckmp/Conversion;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public final fun getDict ()Lio/github/opencckmp/Dict;
+}
+
+public final class io/github/opencckmp/ConversionChain {
+	public fun <init> (Ljava/util/List;)V
+	public final fun convert (Lio/github/opencckmp/Segments;)Lio/github/opencckmp/Segments;
+	public final fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public final fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8$default (Lio/github/opencckmp/ConversionChain;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public final fun convertWithTrace (Lio/github/opencckmp/Segments;)Ljava/util/List;
+	public final fun getConversions ()Ljava/util/List;
+}
+
+public final class io/github/opencckmp/ConversionInspectionResult {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/github/opencckmp/ConversionInspectionResult;
+	public static synthetic fun copy$default (Lio/github/opencckmp/ConversionInspectionResult;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/github/opencckmp/ConversionInspectionResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInput ()Ljava/lang/String;
+	public final fun getOutput ()Ljava/lang/String;
+	public final fun getPipelineStages ()Ljava/util/List;
+	public final fun getSegments ()Ljava/util/List;
+	public final fun getStages ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/ConversionInspectionStage {
+	public fun <init> (ILjava/util/List;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (ILjava/util/List;)Lio/github/opencckmp/ConversionInspectionStage;
+	public static synthetic fun copy$default (Lio/github/opencckmp/ConversionInspectionStage;ILjava/util/List;ILjava/lang/Object;)Lio/github/opencckmp/ConversionInspectionStage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getSegments ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class io/github/opencckmp/Converter {
+	public abstract fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public fun convertPrefix (Ljava/lang/String;I)Ljava/lang/String;
+	public fun convertTo (Ljava/lang/String;Ljava/lang/Appendable;)I
+	public fun convertTo (Ljava/lang/String;[CI)I
+	public static synthetic fun convertTo$default (Lio/github/opencckmp/Converter;Ljava/lang/String;[CIILjava/lang/Object;)I
+	public fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public fun convertUtf8Prefix ([BILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8Prefix$default (Lio/github/opencckmp/Converter;[BILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public fun convertUtf8To ([B[BIIILio/github/opencckmp/EncodedInputMode;)I
+	public static synthetic fun convertUtf8To$default (Lio/github/opencckmp/Converter;[B[BIIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)I
+	public fun getConversionChain ()Lio/github/opencckmp/ConversionChain;
+	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
+	public abstract fun inspect (Ljava/lang/String;)Lio/github/opencckmp/ConversionInspectionResult;
+	public fun inspectUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+	public static synthetic fun inspectUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public final class io/github/opencckmp/Converter$DefaultImpls {
+	public static fun convert (Lio/github/opencckmp/Converter;Ljava/lang/String;II)Ljava/lang/String;
+	public static fun convertPrefix (Lio/github/opencckmp/Converter;Ljava/lang/String;I)Ljava/lang/String;
+	public static fun convertTo (Lio/github/opencckmp/Converter;Ljava/lang/String;Ljava/lang/Appendable;)I
+	public static fun convertTo (Lio/github/opencckmp/Converter;Ljava/lang/String;[CI)I
+	public static synthetic fun convertTo$default (Lio/github/opencckmp/Converter;Ljava/lang/String;[CIILjava/lang/Object;)I
+	public static fun convertUtf8 (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public static fun convertUtf8Prefix (Lio/github/opencckmp/Converter;[BILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8Prefix$default (Lio/github/opencckmp/Converter;[BILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public static fun convertUtf8To (Lio/github/opencckmp/Converter;[B[BIIILio/github/opencckmp/EncodedInputMode;)I
+	public static synthetic fun convertUtf8To$default (Lio/github/opencckmp/Converter;[B[BIIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)I
+	public static fun getConversionChain (Lio/github/opencckmp/Converter;)Lio/github/opencckmp/ConversionChain;
+	public static fun getSegmentation (Lio/github/opencckmp/Converter;)Lio/github/opencckmp/Segmentation;
+	public static fun inspectUtf8 (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+	public static synthetic fun inspectUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public final class io/github/opencckmp/ConverterStream {
+	public fun <init> (Lio/github/opencckmp/Converter;I)V
+	public synthetic fun <init> (Lio/github/opencckmp/Converter;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun convertChunk (Ljava/lang/String;)Ljava/lang/String;
+	public final fun finish (Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun finish$default (Lio/github/opencckmp/ConverterStream;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun getConverter ()Lio/github/opencckmp/Converter;
+	public final fun getMaxKeepChars ()I
+}
+
+public final class io/github/opencckmp/DartsDict : io/github/opencckmp/Dict {
+	public static final field Companion Lio/github/opencckmp/DartsDict$Companion;
+	public fun getGroupItems ()Ljava/util/List;
+	public fun getKeyMaxLength ()I
+	public fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/DartsDict$Companion {
+	public final fun fromBytes ([BLio/github/opencckmp/DictionaryByteOrder;)Lio/github/opencckmp/DartsDict;
+	public static synthetic fun fromBytes$default (Lio/github/opencckmp/DartsDict$Companion;[BLio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)Lio/github/opencckmp/DartsDict;
+}
+
+public final class io/github/opencckmp/DartsDictionaryReader : io/github/opencckmp/DictionaryReader {
+	public static final field INSTANCE Lio/github/opencckmp/DartsDictionaryReader;
+	public fun getType ()Ljava/lang/String;
+	public fun read ([B)Lio/github/opencckmp/Dict;
+}
+
+public abstract interface class io/github/opencckmp/Dict {
+	public fun getGroupItems ()Ljava/util/List;
+	public abstract fun getKeyMaxLength ()I
+	public abstract fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public abstract fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public static synthetic fun matchAllPrefixes$default (Lio/github/opencckmp/Dict;Ljava/lang/String;IIILjava/lang/Object;)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public static synthetic fun matchAllPrefixesUtf8$default (Lio/github/opencckmp/Dict;[BIIILjava/lang/Object;)Ljava/util/List;
+	public abstract fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public static synthetic fun matchPrefix$default (Lio/github/opencckmp/Dict;Ljava/lang/String;IIILjava/lang/Object;)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+	public static synthetic fun matchPrefixUtf8$default (Lio/github/opencckmp/Dict;[BIIILjava/lang/Object;)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/Dict$DefaultImpls {
+	public static fun getGroupItems (Lio/github/opencckmp/Dict;)Ljava/util/List;
+	public static fun getMatchPolicy (Lio/github/opencckmp/Dict;)Lio/github/opencckmp/DictGroupMatchPolicy;
+	public static fun match (Lio/github/opencckmp/Dict;Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public static synthetic fun matchAllPrefixes$default (Lio/github/opencckmp/Dict;Ljava/lang/String;IIILjava/lang/Object;)Ljava/util/List;
+	public static fun matchAllPrefixesUtf8 (Lio/github/opencckmp/Dict;[BII)Ljava/util/List;
+	public static synthetic fun matchAllPrefixesUtf8$default (Lio/github/opencckmp/Dict;[BIIILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun matchPrefix$default (Lio/github/opencckmp/Dict;Ljava/lang/String;IIILjava/lang/Object;)Lio/github/opencckmp/DictEntry;
+	public static fun matchPrefixUtf8 (Lio/github/opencckmp/Dict;[BII)Lio/github/opencckmp/DictEntry;
+	public static synthetic fun matchPrefixUtf8$default (Lio/github/opencckmp/Dict;[BIIILjava/lang/Object;)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/DictEntry {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public final fun getDefaultValue ()Ljava/lang/String;
+	public final fun getKey ()Ljava/lang/String;
+	public final fun getKeyByteLength ()I
+	public final fun getKeyLength ()I
+	public final fun getNumValues ()I
+	public final fun getValues ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
+public class io/github/opencckmp/DictGroup : io/github/opencckmp/Dict {
+	public fun <init> (Ljava/util/List;Lio/github/opencckmp/DictGroupMatchPolicy;)V
+	public synthetic fun <init> (Ljava/util/List;Lio/github/opencckmp/DictGroupMatchPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getGroupItems ()Ljava/util/List;
+	public fun getKeyMaxLength ()I
+	public fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/DictGroupMatchPolicy : java/lang/Enum {
+	public static final field ShortCircuit Lio/github/opencckmp/DictGroupMatchPolicy;
+	public static final field Union Lio/github/opencckmp/DictGroupMatchPolicy;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/opencckmp/DictGroupMatchPolicy;
+	public static fun values ()[Lio/github/opencckmp/DictGroupMatchPolicy;
+}
+
+public final class io/github/opencckmp/DictionaryByteOrder : java/lang/Enum {
+	public static final field BigEndian Lio/github/opencckmp/DictionaryByteOrder;
+	public static final field LittleEndian Lio/github/opencckmp/DictionaryByteOrder;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/opencckmp/DictionaryByteOrder;
+	public static fun values ()[Lio/github/opencckmp/DictionaryByteOrder;
+}
+
+public abstract interface class io/github/opencckmp/DictionaryCache : java/lang/AutoCloseable {
+	public abstract fun clear ()V
+	public abstract fun getCapacity ()I
+	public abstract fun getSize ()I
+	public abstract fun load (Ljava/lang/Object;Ljava/lang/String;[BLio/github/opencckmp/DictionaryReader;)Lio/github/opencckmp/Dict;
+}
+
+public abstract interface class io/github/opencckmp/DictionaryReader {
+	public abstract fun getType ()Ljava/lang/String;
+	public abstract fun read ([B)Lio/github/opencckmp/Dict;
+}
+
+public final class io/github/opencckmp/EncodedAmbiguitiesKt {
+	public static final fun convertWithAmbiguitiesUtf8 (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedAnnotatedConversion;
+	public static synthetic fun convertWithAmbiguitiesUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)Lio/github/opencckmp/EncodedAnnotatedConversion;
+}
+
+public final class io/github/opencckmp/EncodedAmbiguousSpan {
+	public fun <init> (III)V
+	public final fun getOutputLength ()I
+	public final fun getOutputOffset ()I
+	public final fun getSourceIndex ()I
+}
+
+public final class io/github/opencckmp/EncodedAnnotatedConversion {
+	public fun <init> ([BLjava/util/List;Ljava/util/List;Z)V
+	public synthetic fun <init> ([BLjava/util/List;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAmbiguities ()Ljava/util/List;
+	public final fun getAnalyzed ()Z
+	public final fun getOutput ()[B
+	public final fun getSources ()Ljava/util/List;
+}
+
+public final class io/github/opencckmp/EncodedInputMode : java/lang/Enum {
+	public static final field LengthDelimited Lio/github/opencckmp/EncodedInputMode;
+	public static final field NullTerminated Lio/github/opencckmp/EncodedInputMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/opencckmp/EncodedInputMode;
+	public static fun values ()[Lio/github/opencckmp/EncodedInputMode;
+}
+
+public final class io/github/opencckmp/EncodedInspectionResult {
+	public fun <init> ([B[BLjava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> ([B[BLjava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getInput ()[B
+	public final fun getOutput ()[B
+	public final fun getPipelineStages ()Ljava/util/List;
+	public final fun getSegments ()Ljava/util/List;
+	public final fun getStages ()Ljava/util/List;
+}
+
+public final class io/github/opencckmp/EncodedInspectionStage {
+	public fun <init> (ILjava/util/List;)V
+	public final fun getIndex ()I
+	public final fun getSegments ()Ljava/util/List;
+}
+
+public abstract interface annotation class io/github/opencckmp/ExperimentalOpenCCApi : java/lang/annotation/Annotation {
+}
+
+public final class io/github/opencckmp/FacadeKt {
+	public static final fun prepareConfig (Ljava/lang/String;Lio/github/opencckmp/AsyncResourceProvider;Lio/github/opencckmp/ConfigLoadOptions;Ljava/util/List;Ljava/util/Map;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun prepareConfig$default (Ljava/lang/String;Lio/github/opencckmp/AsyncResourceProvider;Lio/github/opencckmp/ConfigLoadOptions;Ljava/util/List;Ljava/util/Map;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class io/github/opencckmp/FileNotFound : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getResourceName ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/FileNotWritable : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getResourceName ()Ljava/lang/String;
+}
+
+public class io/github/opencckmp/InvalidFormat : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class io/github/opencckmp/InvalidTextDictionary : io/github/opencckmp/InvalidFormat {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun getLineNumber ()I
+}
+
+public final class io/github/opencckmp/InvalidUTF16 : io/github/opencckmp/OpenCCException {
+	public fun <init> (I)V
+	public final fun getOffset ()I
+}
+
+public final class io/github/opencckmp/InvalidUTF8 : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;[BLjava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;[BLjava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getByteOffset ()Ljava/lang/Integer;
+	public final fun getEncodedContext ()[B
+}
+
+public final class io/github/opencckmp/Lexicon : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lio/github/opencckmp/Lexicon$Companion;
+	public fun <init> (Ljava/util/List;)V
+	public final fun get (I)Lio/github/opencckmp/DictEntry;
+	public final fun getEntries ()Ljava/util/List;
+	public final fun getSize ()I
+	public final fun isSorted ()Z
+	public final fun isUnique ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun sorted ()Lio/github/opencckmp/Lexicon;
+}
+
+public final class io/github/opencckmp/Lexicon$Companion {
+	public final fun parse (Ljava/lang/String;C)Lio/github/opencckmp/Lexicon;
+	public static synthetic fun parse$default (Lio/github/opencckmp/Lexicon$Companion;Ljava/lang/String;CILjava/lang/Object;)Lio/github/opencckmp/Lexicon;
+}
+
+public final class io/github/opencckmp/MappedConversion {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;)Lio/github/opencckmp/MappedConversion;
+	public static synthetic fun copy$default (Lio/github/opencckmp/MappedConversion;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lio/github/opencckmp/MappedConversion;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMap ()Ljava/util/List;
+	public final fun getOutput ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/MarisaDict : io/github/opencckmp/Dict {
+	public static final field Companion Lio/github/opencckmp/MarisaDict$Companion;
+	public fun getGroupItems ()Ljava/util/List;
+	public fun getKeyMaxLength ()I
+	public fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/MarisaDict$Companion {
+	public final fun fromBytes ([BLio/github/opencckmp/DictionaryByteOrder;Ljava/lang/Integer;)Lio/github/opencckmp/MarisaDict;
+	public static synthetic fun fromBytes$default (Lio/github/opencckmp/MarisaDict$Companion;[BLio/github/opencckmp/DictionaryByteOrder;Ljava/lang/Integer;ILjava/lang/Object;)Lio/github/opencckmp/MarisaDict;
+}
+
+public final class io/github/opencckmp/MarisaDictionaryReader : io/github/opencckmp/DictionaryReader {
+	public static final field INSTANCE Lio/github/opencckmp/MarisaDictionaryReader;
+	public fun getType ()Ljava/lang/String;
+	public fun read ([B)Lio/github/opencckmp/Dict;
+}
+
+public final class io/github/opencckmp/MaxMatchSegmentation : io/github/opencckmp/Segmentation {
+	public fun <init> (Lio/github/opencckmp/Dict;)V
+	public final fun getDict ()Lio/github/opencckmp/Dict;
+	public fun segment (Ljava/lang/String;)Lio/github/opencckmp/Segments;
+	public fun segmentUtf8 ([BII)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/MemoryResourceProvider : io/github/opencckmp/ResourceProvider {
+	public fun <init> (Ljava/util/Map;)V
+	public fun read (Ljava/lang/String;)[B
+}
+
+public final class io/github/opencckmp/OpenCC {
+	public fun <init> (Lio/github/opencckmp/Config;)V
+	public final fun error ()Ljava/lang/String;
+	public final fun getLastError ()Lio/github/opencckmp/OpenCCException;
+	public final fun open (Ljava/lang/String;)Lio/github/opencckmp/OpenCCHandle;
+	public static synthetic fun open$default (Lio/github/opencckmp/OpenCC;Ljava/lang/String;ILjava/lang/Object;)Lio/github/opencckmp/OpenCCHandle;
+}
+
+public class io/github/opencckmp/OpenCCException : java/lang/Exception {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class io/github/opencckmp/OpenCCHandle {
+	public final fun close ()Z
+	public final fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public final fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public final fun convertTo (Ljava/lang/String;Ljava/lang/Appendable;)Ljava/lang/Integer;
+	public final fun convertTo (Ljava/lang/String;[CI)Ljava/lang/Integer;
+	public static synthetic fun convertTo$default (Lio/github/opencckmp/OpenCCHandle;Ljava/lang/String;[CIILjava/lang/Object;)Ljava/lang/Integer;
+	public final fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun convertUtf8$default (Lio/github/opencckmp/OpenCCHandle;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
+	public final fun convertUtf8To ([B[BIIILio/github/opencckmp/EncodedInputMode;)Ljava/lang/Integer;
+	public static synthetic fun convertUtf8To$default (Lio/github/opencckmp/OpenCCHandle;[B[BIIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)Ljava/lang/Integer;
+}
+
+public class io/github/opencckmp/PipelineConverter : io/github/opencckmp/Converter {
+	public fun <init> (Ljava/util/List;)V
+	public fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public fun convertPrefix (Ljava/lang/String;I)Ljava/lang/String;
+	public fun convertTo (Ljava/lang/String;Ljava/lang/Appendable;)I
+	public fun convertTo (Ljava/lang/String;[CI)I
+	public fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8Prefix ([BILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8To ([B[BIIILio/github/opencckmp/EncodedInputMode;)I
+	protected final fun getChildren ()Ljava/util/List;
+	public fun getConversionChain ()Lio/github/opencckmp/ConversionChain;
+	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
+	public fun inspect (Ljava/lang/String;)Lio/github/opencckmp/ConversionInspectionResult;
+	public fun inspectUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public abstract interface class io/github/opencckmp/ResourceProvider {
+	public abstract fun read (Ljava/lang/String;)[B
+}
+
+public final class io/github/opencckmp/ResourcesKt {
+	public static final fun getStandardDictionaryReaders ()Ljava/util/List;
+	public static final fun resolveResource (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/SegmentMapEntry {
+	public fun <init> (IIII)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun copy (IIII)Lio/github/opencckmp/SegmentMapEntry;
+	public static synthetic fun copy$default (Lio/github/opencckmp/SegmentMapEntry;IIIIILjava/lang/Object;)Lio/github/opencckmp/SegmentMapEntry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSourceEnd ()I
+	public final fun getSourceStart ()I
+	public final fun getTargetEnd ()I
+	public final fun getTargetStart ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class io/github/opencckmp/Segmentation {
+	public abstract fun segment (Ljava/lang/String;)Lio/github/opencckmp/Segments;
+	public fun segmentUtf8 ([BII)Ljava/util/List;
+	public static synthetic fun segmentUtf8$default (Lio/github/opencckmp/Segmentation;[BIIILjava/lang/Object;)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/Segmentation$DefaultImpls {
+	public static fun segmentUtf8 (Lio/github/opencckmp/Segmentation;[BII)Ljava/util/List;
+	public static synthetic fun segmentUtf8$default (Lio/github/opencckmp/Segmentation;[BIIILjava/lang/Object;)Ljava/util/List;
+}
+
+public abstract interface class io/github/opencckmp/SegmentationFactory {
+	public abstract fun create (Lio/github/opencckmp/SegmentationProperties;Lio/github/opencckmp/ResourceProvider;)Lio/github/opencckmp/Segmentation;
+	public fun prepareResources (Lio/github/opencckmp/SegmentationProperties;Lio/github/opencckmp/AsyncResourceProvider;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun resourcesToPrepare (Lio/github/opencckmp/SegmentationProperties;Ljava/util/List;)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/SegmentationFactory$DefaultImpls {
+	public static fun prepareResources (Lio/github/opencckmp/SegmentationFactory;Lio/github/opencckmp/SegmentationProperties;Lio/github/opencckmp/AsyncResourceProvider;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun resourcesToPrepare (Lio/github/opencckmp/SegmentationFactory;Lio/github/opencckmp/SegmentationProperties;Ljava/util/List;)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/SegmentationProperties : kotlin/collections/AbstractMap {
+	public final fun containsKey (Ljava/lang/Object;)Z
+	public fun containsKey (Ljava/lang/String;)Z
+	public final fun containsValue (Ljava/lang/Object;)Z
+	public fun containsValue (Ljava/lang/String;)Z
+	public final synthetic fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun get (Ljava/lang/Object;)Ljava/lang/String;
+	public fun get (Ljava/lang/String;)Ljava/lang/String;
+	public fun getEntries ()Ljava/util/Set;
+	public final synthetic fun getOrDefault (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun getOrDefault (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/String;
+	public fun getOrDefault (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun getOrderedPairs ()Ljava/util/List;
+}
+
+public final class io/github/opencckmp/Segments : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Ljava/util/List;)V
+	public final fun get (I)Ljava/lang/String;
+	public final fun getSize ()I
+	public final fun getValues ()Ljava/util/List;
+	public fun iterator ()Ljava/util/Iterator;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/SerializedValues {
+	public static final field Companion Lio/github/opencckmp/SerializedValues$Companion;
+	public final fun get (I)Ljava/util/List;
+	public final fun getBytesRead ()I
+	public final fun getSize ()I
+	public final fun getValues ()Ljava/util/List;
+}
+
+public final class io/github/opencckmp/SerializedValues$Companion {
+	public final fun fromBytes ([BLio/github/opencckmp/DictionaryByteOrder;)Lio/github/opencckmp/SerializedValues;
+	public static synthetic fun fromBytes$default (Lio/github/opencckmp/SerializedValues$Companion;[BLio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)Lio/github/opencckmp/SerializedValues;
+}
+
+public final class io/github/opencckmp/ShouldNotBeHere : io/github/opencckmp/OpenCCException {
+	public fun <init> ()V
+}
+
+public final class io/github/opencckmp/SimpleConverter : io/github/opencckmp/Converter {
+	public static final field Companion Lio/github/opencckmp/SimpleConverter$Companion;
+	public fun <init> (Ljava/lang/String;Lio/github/opencckmp/ResourceProvider;Lio/github/opencckmp/ConfigLoadOptions;Ljava/util/List;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Lio/github/opencckmp/ResourceProvider;Lio/github/opencckmp/ConfigLoadOptions;Ljava/util/List;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public fun convertPrefix (Ljava/lang/String;I)Ljava/lang/String;
+	public fun convertTo (Ljava/lang/String;Ljava/lang/Appendable;)I
+	public fun convertTo (Ljava/lang/String;[CI)I
+	public fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8Prefix ([BILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8To ([B[BIIILio/github/opencckmp/EncodedInputMode;)I
+	public fun getConversionChain ()Lio/github/opencckmp/ConversionChain;
+	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
+	public fun inspect (Ljava/lang/String;)Lio/github/opencckmp/ConversionInspectionResult;
+	public fun inspectUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public final class io/github/opencckmp/SimpleConverter$Companion {
+	public final fun fromConfig (Lio/github/opencckmp/Converter;)Lio/github/opencckmp/SimpleConverter;
+}
+
+public final class io/github/opencckmp/SingleStageConverter : io/github/opencckmp/Converter {
+	public fun <init> (Lio/github/opencckmp/Segmentation;Lio/github/opencckmp/ConversionChain;)V
+	public fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public fun convertPrefix (Ljava/lang/String;I)Ljava/lang/String;
+	public fun convertTo (Ljava/lang/String;Ljava/lang/Appendable;)I
+	public fun convertTo (Ljava/lang/String;[CI)I
+	public fun convertUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8Prefix ([BILio/github/opencckmp/EncodedInputMode;)[B
+	public fun convertUtf8To ([B[BIIILio/github/opencckmp/EncodedInputMode;)I
+	public fun getConversionChain ()Lio/github/opencckmp/ConversionChain;
+	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
+	public fun inspect (Ljava/lang/String;)Lio/github/opencckmp/ConversionInspectionResult;
+	public fun inspectUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public final class io/github/opencckmp/TextDict : io/github/opencckmp/Dict {
+	public static final field Companion Lio/github/opencckmp/TextDict$Companion;
+	public fun <init> (Lio/github/opencckmp/Lexicon;)V
+	public fun getGroupItems ()Ljava/util/List;
+	public fun getKeyMaxLength ()I
+	public fun getLexicon ()Lio/github/opencckmp/Lexicon;
+	public fun getMatchPolicy ()Lio/github/opencckmp/DictGroupMatchPolicy;
+	public fun match (Ljava/lang/String;)Lio/github/opencckmp/DictEntry;
+	public fun matchAllPrefixes (Ljava/lang/String;II)Ljava/util/List;
+	public fun matchAllPrefixesUtf8 ([BII)Ljava/util/List;
+	public fun matchPrefix (Ljava/lang/String;II)Lio/github/opencckmp/DictEntry;
+	public fun matchPrefixUtf8 ([BII)Lio/github/opencckmp/DictEntry;
+}
+
+public final class io/github/opencckmp/TextDict$Companion {
+	public final fun fromBytes ([B)Lio/github/opencckmp/TextDict;
+	public final fun fromDict (Lio/github/opencckmp/Dict;)Lio/github/opencckmp/TextDict;
+	public final fun fromText (Ljava/lang/String;C)Lio/github/opencckmp/TextDict;
+	public static synthetic fun fromText$default (Lio/github/opencckmp/TextDict$Companion;Ljava/lang/String;CILjava/lang/Object;)Lio/github/opencckmp/TextDict;
+}
+
+public final class io/github/opencckmp/TextDictionaryReader : io/github/opencckmp/DictionaryReader {
+	public static final field INSTANCE Lio/github/opencckmp/TextDictionaryReader;
+	public fun getType ()Ljava/lang/String;
+	public fun read ([B)Lio/github/opencckmp/Dict;
+}
+
+public final class io/github/opencckmp/UTF8Util {
+	public static final field INSTANCE Lio/github/opencckmp/UTF8Util;
+	public final fun byteLength (Ljava/lang/String;)I
+	public final fun codePoint (Ljava/lang/String;I)I
+	public final fun compare (Ljava/lang/String;Ljava/lang/String;)I
+	public final fun decode ([BII)Ljava/lang/String;
+	public static synthetic fun decode$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)Ljava/lang/String;
+	public final fun encode (Ljava/lang/String;)[B
+	public final fun length (Ljava/lang/String;)I
+	public final fun nextIndex (Ljava/lang/String;I)I
+	public final fun validate (Ljava/lang/String;)V
+}
+
+public final class io/github/opencckmp/UnavailableSegmentationExtension : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getType ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/UnionDictGroup : io/github/opencckmp/DictGroup {
+	public fun <init> (Ljava/util/List;)V
+}
+
+public final class io/github/opencckmp/Utf8AmbiguityStream {
+	public fun <init> (Lio/github/opencckmp/Converter;I)V
+	public synthetic fun <init> (Lio/github/opencckmp/Converter;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun convertChunk ([B)Lio/github/opencckmp/Utf8AmbiguityStream$Chunk;
+	public final fun finish ([B)Lio/github/opencckmp/Utf8AmbiguityStream$Chunk;
+	public static synthetic fun finish$default (Lio/github/opencckmp/Utf8AmbiguityStream;[BILjava/lang/Object;)Lio/github/opencckmp/Utf8AmbiguityStream$Chunk;
+	public final fun getConverter ()Lio/github/opencckmp/Converter;
+	public final fun getMaxKeepChars ()I
+	public final fun getSourceCount ()I
+}
+
+public final class io/github/opencckmp/Utf8AmbiguityStream$Chunk {
+	public fun <init> ()V
+	public fun <init> ([BLjava/util/List;Ljava/util/List;Z)V
+	public synthetic fun <init> ([BLjava/util/List;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAmbiguities ()Ljava/util/List;
+	public final fun getAnalyzed ()Z
+	public final fun getNewSources ()Ljava/util/List;
+	public final fun getOutput ()[B
+}
+
+public final class io/github/opencckmp/Utf8ConverterStream {
+	public fun <init> (Lio/github/opencckmp/Converter;I)V
+	public synthetic fun <init> (Lio/github/opencckmp/Converter;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun convertChunk ([B)[B
+	public final fun finish ([B)[B
+	public static synthetic fun finish$default (Lio/github/opencckmp/Utf8ConverterStream;[BILjava/lang/Object;)[B
+	public final fun getConverter ()Lio/github/opencckmp/Converter;
+	public final fun getMaxKeepChars ()I
+}
+

@@ -270,7 +270,7 @@ such, without silently omitting them:
 - Semantic versioning. The upstream OpenCC version is recorded in metadata and release notes.
 - GitHub Actions:
   - on PR: build all targets; run tests on JVM, iOS, native and Wasm/JS; check data reproducibility
-    and binary compatibility (binary-compatibility-validator); check consumer resource packaging,
+    and binary compatibility (Kotlin's integrated successor to binary-compatibility-validator); check consumer resource packaging,
     data dependency closures, dependency graphs and size budgets; lint;
   - on tag: publish.
 - Repo hygiene: README (usage examples for every API, upstream → Kotlin mapping table, configs list,

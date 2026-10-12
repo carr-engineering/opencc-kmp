@@ -1,3 +1,4 @@
+/* OpenCC (Apache-2.0) and TCLAP (MIT) output adaptation; see licenses/tclap.txt. */
 package io.github.opencckmp.cli
 
 /** Native TCLAP wrapping, including comma/pipe split points and continuation indentation. */

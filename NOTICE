@@ -21,3 +21,6 @@ under BSD-2-Clause. See licenses/darts-clone.txt for the retained licence notice
 
 The optional Kotlin Jieba segmentation module adapts cppjieba, Copyright (c) 2013,
 under the MIT licence. See licenses/CPPJIEBA-LICENSE for its retained notice.
+
+CLI argument/help output adapts TCLAP, Copyright (c) 2003-2012 Michael E. Smoot,
+2004-2016 Daniel Aarno and 2017 Google LLC, under MIT. See licenses/tclap.txt.

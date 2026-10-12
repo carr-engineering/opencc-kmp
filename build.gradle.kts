@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 plugins {
     kotlin("multiplatform") version "2.4.0" apply false
     id("com.android.kotlin.multiplatform.library") version "8.13.2" apply false
+    id("org.jetbrains.dokka") version "2.2.0"
 }
 
 allprojects {
@@ -25,10 +26,14 @@ require(requestedTargets == null || allTargets.containsAll(requestedTargets)) {
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
     apply(plugin = "maven-publish")
+    apply(plugin = "org.jetbrains.dokka")
     val isCli = name == "opencc-cli"
     fun enabled(target: String) = requestedTargets?.contains(target) ?: true
     if (!isCli && enabled("android")) apply(plugin = "com.android.kotlin.multiplatform.library")
     extensions.configure<KotlinMultiplatformExtension> {
+        @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+        // Generated packs have no public declarations and live in ignored build directories.
+        if (!project.name.startsWith("opencc-data-")) abiValidation()
         if (enabled("jvm")) jvm {
             compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
         }
@@ -80,6 +85,7 @@ subprojects {
             }
         }
     }
+    apply(from = rootProject.file("gradle/notices.gradle.kts"))
     if (name == "opencc-data" || name.startsWith("opencc-data-")) {
         val generateDataIdentity = tasks.register("generateDataIdentity") {
             val destination = layout.buildDirectory.file("generated/kotlin/DataIdentity.kt")
@@ -99,6 +105,12 @@ subprojects {
             dependsOn(generateDataIdentity)
         }
         apply(from = rootProject.file("gradle/data-pack.gradle.kts"))
+    }
+}
+
+dependencies {
+    for (module in subprojects.filter { it.name != "opencc-data" && !it.name.startsWith("opencc-data-") && it.name != "opencc-all" }) {
+        add("dokka", project(module.path))
     }
 }
 

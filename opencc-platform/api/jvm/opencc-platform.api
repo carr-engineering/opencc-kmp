@@ -1,0 +1,19 @@
+public final class io/github/opencckmp/platform/ClasspathResourceProvider : io/github/opencckmp/ResourceProvider {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/ClassLoader;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/ClassLoader;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun read (Ljava/lang/String;)[B
+}
+
+public final class io/github/opencckmp/platform/FileResourceProvider : io/github/opencckmp/ResourceProvider {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun read (Ljava/lang/String;)[B
+}
+
+public final class io/github/opencckmp/platform/Files_jvmKt {
+	public static final fun readFileBytes (Ljava/lang/String;)[B
+	public static final fun writeFileBytes (Ljava/lang/String;[B)V
+}
+

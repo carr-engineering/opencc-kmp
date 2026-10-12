@@ -1,0 +1,813 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-core>
+open annotation class io.github.opencckmp/ExperimentalOpenCCApi : kotlin/Annotation { // io.github.opencckmp/ExperimentalOpenCCApi|null[0]
+    constructor <init>() // io.github.opencckmp/ExperimentalOpenCCApi.<init>|<init>(){}[0]
+}
+
+final enum class io.github.opencckmp/DictGroupMatchPolicy : kotlin/Enum<io.github.opencckmp/DictGroupMatchPolicy> { // io.github.opencckmp/DictGroupMatchPolicy|null[0]
+    enum entry ShortCircuit // io.github.opencckmp/DictGroupMatchPolicy.ShortCircuit|null[0]
+    enum entry Union // io.github.opencckmp/DictGroupMatchPolicy.Union|null[0]
+
+    final val entries // io.github.opencckmp/DictGroupMatchPolicy.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp/DictGroupMatchPolicy> // io.github.opencckmp/DictGroupMatchPolicy.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp/DictGroupMatchPolicy // io.github.opencckmp/DictGroupMatchPolicy.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp/DictGroupMatchPolicy> // io.github.opencckmp/DictGroupMatchPolicy.values|values#static(){}[0]
+}
+
+final enum class io.github.opencckmp/DictionaryByteOrder : kotlin/Enum<io.github.opencckmp/DictionaryByteOrder> { // io.github.opencckmp/DictionaryByteOrder|null[0]
+    enum entry BigEndian // io.github.opencckmp/DictionaryByteOrder.BigEndian|null[0]
+    enum entry LittleEndian // io.github.opencckmp/DictionaryByteOrder.LittleEndian|null[0]
+
+    final val entries // io.github.opencckmp/DictionaryByteOrder.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp/DictionaryByteOrder> // io.github.opencckmp/DictionaryByteOrder.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp/DictionaryByteOrder // io.github.opencckmp/DictionaryByteOrder.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp/DictionaryByteOrder> // io.github.opencckmp/DictionaryByteOrder.values|values#static(){}[0]
+}
+
+final enum class io.github.opencckmp/EncodedInputMode : kotlin/Enum<io.github.opencckmp/EncodedInputMode> { // io.github.opencckmp/EncodedInputMode|null[0]
+    enum entry LengthDelimited // io.github.opencckmp/EncodedInputMode.LengthDelimited|null[0]
+    enum entry NullTerminated // io.github.opencckmp/EncodedInputMode.NullTerminated|null[0]
+
+    final val entries // io.github.opencckmp/EncodedInputMode.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp/EncodedInputMode> // io.github.opencckmp/EncodedInputMode.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp/EncodedInputMode // io.github.opencckmp/EncodedInputMode.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp/EncodedInputMode> // io.github.opencckmp/EncodedInputMode.values|values#static(){}[0]
+}
+
+abstract fun interface io.github.opencckmp/AsyncResourceProvider { // io.github.opencckmp/AsyncResourceProvider|null[0]
+    abstract suspend fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp/AsyncResourceProvider.read|read(kotlin.String){}[0]
+}
+
+abstract fun interface io.github.opencckmp/ResourceProvider { // io.github.opencckmp/ResourceProvider|null[0]
+    abstract fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp/ResourceProvider.read|read(kotlin.String){}[0]
+}
+
+abstract fun interface io.github.opencckmp/SegmentationFactory { // io.github.opencckmp/SegmentationFactory|null[0]
+    abstract fun create(io.github.opencckmp/SegmentationProperties, io.github.opencckmp/ResourceProvider): io.github.opencckmp/Segmentation // io.github.opencckmp/SegmentationFactory.create|create(io.github.opencckmp.SegmentationProperties;io.github.opencckmp.ResourceProvider){}[0]
+    open fun resourcesToPrepare(io.github.opencckmp/SegmentationProperties, kotlin.collections/List<kotlin/String>): kotlin.collections/List<kotlin/String> // io.github.opencckmp/SegmentationFactory.resourcesToPrepare|resourcesToPrepare(io.github.opencckmp.SegmentationProperties;kotlin.collections.List<kotlin.String>){}[0]
+    open suspend fun prepareResources(io.github.opencckmp/SegmentationProperties, io.github.opencckmp/AsyncResourceProvider, kotlin.collections/List<kotlin/String>): io.github.opencckmp/ResourceProvider // io.github.opencckmp/SegmentationFactory.prepareResources|prepareResources(io.github.opencckmp.SegmentationProperties;io.github.opencckmp.AsyncResourceProvider;kotlin.collections.List<kotlin.String>){}[0]
+}
+
+abstract interface io.github.opencckmp/Converter { // io.github.opencckmp/Converter|null[0]
+    open val conversionChain // io.github.opencckmp/Converter.conversionChain|{}conversionChain[0]
+        open fun <get-conversionChain>(): io.github.opencckmp/ConversionChain? // io.github.opencckmp/Converter.conversionChain.<get-conversionChain>|<get-conversionChain>(){}[0]
+    open val segmentation // io.github.opencckmp/Converter.segmentation|{}segmentation[0]
+        open fun <get-segmentation>(): io.github.opencckmp/Segmentation? // io.github.opencckmp/Converter.segmentation.<get-segmentation>|<get-segmentation>(){}[0]
+
+    abstract fun convert(kotlin/String): kotlin/String // io.github.opencckmp/Converter.convert|convert(kotlin.String){}[0]
+    abstract fun inspect(kotlin/String): io.github.opencckmp/ConversionInspectionResult // io.github.opencckmp/Converter.inspect|inspect(kotlin.String){}[0]
+    open fun convert(kotlin/String, kotlin/Int, kotlin/Int): kotlin/String // io.github.opencckmp/Converter.convert|convert(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    open fun convertPrefix(kotlin/String, kotlin/Int): kotlin/String // io.github.opencckmp/Converter.convertPrefix|convertPrefix(kotlin.String;kotlin.Int){}[0]
+    open fun convertTo(kotlin/String, kotlin.text/Appendable): kotlin/Int // io.github.opencckmp/Converter.convertTo|convertTo(kotlin.String;kotlin.text.Appendable){}[0]
+    open fun convertTo(kotlin/String, kotlin/CharArray, kotlin/Int = ...): kotlin/Int // io.github.opencckmp/Converter.convertTo|convertTo(kotlin.String;kotlin.CharArray;kotlin.Int){}[0]
+    open fun convertUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray // io.github.opencckmp/Converter.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    open fun convertUtf8Prefix(kotlin/ByteArray, kotlin/Int, io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray // io.github.opencckmp/Converter.convertUtf8Prefix|convertUtf8Prefix(kotlin.ByteArray;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    open fun convertUtf8To(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/Int // io.github.opencckmp/Converter.convertUtf8To|convertUtf8To(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    open fun inspectUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): io.github.opencckmp/EncodedInspectionResult // io.github.opencckmp/Converter.inspectUtf8|inspectUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+}
+
+abstract interface io.github.opencckmp/Dict { // io.github.opencckmp/Dict|null[0]
+    abstract val keyMaxLength // io.github.opencckmp/Dict.keyMaxLength|{}keyMaxLength[0]
+        abstract fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/Dict.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    abstract val lexicon // io.github.opencckmp/Dict.lexicon|{}lexicon[0]
+        abstract fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/Dict.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+    open val groupItems // io.github.opencckmp/Dict.groupItems|{}groupItems[0]
+        open fun <get-groupItems>(): kotlin.collections/List<io.github.opencckmp/Dict>? // io.github.opencckmp/Dict.groupItems.<get-groupItems>|<get-groupItems>(){}[0]
+    open val matchPolicy // io.github.opencckmp/Dict.matchPolicy|{}matchPolicy[0]
+        open fun <get-matchPolicy>(): io.github.opencckmp/DictGroupMatchPolicy // io.github.opencckmp/Dict.matchPolicy.<get-matchPolicy>|<get-matchPolicy>(){}[0]
+
+    abstract fun matchAllPrefixes(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/Dict.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    abstract fun matchPrefix(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): io.github.opencckmp/DictEntry? // io.github.opencckmp/Dict.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    open fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/Dict.match|match(kotlin.String){}[0]
+    open fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/Dict.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): io.github.opencckmp/DictEntry? // io.github.opencckmp/Dict.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract interface io.github.opencckmp/DictionaryCache : kotlin/AutoCloseable { // io.github.opencckmp/DictionaryCache|null[0]
+    abstract val capacity // io.github.opencckmp/DictionaryCache.capacity|{}capacity[0]
+        abstract fun <get-capacity>(): kotlin/Int // io.github.opencckmp/DictionaryCache.capacity.<get-capacity>|<get-capacity>(){}[0]
+    abstract val size // io.github.opencckmp/DictionaryCache.size|{}size[0]
+        abstract fun <get-size>(): kotlin/Int // io.github.opencckmp/DictionaryCache.size.<get-size>|<get-size>(){}[0]
+
+    abstract fun clear() // io.github.opencckmp/DictionaryCache.clear|clear(){}[0]
+    abstract fun load(kotlin/Any, kotlin/String, kotlin/ByteArray, io.github.opencckmp/DictionaryReader): io.github.opencckmp/Dict // io.github.opencckmp/DictionaryCache.load|load(kotlin.Any;kotlin.String;kotlin.ByteArray;io.github.opencckmp.DictionaryReader){}[0]
+}
+
+abstract interface io.github.opencckmp/DictionaryReader { // io.github.opencckmp/DictionaryReader|null[0]
+    abstract val type // io.github.opencckmp/DictionaryReader.type|{}type[0]
+        abstract fun <get-type>(): kotlin/String // io.github.opencckmp/DictionaryReader.type.<get-type>|<get-type>(){}[0]
+
+    abstract fun read(kotlin/ByteArray): io.github.opencckmp/Dict // io.github.opencckmp/DictionaryReader.read|read(kotlin.ByteArray){}[0]
+}
+
+abstract interface io.github.opencckmp/Segmentation { // io.github.opencckmp/Segmentation|null[0]
+    abstract fun segment(kotlin/String): io.github.opencckmp/Segments // io.github.opencckmp/Segmentation.segment|segment(kotlin.String){}[0]
+    open fun segmentUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/Segmentation.segmentUtf8|segmentUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class io.github.opencckmp/AmbiguityStream { // io.github.opencckmp/AmbiguityStream|null[0]
+    constructor <init>(io.github.opencckmp/Converter, kotlin/Int = ...) // io.github.opencckmp/AmbiguityStream.<init>|<init>(io.github.opencckmp.Converter;kotlin.Int){}[0]
+
+    final val converter // io.github.opencckmp/AmbiguityStream.converter|{}converter[0]
+        final fun <get-converter>(): io.github.opencckmp/Converter // io.github.opencckmp/AmbiguityStream.converter.<get-converter>|<get-converter>(){}[0]
+    final val maxKeepChars // io.github.opencckmp/AmbiguityStream.maxKeepChars|{}maxKeepChars[0]
+        final fun <get-maxKeepChars>(): kotlin/Int // io.github.opencckmp/AmbiguityStream.maxKeepChars.<get-maxKeepChars>|<get-maxKeepChars>(){}[0]
+    final val sourceCount // io.github.opencckmp/AmbiguityStream.sourceCount|{}sourceCount[0]
+        final fun <get-sourceCount>(): kotlin/Int // io.github.opencckmp/AmbiguityStream.sourceCount.<get-sourceCount>|<get-sourceCount>(){}[0]
+
+    final fun convertChunk(kotlin/String): io.github.opencckmp/AmbiguityStream.Chunk // io.github.opencckmp/AmbiguityStream.convertChunk|convertChunk(kotlin.String){}[0]
+    final fun finish(kotlin/String = ...): io.github.opencckmp/AmbiguityStream.Chunk // io.github.opencckmp/AmbiguityStream.finish|finish(kotlin.String){}[0]
+
+    final class Chunk { // io.github.opencckmp/AmbiguityStream.Chunk|null[0]
+        constructor <init>(kotlin/String = ..., kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> = ..., kotlin.collections/List<kotlin/String> = ..., kotlin/Boolean = ...) // io.github.opencckmp/AmbiguityStream.Chunk.<init>|<init>(kotlin.String;kotlin.collections.List<io.github.opencckmp.AmbiguousSpan>;kotlin.collections.List<kotlin.String>;kotlin.Boolean){}[0]
+
+        final val ambiguities // io.github.opencckmp/AmbiguityStream.Chunk.ambiguities|{}ambiguities[0]
+            final fun <get-ambiguities>(): kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> // io.github.opencckmp/AmbiguityStream.Chunk.ambiguities.<get-ambiguities>|<get-ambiguities>(){}[0]
+        final val analyzed // io.github.opencckmp/AmbiguityStream.Chunk.analyzed|{}analyzed[0]
+            final fun <get-analyzed>(): kotlin/Boolean // io.github.opencckmp/AmbiguityStream.Chunk.analyzed.<get-analyzed>|<get-analyzed>(){}[0]
+        final val newSources // io.github.opencckmp/AmbiguityStream.Chunk.newSources|{}newSources[0]
+            final fun <get-newSources>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/AmbiguityStream.Chunk.newSources.<get-newSources>|<get-newSources>(){}[0]
+        final val output // io.github.opencckmp/AmbiguityStream.Chunk.output|{}output[0]
+            final fun <get-output>(): kotlin/String // io.github.opencckmp/AmbiguityStream.Chunk.output.<get-output>|<get-output>(){}[0]
+
+        final fun component1(): kotlin/String // io.github.opencckmp/AmbiguityStream.Chunk.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> // io.github.opencckmp/AmbiguityStream.Chunk.component2|component2(){}[0]
+        final fun component3(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/AmbiguityStream.Chunk.component3|component3(){}[0]
+        final fun component4(): kotlin/Boolean // io.github.opencckmp/AmbiguityStream.Chunk.component4|component4(){}[0]
+        final fun copy(kotlin/String = ..., kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> = ..., kotlin.collections/List<kotlin/String> = ..., kotlin/Boolean = ...): io.github.opencckmp/AmbiguityStream.Chunk // io.github.opencckmp/AmbiguityStream.Chunk.copy|copy(kotlin.String;kotlin.collections.List<io.github.opencckmp.AmbiguousSpan>;kotlin.collections.List<kotlin.String>;kotlin.Boolean){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/AmbiguityStream.Chunk.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.opencckmp/AmbiguityStream.Chunk.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.opencckmp/AmbiguityStream.Chunk.toString|toString(){}[0]
+    }
+}
+
+final class io.github.opencckmp/AmbiguousSpan { // io.github.opencckmp/AmbiguousSpan|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int) // io.github.opencckmp/AmbiguousSpan.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+
+    final val outputLength // io.github.opencckmp/AmbiguousSpan.outputLength|{}outputLength[0]
+        final fun <get-outputLength>(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.outputLength.<get-outputLength>|<get-outputLength>(){}[0]
+    final val outputOffset // io.github.opencckmp/AmbiguousSpan.outputOffset|{}outputOffset[0]
+        final fun <get-outputOffset>(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.outputOffset.<get-outputOffset>|<get-outputOffset>(){}[0]
+    final val sourceIndex // io.github.opencckmp/AmbiguousSpan.sourceIndex|{}sourceIndex[0]
+        final fun <get-sourceIndex>(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.sourceIndex.<get-sourceIndex>|<get-sourceIndex>(){}[0]
+
+    final fun component1(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.component3|component3(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...): io.github.opencckmp/AmbiguousSpan // io.github.opencckmp/AmbiguousSpan.copy|copy(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/AmbiguousSpan.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/AmbiguousSpan.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/AmbiguousSpan.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/AnnotatedConversion { // io.github.opencckmp/AnnotatedConversion|null[0]
+    constructor <init>(kotlin/String, kotlin.collections/List<kotlin/String>, kotlin.collections/List<io.github.opencckmp/AmbiguousSpan>, kotlin/Boolean = ...) // io.github.opencckmp/AnnotatedConversion.<init>|<init>(kotlin.String;kotlin.collections.List<kotlin.String>;kotlin.collections.List<io.github.opencckmp.AmbiguousSpan>;kotlin.Boolean){}[0]
+
+    final val ambiguities // io.github.opencckmp/AnnotatedConversion.ambiguities|{}ambiguities[0]
+        final fun <get-ambiguities>(): kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> // io.github.opencckmp/AnnotatedConversion.ambiguities.<get-ambiguities>|<get-ambiguities>(){}[0]
+    final val analyzed // io.github.opencckmp/AnnotatedConversion.analyzed|{}analyzed[0]
+        final fun <get-analyzed>(): kotlin/Boolean // io.github.opencckmp/AnnotatedConversion.analyzed.<get-analyzed>|<get-analyzed>(){}[0]
+    final val output // io.github.opencckmp/AnnotatedConversion.output|{}output[0]
+        final fun <get-output>(): kotlin/String // io.github.opencckmp/AnnotatedConversion.output.<get-output>|<get-output>(){}[0]
+    final val sources // io.github.opencckmp/AnnotatedConversion.sources|{}sources[0]
+        final fun <get-sources>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/AnnotatedConversion.sources.<get-sources>|<get-sources>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.opencckmp/AnnotatedConversion.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/AnnotatedConversion.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> // io.github.opencckmp/AnnotatedConversion.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // io.github.opencckmp/AnnotatedConversion.component4|component4(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.collections/List<kotlin/String> = ..., kotlin.collections/List<io.github.opencckmp/AmbiguousSpan> = ..., kotlin/Boolean = ...): io.github.opencckmp/AnnotatedConversion // io.github.opencckmp/AnnotatedConversion.copy|copy(kotlin.String;kotlin.collections.List<kotlin.String>;kotlin.collections.List<io.github.opencckmp.AmbiguousSpan>;kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/AnnotatedConversion.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/AnnotatedConversion.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/AnnotatedConversion.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/BinaryDict : io.github.opencckmp/Dict { // io.github.opencckmp/BinaryDict|null[0]
+    final val groupItems // io.github.opencckmp/BinaryDict.groupItems|{}groupItems[0]
+        final fun <get-groupItems>(): kotlin.collections/List<io.github.opencckmp/Dict>? // io.github.opencckmp/BinaryDict.groupItems.<get-groupItems>|<get-groupItems>(){}[0]
+    final val keyMaxLength // io.github.opencckmp/BinaryDict.keyMaxLength|{}keyMaxLength[0]
+        final fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/BinaryDict.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    final val lexicon // io.github.opencckmp/BinaryDict.lexicon|{}lexicon[0]
+        final fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/BinaryDict.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+    final val matchPolicy // io.github.opencckmp/BinaryDict.matchPolicy|{}matchPolicy[0]
+        final fun <get-matchPolicy>(): io.github.opencckmp/DictGroupMatchPolicy // io.github.opencckmp/BinaryDict.matchPolicy.<get-matchPolicy>|<get-matchPolicy>(){}[0]
+
+    final fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/BinaryDict.match|match(kotlin.String){}[0]
+    final fun matchAllPrefixes(kotlin/String, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/BinaryDict.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/BinaryDict.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefix(kotlin/String, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/BinaryDict.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/BinaryDict.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp/BinaryDict.Companion|null[0]
+        final fun fromBytes(kotlin/ByteArray, io.github.opencckmp/DictionaryByteOrder = ...): io.github.opencckmp/BinaryDict // io.github.opencckmp/BinaryDict.Companion.fromBytes|fromBytes(kotlin.ByteArray;io.github.opencckmp.DictionaryByteOrder){}[0]
+    }
+}
+
+final class io.github.opencckmp/Config { // io.github.opencckmp/Config|null[0]
+    constructor <init>(io.github.opencckmp/ResourceProvider = ..., kotlin.collections/List<io.github.opencckmp/DictionaryReader> = ..., kotlin.collections/Map<kotlin/String, io.github.opencckmp/SegmentationFactory> = ..., kotlin/Function1<io.github.opencckmp/ConfigWarning, kotlin/Unit>? = ..., io.github.opencckmp/DictionaryCache? = ..., kotlin/Any = ...) // io.github.opencckmp/Config.<init>|<init>(io.github.opencckmp.ResourceProvider;kotlin.collections.List<io.github.opencckmp.DictionaryReader>;kotlin.collections.Map<kotlin.String,io.github.opencckmp.SegmentationFactory>;kotlin.Function1<io.github.opencckmp.ConfigWarning,kotlin.Unit>?;io.github.opencckmp.DictionaryCache?;kotlin.Any){}[0]
+
+    final fun newFromFile(kotlin/String, io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp/Config.newFromFile|newFromFile(kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
+    final fun newFromString(kotlin/String, kotlin/String = ..., io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp/Config.newFromString|newFromString(kotlin.String;kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
+}
+
+final class io.github.opencckmp/ConfigBasedConverter : io.github.opencckmp/PipelineConverter { // io.github.opencckmp/ConfigBasedConverter|null[0]
+    constructor <init>(io.github.opencckmp/Converter, io.github.opencckmp/Converter) // io.github.opencckmp/ConfigBasedConverter.<init>|<init>(io.github.opencckmp.Converter;io.github.opencckmp.Converter){}[0]
+
+    final val conversionChain // io.github.opencckmp/ConfigBasedConverter.conversionChain|{}conversionChain[0]
+        final fun <get-conversionChain>(): io.github.opencckmp/ConversionChain? // io.github.opencckmp/ConfigBasedConverter.conversionChain.<get-conversionChain>|<get-conversionChain>(){}[0]
+    final val mainConverter // io.github.opencckmp/ConfigBasedConverter.mainConverter|{}mainConverter[0]
+        final fun <get-mainConverter>(): io.github.opencckmp/Converter // io.github.opencckmp/ConfigBasedConverter.mainConverter.<get-mainConverter>|<get-mainConverter>(){}[0]
+    final val normalization // io.github.opencckmp/ConfigBasedConverter.normalization|{}normalization[0]
+        final fun <get-normalization>(): io.github.opencckmp/Converter // io.github.opencckmp/ConfigBasedConverter.normalization.<get-normalization>|<get-normalization>(){}[0]
+    final val segmentation // io.github.opencckmp/ConfigBasedConverter.segmentation|{}segmentation[0]
+        final fun <get-segmentation>(): io.github.opencckmp/Segmentation? // io.github.opencckmp/ConfigBasedConverter.segmentation.<get-segmentation>|<get-segmentation>(){}[0]
+}
+
+final class io.github.opencckmp/ConfigLoadOptions { // io.github.opencckmp/ConfigLoadOptions|null[0]
+    constructor <init>(kotlin/Boolean = ...) // io.github.opencckmp/ConfigLoadOptions.<init>|<init>(kotlin.Boolean){}[0]
+
+    final val includeTofuRiskDictionaries // io.github.opencckmp/ConfigLoadOptions.includeTofuRiskDictionaries|{}includeTofuRiskDictionaries[0]
+        final fun <get-includeTofuRiskDictionaries>(): kotlin/Boolean // io.github.opencckmp/ConfigLoadOptions.includeTofuRiskDictionaries.<get-includeTofuRiskDictionaries>|<get-includeTofuRiskDictionaries>(){}[0]
+
+    final fun component1(): kotlin/Boolean // io.github.opencckmp/ConfigLoadOptions.component1|component1(){}[0]
+    final fun copy(kotlin/Boolean = ...): io.github.opencckmp/ConfigLoadOptions // io.github.opencckmp/ConfigLoadOptions.copy|copy(kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/ConfigLoadOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/ConfigLoadOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/ConfigLoadOptions.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/ConfigWarning { // io.github.opencckmp/ConfigWarning|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String = ..., kotlin/String = ...) // io.github.opencckmp/ConfigWarning.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val keyword // io.github.opencckmp/ConfigWarning.keyword|{}keyword[0]
+        final fun <get-keyword>(): kotlin/String // io.github.opencckmp/ConfigWarning.keyword.<get-keyword>|<get-keyword>(){}[0]
+    final val message // io.github.opencckmp/ConfigWarning.message|{}message[0]
+        final fun <get-message>(): kotlin/String // io.github.opencckmp/ConfigWarning.message.<get-message>|<get-message>(){}[0]
+    final val path // io.github.opencckmp/ConfigWarning.path|{}path[0]
+        final fun <get-path>(): kotlin/String // io.github.opencckmp/ConfigWarning.path.<get-path>|<get-path>(){}[0]
+    final val schemaPath // io.github.opencckmp/ConfigWarning.schemaPath|{}schemaPath[0]
+        final fun <get-schemaPath>(): kotlin/String // io.github.opencckmp/ConfigWarning.schemaPath.<get-schemaPath>|<get-schemaPath>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.opencckmp/ConfigWarning.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.opencckmp/ConfigWarning.component2|component2(){}[0]
+    final fun component3(): kotlin/String // io.github.opencckmp/ConfigWarning.component3|component3(){}[0]
+    final fun component4(): kotlin/String // io.github.opencckmp/ConfigWarning.component4|component4(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ...): io.github.opencckmp/ConfigWarning // io.github.opencckmp/ConfigWarning.copy|copy(kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/ConfigWarning.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/ConfigWarning.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/ConfigWarning.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/Conversion { // io.github.opencckmp/Conversion|null[0]
+    constructor <init>(io.github.opencckmp/Dict) // io.github.opencckmp/Conversion.<init>|<init>(io.github.opencckmp.Dict){}[0]
+
+    final val dict // io.github.opencckmp/Conversion.dict|{}dict[0]
+        final fun <get-dict>(): io.github.opencckmp/Dict // io.github.opencckmp/Conversion.dict.<get-dict>|<get-dict>(){}[0]
+
+    final fun appendConverted(kotlin/String, kotlin.text/Appendable) // io.github.opencckmp/Conversion.appendConverted|appendConverted(kotlin.String;kotlin.text.Appendable){}[0]
+    final fun convert(io.github.opencckmp/Segments): io.github.opencckmp/Segments // io.github.opencckmp/Conversion.convert|convert(io.github.opencckmp.Segments){}[0]
+    final fun convert(kotlin/String): kotlin/String // io.github.opencckmp/Conversion.convert|convert(kotlin.String){}[0]
+    final fun convertUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray // io.github.opencckmp/Conversion.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+}
+
+final class io.github.opencckmp/ConversionChain { // io.github.opencckmp/ConversionChain|null[0]
+    constructor <init>(kotlin.collections/List<io.github.opencckmp/Conversion>) // io.github.opencckmp/ConversionChain.<init>|<init>(kotlin.collections.List<io.github.opencckmp.Conversion>){}[0]
+
+    final val conversions // io.github.opencckmp/ConversionChain.conversions|{}conversions[0]
+        final fun <get-conversions>(): kotlin.collections/List<io.github.opencckmp/Conversion> // io.github.opencckmp/ConversionChain.conversions.<get-conversions>|<get-conversions>(){}[0]
+
+    final fun convert(io.github.opencckmp/Segments): io.github.opencckmp/Segments // io.github.opencckmp/ConversionChain.convert|convert(io.github.opencckmp.Segments){}[0]
+    final fun convert(kotlin/String): kotlin/String // io.github.opencckmp/ConversionChain.convert|convert(kotlin.String){}[0]
+    final fun convertUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray // io.github.opencckmp/ConversionChain.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun convertWithTrace(io.github.opencckmp/Segments): kotlin.collections/List<io.github.opencckmp/Segments> // io.github.opencckmp/ConversionChain.convertWithTrace|convertWithTrace(io.github.opencckmp.Segments){}[0]
+}
+
+final class io.github.opencckmp/ConversionInspectionResult { // io.github.opencckmp/ConversionInspectionResult|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin.collections/List<kotlin/String> = ..., kotlin.collections/List<io.github.opencckmp/ConversionInspectionStage> = ..., kotlin.collections/List<io.github.opencckmp/ConversionInspectionResult> = ...) // io.github.opencckmp/ConversionInspectionResult.<init>|<init>(kotlin.String;kotlin.String;kotlin.collections.List<kotlin.String>;kotlin.collections.List<io.github.opencckmp.ConversionInspectionStage>;kotlin.collections.List<io.github.opencckmp.ConversionInspectionResult>){}[0]
+
+    final val input // io.github.opencckmp/ConversionInspectionResult.input|{}input[0]
+        final fun <get-input>(): kotlin/String // io.github.opencckmp/ConversionInspectionResult.input.<get-input>|<get-input>(){}[0]
+    final val output // io.github.opencckmp/ConversionInspectionResult.output|{}output[0]
+        final fun <get-output>(): kotlin/String // io.github.opencckmp/ConversionInspectionResult.output.<get-output>|<get-output>(){}[0]
+    final val pipelineStages // io.github.opencckmp/ConversionInspectionResult.pipelineStages|{}pipelineStages[0]
+        final fun <get-pipelineStages>(): kotlin.collections/List<io.github.opencckmp/ConversionInspectionResult> // io.github.opencckmp/ConversionInspectionResult.pipelineStages.<get-pipelineStages>|<get-pipelineStages>(){}[0]
+    final val segments // io.github.opencckmp/ConversionInspectionResult.segments|{}segments[0]
+        final fun <get-segments>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/ConversionInspectionResult.segments.<get-segments>|<get-segments>(){}[0]
+    final val stages // io.github.opencckmp/ConversionInspectionResult.stages|{}stages[0]
+        final fun <get-stages>(): kotlin.collections/List<io.github.opencckmp/ConversionInspectionStage> // io.github.opencckmp/ConversionInspectionResult.stages.<get-stages>|<get-stages>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.opencckmp/ConversionInspectionResult.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.opencckmp/ConversionInspectionResult.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/ConversionInspectionResult.component3|component3(){}[0]
+    final fun component4(): kotlin.collections/List<io.github.opencckmp/ConversionInspectionStage> // io.github.opencckmp/ConversionInspectionResult.component4|component4(){}[0]
+    final fun component5(): kotlin.collections/List<io.github.opencckmp/ConversionInspectionResult> // io.github.opencckmp/ConversionInspectionResult.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ..., kotlin.collections/List<kotlin/String> = ..., kotlin.collections/List<io.github.opencckmp/ConversionInspectionStage> = ..., kotlin.collections/List<io.github.opencckmp/ConversionInspectionResult> = ...): io.github.opencckmp/ConversionInspectionResult // io.github.opencckmp/ConversionInspectionResult.copy|copy(kotlin.String;kotlin.String;kotlin.collections.List<kotlin.String>;kotlin.collections.List<io.github.opencckmp.ConversionInspectionStage>;kotlin.collections.List<io.github.opencckmp.ConversionInspectionResult>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/ConversionInspectionResult.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/ConversionInspectionResult.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/ConversionInspectionResult.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/ConversionInspectionStage { // io.github.opencckmp/ConversionInspectionStage|null[0]
+    constructor <init>(kotlin/Int, kotlin.collections/List<kotlin/String>) // io.github.opencckmp/ConversionInspectionStage.<init>|<init>(kotlin.Int;kotlin.collections.List<kotlin.String>){}[0]
+
+    final val index // io.github.opencckmp/ConversionInspectionStage.index|{}index[0]
+        final fun <get-index>(): kotlin/Int // io.github.opencckmp/ConversionInspectionStage.index.<get-index>|<get-index>(){}[0]
+    final val segments // io.github.opencckmp/ConversionInspectionStage.segments|{}segments[0]
+        final fun <get-segments>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/ConversionInspectionStage.segments.<get-segments>|<get-segments>(){}[0]
+
+    final fun component1(): kotlin/Int // io.github.opencckmp/ConversionInspectionStage.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/ConversionInspectionStage.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin.collections/List<kotlin/String> = ...): io.github.opencckmp/ConversionInspectionStage // io.github.opencckmp/ConversionInspectionStage.copy|copy(kotlin.Int;kotlin.collections.List<kotlin.String>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/ConversionInspectionStage.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/ConversionInspectionStage.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/ConversionInspectionStage.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/ConverterStream { // io.github.opencckmp/ConverterStream|null[0]
+    constructor <init>(io.github.opencckmp/Converter, kotlin/Int = ...) // io.github.opencckmp/ConverterStream.<init>|<init>(io.github.opencckmp.Converter;kotlin.Int){}[0]
+
+    final val converter // io.github.opencckmp/ConverterStream.converter|{}converter[0]
+        final fun <get-converter>(): io.github.opencckmp/Converter // io.github.opencckmp/ConverterStream.converter.<get-converter>|<get-converter>(){}[0]
+    final val maxKeepChars // io.github.opencckmp/ConverterStream.maxKeepChars|{}maxKeepChars[0]
+        final fun <get-maxKeepChars>(): kotlin/Int // io.github.opencckmp/ConverterStream.maxKeepChars.<get-maxKeepChars>|<get-maxKeepChars>(){}[0]
+
+    final fun convertChunk(kotlin/String): kotlin/String // io.github.opencckmp/ConverterStream.convertChunk|convertChunk(kotlin.String){}[0]
+    final fun finish(kotlin/String = ...): kotlin/String // io.github.opencckmp/ConverterStream.finish|finish(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp/DartsDict : io.github.opencckmp/Dict { // io.github.opencckmp/DartsDict|null[0]
+    final val keyMaxLength // io.github.opencckmp/DartsDict.keyMaxLength|{}keyMaxLength[0]
+        final fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/DartsDict.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    final val lexicon // io.github.opencckmp/DartsDict.lexicon|{}lexicon[0]
+        final fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/DartsDict.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+
+    final fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/DartsDict.match|match(kotlin.String){}[0]
+    final fun matchAllPrefixes(kotlin/String, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/DartsDict.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/DartsDict.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefix(kotlin/String, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/DartsDict.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/DartsDict.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp/DartsDict.Companion|null[0]
+        final fun fromBytes(kotlin/ByteArray, io.github.opencckmp/DictionaryByteOrder? = ...): io.github.opencckmp/DartsDict // io.github.opencckmp/DartsDict.Companion.fromBytes|fromBytes(kotlin.ByteArray;io.github.opencckmp.DictionaryByteOrder?){}[0]
+    }
+}
+
+final class io.github.opencckmp/DictEntry { // io.github.opencckmp/DictEntry|null[0]
+    constructor <init>(kotlin/String, kotlin.collections/List<kotlin/String>) // io.github.opencckmp/DictEntry.<init>|<init>(kotlin.String;kotlin.collections.List<kotlin.String>){}[0]
+
+    final val defaultValue // io.github.opencckmp/DictEntry.defaultValue|{}defaultValue[0]
+        final fun <get-defaultValue>(): kotlin/String // io.github.opencckmp/DictEntry.defaultValue.<get-defaultValue>|<get-defaultValue>(){}[0]
+    final val key // io.github.opencckmp/DictEntry.key|{}key[0]
+        final fun <get-key>(): kotlin/String // io.github.opencckmp/DictEntry.key.<get-key>|<get-key>(){}[0]
+    final val keyByteLength // io.github.opencckmp/DictEntry.keyByteLength|{}keyByteLength[0]
+        final fun <get-keyByteLength>(): kotlin/Int // io.github.opencckmp/DictEntry.keyByteLength.<get-keyByteLength>|<get-keyByteLength>(){}[0]
+    final val keyLength // io.github.opencckmp/DictEntry.keyLength|{}keyLength[0]
+        final fun <get-keyLength>(): kotlin/Int // io.github.opencckmp/DictEntry.keyLength.<get-keyLength>|<get-keyLength>(){}[0]
+    final val numValues // io.github.opencckmp/DictEntry.numValues|{}numValues[0]
+        final fun <get-numValues>(): kotlin/Int // io.github.opencckmp/DictEntry.numValues.<get-numValues>|<get-numValues>(){}[0]
+    final val values // io.github.opencckmp/DictEntry.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/DictEntry.values.<get-values>|<get-values>(){}[0]
+
+    final fun toString(): kotlin/String // io.github.opencckmp/DictEntry.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/EncodedAmbiguousSpan { // io.github.opencckmp/EncodedAmbiguousSpan|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int) // io.github.opencckmp/EncodedAmbiguousSpan.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+
+    final val outputLength // io.github.opencckmp/EncodedAmbiguousSpan.outputLength|{}outputLength[0]
+        final fun <get-outputLength>(): kotlin/Int // io.github.opencckmp/EncodedAmbiguousSpan.outputLength.<get-outputLength>|<get-outputLength>(){}[0]
+    final val outputOffset // io.github.opencckmp/EncodedAmbiguousSpan.outputOffset|{}outputOffset[0]
+        final fun <get-outputOffset>(): kotlin/Int // io.github.opencckmp/EncodedAmbiguousSpan.outputOffset.<get-outputOffset>|<get-outputOffset>(){}[0]
+    final val sourceIndex // io.github.opencckmp/EncodedAmbiguousSpan.sourceIndex|{}sourceIndex[0]
+        final fun <get-sourceIndex>(): kotlin/Int // io.github.opencckmp/EncodedAmbiguousSpan.sourceIndex.<get-sourceIndex>|<get-sourceIndex>(){}[0]
+}
+
+final class io.github.opencckmp/EncodedAnnotatedConversion { // io.github.opencckmp/EncodedAnnotatedConversion|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin.collections/List<kotlin/ByteArray>, kotlin.collections/List<io.github.opencckmp/EncodedAmbiguousSpan>, kotlin/Boolean = ...) // io.github.opencckmp/EncodedAnnotatedConversion.<init>|<init>(kotlin.ByteArray;kotlin.collections.List<kotlin.ByteArray>;kotlin.collections.List<io.github.opencckmp.EncodedAmbiguousSpan>;kotlin.Boolean){}[0]
+
+    final val ambiguities // io.github.opencckmp/EncodedAnnotatedConversion.ambiguities|{}ambiguities[0]
+        final fun <get-ambiguities>(): kotlin.collections/List<io.github.opencckmp/EncodedAmbiguousSpan> // io.github.opencckmp/EncodedAnnotatedConversion.ambiguities.<get-ambiguities>|<get-ambiguities>(){}[0]
+    final val analyzed // io.github.opencckmp/EncodedAnnotatedConversion.analyzed|{}analyzed[0]
+        final fun <get-analyzed>(): kotlin/Boolean // io.github.opencckmp/EncodedAnnotatedConversion.analyzed.<get-analyzed>|<get-analyzed>(){}[0]
+    final val output // io.github.opencckmp/EncodedAnnotatedConversion.output|{}output[0]
+        final fun <get-output>(): kotlin/ByteArray // io.github.opencckmp/EncodedAnnotatedConversion.output.<get-output>|<get-output>(){}[0]
+    final val sources // io.github.opencckmp/EncodedAnnotatedConversion.sources|{}sources[0]
+        final fun <get-sources>(): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/EncodedAnnotatedConversion.sources.<get-sources>|<get-sources>(){}[0]
+}
+
+final class io.github.opencckmp/EncodedInspectionResult { // io.github.opencckmp/EncodedInspectionResult|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/ByteArray, kotlin.collections/List<kotlin/ByteArray> = ..., kotlin.collections/List<io.github.opencckmp/EncodedInspectionStage> = ..., kotlin.collections/List<io.github.opencckmp/EncodedInspectionResult> = ...) // io.github.opencckmp/EncodedInspectionResult.<init>|<init>(kotlin.ByteArray;kotlin.ByteArray;kotlin.collections.List<kotlin.ByteArray>;kotlin.collections.List<io.github.opencckmp.EncodedInspectionStage>;kotlin.collections.List<io.github.opencckmp.EncodedInspectionResult>){}[0]
+
+    final val input // io.github.opencckmp/EncodedInspectionResult.input|{}input[0]
+        final fun <get-input>(): kotlin/ByteArray // io.github.opencckmp/EncodedInspectionResult.input.<get-input>|<get-input>(){}[0]
+    final val output // io.github.opencckmp/EncodedInspectionResult.output|{}output[0]
+        final fun <get-output>(): kotlin/ByteArray // io.github.opencckmp/EncodedInspectionResult.output.<get-output>|<get-output>(){}[0]
+    final val pipelineStages // io.github.opencckmp/EncodedInspectionResult.pipelineStages|{}pipelineStages[0]
+        final fun <get-pipelineStages>(): kotlin.collections/List<io.github.opencckmp/EncodedInspectionResult> // io.github.opencckmp/EncodedInspectionResult.pipelineStages.<get-pipelineStages>|<get-pipelineStages>(){}[0]
+    final val segments // io.github.opencckmp/EncodedInspectionResult.segments|{}segments[0]
+        final fun <get-segments>(): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/EncodedInspectionResult.segments.<get-segments>|<get-segments>(){}[0]
+    final val stages // io.github.opencckmp/EncodedInspectionResult.stages|{}stages[0]
+        final fun <get-stages>(): kotlin.collections/List<io.github.opencckmp/EncodedInspectionStage> // io.github.opencckmp/EncodedInspectionResult.stages.<get-stages>|<get-stages>(){}[0]
+}
+
+final class io.github.opencckmp/EncodedInspectionStage { // io.github.opencckmp/EncodedInspectionStage|null[0]
+    constructor <init>(kotlin/Int, kotlin.collections/List<kotlin/ByteArray>) // io.github.opencckmp/EncodedInspectionStage.<init>|<init>(kotlin.Int;kotlin.collections.List<kotlin.ByteArray>){}[0]
+
+    final val index // io.github.opencckmp/EncodedInspectionStage.index|{}index[0]
+        final fun <get-index>(): kotlin/Int // io.github.opencckmp/EncodedInspectionStage.index.<get-index>|<get-index>(){}[0]
+    final val segments // io.github.opencckmp/EncodedInspectionStage.segments|{}segments[0]
+        final fun <get-segments>(): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/EncodedInspectionStage.segments.<get-segments>|<get-segments>(){}[0]
+}
+
+final class io.github.opencckmp/FileNotFound : io.github.opencckmp/OpenCCException { // io.github.opencckmp/FileNotFound|null[0]
+    constructor <init>(kotlin/String) // io.github.opencckmp/FileNotFound.<init>|<init>(kotlin.String){}[0]
+
+    final val resourceName // io.github.opencckmp/FileNotFound.resourceName|{}resourceName[0]
+        final fun <get-resourceName>(): kotlin/String // io.github.opencckmp/FileNotFound.resourceName.<get-resourceName>|<get-resourceName>(){}[0]
+}
+
+final class io.github.opencckmp/FileNotWritable : io.github.opencckmp/OpenCCException { // io.github.opencckmp/FileNotWritable|null[0]
+    constructor <init>(kotlin/String) // io.github.opencckmp/FileNotWritable.<init>|<init>(kotlin.String){}[0]
+
+    final val resourceName // io.github.opencckmp/FileNotWritable.resourceName|{}resourceName[0]
+        final fun <get-resourceName>(): kotlin/String // io.github.opencckmp/FileNotWritable.resourceName.<get-resourceName>|<get-resourceName>(){}[0]
+}
+
+final class io.github.opencckmp/InvalidTextDictionary : io.github.opencckmp/InvalidFormat { // io.github.opencckmp/InvalidTextDictionary|null[0]
+    constructor <init>(kotlin/String, kotlin/Int) // io.github.opencckmp/InvalidTextDictionary.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val lineNumber // io.github.opencckmp/InvalidTextDictionary.lineNumber|{}lineNumber[0]
+        final fun <get-lineNumber>(): kotlin/Int // io.github.opencckmp/InvalidTextDictionary.lineNumber.<get-lineNumber>|<get-lineNumber>(){}[0]
+}
+
+final class io.github.opencckmp/InvalidUTF16 : io.github.opencckmp/OpenCCException { // io.github.opencckmp/InvalidUTF16|null[0]
+    constructor <init>(kotlin/Int) // io.github.opencckmp/InvalidUTF16.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // io.github.opencckmp/InvalidUTF16.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // io.github.opencckmp/InvalidUTF16.offset.<get-offset>|<get-offset>(){}[0]
+}
+
+final class io.github.opencckmp/InvalidUTF8 : io.github.opencckmp/OpenCCException { // io.github.opencckmp/InvalidUTF8|null[0]
+    constructor <init>(kotlin/String, kotlin/Throwable? = ..., kotlin/ByteArray? = ..., kotlin/Int? = ...) // io.github.opencckmp/InvalidUTF8.<init>|<init>(kotlin.String;kotlin.Throwable?;kotlin.ByteArray?;kotlin.Int?){}[0]
+
+    final val byteOffset // io.github.opencckmp/InvalidUTF8.byteOffset|{}byteOffset[0]
+        final fun <get-byteOffset>(): kotlin/Int? // io.github.opencckmp/InvalidUTF8.byteOffset.<get-byteOffset>|<get-byteOffset>(){}[0]
+    final val encodedContext // io.github.opencckmp/InvalidUTF8.encodedContext|{}encodedContext[0]
+        final fun <get-encodedContext>(): kotlin/ByteArray? // io.github.opencckmp/InvalidUTF8.encodedContext.<get-encodedContext>|<get-encodedContext>(){}[0]
+}
+
+final class io.github.opencckmp/Lexicon : kotlin.collections/Iterable<io.github.opencckmp/DictEntry> { // io.github.opencckmp/Lexicon|null[0]
+    constructor <init>(kotlin.collections/List<io.github.opencckmp/DictEntry>) // io.github.opencckmp/Lexicon.<init>|<init>(kotlin.collections.List<io.github.opencckmp.DictEntry>){}[0]
+
+    final val entries // io.github.opencckmp/Lexicon.entries|{}entries[0]
+        final fun <get-entries>(): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/Lexicon.entries.<get-entries>|<get-entries>(){}[0]
+    final val size // io.github.opencckmp/Lexicon.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.opencckmp/Lexicon.size.<get-size>|<get-size>(){}[0]
+
+    final fun get(kotlin/Int): io.github.opencckmp/DictEntry // io.github.opencckmp/Lexicon.get|get(kotlin.Int){}[0]
+    final fun isSorted(): kotlin/Boolean // io.github.opencckmp/Lexicon.isSorted|isSorted(){}[0]
+    final fun isUnique(): kotlin/Boolean // io.github.opencckmp/Lexicon.isUnique|isUnique(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<io.github.opencckmp/DictEntry> // io.github.opencckmp/Lexicon.iterator|iterator(){}[0]
+    final fun sorted(): io.github.opencckmp/Lexicon // io.github.opencckmp/Lexicon.sorted|sorted(){}[0]
+
+    final object Companion { // io.github.opencckmp/Lexicon.Companion|null[0]
+        final fun parse(kotlin/String, kotlin/Char = ...): io.github.opencckmp/Lexicon // io.github.opencckmp/Lexicon.Companion.parse|parse(kotlin.String;kotlin.Char){}[0]
+    }
+}
+
+final class io.github.opencckmp/MappedConversion { // io.github.opencckmp/MappedConversion|null[0]
+    constructor <init>(kotlin/String, kotlin.collections/List<io.github.opencckmp/SegmentMapEntry>) // io.github.opencckmp/MappedConversion.<init>|<init>(kotlin.String;kotlin.collections.List<io.github.opencckmp.SegmentMapEntry>){}[0]
+
+    final val map // io.github.opencckmp/MappedConversion.map|{}map[0]
+        final fun <get-map>(): kotlin.collections/List<io.github.opencckmp/SegmentMapEntry> // io.github.opencckmp/MappedConversion.map.<get-map>|<get-map>(){}[0]
+    final val output // io.github.opencckmp/MappedConversion.output|{}output[0]
+        final fun <get-output>(): kotlin/String // io.github.opencckmp/MappedConversion.output.<get-output>|<get-output>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.opencckmp/MappedConversion.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<io.github.opencckmp/SegmentMapEntry> // io.github.opencckmp/MappedConversion.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.collections/List<io.github.opencckmp/SegmentMapEntry> = ...): io.github.opencckmp/MappedConversion // io.github.opencckmp/MappedConversion.copy|copy(kotlin.String;kotlin.collections.List<io.github.opencckmp.SegmentMapEntry>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/MappedConversion.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/MappedConversion.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/MappedConversion.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/MarisaDict : io.github.opencckmp/Dict { // io.github.opencckmp/MarisaDict|null[0]
+    final val groupItems // io.github.opencckmp/MarisaDict.groupItems|{}groupItems[0]
+        final fun <get-groupItems>(): kotlin.collections/List<io.github.opencckmp/Dict>? // io.github.opencckmp/MarisaDict.groupItems.<get-groupItems>|<get-groupItems>(){}[0]
+    final val keyMaxLength // io.github.opencckmp/MarisaDict.keyMaxLength|{}keyMaxLength[0]
+        final fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/MarisaDict.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    final val lexicon // io.github.opencckmp/MarisaDict.lexicon|{}lexicon[0]
+        final fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/MarisaDict.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+    final val matchPolicy // io.github.opencckmp/MarisaDict.matchPolicy|{}matchPolicy[0]
+        final fun <get-matchPolicy>(): io.github.opencckmp/DictGroupMatchPolicy // io.github.opencckmp/MarisaDict.matchPolicy.<get-matchPolicy>|<get-matchPolicy>(){}[0]
+
+    final fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/MarisaDict.match|match(kotlin.String){}[0]
+    final fun matchAllPrefixes(kotlin/String, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/MarisaDict.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/MarisaDict.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefix(kotlin/String, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/MarisaDict.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/MarisaDict.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp/MarisaDict.Companion|null[0]
+        final fun fromBytes(kotlin/ByteArray, io.github.opencckmp/DictionaryByteOrder? = ..., kotlin/Int? = ...): io.github.opencckmp/MarisaDict // io.github.opencckmp/MarisaDict.Companion.fromBytes|fromBytes(kotlin.ByteArray;io.github.opencckmp.DictionaryByteOrder?;kotlin.Int?){}[0]
+    }
+}
+
+final class io.github.opencckmp/MaxMatchSegmentation : io.github.opencckmp/Segmentation { // io.github.opencckmp/MaxMatchSegmentation|null[0]
+    constructor <init>(io.github.opencckmp/Dict) // io.github.opencckmp/MaxMatchSegmentation.<init>|<init>(io.github.opencckmp.Dict){}[0]
+
+    final val dict // io.github.opencckmp/MaxMatchSegmentation.dict|{}dict[0]
+        final fun <get-dict>(): io.github.opencckmp/Dict // io.github.opencckmp/MaxMatchSegmentation.dict.<get-dict>|<get-dict>(){}[0]
+
+    final fun segment(kotlin/String): io.github.opencckmp/Segments // io.github.opencckmp/MaxMatchSegmentation.segment|segment(kotlin.String){}[0]
+    final fun segmentUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/MaxMatchSegmentation.segmentUtf8|segmentUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class io.github.opencckmp/MemoryResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp/MemoryResourceProvider|null[0]
+    constructor <init>(kotlin.collections/Map<kotlin/String, kotlin/ByteArray>) // io.github.opencckmp/MemoryResourceProvider.<init>|<init>(kotlin.collections.Map<kotlin.String,kotlin.ByteArray>){}[0]
+
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp/MemoryResourceProvider.read|read(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp/OpenCC { // io.github.opencckmp/OpenCC|null[0]
+    constructor <init>(io.github.opencckmp/Config) // io.github.opencckmp/OpenCC.<init>|<init>(io.github.opencckmp.Config){}[0]
+
+    final var lastError // io.github.opencckmp/OpenCC.lastError|{}lastError[0]
+        final fun <get-lastError>(): io.github.opencckmp/OpenCCException? // io.github.opencckmp/OpenCC.lastError.<get-lastError>|<get-lastError>(){}[0]
+
+    final fun error(): kotlin/String? // io.github.opencckmp/OpenCC.error|error(){}[0]
+    final fun open(kotlin/String = ...): io.github.opencckmp/OpenCCHandle? // io.github.opencckmp/OpenCC.open|open(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp/OpenCCHandle { // io.github.opencckmp/OpenCCHandle|null[0]
+    final fun close(): kotlin/Boolean // io.github.opencckmp/OpenCCHandle.close|close(){}[0]
+    final fun convert(kotlin/String): kotlin/String? // io.github.opencckmp/OpenCCHandle.convert|convert(kotlin.String){}[0]
+    final fun convert(kotlin/String, kotlin/Int, kotlin/Int): kotlin/String? // io.github.opencckmp/OpenCCHandle.convert|convert(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun convertTo(kotlin/String, kotlin.text/Appendable): kotlin/Int? // io.github.opencckmp/OpenCCHandle.convertTo|convertTo(kotlin.String;kotlin.text.Appendable){}[0]
+    final fun convertTo(kotlin/String, kotlin/CharArray, kotlin/Int = ...): kotlin/Int? // io.github.opencckmp/OpenCCHandle.convertTo|convertTo(kotlin.String;kotlin.CharArray;kotlin.Int){}[0]
+    final fun convertUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray? // io.github.opencckmp/OpenCCHandle.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun convertUtf8To(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/Int? // io.github.opencckmp/OpenCCHandle.convertUtf8To|convertUtf8To(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+}
+
+final class io.github.opencckmp/SegmentMapEntry { // io.github.opencckmp/SegmentMapEntry|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int) // io.github.opencckmp/SegmentMapEntry.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+
+    final val sourceEnd // io.github.opencckmp/SegmentMapEntry.sourceEnd|{}sourceEnd[0]
+        final fun <get-sourceEnd>(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.sourceEnd.<get-sourceEnd>|<get-sourceEnd>(){}[0]
+    final val sourceStart // io.github.opencckmp/SegmentMapEntry.sourceStart|{}sourceStart[0]
+        final fun <get-sourceStart>(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.sourceStart.<get-sourceStart>|<get-sourceStart>(){}[0]
+    final val targetEnd // io.github.opencckmp/SegmentMapEntry.targetEnd|{}targetEnd[0]
+        final fun <get-targetEnd>(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.targetEnd.<get-targetEnd>|<get-targetEnd>(){}[0]
+    final val targetStart // io.github.opencckmp/SegmentMapEntry.targetStart|{}targetStart[0]
+        final fun <get-targetStart>(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.targetStart.<get-targetStart>|<get-targetStart>(){}[0]
+
+    final fun component1(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.component3|component3(){}[0]
+    final fun component4(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.component4|component4(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...): io.github.opencckmp/SegmentMapEntry // io.github.opencckmp/SegmentMapEntry.copy|copy(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp/SegmentMapEntry.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp/SegmentMapEntry.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/SegmentMapEntry.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/SegmentationProperties : kotlin.collections/AbstractMap<kotlin/String, kotlin/String> { // io.github.opencckmp/SegmentationProperties|null[0]
+    final val entries // io.github.opencckmp/SegmentationProperties.entries|{}entries[0]
+        final fun <get-entries>(): kotlin.collections/Set<kotlin.collections/Map.Entry<kotlin/String, kotlin/String>> // io.github.opencckmp/SegmentationProperties.entries.<get-entries>|<get-entries>(){}[0]
+    final val orderedPairs // io.github.opencckmp/SegmentationProperties.orderedPairs|{}orderedPairs[0]
+        final fun <get-orderedPairs>(): kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>> // io.github.opencckmp/SegmentationProperties.orderedPairs.<get-orderedPairs>|<get-orderedPairs>(){}[0]
+
+    final fun get(kotlin/String): kotlin/String? // io.github.opencckmp/SegmentationProperties.get|get(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp/Segments : kotlin.collections/Iterable<kotlin/String> { // io.github.opencckmp/Segments|null[0]
+    constructor <init>(kotlin.collections/List<kotlin/String>) // io.github.opencckmp/Segments.<init>|<init>(kotlin.collections.List<kotlin.String>){}[0]
+
+    final val size // io.github.opencckmp/Segments.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.opencckmp/Segments.size.<get-size>|<get-size>(){}[0]
+    final val values // io.github.opencckmp/Segments.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp/Segments.values.<get-values>|<get-values>(){}[0]
+
+    final fun get(kotlin/Int): kotlin/String // io.github.opencckmp/Segments.get|get(kotlin.Int){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin/String> // io.github.opencckmp/Segments.iterator|iterator(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp/Segments.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp/SerializedValues { // io.github.opencckmp/SerializedValues|null[0]
+    final val bytesRead // io.github.opencckmp/SerializedValues.bytesRead|{}bytesRead[0]
+        final fun <get-bytesRead>(): kotlin/Int // io.github.opencckmp/SerializedValues.bytesRead.<get-bytesRead>|<get-bytesRead>(){}[0]
+    final val size // io.github.opencckmp/SerializedValues.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.opencckmp/SerializedValues.size.<get-size>|<get-size>(){}[0]
+    final val values // io.github.opencckmp/SerializedValues.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/List<kotlin.collections/List<kotlin/String>> // io.github.opencckmp/SerializedValues.values.<get-values>|<get-values>(){}[0]
+
+    final fun get(kotlin/Int): kotlin.collections/List<kotlin/String> // io.github.opencckmp/SerializedValues.get|get(kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp/SerializedValues.Companion|null[0]
+        final fun fromBytes(kotlin/ByteArray, io.github.opencckmp/DictionaryByteOrder = ...): io.github.opencckmp/SerializedValues // io.github.opencckmp/SerializedValues.Companion.fromBytes|fromBytes(kotlin.ByteArray;io.github.opencckmp.DictionaryByteOrder){}[0]
+    }
+}
+
+final class io.github.opencckmp/ShouldNotBeHere : io.github.opencckmp/OpenCCException { // io.github.opencckmp/ShouldNotBeHere|null[0]
+    constructor <init>() // io.github.opencckmp/ShouldNotBeHere.<init>|<init>(){}[0]
+}
+
+final class io.github.opencckmp/SimpleConverter : io.github.opencckmp/Converter { // io.github.opencckmp/SimpleConverter|null[0]
+    constructor <init>(kotlin/String, io.github.opencckmp/ResourceProvider, io.github.opencckmp/ConfigLoadOptions = ..., kotlin.collections/List<io.github.opencckmp/DictionaryReader> = ..., io.github.opencckmp/DictionaryCache? = ..., kotlin/Any = ..., kotlin.collections/Map<kotlin/String, io.github.opencckmp/SegmentationFactory> = ...) // io.github.opencckmp/SimpleConverter.<init>|<init>(kotlin.String;io.github.opencckmp.ResourceProvider;io.github.opencckmp.ConfigLoadOptions;kotlin.collections.List<io.github.opencckmp.DictionaryReader>;io.github.opencckmp.DictionaryCache?;kotlin.Any;kotlin.collections.Map<kotlin.String,io.github.opencckmp.SegmentationFactory>){}[0]
+
+    final val conversionChain // io.github.opencckmp/SimpleConverter.conversionChain|{}conversionChain[0]
+        final fun <get-conversionChain>(): io.github.opencckmp/ConversionChain? // io.github.opencckmp/SimpleConverter.conversionChain.<get-conversionChain>|<get-conversionChain>(){}[0]
+    final val segmentation // io.github.opencckmp/SimpleConverter.segmentation|{}segmentation[0]
+        final fun <get-segmentation>(): io.github.opencckmp/Segmentation? // io.github.opencckmp/SimpleConverter.segmentation.<get-segmentation>|<get-segmentation>(){}[0]
+
+    final fun convert(kotlin/String): kotlin/String // io.github.opencckmp/SimpleConverter.convert|convert(kotlin.String){}[0]
+    final fun convert(kotlin/String, kotlin/Int, kotlin/Int): kotlin/String // io.github.opencckmp/SimpleConverter.convert|convert(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun convertPrefix(kotlin/String, kotlin/Int): kotlin/String // io.github.opencckmp/SimpleConverter.convertPrefix|convertPrefix(kotlin.String;kotlin.Int){}[0]
+    final fun convertTo(kotlin/String, kotlin.text/Appendable): kotlin/Int // io.github.opencckmp/SimpleConverter.convertTo|convertTo(kotlin.String;kotlin.text.Appendable){}[0]
+    final fun convertTo(kotlin/String, kotlin/CharArray, kotlin/Int): kotlin/Int // io.github.opencckmp/SimpleConverter.convertTo|convertTo(kotlin.String;kotlin.CharArray;kotlin.Int){}[0]
+    final fun convertUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): kotlin/ByteArray // io.github.opencckmp/SimpleConverter.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun convertUtf8Prefix(kotlin/ByteArray, kotlin/Int, io.github.opencckmp/EncodedInputMode): kotlin/ByteArray // io.github.opencckmp/SimpleConverter.convertUtf8Prefix|convertUtf8Prefix(kotlin.ByteArray;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun convertUtf8To(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): kotlin/Int // io.github.opencckmp/SimpleConverter.convertUtf8To|convertUtf8To(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun inspect(kotlin/String): io.github.opencckmp/ConversionInspectionResult // io.github.opencckmp/SimpleConverter.inspect|inspect(kotlin.String){}[0]
+    final fun inspectUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): io.github.opencckmp/EncodedInspectionResult // io.github.opencckmp/SimpleConverter.inspectUtf8|inspectUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+
+    final object Companion { // io.github.opencckmp/SimpleConverter.Companion|null[0]
+        final fun fromConfig(io.github.opencckmp/Converter): io.github.opencckmp/SimpleConverter // io.github.opencckmp/SimpleConverter.Companion.fromConfig|fromConfig(io.github.opencckmp.Converter){}[0]
+    }
+}
+
+final class io.github.opencckmp/SingleStageConverter : io.github.opencckmp/Converter { // io.github.opencckmp/SingleStageConverter|null[0]
+    constructor <init>(io.github.opencckmp/Segmentation?, io.github.opencckmp/ConversionChain) // io.github.opencckmp/SingleStageConverter.<init>|<init>(io.github.opencckmp.Segmentation?;io.github.opencckmp.ConversionChain){}[0]
+
+    final val conversionChain // io.github.opencckmp/SingleStageConverter.conversionChain|{}conversionChain[0]
+        final fun <get-conversionChain>(): io.github.opencckmp/ConversionChain // io.github.opencckmp/SingleStageConverter.conversionChain.<get-conversionChain>|<get-conversionChain>(){}[0]
+    final val segmentation // io.github.opencckmp/SingleStageConverter.segmentation|{}segmentation[0]
+        final fun <get-segmentation>(): io.github.opencckmp/Segmentation? // io.github.opencckmp/SingleStageConverter.segmentation.<get-segmentation>|<get-segmentation>(){}[0]
+
+    final fun convert(kotlin/String): kotlin/String // io.github.opencckmp/SingleStageConverter.convert|convert(kotlin.String){}[0]
+    final fun convertUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): kotlin/ByteArray // io.github.opencckmp/SingleStageConverter.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    final fun inspect(kotlin/String): io.github.opencckmp/ConversionInspectionResult // io.github.opencckmp/SingleStageConverter.inspect|inspect(kotlin.String){}[0]
+    final fun inspectUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): io.github.opencckmp/EncodedInspectionResult // io.github.opencckmp/SingleStageConverter.inspectUtf8|inspectUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+}
+
+final class io.github.opencckmp/TextDict : io.github.opencckmp/Dict { // io.github.opencckmp/TextDict|null[0]
+    constructor <init>(io.github.opencckmp/Lexicon) // io.github.opencckmp/TextDict.<init>|<init>(io.github.opencckmp.Lexicon){}[0]
+
+    final val keyMaxLength // io.github.opencckmp/TextDict.keyMaxLength|{}keyMaxLength[0]
+        final fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/TextDict.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    final val lexicon // io.github.opencckmp/TextDict.lexicon|{}lexicon[0]
+        final fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/TextDict.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+
+    final fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/TextDict.match|match(kotlin.String){}[0]
+    final fun matchAllPrefixes(kotlin/String, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/TextDict.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/TextDict.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefix(kotlin/String, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/TextDict.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/TextDict.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp/TextDict.Companion|null[0]
+        final fun fromBytes(kotlin/ByteArray): io.github.opencckmp/TextDict // io.github.opencckmp/TextDict.Companion.fromBytes|fromBytes(kotlin.ByteArray){}[0]
+        final fun fromDict(io.github.opencckmp/Dict): io.github.opencckmp/TextDict // io.github.opencckmp/TextDict.Companion.fromDict|fromDict(io.github.opencckmp.Dict){}[0]
+        final fun fromText(kotlin/String, kotlin/Char = ...): io.github.opencckmp/TextDict // io.github.opencckmp/TextDict.Companion.fromText|fromText(kotlin.String;kotlin.Char){}[0]
+    }
+}
+
+final class io.github.opencckmp/UnavailableSegmentationExtension : io.github.opencckmp/OpenCCException { // io.github.opencckmp/UnavailableSegmentationExtension|null[0]
+    constructor <init>(kotlin/String) // io.github.opencckmp/UnavailableSegmentationExtension.<init>|<init>(kotlin.String){}[0]
+
+    final val type // io.github.opencckmp/UnavailableSegmentationExtension.type|{}type[0]
+        final fun <get-type>(): kotlin/String // io.github.opencckmp/UnavailableSegmentationExtension.type.<get-type>|<get-type>(){}[0]
+}
+
+final class io.github.opencckmp/UnionDictGroup : io.github.opencckmp/DictGroup { // io.github.opencckmp/UnionDictGroup|null[0]
+    constructor <init>(kotlin.collections/List<io.github.opencckmp/Dict>) // io.github.opencckmp/UnionDictGroup.<init>|<init>(kotlin.collections.List<io.github.opencckmp.Dict>){}[0]
+}
+
+final class io.github.opencckmp/Utf8AmbiguityStream { // io.github.opencckmp/Utf8AmbiguityStream|null[0]
+    constructor <init>(io.github.opencckmp/Converter, kotlin/Int = ...) // io.github.opencckmp/Utf8AmbiguityStream.<init>|<init>(io.github.opencckmp.Converter;kotlin.Int){}[0]
+
+    final val converter // io.github.opencckmp/Utf8AmbiguityStream.converter|{}converter[0]
+        final fun <get-converter>(): io.github.opencckmp/Converter // io.github.opencckmp/Utf8AmbiguityStream.converter.<get-converter>|<get-converter>(){}[0]
+    final val maxKeepChars // io.github.opencckmp/Utf8AmbiguityStream.maxKeepChars|{}maxKeepChars[0]
+        final fun <get-maxKeepChars>(): kotlin/Int // io.github.opencckmp/Utf8AmbiguityStream.maxKeepChars.<get-maxKeepChars>|<get-maxKeepChars>(){}[0]
+    final val sourceCount // io.github.opencckmp/Utf8AmbiguityStream.sourceCount|{}sourceCount[0]
+        final fun <get-sourceCount>(): kotlin/Int // io.github.opencckmp/Utf8AmbiguityStream.sourceCount.<get-sourceCount>|<get-sourceCount>(){}[0]
+
+    final fun convertChunk(kotlin/ByteArray): io.github.opencckmp/Utf8AmbiguityStream.Chunk // io.github.opencckmp/Utf8AmbiguityStream.convertChunk|convertChunk(kotlin.ByteArray){}[0]
+    final fun finish(kotlin/ByteArray = ...): io.github.opencckmp/Utf8AmbiguityStream.Chunk // io.github.opencckmp/Utf8AmbiguityStream.finish|finish(kotlin.ByteArray){}[0]
+
+    final class Chunk { // io.github.opencckmp/Utf8AmbiguityStream.Chunk|null[0]
+        constructor <init>(kotlin/ByteArray = ..., kotlin.collections/List<io.github.opencckmp/EncodedAmbiguousSpan> = ..., kotlin.collections/List<kotlin/ByteArray> = ..., kotlin/Boolean = ...) // io.github.opencckmp/Utf8AmbiguityStream.Chunk.<init>|<init>(kotlin.ByteArray;kotlin.collections.List<io.github.opencckmp.EncodedAmbiguousSpan>;kotlin.collections.List<kotlin.ByteArray>;kotlin.Boolean){}[0]
+
+        final val ambiguities // io.github.opencckmp/Utf8AmbiguityStream.Chunk.ambiguities|{}ambiguities[0]
+            final fun <get-ambiguities>(): kotlin.collections/List<io.github.opencckmp/EncodedAmbiguousSpan> // io.github.opencckmp/Utf8AmbiguityStream.Chunk.ambiguities.<get-ambiguities>|<get-ambiguities>(){}[0]
+        final val analyzed // io.github.opencckmp/Utf8AmbiguityStream.Chunk.analyzed|{}analyzed[0]
+            final fun <get-analyzed>(): kotlin/Boolean // io.github.opencckmp/Utf8AmbiguityStream.Chunk.analyzed.<get-analyzed>|<get-analyzed>(){}[0]
+        final val newSources // io.github.opencckmp/Utf8AmbiguityStream.Chunk.newSources|{}newSources[0]
+            final fun <get-newSources>(): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/Utf8AmbiguityStream.Chunk.newSources.<get-newSources>|<get-newSources>(){}[0]
+        final val output // io.github.opencckmp/Utf8AmbiguityStream.Chunk.output|{}output[0]
+            final fun <get-output>(): kotlin/ByteArray // io.github.opencckmp/Utf8AmbiguityStream.Chunk.output.<get-output>|<get-output>(){}[0]
+    }
+}
+
+final class io.github.opencckmp/Utf8ConverterStream { // io.github.opencckmp/Utf8ConverterStream|null[0]
+    constructor <init>(io.github.opencckmp/Converter, kotlin/Int = ...) // io.github.opencckmp/Utf8ConverterStream.<init>|<init>(io.github.opencckmp.Converter;kotlin.Int){}[0]
+
+    final val converter // io.github.opencckmp/Utf8ConverterStream.converter|{}converter[0]
+        final fun <get-converter>(): io.github.opencckmp/Converter // io.github.opencckmp/Utf8ConverterStream.converter.<get-converter>|<get-converter>(){}[0]
+    final val maxKeepChars // io.github.opencckmp/Utf8ConverterStream.maxKeepChars|{}maxKeepChars[0]
+        final fun <get-maxKeepChars>(): kotlin/Int // io.github.opencckmp/Utf8ConverterStream.maxKeepChars.<get-maxKeepChars>|<get-maxKeepChars>(){}[0]
+
+    final fun convertChunk(kotlin/ByteArray): kotlin/ByteArray // io.github.opencckmp/Utf8ConverterStream.convertChunk|convertChunk(kotlin.ByteArray){}[0]
+    final fun finish(kotlin/ByteArray = ...): kotlin/ByteArray // io.github.opencckmp/Utf8ConverterStream.finish|finish(kotlin.ByteArray){}[0]
+}
+
+open class io.github.opencckmp/DictGroup : io.github.opencckmp/Dict { // io.github.opencckmp/DictGroup|null[0]
+    constructor <init>(kotlin.collections/List<io.github.opencckmp/Dict>, io.github.opencckmp/DictGroupMatchPolicy = ...) // io.github.opencckmp/DictGroup.<init>|<init>(kotlin.collections.List<io.github.opencckmp.Dict>;io.github.opencckmp.DictGroupMatchPolicy){}[0]
+
+    open val groupItems // io.github.opencckmp/DictGroup.groupItems|{}groupItems[0]
+        open fun <get-groupItems>(): kotlin.collections/List<io.github.opencckmp/Dict> // io.github.opencckmp/DictGroup.groupItems.<get-groupItems>|<get-groupItems>(){}[0]
+    open val keyMaxLength // io.github.opencckmp/DictGroup.keyMaxLength|{}keyMaxLength[0]
+        open fun <get-keyMaxLength>(): kotlin/Int // io.github.opencckmp/DictGroup.keyMaxLength.<get-keyMaxLength>|<get-keyMaxLength>(){}[0]
+    open val lexicon // io.github.opencckmp/DictGroup.lexicon|{}lexicon[0]
+        open fun <get-lexicon>(): io.github.opencckmp/Lexicon // io.github.opencckmp/DictGroup.lexicon.<get-lexicon>|<get-lexicon>(){}[0]
+    open val matchPolicy // io.github.opencckmp/DictGroup.matchPolicy|{}matchPolicy[0]
+        open fun <get-matchPolicy>(): io.github.opencckmp/DictGroupMatchPolicy // io.github.opencckmp/DictGroup.matchPolicy.<get-matchPolicy>|<get-matchPolicy>(){}[0]
+
+    open fun match(kotlin/String): io.github.opencckmp/DictEntry? // io.github.opencckmp/DictGroup.match|match(kotlin.String){}[0]
+    open fun matchAllPrefixes(kotlin/String, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/DictGroup.matchAllPrefixes|matchAllPrefixes(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    open fun matchAllPrefixesUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<io.github.opencckmp/DictEntry> // io.github.opencckmp/DictGroup.matchAllPrefixesUtf8|matchAllPrefixesUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun matchPrefix(kotlin/String, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/DictGroup.matchPrefix|matchPrefix(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    open fun matchPrefixUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): io.github.opencckmp/DictEntry? // io.github.opencckmp/DictGroup.matchPrefixUtf8|matchPrefixUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+open class io.github.opencckmp/InvalidFormat : io.github.opencckmp/OpenCCException { // io.github.opencckmp/InvalidFormat|null[0]
+    constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.opencckmp/InvalidFormat.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+}
+
+open class io.github.opencckmp/OpenCCException : kotlin/Exception { // io.github.opencckmp/OpenCCException|null[0]
+    constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.opencckmp/OpenCCException.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+}
+
+open class io.github.opencckmp/PipelineConverter : io.github.opencckmp/Converter { // io.github.opencckmp/PipelineConverter|null[0]
+    constructor <init>(kotlin.collections/List<io.github.opencckmp/Converter>) // io.github.opencckmp/PipelineConverter.<init>|<init>(kotlin.collections.List<io.github.opencckmp.Converter>){}[0]
+
+    final val children // io.github.opencckmp/PipelineConverter.children|{}children[0]
+        final fun <get-children>(): kotlin.collections/List<io.github.opencckmp/Converter> // io.github.opencckmp/PipelineConverter.children.<get-children>|<get-children>(){}[0]
+    open val segmentation // io.github.opencckmp/PipelineConverter.segmentation|{}segmentation[0]
+        open fun <get-segmentation>(): io.github.opencckmp/Segmentation? // io.github.opencckmp/PipelineConverter.segmentation.<get-segmentation>|<get-segmentation>(){}[0]
+
+    open fun convert(kotlin/String): kotlin/String // io.github.opencckmp/PipelineConverter.convert|convert(kotlin.String){}[0]
+    open fun convertUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): kotlin/ByteArray // io.github.opencckmp/PipelineConverter.convertUtf8|convertUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+    open fun inspect(kotlin/String): io.github.opencckmp/ConversionInspectionResult // io.github.opencckmp/PipelineConverter.inspect|inspect(kotlin.String){}[0]
+    open fun inspectUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): io.github.opencckmp/EncodedInspectionResult // io.github.opencckmp/PipelineConverter.inspectUtf8|inspectUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+}
+
+final object io.github.opencckmp/DartsDictionaryReader : io.github.opencckmp/DictionaryReader { // io.github.opencckmp/DartsDictionaryReader|null[0]
+    final val type // io.github.opencckmp/DartsDictionaryReader.type|{}type[0]
+        final fun <get-type>(): kotlin/String // io.github.opencckmp/DartsDictionaryReader.type.<get-type>|<get-type>(){}[0]
+
+    final fun read(kotlin/ByteArray): io.github.opencckmp/Dict // io.github.opencckmp/DartsDictionaryReader.read|read(kotlin.ByteArray){}[0]
+}
+
+final object io.github.opencckmp/MarisaDictionaryReader : io.github.opencckmp/DictionaryReader { // io.github.opencckmp/MarisaDictionaryReader|null[0]
+    final val type // io.github.opencckmp/MarisaDictionaryReader.type|{}type[0]
+        final fun <get-type>(): kotlin/String // io.github.opencckmp/MarisaDictionaryReader.type.<get-type>|<get-type>(){}[0]
+
+    final fun read(kotlin/ByteArray): io.github.opencckmp/Dict // io.github.opencckmp/MarisaDictionaryReader.read|read(kotlin.ByteArray){}[0]
+}
+
+final object io.github.opencckmp/TextDictionaryReader : io.github.opencckmp/DictionaryReader { // io.github.opencckmp/TextDictionaryReader|null[0]
+    final val type // io.github.opencckmp/TextDictionaryReader.type|{}type[0]
+        final fun <get-type>(): kotlin/String // io.github.opencckmp/TextDictionaryReader.type.<get-type>|<get-type>(){}[0]
+
+    final fun read(kotlin/ByteArray): io.github.opencckmp/Dict // io.github.opencckmp/TextDictionaryReader.read|read(kotlin.ByteArray){}[0]
+}
+
+final object io.github.opencckmp/UTF8Util { // io.github.opencckmp/UTF8Util|null[0]
+    final fun byteLength(kotlin/String): kotlin/Int // io.github.opencckmp/UTF8Util.byteLength|byteLength(kotlin.String){}[0]
+    final fun codePoint(kotlin/String, kotlin/Int): kotlin/Int // io.github.opencckmp/UTF8Util.codePoint|codePoint(kotlin.String;kotlin.Int){}[0]
+    final fun compare(kotlin/String, kotlin/String): kotlin/Int // io.github.opencckmp/UTF8Util.compare|compare(kotlin.String;kotlin.String){}[0]
+    final fun decode(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/String // io.github.opencckmp/UTF8Util.decode|decode(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encode(kotlin/String): kotlin/ByteArray // io.github.opencckmp/UTF8Util.encode|encode(kotlin.String){}[0]
+    final fun length(kotlin/String): kotlin/Int // io.github.opencckmp/UTF8Util.length|length(kotlin.String){}[0]
+    final fun nextIndex(kotlin/String, kotlin/Int): kotlin/Int // io.github.opencckmp/UTF8Util.nextIndex|nextIndex(kotlin.String;kotlin.Int){}[0]
+    final fun validate(kotlin/String) // io.github.opencckmp/UTF8Util.validate|validate(kotlin.String){}[0]
+}
+
+final val io.github.opencckmp/standardDictionaryReaders // io.github.opencckmp/standardDictionaryReaders|{}standardDictionaryReaders[0]
+    final fun <get-standardDictionaryReaders>(): kotlin.collections/List<io.github.opencckmp/DictionaryReader> // io.github.opencckmp/standardDictionaryReaders.<get-standardDictionaryReaders>|<get-standardDictionaryReaders>(){}[0]
+
+final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithAmbiguities(kotlin/String): io.github.opencckmp/AnnotatedConversion // io.github.opencckmp/convertWithAmbiguities|convertWithAmbiguities@io.github.opencckmp.Converter(kotlin.String){}[0]
+final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithAmbiguitiesUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): io.github.opencckmp/EncodedAnnotatedConversion // io.github.opencckmp/convertWithAmbiguitiesUtf8|convertWithAmbiguitiesUtf8@io.github.opencckmp.Converter(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithMap(kotlin/String): io.github.opencckmp/MappedConversion // io.github.opencckmp/convertWithMap|convertWithMap@io.github.opencckmp.Converter(kotlin.String){}[0]
+final fun (io.github.opencckmp/Converter).io.github.opencckmp/getAllConversions(kotlin/String): kotlin.collections/List<kotlin/String> // io.github.opencckmp/getAllConversions|getAllConversions@io.github.opencckmp.Converter(kotlin.String){}[0]
+final fun io.github.opencckmp/resolveResource(kotlin/String, kotlin/String): kotlin/String // io.github.opencckmp/resolveResource|resolveResource(kotlin.String;kotlin.String){}[0]
+final suspend fun io.github.opencckmp/prepareConfig(kotlin/String, io.github.opencckmp/AsyncResourceProvider, io.github.opencckmp/ConfigLoadOptions = ..., kotlin.collections/List<io.github.opencckmp/DictionaryReader> = ..., kotlin.collections/Map<kotlin/String, io.github.opencckmp/SegmentationFactory> = ..., io.github.opencckmp/DictionaryCache? = ..., kotlin/Any = ..., kotlin/Function1<io.github.opencckmp/ConfigWarning, kotlin/Unit>? = ...): io.github.opencckmp/Converter // io.github.opencckmp/prepareConfig|prepareConfig(kotlin.String;io.github.opencckmp.AsyncResourceProvider;io.github.opencckmp.ConfigLoadOptions;kotlin.collections.List<io.github.opencckmp.DictionaryReader>;kotlin.collections.Map<kotlin.String,io.github.opencckmp.SegmentationFactory>;io.github.opencckmp.DictionaryCache?;kotlin.Any;kotlin.Function1<io.github.opencckmp.ConfigWarning,kotlin.Unit>?){}[0]

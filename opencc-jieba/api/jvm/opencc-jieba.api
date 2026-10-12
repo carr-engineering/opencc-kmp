@@ -1,0 +1,20 @@
+public final class io/github/opencckmp/jieba/JiebaSegmentation : io/github/opencckmp/Segmentation {
+	public static final field Companion Lio/github/opencckmp/jieba/JiebaSegmentation$Companion;
+	public fun <init> (Lio/github/opencckmp/Dict;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Lio/github/opencckmp/Dict;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun segment (Ljava/lang/String;)Lio/github/opencckmp/Segments;
+	public fun segmentUtf8 ([BII)Ljava/util/List;
+}
+
+public final class io/github/opencckmp/jieba/JiebaSegmentation$Companion {
+	public final fun fromText (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lio/github/opencckmp/jieba/JiebaSegmentation;
+	public static synthetic fun fromText$default (Lio/github/opencckmp/jieba/JiebaSegmentation$Companion;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lio/github/opencckmp/jieba/JiebaSegmentation;
+}
+
+public final class io/github/opencckmp/jieba/JiebaSegmentationFactory : io/github/opencckmp/SegmentationFactory {
+	public fun <init> ()V
+	public fun create (Lio/github/opencckmp/SegmentationProperties;Lio/github/opencckmp/ResourceProvider;)Lio/github/opencckmp/Segmentation;
+	public fun prepareResources (Lio/github/opencckmp/SegmentationProperties;Lio/github/opencckmp/AsyncResourceProvider;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun resourcesToPrepare (Lio/github/opencckmp/SegmentationProperties;Ljava/util/List;)Ljava/util/List;
+}
+

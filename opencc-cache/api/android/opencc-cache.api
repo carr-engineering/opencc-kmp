@@ -1,0 +1,49 @@
+public final class io/github/opencckmp/DictionaryCacheKt {
+	public static final fun DictionaryCache (I)Lio/github/opencckmp/DictionaryCache;
+	public static synthetic fun DictionaryCache$default (IILjava/lang/Object;)Lio/github/opencckmp/DictionaryCache;
+}
+
+public final class io/github/opencckmp/LruDictionaryCache : io/github/opencckmp/DictionaryCache {
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun clear ()V
+	public fun close ()V
+	public fun getCapacity ()I
+	public fun getSize ()I
+	public fun load (Ljava/lang/Object;Ljava/lang/String;[BLio/github/opencckmp/DictionaryReader;)Lio/github/opencckmp/Dict;
+}
+
+public final class io/github/opencckmp/ResourceDigest {
+	public static final field INSTANCE Lio/github/opencckmp/ResourceDigest;
+	public final fun sha256 ([B)Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/ResourceIntegrity {
+	public fun <init> (JLjava/lang/String;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (JLjava/lang/String;)Lio/github/opencckmp/ResourceIntegrity;
+	public static synthetic fun copy$default (Lio/github/opencckmp/ResourceIntegrity;JLjava/lang/String;ILjava/lang/Object;)Lio/github/opencckmp/ResourceIntegrity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSha256 ()Ljava/lang/String;
+	public final fun getSize ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/ResourceVerificationFailed : io/github/opencckmp/OpenCCException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getResourceName ()Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/VerifiedAsyncResourceProvider : io/github/opencckmp/AsyncResourceProvider {
+	public fun <init> (Lio/github/opencckmp/AsyncResourceProvider;Ljava/util/Map;)V
+	public fun read (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class io/github/opencckmp/VerifiedResourceProvider : io/github/opencckmp/ResourceProvider {
+	public fun <init> (Lio/github/opencckmp/ResourceProvider;Ljava/util/Map;)V
+	public fun read (Ljava/lang/String;)[B
+}
+

@@ -1,0 +1,88 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-phrase-extract>
+final class io.github.opencckmp.phrase/PhraseExtract { // io.github.opencckmp.phrase/PhraseExtract|null[0]
+    constructor <init>() // io.github.opencckmp.phrase/PhraseExtract.<init>|<init>(){}[0]
+
+    final val extractedPrefixes // io.github.opencckmp.phrase/PhraseExtract.extractedPrefixes|{}extractedPrefixes[0]
+        final fun <get-extractedPrefixes>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp.phrase/PhraseExtract.extractedPrefixes.<get-extractedPrefixes>|<get-extractedPrefixes>(){}[0]
+    final val extractedSuffixes // io.github.opencckmp.phrase/PhraseExtract.extractedSuffixes|{}extractedSuffixes[0]
+        final fun <get-extractedSuffixes>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp.phrase/PhraseExtract.extractedSuffixes.<get-extractedSuffixes>|<get-extractedSuffixes>(){}[0]
+    final val wordCandidates // io.github.opencckmp.phrase/PhraseExtract.wordCandidates|{}wordCandidates[0]
+        final fun <get-wordCandidates>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp.phrase/PhraseExtract.wordCandidates.<get-wordCandidates>|<get-wordCandidates>(){}[0]
+    final val words // io.github.opencckmp.phrase/PhraseExtract.words|{}words[0]
+        final fun <get-words>(): kotlin.collections/List<kotlin/String> // io.github.opencckmp.phrase/PhraseExtract.words.<get-words>|<get-words>(){}[0]
+
+    final var postCalculationFilter // io.github.opencckmp.phrase/PhraseExtract.postCalculationFilter|{}postCalculationFilter[0]
+        final fun <get-postCalculationFilter>(): kotlin/Function2<io.github.opencckmp.phrase/PhraseExtract, kotlin/String, kotlin/Boolean> // io.github.opencckmp.phrase/PhraseExtract.postCalculationFilter.<get-postCalculationFilter>|<get-postCalculationFilter>(){}[0]
+        final fun <set-postCalculationFilter>(kotlin/Function2<io.github.opencckmp.phrase/PhraseExtract, kotlin/String, kotlin/Boolean>) // io.github.opencckmp.phrase/PhraseExtract.postCalculationFilter.<set-postCalculationFilter>|<set-postCalculationFilter>(kotlin.Function2<io.github.opencckmp.phrase.PhraseExtract,kotlin.String,kotlin.Boolean>){}[0]
+    final var preCalculationFilter // io.github.opencckmp.phrase/PhraseExtract.preCalculationFilter|{}preCalculationFilter[0]
+        final fun <get-preCalculationFilter>(): kotlin/Function2<io.github.opencckmp.phrase/PhraseExtract, kotlin/String, kotlin/Boolean> // io.github.opencckmp.phrase/PhraseExtract.preCalculationFilter.<get-preCalculationFilter>|<get-preCalculationFilter>(){}[0]
+        final fun <set-preCalculationFilter>(kotlin/Function2<io.github.opencckmp.phrase/PhraseExtract, kotlin/String, kotlin/Boolean>) // io.github.opencckmp.phrase/PhraseExtract.preCalculationFilter.<set-preCalculationFilter>|<set-preCalculationFilter>(kotlin.Function2<io.github.opencckmp.phrase.PhraseExtract,kotlin.String,kotlin.Boolean>){}[0]
+    final var prefixSetLength // io.github.opencckmp.phrase/PhraseExtract.prefixSetLength|{}prefixSetLength[0]
+        final fun <get-prefixSetLength>(): kotlin/Int // io.github.opencckmp.phrase/PhraseExtract.prefixSetLength.<get-prefixSetLength>|<get-prefixSetLength>(){}[0]
+        final fun <set-prefixSetLength>(kotlin/Int) // io.github.opencckmp.phrase/PhraseExtract.prefixSetLength.<set-prefixSetLength>|<set-prefixSetLength>(kotlin.Int){}[0]
+    final var suffixSetLength // io.github.opencckmp.phrase/PhraseExtract.suffixSetLength|{}suffixSetLength[0]
+        final fun <get-suffixSetLength>(): kotlin/Int // io.github.opencckmp.phrase/PhraseExtract.suffixSetLength.<get-suffixSetLength>|<get-suffixSetLength>(){}[0]
+        final fun <set-suffixSetLength>(kotlin/Int) // io.github.opencckmp.phrase/PhraseExtract.suffixSetLength.<set-suffixSetLength>|<set-suffixSetLength>(kotlin.Int){}[0]
+    final var wordMaxLength // io.github.opencckmp.phrase/PhraseExtract.wordMaxLength|{}wordMaxLength[0]
+        final fun <get-wordMaxLength>(): kotlin/Int // io.github.opencckmp.phrase/PhraseExtract.wordMaxLength.<get-wordMaxLength>|<get-wordMaxLength>(){}[0]
+        final fun <set-wordMaxLength>(kotlin/Int) // io.github.opencckmp.phrase/PhraseExtract.wordMaxLength.<set-wordMaxLength>|<set-wordMaxLength>(kotlin.Int){}[0]
+    final var wordMinLength // io.github.opencckmp.phrase/PhraseExtract.wordMinLength|{}wordMinLength[0]
+        final fun <get-wordMinLength>(): kotlin/Int // io.github.opencckmp.phrase/PhraseExtract.wordMinLength.<get-wordMinLength>|<get-wordMinLength>(){}[0]
+        final fun <set-wordMinLength>(kotlin/Int) // io.github.opencckmp.phrase/PhraseExtract.wordMinLength.<set-wordMinLength>|<set-wordMinLength>(kotlin.Int){}[0]
+
+    final fun calculateCohesions() // io.github.opencckmp.phrase/PhraseExtract.calculateCohesions|calculateCohesions(){}[0]
+    final fun calculateFrequency() // io.github.opencckmp.phrase/PhraseExtract.calculateFrequency|calculateFrequency(){}[0]
+    final fun calculatePrefixEntropy() // io.github.opencckmp.phrase/PhraseExtract.calculatePrefixEntropy|calculatePrefixEntropy(){}[0]
+    final fun calculateSuffixEntropy() // io.github.opencckmp.phrase/PhraseExtract.calculateSuffixEntropy|calculateSuffixEntropy(){}[0]
+    final fun cohesion(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.cohesion|cohesion(kotlin.String){}[0]
+    final fun entropy(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.entropy|entropy(kotlin.String){}[0]
+    final fun extract(kotlin/String) // io.github.opencckmp.phrase/PhraseExtract.extract|extract(kotlin.String){}[0]
+    final fun extractPrefixes() // io.github.opencckmp.phrase/PhraseExtract.extractPrefixes|extractPrefixes(){}[0]
+    final fun extractSuffixes() // io.github.opencckmp.phrase/PhraseExtract.extractSuffixes|extractSuffixes(){}[0]
+    final fun extractWordCandidates() // io.github.opencckmp.phrase/PhraseExtract.extractWordCandidates|extractWordCandidates(){}[0]
+    final fun frequency(kotlin/String): kotlin/Long // io.github.opencckmp.phrase/PhraseExtract.frequency|frequency(kotlin.String){}[0]
+    final fun logProbability(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.logProbability|logProbability(kotlin.String){}[0]
+    final fun prefixEntropy(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.prefixEntropy|prefixEntropy(kotlin.String){}[0]
+    final fun probability(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.probability|probability(kotlin.String){}[0]
+    final fun releasePrefixes() // io.github.opencckmp.phrase/PhraseExtract.releasePrefixes|releasePrefixes(){}[0]
+    final fun releaseSuffixes() // io.github.opencckmp.phrase/PhraseExtract.releaseSuffixes|releaseSuffixes(){}[0]
+    final fun reset() // io.github.opencckmp.phrase/PhraseExtract.reset|reset(){}[0]
+    final fun selectWords() // io.github.opencckmp.phrase/PhraseExtract.selectWords|selectWords(){}[0]
+    final fun setFullText(kotlin/String) // io.github.opencckmp.phrase/PhraseExtract.setFullText|setFullText(kotlin.String){}[0]
+    final fun signal(kotlin/String): io.github.opencckmp.phrase/PhraseExtract.Signals // io.github.opencckmp.phrase/PhraseExtract.signal|signal(kotlin.String){}[0]
+    final fun suffixEntropy(kotlin/String): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.suffixEntropy|suffixEntropy(kotlin.String){}[0]
+
+    final class Signals { // io.github.opencckmp.phrase/PhraseExtract.Signals|null[0]
+        constructor <init>(kotlin/Long, kotlin/Double, kotlin/Double, kotlin/Double) // io.github.opencckmp.phrase/PhraseExtract.Signals.<init>|<init>(kotlin.Long;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+        final val cohesion // io.github.opencckmp.phrase/PhraseExtract.Signals.cohesion|{}cohesion[0]
+            final fun <get-cohesion>(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.cohesion.<get-cohesion>|<get-cohesion>(){}[0]
+        final val frequency // io.github.opencckmp.phrase/PhraseExtract.Signals.frequency|{}frequency[0]
+            final fun <get-frequency>(): kotlin/Long // io.github.opencckmp.phrase/PhraseExtract.Signals.frequency.<get-frequency>|<get-frequency>(){}[0]
+        final val prefixEntropy // io.github.opencckmp.phrase/PhraseExtract.Signals.prefixEntropy|{}prefixEntropy[0]
+            final fun <get-prefixEntropy>(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.prefixEntropy.<get-prefixEntropy>|<get-prefixEntropy>(){}[0]
+        final val suffixEntropy // io.github.opencckmp.phrase/PhraseExtract.Signals.suffixEntropy|{}suffixEntropy[0]
+            final fun <get-suffixEntropy>(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.suffixEntropy.<get-suffixEntropy>|<get-suffixEntropy>(){}[0]
+
+        final fun component1(): kotlin/Long // io.github.opencckmp.phrase/PhraseExtract.Signals.component1|component1(){}[0]
+        final fun component2(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.component2|component2(){}[0]
+        final fun component3(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.component3|component3(){}[0]
+        final fun component4(): kotlin/Double // io.github.opencckmp.phrase/PhraseExtract.Signals.component4|component4(){}[0]
+        final fun copy(kotlin/Long = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ...): io.github.opencckmp.phrase/PhraseExtract.Signals // io.github.opencckmp.phrase/PhraseExtract.Signals.copy|copy(kotlin.Long;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp.phrase/PhraseExtract.Signals.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.opencckmp.phrase/PhraseExtract.Signals.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.opencckmp.phrase/PhraseExtract.Signals.toString|toString(){}[0]
+    }
+
+    final object Companion { // io.github.opencckmp.phrase/PhraseExtract.Companion|null[0]
+        final fun defaultPostCalculationFilter(io.github.opencckmp.phrase/PhraseExtract, kotlin/String): kotlin/Boolean // io.github.opencckmp.phrase/PhraseExtract.Companion.defaultPostCalculationFilter|defaultPostCalculationFilter(io.github.opencckmp.phrase.PhraseExtract;kotlin.String){}[0]
+        final fun defaultPreCalculationFilter(io.github.opencckmp.phrase/PhraseExtract, kotlin/String): kotlin/Boolean // io.github.opencckmp.phrase/PhraseExtract.Companion.defaultPreCalculationFilter|defaultPreCalculationFilter(io.github.opencckmp.phrase.PhraseExtract;kotlin.String){}[0]
+    }
+}

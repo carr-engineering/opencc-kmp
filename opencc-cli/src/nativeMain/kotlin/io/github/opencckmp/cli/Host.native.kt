@@ -6,6 +6,7 @@ import kotlinx.cinterop.*
 import platform.posix.*
 
 internal actual fun platformHost(): CliHost = NativeCliHost()
+internal actual fun exitCli(status: Int): Nothing = kotlin.system.exitProcess(status)
 internal actual fun platformArguments(arguments: Array<String>): List<String> = argumentsNative(arguments)
 internal expect fun openNative(path: String, mode: String): CPointer<FILE>?
 internal expect fun interactiveNative(): Boolean

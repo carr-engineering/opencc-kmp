@@ -1,0 +1,93 @@
+public abstract interface class io/github/opencckmp/cli/CliHost {
+	public abstract fun environment (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun formatNumber (D)Ljava/lang/String;
+	public abstract fun getBundledResources ()Lio/github/opencckmp/ResourceProvider;
+	public abstract fun getError ()Lio/github/opencckmp/cli/CliOutput;
+	public fun getExecutablePath ()Ljava/lang/String;
+	public abstract fun getInput ()Lio/github/opencckmp/cli/CliInput;
+	public abstract fun getInteractive ()Z
+	public abstract fun getOutput ()Lio/github/opencckmp/cli/CliOutput;
+	public abstract fun getWindows ()Z
+	public abstract fun multipleLinks (Ljava/lang/String;)Z
+	public abstract fun openInput (Ljava/lang/String;)Lio/github/opencckmp/cli/CliInput;
+	public abstract fun openOutput (Ljava/lang/String;)Lio/github/opencckmp/cli/CliOutput;
+	public abstract fun preserveMetadata (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun realPath (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun remove (Ljava/lang/String;)V
+	public abstract fun replace (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun sameFile (Ljava/lang/String;Ljava/lang/String;)Z
+	public abstract fun temporaryNear (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/cli/CliHost$DefaultImpls {
+	public static fun getExecutablePath (Lio/github/opencckmp/cli/CliHost;)Ljava/lang/String;
+}
+
+public abstract interface class io/github/opencckmp/cli/CliInput : java/lang/AutoCloseable {
+	public abstract fun read ([BII)I
+	public static synthetic fun read$default (Lio/github/opencckmp/cli/CliInput;[BIIILjava/lang/Object;)I
+}
+
+public final class io/github/opencckmp/cli/CliInput$DefaultImpls {
+	public static synthetic fun read$default (Lio/github/opencckmp/cli/CliInput;[BIIILjava/lang/Object;)I
+}
+
+public abstract interface class io/github/opencckmp/cli/CliOutput : java/lang/AutoCloseable {
+	public abstract fun flush ()V
+	public abstract fun write ([B)V
+}
+
+public final class io/github/opencckmp/cli/CliTool : java/lang/Enum {
+	public static final field Convert Lio/github/opencckmp/cli/CliTool;
+	public static final field Dictionary Lio/github/opencckmp/cli/CliTool;
+	public static final field Phrase Lio/github/opencckmp/cli/CliTool;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getProgram ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/opencckmp/cli/CliTool;
+	public static fun values ()[Lio/github/opencckmp/cli/CliTool;
+}
+
+public final class io/github/opencckmp/cli/DictionaryCommand {
+	public static final field INSTANCE Lio/github/opencckmp/cli/DictionaryCommand;
+	public static final fun main ([Ljava/lang/String;)V
+}
+
+public final class io/github/opencckmp/cli/JvmCliHost : io/github/opencckmp/cli/CliHost {
+	public fun <init> ()V
+	public fun environment (Ljava/lang/String;)Ljava/lang/String;
+	public fun formatNumber (D)Ljava/lang/String;
+	public fun getBundledResources ()Lio/github/opencckmp/ResourceProvider;
+	public fun getError ()Lio/github/opencckmp/cli/CliOutput;
+	public fun getExecutablePath ()Ljava/lang/String;
+	public fun getInput ()Lio/github/opencckmp/cli/CliInput;
+	public fun getInteractive ()Z
+	public fun getOutput ()Lio/github/opencckmp/cli/CliOutput;
+	public fun getWindows ()Z
+	public fun multipleLinks (Ljava/lang/String;)Z
+	public fun openInput (Ljava/lang/String;)Lio/github/opencckmp/cli/CliInput;
+	public fun openOutput (Ljava/lang/String;)Lio/github/opencckmp/cli/CliOutput;
+	public fun preserveMetadata (Ljava/lang/String;Ljava/lang/String;)V
+	public fun realPath (Ljava/lang/String;)Ljava/lang/String;
+	public fun remove (Ljava/lang/String;)V
+	public fun replace (Ljava/lang/String;Ljava/lang/String;)V
+	public fun sameFile (Ljava/lang/String;Ljava/lang/String;)Z
+	public fun temporaryNear (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/cli/MainKt {
+	public static final fun dictionaryMain ([Ljava/lang/String;)V
+	public static final fun main ([Ljava/lang/String;)V
+	public static final fun phraseMain ([Ljava/lang/String;)V
+}
+
+public final class io/github/opencckmp/cli/PhraseCommand {
+	public static final field INSTANCE Lio/github/opencckmp/cli/PhraseCommand;
+	public static final fun main ([Ljava/lang/String;)V
+}
+
+public final class io/github/opencckmp/cli/RunnerKt {
+	public static final fun runCli (Lio/github/opencckmp/cli/CliTool;Ljava/util/List;Lio/github/opencckmp/cli/CliHost;Ljava/lang/String;)I
+	public static synthetic fun runCli$default (Lio/github/opencckmp/cli/CliTool;Ljava/util/List;Lio/github/opencckmp/cli/CliHost;Ljava/lang/String;ILjava/lang/Object;)I
+}
+

@@ -8,6 +8,7 @@ import java.nio.file.attribute.PosixFileAttributes
 import java.util.Locale
 
 internal actual fun platformHost(): CliHost = JvmCliHost()
+internal actual fun exitCli(status: Int): Nothing = kotlin.system.exitProcess(status)
 internal actual fun platformArguments(arguments: Array<String>): List<String> = arguments.toList()
 class JvmCliHost : CliHost {
     override val input: CliInput = Input(System.`in`, "stdin", false)

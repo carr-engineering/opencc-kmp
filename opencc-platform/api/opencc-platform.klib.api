@@ -1,0 +1,38 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-platform>
+final class io.github.opencckmp.platform/FileResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.platform/FileResourceProvider|null[0]
+    constructor <init>(kotlin.collections/List<kotlin/String> = ...) // io.github.opencckmp.platform/FileResourceProvider.<init>|<init>(kotlin.collections.List<kotlin.String>){}[0]
+
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/FileResourceProvider.read|read(kotlin.String){}[0]
+}
+
+final fun io.github.opencckmp.platform/readFileBytes(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/readFileBytes|readFileBytes(kotlin.String){}[0]
+final fun io.github.opencckmp.platform/writeFileBytes(kotlin/String, kotlin/ByteArray) // io.github.opencckmp.platform/writeFileBytes|writeFileBytes(kotlin.String;kotlin.ByteArray){}[0]
+
+// Targets: [apple]
+final class io.github.opencckmp.platform/AppleBundleResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.platform/AppleBundleResourceProvider|null[0]
+    constructor <init>(platform.Foundation/NSBundle = ..., kotlin/String = ...) // io.github.opencckmp.platform/AppleBundleResourceProvider.<init>|<init>(platform.Foundation.NSBundle;kotlin.String){}[0]
+
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/AppleBundleResourceProvider.read|read(kotlin.String){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class io.github.opencckmp.platform/BrowserResourceProvider : io.github.opencckmp/AsyncResourceProvider { // io.github.opencckmp.platform/BrowserResourceProvider|null[0]
+    constructor <init>(kotlin/String) // io.github.opencckmp.platform/BrowserResourceProvider.<init>|<init>(kotlin.String){}[0]
+
+    final suspend fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/BrowserResourceProvider.read|read(kotlin.String){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class io.github.opencckmp.platform/NodeFileResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.platform/NodeFileResourceProvider|null[0]
+    constructor <init>(kotlin/String) // io.github.opencckmp.platform/NodeFileResourceProvider.<init>|<init>(kotlin.String){}[0]
+
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/NodeFileResourceProvider.read|read(kotlin.String){}[0]
+}

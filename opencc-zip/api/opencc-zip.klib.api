@@ -1,0 +1,26 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-zip>
+final class io.github.opencckmp.zip/ZipResource { // io.github.opencckmp.zip/ZipResource|null[0]
+    constructor <init>(kotlin/String, kotlin/ByteArray, kotlin/Any) // io.github.opencckmp.zip/ZipResource.<init>|<init>(kotlin.String;kotlin.ByteArray;kotlin.Any){}[0]
+
+    final val bytes // io.github.opencckmp.zip/ZipResource.bytes|{}bytes[0]
+        final fun <get-bytes>(): kotlin/ByteArray // io.github.opencckmp.zip/ZipResource.bytes.<get-bytes>|<get-bytes>(){}[0]
+    final val cacheKey // io.github.opencckmp.zip/ZipResource.cacheKey|{}cacheKey[0]
+        final fun <get-cacheKey>(): kotlin/Any // io.github.opencckmp.zip/ZipResource.cacheKey.<get-cacheKey>|<get-cacheKey>(){}[0]
+    final val name // io.github.opencckmp.zip/ZipResource.name|{}name[0]
+        final fun <get-name>(): kotlin/String // io.github.opencckmp.zip/ZipResource.name.<get-name>|<get-name>(){}[0]
+}
+
+final class io.github.opencckmp.zip/ZipResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.zip/ZipResourceProvider|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/String = ...) // io.github.opencckmp.zip/ZipResourceProvider.<init>|<init>(kotlin.ByteArray;kotlin.String){}[0]
+
+    final fun getResource(kotlin/String): io.github.opencckmp.zip/ZipResource // io.github.opencckmp.zip/ZipResourceProvider.getResource|getResource(kotlin.String){}[0]
+    final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.zip/ZipResourceProvider.read|read(kotlin.String){}[0]
+    final fun resolve(kotlin/String): kotlin/String // io.github.opencckmp.zip/ZipResourceProvider.resolve|resolve(kotlin.String){}[0]
+}

@@ -1,4 +1,4 @@
-/* Pinned OpenCC tool arguments and TCLAP output conventions. Apache-2.0. */
+/* OpenCC (Apache-2.0) and TCLAP (MIT) argument/output adaptation; see licenses/tclap.txt. */
 package io.github.opencckmp.cli
 
 enum class CliTool(val program: String, val title: String) {

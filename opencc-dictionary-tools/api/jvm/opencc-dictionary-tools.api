@@ -1,0 +1,39 @@
+public final class io/github/opencckmp/tools/DictionaryConverter {
+	public static final field INSTANCE Lio/github/opencckmp/tools/DictionaryConverter;
+	public final fun convert (Ljava/util/List;Lio/github/opencckmp/tools/DictionaryFormat;Lio/github/opencckmp/tools/DictionaryFormat;)[B
+	public final fun convert ([BLio/github/opencckmp/tools/DictionaryFormat;Lio/github/opencckmp/tools/DictionaryFormat;)[B
+	public final fun load (Ljava/util/List;Lio/github/opencckmp/tools/DictionaryFormat;)Lio/github/opencckmp/Dict;
+	public final fun write (Lio/github/opencckmp/Dict;Lio/github/opencckmp/tools/DictionaryFormat;Lio/github/opencckmp/DictionaryByteOrder;)[B
+	public static synthetic fun write$default (Lio/github/opencckmp/tools/DictionaryConverter;Lio/github/opencckmp/Dict;Lio/github/opencckmp/tools/DictionaryFormat;Lio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)[B
+}
+
+public final class io/github/opencckmp/tools/DictionaryFormat : java/lang/Enum {
+	public static final field Companion Lio/github/opencckmp/tools/DictionaryFormat$Companion;
+	public static final field CppJiebaUtf8 Lio/github/opencckmp/tools/DictionaryFormat;
+	public static final field Ocd Lio/github/opencckmp/tools/DictionaryFormat;
+	public static final field Ocd2 Lio/github/opencckmp/tools/DictionaryFormat;
+	public static final field Text Lio/github/opencckmp/tools/DictionaryFormat;
+	public static final field TextSpace Lio/github/opencckmp/tools/DictionaryFormat;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getFormatName ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/opencckmp/tools/DictionaryFormat;
+	public static fun values ()[Lio/github/opencckmp/tools/DictionaryFormat;
+}
+
+public final class io/github/opencckmp/tools/DictionaryFormat$Companion {
+	public final fun fromName (Ljava/lang/String;)Lio/github/opencckmp/tools/DictionaryFormat;
+}
+
+public final class io/github/opencckmp/tools/DictionaryWriters {
+	public static final field INSTANCE Lio/github/opencckmp/tools/DictionaryWriters;
+	public final fun binaryPayload (Lio/github/opencckmp/Lexicon;Lio/github/opencckmp/DictionaryByteOrder;)[B
+	public static synthetic fun binaryPayload$default (Lio/github/opencckmp/tools/DictionaryWriters;Lio/github/opencckmp/Lexicon;Lio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)[B
+	public final fun ocd (Lio/github/opencckmp/Dict;Lio/github/opencckmp/DictionaryByteOrder;)[B
+	public static synthetic fun ocd$default (Lio/github/opencckmp/tools/DictionaryWriters;Lio/github/opencckmp/Dict;Lio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)[B
+	public final fun ocd2 (Lio/github/opencckmp/Dict;Lio/github/opencckmp/DictionaryByteOrder;I)[B
+	public static synthetic fun ocd2$default (Lio/github/opencckmp/tools/DictionaryWriters;Lio/github/opencckmp/Dict;Lio/github/opencckmp/DictionaryByteOrder;IILjava/lang/Object;)[B
+	public final fun serializedValues (Lio/github/opencckmp/Lexicon;Lio/github/opencckmp/DictionaryByteOrder;)[B
+	public static synthetic fun serializedValues$default (Lio/github/opencckmp/tools/DictionaryWriters;Lio/github/opencckmp/Lexicon;Lio/github/opencckmp/DictionaryByteOrder;ILjava/lang/Object;)[B
+	public final fun text (Lio/github/opencckmp/Dict;)[B
+}
+

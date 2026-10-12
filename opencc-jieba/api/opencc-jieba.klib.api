@@ -1,0 +1,25 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-jieba>
+final class io.github.opencckmp.jieba/JiebaSegmentation : io.github.opencckmp/Segmentation { // io.github.opencckmp.jieba/JiebaSegmentation|null[0]
+    constructor <init>(io.github.opencckmp/Dict, kotlin/String, kotlin.collections/List<kotlin/String> = ...) // io.github.opencckmp.jieba/JiebaSegmentation.<init>|<init>(io.github.opencckmp.Dict;kotlin.String;kotlin.collections.List<kotlin.String>){}[0]
+
+    final fun segment(kotlin/String): io.github.opencckmp/Segments // io.github.opencckmp.jieba/JiebaSegmentation.segment|segment(kotlin.String){}[0]
+    final fun segmentUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp.jieba/JiebaSegmentation.segmentUtf8|segmentUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // io.github.opencckmp.jieba/JiebaSegmentation.Companion|null[0]
+        final fun fromText(kotlin/String, kotlin/String, kotlin.collections/List<kotlin/String> = ...): io.github.opencckmp.jieba/JiebaSegmentation // io.github.opencckmp.jieba/JiebaSegmentation.Companion.fromText|fromText(kotlin.String;kotlin.String;kotlin.collections.List<kotlin.String>){}[0]
+    }
+}
+
+final class io.github.opencckmp.jieba/JiebaSegmentationFactory : io.github.opencckmp/SegmentationFactory { // io.github.opencckmp.jieba/JiebaSegmentationFactory|null[0]
+    constructor <init>() // io.github.opencckmp.jieba/JiebaSegmentationFactory.<init>|<init>(){}[0]
+
+    final fun create(io.github.opencckmp/SegmentationProperties, io.github.opencckmp/ResourceProvider): io.github.opencckmp/Segmentation // io.github.opencckmp.jieba/JiebaSegmentationFactory.create|create(io.github.opencckmp.SegmentationProperties;io.github.opencckmp.ResourceProvider){}[0]
+    final suspend fun prepareResources(io.github.opencckmp/SegmentationProperties, io.github.opencckmp/AsyncResourceProvider, kotlin.collections/List<kotlin/String>): io.github.opencckmp/ResourceProvider // io.github.opencckmp.jieba/JiebaSegmentationFactory.prepareResources|prepareResources(io.github.opencckmp.SegmentationProperties;io.github.opencckmp.AsyncResourceProvider;kotlin.collections.List<kotlin.String>){}[0]
+}

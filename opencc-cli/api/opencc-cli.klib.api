@@ -1,0 +1,66 @@
+// Klib ABI Dump
+// Targets: [linuxX64, macosArm64, macosX64, mingwX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-cli>
+final enum class io.github.opencckmp.cli/CliTool : kotlin/Enum<io.github.opencckmp.cli/CliTool> { // io.github.opencckmp.cli/CliTool|null[0]
+    enum entry Convert // io.github.opencckmp.cli/CliTool.Convert|null[0]
+    enum entry Dictionary // io.github.opencckmp.cli/CliTool.Dictionary|null[0]
+    enum entry Phrase // io.github.opencckmp.cli/CliTool.Phrase|null[0]
+
+    final val entries // io.github.opencckmp.cli/CliTool.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp.cli/CliTool> // io.github.opencckmp.cli/CliTool.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val program // io.github.opencckmp.cli/CliTool.program|{}program[0]
+        final fun <get-program>(): kotlin/String // io.github.opencckmp.cli/CliTool.program.<get-program>|<get-program>(){}[0]
+    final val title // io.github.opencckmp.cli/CliTool.title|{}title[0]
+        final fun <get-title>(): kotlin/String // io.github.opencckmp.cli/CliTool.title.<get-title>|<get-title>(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp.cli/CliTool // io.github.opencckmp.cli/CliTool.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp.cli/CliTool> // io.github.opencckmp.cli/CliTool.values|values#static(){}[0]
+}
+
+abstract interface io.github.opencckmp.cli/CliHost { // io.github.opencckmp.cli/CliHost|null[0]
+    abstract val bundledResources // io.github.opencckmp.cli/CliHost.bundledResources|{}bundledResources[0]
+        abstract fun <get-bundledResources>(): io.github.opencckmp/ResourceProvider? // io.github.opencckmp.cli/CliHost.bundledResources.<get-bundledResources>|<get-bundledResources>(){}[0]
+    abstract val error // io.github.opencckmp.cli/CliHost.error|{}error[0]
+        abstract fun <get-error>(): io.github.opencckmp.cli/CliOutput // io.github.opencckmp.cli/CliHost.error.<get-error>|<get-error>(){}[0]
+    abstract val input // io.github.opencckmp.cli/CliHost.input|{}input[0]
+        abstract fun <get-input>(): io.github.opencckmp.cli/CliInput // io.github.opencckmp.cli/CliHost.input.<get-input>|<get-input>(){}[0]
+    abstract val interactive // io.github.opencckmp.cli/CliHost.interactive|{}interactive[0]
+        abstract fun <get-interactive>(): kotlin/Boolean // io.github.opencckmp.cli/CliHost.interactive.<get-interactive>|<get-interactive>(){}[0]
+    abstract val output // io.github.opencckmp.cli/CliHost.output|{}output[0]
+        abstract fun <get-output>(): io.github.opencckmp.cli/CliOutput // io.github.opencckmp.cli/CliHost.output.<get-output>|<get-output>(){}[0]
+    abstract val windows // io.github.opencckmp.cli/CliHost.windows|{}windows[0]
+        abstract fun <get-windows>(): kotlin/Boolean // io.github.opencckmp.cli/CliHost.windows.<get-windows>|<get-windows>(){}[0]
+    open val executablePath // io.github.opencckmp.cli/CliHost.executablePath|{}executablePath[0]
+        open fun <get-executablePath>(): kotlin/String? // io.github.opencckmp.cli/CliHost.executablePath.<get-executablePath>|<get-executablePath>(){}[0]
+
+    abstract fun environment(kotlin/String): kotlin/String? // io.github.opencckmp.cli/CliHost.environment|environment(kotlin.String){}[0]
+    abstract fun formatNumber(kotlin/Double): kotlin/String // io.github.opencckmp.cli/CliHost.formatNumber|formatNumber(kotlin.Double){}[0]
+    abstract fun multipleLinks(kotlin/String): kotlin/Boolean // io.github.opencckmp.cli/CliHost.multipleLinks|multipleLinks(kotlin.String){}[0]
+    abstract fun openInput(kotlin/String): io.github.opencckmp.cli/CliInput // io.github.opencckmp.cli/CliHost.openInput|openInput(kotlin.String){}[0]
+    abstract fun openOutput(kotlin/String): io.github.opencckmp.cli/CliOutput // io.github.opencckmp.cli/CliHost.openOutput|openOutput(kotlin.String){}[0]
+    abstract fun preserveMetadata(kotlin/String, kotlin/String) // io.github.opencckmp.cli/CliHost.preserveMetadata|preserveMetadata(kotlin.String;kotlin.String){}[0]
+    abstract fun realPath(kotlin/String): kotlin/String // io.github.opencckmp.cli/CliHost.realPath|realPath(kotlin.String){}[0]
+    abstract fun remove(kotlin/String) // io.github.opencckmp.cli/CliHost.remove|remove(kotlin.String){}[0]
+    abstract fun replace(kotlin/String, kotlin/String) // io.github.opencckmp.cli/CliHost.replace|replace(kotlin.String;kotlin.String){}[0]
+    abstract fun sameFile(kotlin/String, kotlin/String): kotlin/Boolean // io.github.opencckmp.cli/CliHost.sameFile|sameFile(kotlin.String;kotlin.String){}[0]
+    abstract fun temporaryNear(kotlin/String): kotlin/String // io.github.opencckmp.cli/CliHost.temporaryNear|temporaryNear(kotlin.String){}[0]
+}
+
+abstract interface io.github.opencckmp.cli/CliInput : kotlin/AutoCloseable { // io.github.opencckmp.cli/CliInput|null[0]
+    abstract fun read(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp.cli/CliInput.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract interface io.github.opencckmp.cli/CliOutput : kotlin/AutoCloseable { // io.github.opencckmp.cli/CliOutput|null[0]
+    abstract fun flush() // io.github.opencckmp.cli/CliOutput.flush|flush(){}[0]
+    abstract fun write(kotlin/ByteArray) // io.github.opencckmp.cli/CliOutput.write|write(kotlin.ByteArray){}[0]
+}
+
+final fun io.github.opencckmp.cli/dictionaryMain(kotlin/Array<kotlin/String>) // io.github.opencckmp.cli/dictionaryMain|dictionaryMain(kotlin.Array<kotlin.String>){}[0]
+final fun io.github.opencckmp.cli/main(kotlin/Array<kotlin/String>) // io.github.opencckmp.cli/main|main(kotlin.Array<kotlin.String>){}[0]
+final fun io.github.opencckmp.cli/phraseMain(kotlin/Array<kotlin/String>) // io.github.opencckmp.cli/phraseMain|phraseMain(kotlin.Array<kotlin.String>){}[0]
+final fun io.github.opencckmp.cli/runCli(io.github.opencckmp.cli/CliTool, kotlin.collections/List<kotlin/String>, io.github.opencckmp.cli/CliHost, kotlin/String = ...): kotlin/Int // io.github.opencckmp.cli/runCli|runCli(io.github.opencckmp.cli.CliTool;kotlin.collections.List<kotlin.String>;io.github.opencckmp.cli.CliHost;kotlin.String){}[0]

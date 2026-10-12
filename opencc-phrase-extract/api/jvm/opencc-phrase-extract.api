@@ -1,0 +1,64 @@
+public final class io/github/opencckmp/phrase/PhraseExtract {
+	public static final field Companion Lio/github/opencckmp/phrase/PhraseExtract$Companion;
+	public fun <init> ()V
+	public final fun calculateCohesions ()V
+	public final fun calculateFrequency ()V
+	public final fun calculatePrefixEntropy ()V
+	public final fun calculateSuffixEntropy ()V
+	public final fun cohesion (Ljava/lang/String;)D
+	public final fun entropy (Ljava/lang/String;)D
+	public final fun extract (Ljava/lang/String;)V
+	public final fun extractPrefixes ()V
+	public final fun extractSuffixes ()V
+	public final fun extractWordCandidates ()V
+	public final fun frequency (Ljava/lang/String;)J
+	public final fun getExtractedPrefixes ()Ljava/util/List;
+	public final fun getExtractedSuffixes ()Ljava/util/List;
+	public final fun getPostCalculationFilter ()Lkotlin/jvm/functions/Function2;
+	public final fun getPreCalculationFilter ()Lkotlin/jvm/functions/Function2;
+	public final fun getPrefixSetLength ()I
+	public final fun getSuffixSetLength ()I
+	public final fun getWordCandidates ()Ljava/util/List;
+	public final fun getWordMaxLength ()I
+	public final fun getWordMinLength ()I
+	public final fun getWords ()Ljava/util/List;
+	public final fun logProbability (Ljava/lang/String;)D
+	public final fun prefixEntropy (Ljava/lang/String;)D
+	public final fun probability (Ljava/lang/String;)D
+	public final fun releasePrefixes ()V
+	public final fun releaseSuffixes ()V
+	public final fun reset ()V
+	public final fun selectWords ()V
+	public final fun setFullText (Ljava/lang/String;)V
+	public final fun setPostCalculationFilter (Lkotlin/jvm/functions/Function2;)V
+	public final fun setPreCalculationFilter (Lkotlin/jvm/functions/Function2;)V
+	public final fun setPrefixSetLength (I)V
+	public final fun setSuffixSetLength (I)V
+	public final fun setWordMaxLength (I)V
+	public final fun setWordMinLength (I)V
+	public final fun signal (Ljava/lang/String;)Lio/github/opencckmp/phrase/PhraseExtract$Signals;
+	public final fun suffixEntropy (Ljava/lang/String;)D
+}
+
+public final class io/github/opencckmp/phrase/PhraseExtract$Companion {
+	public final fun defaultPostCalculationFilter (Lio/github/opencckmp/phrase/PhraseExtract;Ljava/lang/String;)Z
+	public final fun defaultPreCalculationFilter (Lio/github/opencckmp/phrase/PhraseExtract;Ljava/lang/String;)Z
+}
+
+public final class io/github/opencckmp/phrase/PhraseExtract$Signals {
+	public fun <init> (JDDD)V
+	public final fun component1 ()J
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun copy (JDDD)Lio/github/opencckmp/phrase/PhraseExtract$Signals;
+	public static synthetic fun copy$default (Lio/github/opencckmp/phrase/PhraseExtract$Signals;JDDDILjava/lang/Object;)Lio/github/opencckmp/phrase/PhraseExtract$Signals;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCohesion ()D
+	public final fun getFrequency ()J
+	public final fun getPrefixEntropy ()D
+	public final fun getSuffixEntropy ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

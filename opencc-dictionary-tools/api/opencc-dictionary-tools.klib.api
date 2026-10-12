@@ -1,0 +1,42 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-dictionary-tools>
+final enum class io.github.opencckmp.tools/DictionaryFormat : kotlin/Enum<io.github.opencckmp.tools/DictionaryFormat> { // io.github.opencckmp.tools/DictionaryFormat|null[0]
+    enum entry CppJiebaUtf8 // io.github.opencckmp.tools/DictionaryFormat.CppJiebaUtf8|null[0]
+    enum entry Ocd // io.github.opencckmp.tools/DictionaryFormat.Ocd|null[0]
+    enum entry Ocd2 // io.github.opencckmp.tools/DictionaryFormat.Ocd2|null[0]
+    enum entry Text // io.github.opencckmp.tools/DictionaryFormat.Text|null[0]
+    enum entry TextSpace // io.github.opencckmp.tools/DictionaryFormat.TextSpace|null[0]
+
+    final val entries // io.github.opencckmp.tools/DictionaryFormat.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp.tools/DictionaryFormat> // io.github.opencckmp.tools/DictionaryFormat.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val formatName // io.github.opencckmp.tools/DictionaryFormat.formatName|{}formatName[0]
+        final fun <get-formatName>(): kotlin/String // io.github.opencckmp.tools/DictionaryFormat.formatName.<get-formatName>|<get-formatName>(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp.tools/DictionaryFormat // io.github.opencckmp.tools/DictionaryFormat.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp.tools/DictionaryFormat> // io.github.opencckmp.tools/DictionaryFormat.values|values#static(){}[0]
+
+    final object Companion { // io.github.opencckmp.tools/DictionaryFormat.Companion|null[0]
+        final fun fromName(kotlin/String): io.github.opencckmp.tools/DictionaryFormat // io.github.opencckmp.tools/DictionaryFormat.Companion.fromName|fromName(kotlin.String){}[0]
+    }
+}
+
+final object io.github.opencckmp.tools/DictionaryConverter { // io.github.opencckmp.tools/DictionaryConverter|null[0]
+    final fun convert(kotlin.collections/List<kotlin/ByteArray>, io.github.opencckmp.tools/DictionaryFormat, io.github.opencckmp.tools/DictionaryFormat): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryConverter.convert|convert(kotlin.collections.List<kotlin.ByteArray>;io.github.opencckmp.tools.DictionaryFormat;io.github.opencckmp.tools.DictionaryFormat){}[0]
+    final fun convert(kotlin/ByteArray, io.github.opencckmp.tools/DictionaryFormat, io.github.opencckmp.tools/DictionaryFormat): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryConverter.convert|convert(kotlin.ByteArray;io.github.opencckmp.tools.DictionaryFormat;io.github.opencckmp.tools.DictionaryFormat){}[0]
+    final fun load(kotlin.collections/List<kotlin/ByteArray>, io.github.opencckmp.tools/DictionaryFormat): io.github.opencckmp/Dict // io.github.opencckmp.tools/DictionaryConverter.load|load(kotlin.collections.List<kotlin.ByteArray>;io.github.opencckmp.tools.DictionaryFormat){}[0]
+    final fun write(io.github.opencckmp/Dict, io.github.opencckmp.tools/DictionaryFormat, io.github.opencckmp/DictionaryByteOrder = ...): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryConverter.write|write(io.github.opencckmp.Dict;io.github.opencckmp.tools.DictionaryFormat;io.github.opencckmp.DictionaryByteOrder){}[0]
+}
+
+final object io.github.opencckmp.tools/DictionaryWriters { // io.github.opencckmp.tools/DictionaryWriters|null[0]
+    final fun binaryPayload(io.github.opencckmp/Lexicon, io.github.opencckmp/DictionaryByteOrder = ...): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryWriters.binaryPayload|binaryPayload(io.github.opencckmp.Lexicon;io.github.opencckmp.DictionaryByteOrder){}[0]
+    final fun ocd(io.github.opencckmp/Dict, io.github.opencckmp/DictionaryByteOrder = ...): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryWriters.ocd|ocd(io.github.opencckmp.Dict;io.github.opencckmp.DictionaryByteOrder){}[0]
+    final fun ocd2(io.github.opencckmp/Dict, io.github.opencckmp/DictionaryByteOrder = ..., kotlin/Int = ...): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryWriters.ocd2|ocd2(io.github.opencckmp.Dict;io.github.opencckmp.DictionaryByteOrder;kotlin.Int){}[0]
+    final fun serializedValues(io.github.opencckmp/Lexicon, io.github.opencckmp/DictionaryByteOrder = ...): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryWriters.serializedValues|serializedValues(io.github.opencckmp.Lexicon;io.github.opencckmp.DictionaryByteOrder){}[0]
+    final fun text(io.github.opencckmp/Dict): kotlin/ByteArray // io.github.opencckmp.tools/DictionaryWriters.text|text(io.github.opencckmp.Dict){}[0]
+}

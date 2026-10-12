@@ -1,0 +1,106 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, macosX64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-detect>
+final enum class io.github.opencckmp.detect/ChineseScript : kotlin/Enum<io.github.opencckmp.detect/ChineseScript> { // io.github.opencckmp.detect/ChineseScript|null[0]
+    enum entry Mixed // io.github.opencckmp.detect/ChineseScript.Mixed|null[0]
+    enum entry Neutral // io.github.opencckmp.detect/ChineseScript.Neutral|null[0]
+    enum entry Simplified // io.github.opencckmp.detect/ChineseScript.Simplified|null[0]
+    enum entry Traditional // io.github.opencckmp.detect/ChineseScript.Traditional|null[0]
+
+    final val entries // io.github.opencckmp.detect/ChineseScript.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp.detect/ChineseScript> // io.github.opencckmp.detect/ChineseScript.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp.detect/ChineseScript // io.github.opencckmp.detect/ChineseScript.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp.detect/ChineseScript> // io.github.opencckmp.detect/ChineseScript.values|values#static(){}[0]
+}
+
+final enum class io.github.opencckmp.detect/DetectionConfidence : kotlin/Enum<io.github.opencckmp.detect/DetectionConfidence> { // io.github.opencckmp.detect/DetectionConfidence|null[0]
+    enum entry High // io.github.opencckmp.detect/DetectionConfidence.High|null[0]
+    enum entry Low // io.github.opencckmp.detect/DetectionConfidence.Low|null[0]
+
+    final val entries // io.github.opencckmp.detect/DetectionConfidence.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp.detect/DetectionConfidence> // io.github.opencckmp.detect/DetectionConfidence.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp.detect/DetectionConfidence // io.github.opencckmp.detect/DetectionConfidence.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp.detect/DetectionConfidence> // io.github.opencckmp.detect/DetectionConfidence.values|values#static(){}[0]
+}
+
+final enum class io.github.opencckmp.detect/TraditionalRegion : kotlin/Enum<io.github.opencckmp.detect/TraditionalRegion> { // io.github.opencckmp.detect/TraditionalRegion|null[0]
+    enum entry Generic // io.github.opencckmp.detect/TraditionalRegion.Generic|null[0]
+    enum entry HongKong // io.github.opencckmp.detect/TraditionalRegion.HongKong|null[0]
+    enum entry Taiwan // io.github.opencckmp.detect/TraditionalRegion.Taiwan|null[0]
+
+    final val entries // io.github.opencckmp.detect/TraditionalRegion.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.opencckmp.detect/TraditionalRegion> // io.github.opencckmp.detect/TraditionalRegion.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.opencckmp.detect/TraditionalRegion // io.github.opencckmp.detect/TraditionalRegion.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.opencckmp.detect/TraditionalRegion> // io.github.opencckmp.detect/TraditionalRegion.values|values#static(){}[0]
+}
+
+final class io.github.opencckmp.detect/DetectionThresholds { // io.github.opencckmp.detect/DetectionThresholds|null[0]
+    constructor <init>(kotlin/Double = ..., kotlin/Double = ..., kotlin/Int = ...) // io.github.opencckmp.detect/DetectionThresholds.<init>|<init>(kotlin.Double;kotlin.Double;kotlin.Int){}[0]
+
+    final val minimumDistinguishingCharacters // io.github.opencckmp.detect/DetectionThresholds.minimumDistinguishingCharacters|{}minimumDistinguishingCharacters[0]
+        final fun <get-minimumDistinguishingCharacters>(): kotlin/Int // io.github.opencckmp.detect/DetectionThresholds.minimumDistinguishingCharacters.<get-minimumDistinguishingCharacters>|<get-minimumDistinguishingCharacters>(){}[0]
+    final val simplifiedRatio // io.github.opencckmp.detect/DetectionThresholds.simplifiedRatio|{}simplifiedRatio[0]
+        final fun <get-simplifiedRatio>(): kotlin/Double // io.github.opencckmp.detect/DetectionThresholds.simplifiedRatio.<get-simplifiedRatio>|<get-simplifiedRatio>(){}[0]
+    final val traditionalRatio // io.github.opencckmp.detect/DetectionThresholds.traditionalRatio|{}traditionalRatio[0]
+        final fun <get-traditionalRatio>(): kotlin/Double // io.github.opencckmp.detect/DetectionThresholds.traditionalRatio.<get-traditionalRatio>|<get-traditionalRatio>(){}[0]
+
+    final fun component1(): kotlin/Double // io.github.opencckmp.detect/DetectionThresholds.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.opencckmp.detect/DetectionThresholds.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // io.github.opencckmp.detect/DetectionThresholds.component3|component3(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ..., kotlin/Int = ...): io.github.opencckmp.detect/DetectionThresholds // io.github.opencckmp.detect/DetectionThresholds.copy|copy(kotlin.Double;kotlin.Double;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp.detect/DetectionThresholds.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp.detect/DetectionThresholds.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp.detect/DetectionThresholds.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp.detect/ScriptDetection { // io.github.opencckmp.detect/ScriptDetection|null[0]
+    constructor <init>(io.github.opencckmp.detect/ChineseScript, io.github.opencckmp.detect/DetectionConfidence, kotlin/Int, kotlin/Int, io.github.opencckmp.detect/TraditionalRegion? = ..., kotlin/Int = ..., kotlin/Int = ...) // io.github.opencckmp.detect/ScriptDetection.<init>|<init>(io.github.opencckmp.detect.ChineseScript;io.github.opencckmp.detect.DetectionConfidence;kotlin.Int;kotlin.Int;io.github.opencckmp.detect.TraditionalRegion?;kotlin.Int;kotlin.Int){}[0]
+
+    final val confidence // io.github.opencckmp.detect/ScriptDetection.confidence|{}confidence[0]
+        final fun <get-confidence>(): io.github.opencckmp.detect/DetectionConfidence // io.github.opencckmp.detect/ScriptDetection.confidence.<get-confidence>|<get-confidence>(){}[0]
+    final val hongKongScore // io.github.opencckmp.detect/ScriptDetection.hongKongScore|{}hongKongScore[0]
+        final fun <get-hongKongScore>(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.hongKongScore.<get-hongKongScore>|<get-hongKongScore>(){}[0]
+    final val region // io.github.opencckmp.detect/ScriptDetection.region|{}region[0]
+        final fun <get-region>(): io.github.opencckmp.detect/TraditionalRegion? // io.github.opencckmp.detect/ScriptDetection.region.<get-region>|<get-region>(){}[0]
+    final val script // io.github.opencckmp.detect/ScriptDetection.script|{}script[0]
+        final fun <get-script>(): io.github.opencckmp.detect/ChineseScript // io.github.opencckmp.detect/ScriptDetection.script.<get-script>|<get-script>(){}[0]
+    final val simplifiedCount // io.github.opencckmp.detect/ScriptDetection.simplifiedCount|{}simplifiedCount[0]
+        final fun <get-simplifiedCount>(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.simplifiedCount.<get-simplifiedCount>|<get-simplifiedCount>(){}[0]
+    final val taiwanScore // io.github.opencckmp.detect/ScriptDetection.taiwanScore|{}taiwanScore[0]
+        final fun <get-taiwanScore>(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.taiwanScore.<get-taiwanScore>|<get-taiwanScore>(){}[0]
+    final val traditionalCount // io.github.opencckmp.detect/ScriptDetection.traditionalCount|{}traditionalCount[0]
+        final fun <get-traditionalCount>(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.traditionalCount.<get-traditionalCount>|<get-traditionalCount>(){}[0]
+
+    final fun component1(): io.github.opencckmp.detect/ChineseScript // io.github.opencckmp.detect/ScriptDetection.component1|component1(){}[0]
+    final fun component2(): io.github.opencckmp.detect/DetectionConfidence // io.github.opencckmp.detect/ScriptDetection.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.component3|component3(){}[0]
+    final fun component4(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.component4|component4(){}[0]
+    final fun component5(): io.github.opencckmp.detect/TraditionalRegion? // io.github.opencckmp.detect/ScriptDetection.component5|component5(){}[0]
+    final fun component6(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.component6|component6(){}[0]
+    final fun component7(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.component7|component7(){}[0]
+    final fun copy(io.github.opencckmp.detect/ChineseScript = ..., io.github.opencckmp.detect/DetectionConfidence = ..., kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp.detect/TraditionalRegion? = ..., kotlin/Int = ..., kotlin/Int = ...): io.github.opencckmp.detect/ScriptDetection // io.github.opencckmp.detect/ScriptDetection.copy|copy(io.github.opencckmp.detect.ChineseScript;io.github.opencckmp.detect.DetectionConfidence;kotlin.Int;kotlin.Int;io.github.opencckmp.detect.TraditionalRegion?;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.opencckmp.detect/ScriptDetection.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.opencckmp.detect/ScriptDetection.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.opencckmp.detect/ScriptDetection.toString|toString(){}[0]
+}
+
+final class io.github.opencckmp.detect/ScriptDetector { // io.github.opencckmp.detect/ScriptDetector|null[0]
+    constructor <init>(io.github.opencckmp/Dict, io.github.opencckmp/Dict, io.github.opencckmp/Dict? = ..., io.github.opencckmp/Dict? = ..., io.github.opencckmp/Dict? = ..., io.github.opencckmp/Dict? = ..., io.github.opencckmp.detect/DetectionThresholds = ...) // io.github.opencckmp.detect/ScriptDetector.<init>|<init>(io.github.opencckmp.Dict;io.github.opencckmp.Dict;io.github.opencckmp.Dict?;io.github.opencckmp.Dict?;io.github.opencckmp.Dict?;io.github.opencckmp.Dict?;io.github.opencckmp.detect.DetectionThresholds){}[0]
+
+    final val thresholds // io.github.opencckmp.detect/ScriptDetector.thresholds|{}thresholds[0]
+        final fun <get-thresholds>(): io.github.opencckmp.detect/DetectionThresholds // io.github.opencckmp.detect/ScriptDetector.thresholds.<get-thresholds>|<get-thresholds>(){}[0]
+
+    final fun detect(kotlin/String): io.github.opencckmp.detect/ScriptDetection // io.github.opencckmp.detect/ScriptDetector.detect|detect(kotlin.String){}[0]
+
+    final object Companion { // io.github.opencckmp.detect/ScriptDetector.Companion|null[0]
+        final fun fromResources(io.github.opencckmp/ResourceProvider, kotlin/Boolean = ..., io.github.opencckmp.detect/DetectionThresholds = ...): io.github.opencckmp.detect/ScriptDetector // io.github.opencckmp.detect/ScriptDetector.Companion.fromResources|fromResources(io.github.opencckmp.ResourceProvider;kotlin.Boolean;io.github.opencckmp.detect.DetectionThresholds){}[0]
+    }
+}
