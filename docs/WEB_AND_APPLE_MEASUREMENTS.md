@@ -77,3 +77,13 @@ The default reader still restores dictionary keys and uses the packed UTF-16 tri
 preserved conversion output and candidates. Complete three-run evidence is retained in the
 `web-primitive-trie`, `apple-primitive-trie`, `web-compact-marisa` and `apple-compact-marisa` JSON
 reports in `measurements/`; the compact-MARISA implementation is not shipped.
+
+The encoded contract milestone adds faithful byte traversal/inspection/streaming and config-dependent
+NUL behavior, retaining all features in core. Internal JSON field holders remove unused generated
+copy/equality code, saving 3,265 Android dependency bytes and 479 APK bytes versus that checkpoint.
+All production web profiles and installed Swift conversions passed. The new Native engine-only ZIP
+increment is 102,182 bytes, exceeding its original 99,800-byte allowance by 2,382 bytes; selected/full
+profiles pass. Android engine dependency downloads likewise exceed the earlier partial-engine budget
+by 12,411 bytes. These failed gates are recorded, not widened or treated as release acceptance.
+See `measurements/android-lean-json.json`, `measurements/apple-encoded.json` and
+[ENCODED_API.md](ENCODED_API.md) for the exact sizes and contracts.

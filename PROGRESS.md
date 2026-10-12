@@ -292,6 +292,10 @@ checkbox is completed only when its implementation and relevant checks exist.
   budget (176,932 bytes) still fails by 12,411 bytes and remains open. No allowance was widened.
 - Exact measurements are in `measurements/android-lean-json.json`; this optimization retains all
   encoded/string behavior and candidate data, rather than removing capabilities to satisfy a gate.
+- Installed Swift consumer checks passed for all five profiles (three launches each), but the
+  Native engine-only ZIP increment is 102,182 bytes versus its 99,800-byte budget, a 2,382-byte
+  regression. Selected/full profiles pass their ZIP budgets. `measurements/apple-encoded.json`
+  records the complete runs; the Native and dependency engine-only gates remain open together.
 
 ## Completion policy
 
