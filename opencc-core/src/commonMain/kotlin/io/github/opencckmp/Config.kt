@@ -15,7 +15,7 @@ class Config(
     private val provider: ResourceProvider = ResourceProvider { throw FileNotFound(it) },
     readers: List<DictionaryReader> = standardDictionaryReaders,
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
-    private val warningSink: (ConfigWarning) -> Unit = {},
+    private val warningSink: ((ConfigWarning) -> Unit)? = null,
     private val dictionaryCache: DictionaryCache? = null,
     private val cacheIdentity: Any = provider,
 ) {
@@ -28,24 +28,61 @@ class Config(
     }
 
     fun newFromString(json: String, configDirectory: String = "", options: ConfigLoadOptions = ConfigLoadOptions()): Converter {
-        return runSynchronous { load(json, configDirectory, options, { provider.read(it) }, { _, _, _ -> provider }) }
+        val session = LoadSession(json, configDirectory, options, provider)
+        check(session.advance() == null) { "Synchronous resource loading unexpectedly requested preparation" }
+        return session.result!!
     }
 
     internal suspend fun prepareFromString(json: String, configDirectory: String, options: ConfigLoadOptions,
-                                          read: suspend (String) -> ByteArray): Converter =
-        load(json, configDirectory, options, read) { factory, properties, declared ->
-            val resources = linkedMapOf<String, ByteArray>()
-            for (name in factory.resourcesToPrepare(properties, declared).distinct()) resources[name] = read(name)
-            MemoryResourceProvider(resources)
+                                          read: suspend (String) -> ByteArray): Converter {
+        val session = LoadSession(json, configDirectory, options, null)
+        while (true) {
+            val request = session.advance() ?: return session.result!!
+            val bytes = mutableListOf<ByteArray>()
+            for (name in request.names) bytes.add(read(name))
+            session.provide(bytes)
+        }
+    }
+
+    /** An ordered load transaction. Only resource acquisition differs between sync/async drivers. */
+    private inner class LoadSession(json: String, private val configDirectory: String,
+                                    private val options: ConfigLoadOptions,
+                                    private val pluginProvider: ResourceProvider?) {
+        private val root = parseConfiguration(json)
+        private val loaded = mutableMapOf<String, Dict>()
+        private var next: (() -> Unit)? = { segmentation() }
+        private var pending: LoadRequest? = null
+        var result: Converter? = null
+            private set
+
+        init { if (warningSink != null) ConfigSchema.warning(root)?.let(warningSink) }
+
+        fun advance(): LoadRequest? {
+            check(pending == null) { "Resources must be supplied before advancing the load" }
+            while (next != null) {
+                val step = next!!
+                next = null
+                step()
+            }
+            check(pending != null || result != null) { "Incomplete configuration load" }
+            return pending
         }
 
-    private suspend fun load(json: String, configDirectory: String, options: ConfigLoadOptions,
-                             read: suspend (String) -> ByteArray,
-                             pluginResources: suspend (SegmentationFactory, SegmentationProperties, List<String>) -> ResourceProvider): Converter {
-        val root = parseConfiguration(json)
-        ConfigSchema.warning(root)?.let(warningSink)
-        val loaded = mutableMapOf<String, Dict>()
-        suspend fun parseDict(doc: JsonValue.Object, includeTofu: Boolean): Dict? {
+        fun provide(bytes: List<ByteArray>) {
+            val request = checkNotNull(pending)
+            check(bytes.size == request.names.size)
+            pending = null
+            next = { request.complete(bytes) }
+        }
+
+        private fun request(names: List<String>, complete: (List<ByteArray>) -> Unit) {
+            check(pending == null && next == null)
+            pending = LoadRequest(names, complete)
+        }
+
+        private fun completeDictionary(dict: Dict?, complete: (Dict?) -> Unit) { next = { complete(dict) } }
+
+        private fun parseDict(doc: JsonValue.Object, includeTofu: Boolean, complete: (Dict?) -> Unit) {
             val type = doc.string("type")
             if (type == "inline") {
                 if (doc["may_output_tofu"] != null) throw InvalidFormat("Inline dictionary does not support may_output_tofu")
@@ -53,22 +90,22 @@ class Config(
                     if (key.isEmpty()) throw InvalidFormat("Inline dictionary key must be a non-empty string")
                     val text = (value as? JsonValue.StringValue)?.value
                     if (text.isNullOrEmpty()) throw InvalidFormat("Inline dictionary value must be a non-empty string: ${key.substringBefore('\u0000')}")
-                    // RapidJSON validates explicit JSON lengths, then upstream creates C-string
-                    // dictionary entries. Preserve its observable prefix-at-NUL config semantics.
+                    // Upstream validates JSON lengths before constructing C-string dictionary entries.
                     DictEntry(key.substringBefore('\u0000'), listOf(text.substringBefore('\u0000')))
                 }
                 val lexicon = Lexicon(entries).sorted()
                 for (index in 1 until lexicon.size) if (lexicon[index - 1].key == lexicon[index].key) {
                     throw InvalidFormat("Inline dictionary contains duplicate key: ${lexicon[index].key}")
                 }
-                return TextDict(lexicon)
+                completeDictionary(TextDict(lexicon), complete)
+                return
             }
             val tofu = when (val value = doc["may_output_tofu"]) {
                 null -> false
                 is JsonValue.BooleanValue -> value.value
                 else -> throw InvalidFormat("Property must be a boolean: may_output_tofu")
             }
-            if (tofu && !includeTofu) return null
+            if (tofu && !includeTofu) { completeDictionary(null, complete); return }
             if (type == "group") {
                 val policy = when (val value = doc["match_policy"]) {
                     null -> DictGroupMatchPolicy.ShortCircuit
@@ -79,57 +116,95 @@ class Config(
                     }
                     else -> throw InvalidFormat("Property must be a string: match_policy")
                 }
-                val dicts = doc.array("dicts").values.mapNotNull { value ->
-                    parseDict(value as? JsonValue.Object ?: throw InvalidFormat("Element of the array must be an object"), includeTofu)
+                val values = doc.array("dicts").values
+                val dicts = mutableListOf<Dict>()
+                fun member(index: Int) {
+                    if (index == values.size) { completeDictionary(if (dicts.isEmpty()) null else DictGroup(dicts, policy), complete); return }
+                    val child = values[index] as? JsonValue.Object ?: throw InvalidFormat("Element of the array must be an object")
+                    parseDict(child, includeTofu) { dict ->
+                        if (dict != null) dicts.add(dict)
+                        next = { member(index + 1) }
+                    }
                 }
-                return if (dicts.isEmpty()) null else DictGroup(dicts, policy)
+                next = { member(0) }
+                return
             }
             val file = resolveResource(configDirectory, doc.string("file"))
             val reader = readers[type] ?: throw InvalidFormat("Unknown dictionary type: $type")
-            return loaded.getOrPut(type + "\n" + file) {
-                val bytes = read(file)
-                dictionaryCache?.load(cacheIdentity, file, bytes, reader) ?: reader.read(bytes)
-            }
+            val identity = type + "\n" + file
+            val existing = loaded[identity]
+            if (existing != null) { completeDictionary(existing, complete); return }
+            if (pluginProvider != null) dictionary(identity, file, reader, pluginProvider.read(file), complete)
+            else request(listOf(file)) { bytes -> dictionary(identity, file, reader, bytes.single(), complete) }
         }
-        suspend fun chain(value: JsonValue.Array, includeTofu: Boolean): ConversionChain = ConversionChain(
-            value.values.mapNotNull { item ->
+
+        private fun dictionary(identity: String, file: String, reader: DictionaryReader, bytes: ByteArray,
+                               complete: (Dict?) -> Unit) {
+            val dict = dictionaryCache?.load(cacheIdentity, file, bytes, reader) ?: reader.read(bytes)
+            loaded[identity] = dict
+            completeDictionary(dict, complete)
+        }
+
+        private fun chain(value: JsonValue.Array, complete: (ConversionChain) -> Unit) {
+            val conversions = mutableListOf<Conversion>()
+            fun step(index: Int) {
+                if (index == value.values.size) { next = { complete(ConversionChain(conversions)) }; return }
+                val doc = value.values[index] as? JsonValue.Object
                 // Upstream ignores non-object conversion steps after advisory schema validation.
-                val doc = item as? JsonValue.Object ?: return@mapNotNull null
-                parseDict(doc.obj("dict"), includeTofu)?.let { Conversion(it) }
-            })
-        val segmentation = root["segmentation"]?.let { value ->
+                if (doc == null) { next = { step(index + 1) }; return }
+                parseDict(doc.obj("dict"), options.includeTofuRiskDictionaries) { dict ->
+                    if (dict != null) conversions.add(Conversion(dict))
+                    next = { step(index + 1) }
+                }
+            }
+            next = { step(0) }
+        }
+
+        private fun segmentation() {
+            val value = root["segmentation"]
+            if (value == null) { main(null); return }
             val doc = value as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: segmentation")
             val type = doc.string("type")
             if (type == "mmseg") {
-                MaxMatchSegmentation(parseDict(doc.obj("dict"), true) ?: TextDict(Lexicon(emptyList())))
-            } else {
-                val properties = mutableListOf("__config_dir" to configDirectory)
-                val declared = mutableListOf<String>()
-                doc["resources"]?.let { resources ->
-                    for ((name, resource) in (resources as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: resources")).members) {
-                        val text = (resource as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation resource must be a string: ${name.substringBefore('\u0000')}")
-                        properties.add(name.substringBefore('\u0000') to text)
-                        declared.add(resolveResource(configDirectory, text))
-                    }
+                parseDict(doc.obj("dict"), true) { dict -> main(MaxMatchSegmentation(dict ?: TextDict(Lexicon(emptyList())))) }
+                return
+            }
+            val properties = mutableListOf("__config_dir" to configDirectory)
+            val declared = mutableListOf<String>()
+            doc["resources"]?.let { resources ->
+                for ((name, resource) in (resources as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: resources")).members) {
+                    val text = (resource as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation resource must be a string: ${name.substringBefore('\u0000')}")
+                    properties.add(name.substringBefore('\u0000') to text)
+                    declared.add(resolveResource(configDirectory, text))
                 }
-                for ((name, property) in doc.members) {
-                    val key = name.substringBefore('\u0000')
-                    if (key != "type" && key != "resources") {
-                        val text = (property as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation plugin property must be a string: $key")
-                        properties.add(key to text)
-                    }
+            }
+            for ((name, property) in doc.members) {
+                val key = name.substringBefore('\u0000')
+                if (key != "type" && key != "resources") {
+                    val text = (property as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation plugin property must be a string: $key")
+                    properties.add(key to text)
                 }
-                val factory = segmentationFactories[type] ?: throw UnavailableSegmentationExtension(type)
-                val pairs = SegmentationProperties(properties)
-                factory.create(pairs, pluginResources(factory, pairs, declared))
+            }
+            val factory = segmentationFactories[type] ?: throw UnavailableSegmentationExtension(type)
+            val pairs = SegmentationProperties(properties)
+            if (pluginProvider != null) { main(factory.create(pairs, pluginProvider)); return }
+            val names = factory.resourcesToPrepare(pairs, declared).distinct()
+            request(names) { bytes -> main(factory.create(pairs, MemoryResourceProvider(names.zip(bytes).toMap()))) }
+        }
+
+        private fun main(segmentation: Segmentation?) {
+            chain(root.array("conversion_chain")) { chain ->
+                val main = SingleStageConverter(segmentation, chain)
+                val normalization = root["normalization"]
+                if (normalization == null) result = main else {
+                    val value = normalization as? JsonValue.Array ?: throw InvalidFormat("Property must be an array: normalization")
+                    chain(value) { normalized -> result = ConfigBasedConverter(SingleStageConverter(null, normalized), main) }
+                }
             }
         }
-        val main = SingleStageConverter(segmentation, chain(root.array("conversion_chain"), options.includeTofuRiskDictionaries))
-        return root["normalization"]?.let { value ->
-            val normalized = value as? JsonValue.Array ?: throw InvalidFormat("Property must be an array: normalization")
-            ConfigBasedConverter(SingleStageConverter(null, chain(normalized, options.includeTofuRiskDictionaries)), main)
-        } ?: main
     }
+
+    private class LoadRequest(val names: List<String>, val complete: (List<ByteArray>) -> Unit)
 
 }
 

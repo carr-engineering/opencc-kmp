@@ -72,7 +72,7 @@ suspend fun prepareConfig(
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
     dictionaryCache: DictionaryCache? = null,
     cacheIdentity: Any = provider,
-    warningSink: (ConfigWarning) -> Unit = {},
+    warningSink: ((ConfigWarning) -> Unit)? = null,
 ): Converter {
     val name = configResourceName(configName).replace('\\', '/')
     val bytes = provider.read(name)

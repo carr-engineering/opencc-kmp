@@ -21,7 +21,8 @@ where the native loader ignores them. No warning changes accepted conversion beh
 
 ConfigWarning carries path, message, schemaPath and keyword. The common engine exposes warnings
 through a caller-supplied callback rather than writing to a platform stderr stream. The default
-callback is silent; applications/CLI adapters choose their logging policy. Callbacks must support
+callback is absent, so unused advisory validation adds no load work and can shrink away; applications/
+CLI adapters choose their logging policy. Callbacks must support
 concurrent invocation when their loader is shared. Parse failures happen before schema diagnostics;
 semantic failures can follow an advisory warning. Error messages use Kotlin/JSON terms string and
 boolean in place of native std::string/bool. Typed error capabilities and failing properties remain
@@ -45,7 +46,9 @@ properties. Hosts can use orderedPairs when their equivalent extension has anoth
 prefixes in names/values match native option extraction. Properties are validated before missing-
 extension errors; no reflection or eager extension registry is required.
 
-Sync and suspend resource loading share one validation/loading implementation. prepareConfig
+Sync and suspend resource loading drive the same ordered load session. Synchronous apps do not
+start a coroutine; the suspend driver awaits only the session's resource requests. No parsing or
+extension initialization is replayed after an awaited read. prepareConfig
 fetches config bytes, then only dictionaries used by the selected options, once per type/name in
 that load. Inline entries named file and ignored metadata are not interpreted as file references.
 Risk dictionaries skipped by includeTofuRiskDictionaries=false are not acquired; segmentation

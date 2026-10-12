@@ -323,3 +323,19 @@ Do not describe the port as complete until every required configuration, mapped 
 format/tool and target has conformance evidence. Record failures and unsupported environment checks
 explicitly. Publication requires configured ownership, signing credentials and release infrastructure;
 local preparation is not evidence of an actual public release.
+
+### Configuration loading without synchronous coroutine machinery
+
+- Made advisory schema diagnostics optional; the callback retains complete pinned diagnostics when
+  requested, while apps that do not log warnings can shrink the validator away.
+- Sync and suspend drivers now use one ordered load session. Only the async driver awaits resource
+  requests; parsing, extension creation, validation order and decoded dictionary reuse are preserved
+  without replay or a coroutine bridge in synchronous applications.
+- All 38 common engine tests passed across JVM/JS/Wasm/macOS/iOS, together with 3,940 configuration
+  and 71,775 encoded differential cases and prior format/conversion checks. Independent published
+  JVM/JS/Wasm/iOS consumers passed, including twelve actual HTTP requests.
+- Measured each optimization in the checked-in android-config reports. The final engine APK increment
+  is 25,111 bytes, down from 30,412 for the original shared suspend loader; dependency downloads are
+  210,469 bytes, down from 218,290. All selected/full APK profiles remain within their allowances.
+  Engine APK/download and selected-pack dependency budgets still exceed the earlier partial-engine
+  baselines; no allowance was widened and complete-engine size acceptance remains open.

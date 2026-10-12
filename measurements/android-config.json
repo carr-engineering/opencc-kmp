@@ -1,0 +1,282 @@
+{
+  "environment": {
+    "agp": "8.13.2",
+    "compile_sdk": 36,
+    "gradle": "8.14.3",
+    "host": "Darwin-25.0.0-arm64-arm-64bit-Mach-O",
+    "kotlin": "2.4.0",
+    "machine": "arm64",
+    "min_sdk": 23,
+    "shrinking": "R8, default proguard-android-optimize; no OpenCC keep rules"
+  },
+  "limitations": [
+    "APK measurement is not Play/device-specific download size",
+    "Maven metadata/build-tool downloads excluded",
+    "Device startup, peak memory and performance not measured in this report"
+  ],
+  "method": "Signed release APK; ZIP compressed entries; identical Activity and Kotlin baseline; published Maven modules",
+  "profiles": {
+    "baseline": {
+      "apk_bytes": 23549,
+      "configs": [],
+      "data_compressed_entry_bytes": 0,
+      "data_raw_bytes": 0,
+      "dependencies": [
+        {
+          "bytes": 1841929,
+          "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+          "file": "kotlin-stdlib-2.4.0.jar",
+          "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+        },
+        {
+          "bytes": 17536,
+          "coordinate": "org.jetbrains:annotations:13.0",
+          "file": "annotations-13.0.jar",
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ],
+      "dependency_artifact_bytes": 1859465,
+      "dex_compressed_entry_bytes": 791,
+      "dex_raw_bytes": 1336,
+      "dictionaries": [],
+      "incremental_apk_bytes": 0,
+      "incremental_dependency_artifact_bytes": 0,
+      "uncompressed_entry_bytes": 61932
+    },
+    "engine": {
+      "apk_bytes": 53961,
+      "configs": [],
+      "data_compressed_entry_bytes": 0,
+      "data_raw_bytes": 0,
+      "dependencies": [
+        {
+          "bytes": 218290,
+          "coordinate": "io.github.opencckmp:opencc-core-android:0.1.0-SNAPSHOT",
+          "file": "opencc-core-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "1d3a293326ff630e4684f3358c561f8be09057792fbe39010c4ed98e044f8969"
+        },
+        {
+          "bytes": 1841929,
+          "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+          "file": "kotlin-stdlib-2.4.0.jar",
+          "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+        },
+        {
+          "bytes": 17536,
+          "coordinate": "org.jetbrains:annotations:13.0",
+          "file": "annotations-13.0.jar",
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ],
+      "dependency_artifact_bytes": 2077755,
+      "dex_compressed_entry_bytes": 31203,
+      "dex_raw_bytes": 65660,
+      "dictionaries": [],
+      "incremental_apk_bytes": 30412,
+      "incremental_dependency_artifact_bytes": 218290,
+      "uncompressed_entry_bytes": 126256
+    },
+    "full": {
+      "apk_bytes": 6741141,
+      "configs": [
+        "hk2s",
+        "hk2sp",
+        "hk2sp_jieba",
+        "hk2t",
+        "jp2t",
+        "s2hk",
+        "s2hk_jieba",
+        "s2hkp",
+        "s2hkp_jieba",
+        "s2t",
+        "s2t_jieba",
+        "s2tw",
+        "s2tw_jieba",
+        "s2twp",
+        "s2twp_jieba",
+        "t2hk",
+        "t2jp",
+        "t2s",
+        "t2tw",
+        "tw2s",
+        "tw2sp",
+        "tw2sp_jieba",
+        "tw2t"
+      ],
+      "data_compressed_entry_bytes": 6673246,
+      "data_raw_bytes": 20359746,
+      "dependencies": [
+        {
+          "bytes": 218290,
+          "coordinate": "io.github.opencckmp:opencc-core-android:0.1.0-SNAPSHOT",
+          "file": "opencc-core-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "1d3a293326ff630e4684f3358c561f8be09057792fbe39010c4ed98e044f8969"
+        },
+        {
+          "bytes": 6582655,
+          "coordinate": "io.github.opencckmp:opencc-data:0.1.0-SNAPSHOT:resources@zip",
+          "file": "opencc-data-0.1.0-20261012.160251-1-resources.zip",
+          "sha256": "9997cd1d4391370919f47143744743888383d3fae9e083bb5412a7c94a6043ee"
+        },
+        {
+          "bytes": 6704,
+          "coordinate": "io.github.opencckmp:opencc-platform-android:0.1.0-SNAPSHOT",
+          "file": "opencc-platform-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "bf4512f69e365bacea1be78b0920bfccccb2e6a03b3b8787f911831c224d9641"
+        },
+        {
+          "bytes": 1841929,
+          "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+          "file": "kotlin-stdlib-2.4.0.jar",
+          "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+        },
+        {
+          "bytes": 17536,
+          "coordinate": "org.jetbrains:annotations:13.0",
+          "file": "annotations-13.0.jar",
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ],
+      "dependency_artifact_bytes": 8667114,
+      "dex_compressed_entry_bytes": 32237,
+      "dex_raw_bytes": 67676,
+      "dictionaries": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKPhrases.ocd2",
+        "HKPhrasesRev.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2",
+        "HKVariantsRev.ocd2",
+        "HKVariantsRevPhrases.ocd2",
+        "JPShinjitaiCharacters.ocd2",
+        "JPShinjitaiCharactersRev.ocd2",
+        "JPShinjitaiPhrases.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2",
+        "TWPhrases.ocd2",
+        "TWPhrasesRev.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2",
+        "TWVariantsRev.ocd2",
+        "TWVariantsRevPhrases.ocd2",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "incremental_apk_bytes": 6717592,
+      "incremental_dependency_artifact_bytes": 6807649,
+      "uncompressed_entry_bytes": 20499910
+    },
+    "multi": {
+      "apk_bytes": 600662,
+      "configs": [
+        "s2t",
+        "t2s"
+      ],
+      "data_compressed_entry_bytes": 541960,
+      "data_raw_bytes": 1106364,
+      "dependencies": [
+        {
+          "bytes": 218290,
+          "coordinate": "io.github.opencckmp:opencc-core-android:0.1.0-SNAPSHOT",
+          "file": "opencc-core-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "1d3a293326ff630e4684f3358c561f8be09057792fbe39010c4ed98e044f8969"
+        },
+        {
+          "bytes": 541079,
+          "coordinate": "io.github.opencckmp:opencc-data-s2t-t2s:0.1.0-SNAPSHOT:resources@zip",
+          "file": "opencc-data-s2t-t2s-0.1.0-20261012.160251-1-resources.zip",
+          "sha256": "04d1d5d55b8850349a60a5e8e64cd5eadc16e3ada565941a80379aad17e4c765"
+        },
+        {
+          "bytes": 6704,
+          "coordinate": "io.github.opencckmp:opencc-platform-android:0.1.0-SNAPSHOT",
+          "file": "opencc-platform-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "bf4512f69e365bacea1be78b0920bfccccb2e6a03b3b8787f911831c224d9641"
+        },
+        {
+          "bytes": 1841929,
+          "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+          "file": "kotlin-stdlib-2.4.0.jar",
+          "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+        },
+        {
+          "bytes": 17536,
+          "coordinate": "org.jetbrains:annotations:13.0",
+          "file": "annotations-13.0.jar",
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ],
+      "dependency_artifact_bytes": 2625538,
+      "dex_compressed_entry_bytes": 32237,
+      "dex_raw_bytes": 67676,
+      "dictionaries": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2"
+      ],
+      "incremental_apk_bytes": 577113,
+      "incremental_dependency_artifact_bytes": 766073,
+      "uncompressed_entry_bytes": 1237930
+    },
+    "one": {
+      "apk_bytes": 565344,
+      "configs": [
+        "s2t"
+      ],
+      "data_compressed_entry_bytes": 507500,
+      "data_raw_bytes": 1024823,
+      "dependencies": [
+        {
+          "bytes": 218290,
+          "coordinate": "io.github.opencckmp:opencc-core-android:0.1.0-SNAPSHOT",
+          "file": "opencc-core-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "1d3a293326ff630e4684f3358c561f8be09057792fbe39010c4ed98e044f8969"
+        },
+        {
+          "bytes": 506263,
+          "coordinate": "io.github.opencckmp:opencc-data-s2t:0.1.0-SNAPSHOT:resources@zip",
+          "file": "opencc-data-s2t-0.1.0-20261012.155312-1-resources.zip",
+          "sha256": "bf5af6a062081e8e7d056fc3f373518d0075f0faa4d62a1ea3472eb5646c281e"
+        },
+        {
+          "bytes": 6704,
+          "coordinate": "io.github.opencckmp:opencc-platform-android:0.1.0-SNAPSHOT",
+          "file": "opencc-platform-android-0.1.0-SNAPSHOT.aar",
+          "sha256": "bf4512f69e365bacea1be78b0920bfccccb2e6a03b3b8787f911831c224d9641"
+        },
+        {
+          "bytes": 1841929,
+          "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+          "file": "kotlin-stdlib-2.4.0.jar",
+          "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+        },
+        {
+          "bytes": 17536,
+          "coordinate": "org.jetbrains:annotations:13.0",
+          "file": "annotations-13.0.jar",
+          "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ],
+      "dependency_artifact_bytes": 2590722,
+      "dex_compressed_entry_bytes": 32237,
+      "dex_raw_bytes": 67676,
+      "dictionaries": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2"
+      ],
+      "incremental_apk_bytes": 541795,
+      "incremental_dependency_artifact_bytes": 731257,
+      "uncompressed_entry_bytes": 1155583
+    }
+  },
+  "schema_version": 1
+}
