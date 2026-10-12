@@ -5,31 +5,71 @@ import io.github.opencckmp.*
 
 internal const val MIN_WEIGHT = -3.14e100
 
-internal class HmmModel(text: String) {
+internal class HmmModel(bytes: ByteArray) {
+    constructor(text: String) : this(UTF8Util.encode(text))
     private val start: DoubleArray
     private val transitions: Array<DoubleArray>
     private val emissions: Array<Emission>
 
     init {
-        val lines = fileLines(text).map { it.trim { c -> c in " \t\r\n\u000b\u000c" } }
-            .filter { it.isNotEmpty() && !it.startsWith('#') }
+        // Preserve raw emission bytes: cppjieba decodes masked/noncanonical rune encodings,
+        // including rune values that cannot be represented by a Kotlin Unicode scalar.
+        val lines = splitBytes(bytes, '\n'.code.toByte()).map(::trimBytes)
+            .filter { it.isNotEmpty() && it[0] != '#'.code.toByte() }
         if (lines.size < 9) throw InvalidFormat("Incomplete Jieba HMM model")
-        fun probabilities(line: String): DoubleArray {
-            val fields = splitFields(line, ' ')
+        fun probabilities(line: ByteArray): DoubleArray {
+            val fields = splitBytes(line, ' '.code.toByte())
             if (fields.size != 4) throw InvalidFormat("Jieba HMM probability row must contain four states")
-            return DoubleArray(4) { cDouble(fields[it]) }
+            return DoubleArray(4) { cDouble(fields[it].decodeToString()) }
         }
         start = probabilities(lines[0])
         transitions = Array(4) { probabilities(lines[it + 1]) }
         emissions = Array(4) { state ->
             val values = mutableMapOf<Int, Double>()
-            for (field in splitFields(lines[state + 5], ',')) {
-                val parts = splitFields(field, ':')
-                if (parts.size != 2 || UTF8Util.length(parts[0]) != 1) throw InvalidFormat("Invalid Jieba HMM emission: $field")
-                values[UTF8Util.codePoint(parts[0], 0)] = cDouble(parts[1])
+            for (field in splitBytes(lines[state + 5], ','.code.toByte())) {
+                val parts = splitBytes(field, ':'.code.toByte())
+                if (parts.size != 2) throw InvalidFormat("Invalid Jieba HMM emission: ${field.decodeToString()}")
+                values[emissionRune(parts[0])] = cDouble(parts[1].decodeToString())
             }
             Emission(values)
         }
+    }
+
+    private fun emissionRune(bytes: ByteArray): Int {
+        if (bytes.isEmpty()) throw InvalidFormat("Empty Jieba HMM emission key")
+        val first = bytes[0].toInt() and 255
+        val width = when {
+            first < 128 -> 1
+            first <= 0xdf && bytes.size >= 2 -> 2
+            first <= 0xef && bytes.size >= 3 -> 3
+            first <= 0xf7 && bytes.size >= 4 -> 4
+            else -> throw InvalidFormat("Invalid Jieba HMM emission key encoding")
+        }
+        if (bytes.size != width) throw InvalidFormat("Jieba HMM emission key must contain one rune")
+        var point = first and when (width) { 1 -> 127; 2 -> 31; 3 -> 15; else -> 7 }
+        for (index in 1 until width) point = (point shl 6) or (bytes[index].toInt() and 63)
+        return point
+    }
+
+    private fun splitBytes(bytes: ByteArray, separator: Byte): List<ByteArray> {
+        val result = mutableListOf<ByteArray>()
+        var start = 0
+        while (start < bytes.size) {
+            var end = start
+            while (end < bytes.size && bytes[end] != separator) end++
+            result.add(bytes.copyOfRange(start, end))
+            start = end + 1
+        }
+        return result
+    }
+
+    private fun trimBytes(bytes: ByteArray): ByteArray {
+        fun whitespace(value: Byte): Boolean = value == 32.toByte() || value.toInt() in 9..13
+        var start = 0
+        var end = bytes.size
+        while (start < end && whitespace(bytes[start])) start++
+        while (end > start && whitespace(bytes[end - 1])) end--
+        return bytes.copyOfRange(start, end)
     }
 
     private class Emission(values: Map<Int, Double>) {

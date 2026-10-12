@@ -4,27 +4,38 @@ package io.github.opencckmp.jieba
 import io.github.opencckmp.*
 import kotlin.math.ln
 
-/** Packed UTF-16 arcs, traversed by scalar value; no objects are allocated while searching a DAG. */
-internal class WeightedTrie(keys: List<String>, private val weights: DoubleArray, val minimum: Double, userSingles: Set<Int>) {
+/** Packed cppjieba Rune arcs; no objects are allocated while searching a DAG. */
+internal class WeightedTrie(keys: List<IntArray>, private val weights: DoubleArray, val minimum: Double, userSingles: Set<Int>) {
     private val starts: IntArray
     private val counts: IntArray
     private val terminals: IntArray
-    private val labels: CharArray
+    private val labels: IntArray
     private val destinations: IntArray
     private val singles = userSingles.sorted().toIntArray()
 
     init {
-        val ordered = keys.indices.sortedWith { a, b -> keys[a].compareTo(keys[b]) }
-        fun shared(a: String, b: String): Int {
+        val ordered = keys.indices.sortedWith { a, b ->
+            val first = keys[a]
+            val second = keys[b]
+            var comparison = 0
+            var index = 0
+            while (index < minOf(first.size, second.size) && comparison == 0) {
+                comparison = first[index].compareTo(second[index])
+                index++
+            }
+            if (comparison == 0) comparison = first.size.compareTo(second.size)
+            if (comparison == 0) a.compareTo(b) else comparison
+        }
+        fun shared(a: IntArray, b: IntArray): Int {
             var length = 0
-            while (length < minOf(a.length, b.length) && a[length] == b[length]) length++
+            while (length < minOf(a.size, b.size) && a[length] == b[length]) length++
             return length
         }
         var size = 1
-        var previous = ""
+        var previous = IntArray(0)
         for (id in ordered) {
             val key = keys[id]
-            val added = key.length - shared(previous, key)
+            val added = key.size - shared(previous, key)
             if (added > Int.MAX_VALUE - size) throw InvalidFormat("Jieba dictionary exceeds Kotlin trie capacity")
             size += added
             previous = key
@@ -33,24 +44,24 @@ internal class WeightedTrie(keys: List<String>, private val weights: DoubleArray
         counts = IntArray(size)
         terminals = IntArray(size) { -1 }
         val parents = IntArray(size)
-        val nodeLabels = CharArray(size)
-        val path = IntArray((keys.maxOfOrNull { it.length } ?: 0) + 1)
+        val nodeLabels = IntArray(size)
+        val path = IntArray((keys.maxOfOrNull { it.size } ?: 0) + 1)
         var node = 1
-        previous = ""
+        previous = IntArray(0)
         for (id in ordered) {
             val key = keys[id]
             val prefix = shared(previous, key)
-            for (position in prefix until key.length) {
+            for (position in prefix until key.size) {
                 val parent = path[position]
                 parents[node] = parent
                 nodeLabels[node] = key[position]
                 counts[parent]++
                 path[position + 1] = node++
             }
-            terminals[path[key.length]] = id // Later user definitions replace earlier base definitions.
+            terminals[path[key.size]] = id // Later user definitions replace earlier base definitions.
             previous = key
         }
-        labels = CharArray(size - 1)
+        labels = IntArray(size - 1)
         destinations = IntArray(labels.size)
         var offset = 0
         for (index in 0 until size) { starts[index] = offset; offset += counts[index] }
@@ -63,7 +74,7 @@ internal class WeightedTrie(keys: List<String>, private val weights: DoubleArray
         }
     }
 
-    private fun next(node: Int, label: Char): Int {
+    private fun next(node: Int, label: Int): Int {
         var low = starts[node]
         var high = low + counts[node] - 1
         while (low <= high) {
@@ -77,23 +88,18 @@ internal class WeightedTrie(keys: List<String>, private val weights: DoubleArray
         return -1
     }
 
-    fun nextRune(node: Int, point: Int): Int {
-        if (node < 0 || point > 0x10ffff) return -1
-        if (point < 0x10000) return next(node, point.toChar())
-        val high = next(node, (0xd800 + ((point - 0x10000) ushr 10)).toChar())
-        return if (high < 0) -1 else next(high, (0xdc00 + ((point - 0x10000) and 1023)).toChar())
-    }
+    fun nextRune(node: Int, point: Int): Int = if (node < 0) -1 else next(node, point)
     fun weight(node: Int): Double = if (node < 0 || terminals[node] < 0) minimum else weights[terminals[node]]
     fun hasWord(node: Int): Boolean = node >= 0 && terminals[node] >= 0
     fun isUserSingle(point: Int): Boolean = findSorted(singles, point) >= 0
 }
 
 internal class JiebaWords {
-    private val keys = mutableListOf<String>()
+    private val keys = mutableListOf<IntArray>()
     private var frequencies = DoubleArray(256)
     private var kinds = ByteArray(256)
 
-    private fun add(key: String, frequency: Double, base: Boolean, default: Boolean) {
+    private fun add(key: IntArray, frequency: Double, base: Boolean, default: Boolean) {
         if (keys.size == frequencies.size) {
             if (frequencies.size > Int.MAX_VALUE / 2) throw InvalidFormat("Jieba dictionary exceeds Kotlin capacity")
             frequencies = frequencies.copyOf(frequencies.size * 2)
@@ -121,20 +127,26 @@ internal class JiebaWords {
                 1 -> default = true
                 else -> throw InvalidFormat("invalid merged jieba values for: ${entry.key}")
             }
-            add(entry.key, frequency, base, default)
+            val encoded = UTF8Util.encode(entry.key)
+            add(decodeResourceRunes(encoded, 0, encoded.size)!!, frequency, base, default)
         }
     }
 
-    fun text(text: String) {
-        for (line in fileLines(text)) {
-            val fields = splitFields(line, ' ')
-            if (fields.size != 3) throw InvalidFormat("Invalid Jieba dictionary line: $line")
-            UTF8Util.validate(fields[0])
-            add(fields[0], cDouble(fields[1]), true, false)
+    fun text(text: String) = text(UTF8Util.encode(text))
+
+    fun text(bytes: ByteArray) {
+        forEachResourceLine(bytes) { start, end ->
+            val fields = resourceFields(bytes, start, end, 32)
+            if (fields.size != 6) throw InvalidFormat("Invalid Jieba dictionary line: ${bytes.decodeToString(start, end)}")
+            val key = decodeResourceRunes(bytes, fields[0], fields[1])
+                ?: throw InvalidFormat("Invalid Jieba dictionary word encoding")
+            add(key, cDouble(bytes.decodeToString(fields[2], fields[3])), true, false)
         }
     }
 
-    fun build(userDictionaries: List<String>): WeightedTrie {
+    fun build(userDictionaries: List<String>): WeightedTrie = buildEncoded(userDictionaries.map(UTF8Util::encode))
+
+    fun buildEncoded(userDictionaries: List<ByteArray>): WeightedTrie {
         if (keys.isEmpty()) throw InvalidFormat("merged jieba dictionary is empty")
         var sum = 0.0
         var baseCount = 0
@@ -151,41 +163,50 @@ internal class JiebaWords {
         var weights = DoubleArray(frequencies.size)
         for (index in keys.indices) {
             weights[index] = if (kinds[index].toInt() and 2 != 0) median else ln(frequencies[index] / sum)
-            if (kinds[index].toInt() and 1 == 0 && UTF8Util.length(keys[index]) == 1) singles.add(UTF8Util.codePoint(keys[index], 0))
+            val userEntry = kinds[index].toInt() and 1 == 0 &&
+                (kinds[index].toInt() and 2 != 0 || frequencies[index] >= 0.0)
+            if (userEntry && keys[index].size == 1) singles.add(keys[index][0])
         }
-        for (text in userDictionaries) for (line in fileLines(text)) {
-            if (line.isEmpty()) continue
-            val fields = splitFields(line, ' ')
-            if (fields.size !in 1..3) continue // cppjieba inserts an empty node, which cannot match.
-            val key = fields[0]
-            UTF8Util.validate(key)
-            if (words.size == weights.size) {
-                if (weights.size > Int.MAX_VALUE / 2) throw InvalidFormat("Jieba dictionary exceeds Kotlin capacity")
-                weights = weights.copyOf(weights.size * 2)
+        for (bytes in userDictionaries) forEachResourceLine(bytes) { start, end ->
+            if (start != end) {
+                val fields = resourceFields(bytes, start, end, 32)
+                // Failed native MakeNodeInfo leaves an empty node that cannot match input.
+                val key = if (fields.size in 2..6) decodeResourceRunes(bytes, fields[0], fields[1]) else null
+                if (key != null) {
+                    if (words.size == weights.size) {
+                        if (weights.size > Int.MAX_VALUE / 2) throw InvalidFormat("Jieba dictionary exceeds Kotlin capacity")
+                        weights = weights.copyOf(weights.size * 2)
+                    }
+                    weights[words.size] = if (fields.size == 6) ln(cInt(bytes.decodeToString(fields[2], fields[3])).toDouble() / sum) else median
+                    words.add(key)
+                    if (key.size == 1) singles.add(key[0])
+                }
             }
-            weights[words.size] = if (fields.size == 3) ln(cInt(fields[1]).toDouble() / sum) else median
-            words.add(key)
-            if (UTF8Util.length(key) == 1) singles.add(UTF8Util.codePoint(key, 0))
         }
         return WeightedTrie(words, weights.copyOf(words.size), base.first(), singles)
     }
 
     private fun positive(value: String, key: String): Double =
-        value.trimStart().toDoubleOrNull()?.takeUnless { it <= 0.0 }
+        cDoubleComplete(value)?.takeUnless { it <= 0.0 }
             ?: throw InvalidFormat("invalid merged jieba base frequency for: $key")
     private fun nonnegative(value: String, key: String): Double =
-        value.trimStart().toDoubleOrNull()?.takeUnless { it < 0.0 }
+        cDoubleComplete(value)?.takeUnless { it < 0.0 }
             ?: throw InvalidFormat("invalid merged jieba user frequency for: $key")
 }
 
 internal fun fileLines(text: String): List<String> = text.split('\n').let { if (text.endsWith('\n')) it.dropLast(1) else it }
 internal fun splitFields(text: String, separator: Char): List<String> =
     if (text.isEmpty()) emptyList() else text.split(separator).let { if (text.endsWith(separator)) it.dropLast(1) else it }
-private val integerPrefix = Regex("^[\\t\\r\\n ]*([+-]?[0-9]+)")
-private val doublePrefix = Regex("^[\\t\\r\\n ]*([+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?|[+-]?(?:inf(?:inity)?|nan))", RegexOption.IGNORE_CASE)
+private val integerPrefix = Regex("^[\\t\\r\\n\\u000b\\u000c ]*([+-]?[0-9]+)")
+private val doublePrefix = Regex("^[\\t\\r\\n\\u000b\\u000c ]*([+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?|[+-]?(?:inf(?:inity)?|nan))", RegexOption.IGNORE_CASE)
 internal fun cInt(text: String): Int = text.toIntOrNull() ?: integerPrefix.find(text)?.groupValues?.get(1)?.toIntOrNull() ?: 0
 internal fun cDouble(text: String): Double {
-    text.toDoubleOrNull()?.let { return it }
+    var begin = 0
+    while (begin < text.length && text[begin] in " \t\r\n\u000b\u000c") begin++
+    val sign = if (text.getOrNull(begin) == '+' || text.getOrNull(begin) == '-') 1 else 0
+    if (text.getOrNull(begin + sign) == '0' && text.getOrNull(begin + sign + 1) in listOf('x', 'X')) {
+        return hexDouble(text, begin)
+    }
     val token = doublePrefix.find(text)?.groupValues?.get(1) ?: return 0.0
     return when (token.lowercase()) { "inf", "+inf", "infinity", "+infinity" -> Double.POSITIVE_INFINITY
         "-inf", "-infinity" -> Double.NEGATIVE_INFINITY; "nan", "+nan", "-nan" -> Double.NaN

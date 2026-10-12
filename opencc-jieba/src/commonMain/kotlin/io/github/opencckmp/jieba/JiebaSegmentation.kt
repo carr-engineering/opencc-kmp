@@ -8,6 +8,10 @@ class JiebaSegmentation private constructor(private val words: WeightedTrie, pri
     constructor(dictionary: Dict, model: String, userDictionaries: List<String> = emptyList()) : this(
         JiebaWords().apply { merged(dictionary) }.build(userDictionaries), HmmModel(model))
 
+    /** Encoded model resources preserve cppjieba's rune-decoding contract, including noncanonical keys. */
+    constructor(dictionary: Dict, model: ByteArray, userDictionaries: List<String> = emptyList()) : this(
+        JiebaWords().apply { merged(dictionary) }.build(userDictionaries), HmmModel(model))
+
     override fun segment(text: String): Segments {
         UTF8Util.validate(text)
         val points = IntArray(UTF8Util.length(text))
@@ -109,7 +113,18 @@ class JiebaSegmentation private constructor(private val words: WeightedTrie, pri
     private fun separator(point: Int): Boolean = point == 32 || point == 9 || point == 10 || point == 0xff0c || point == 0x3002
 
     companion object {
+        /** Encoded dictionary/model resources, including cppjieba's noncanonical rune encodings. */
+        fun fromBytes(dictionary: ByteArray, model: ByteArray, userDictionaries: List<ByteArray> = emptyList()): JiebaSegmentation =
+            JiebaSegmentation(JiebaWords().apply { text(dictionary) }.buildEncoded(userDictionaries), HmmModel(model))
+
+        /** A loaded OpenCC dictionary with encoded HMM and user-dictionary resources. */
+        fun fromBytes(dictionary: Dict, model: ByteArray, userDictionaries: List<ByteArray> = emptyList()): JiebaSegmentation =
+            JiebaSegmentation(JiebaWords().apply { merged(dictionary) }.buildEncoded(userDictionaries), HmmModel(model))
+
         fun fromText(dictionary: String, model: String, userDictionaries: List<String> = emptyList()): JiebaSegmentation =
+            JiebaSegmentation(JiebaWords().apply { text(dictionary) }.build(userDictionaries), HmmModel(model))
+
+        fun fromText(dictionary: String, model: ByteArray, userDictionaries: List<String> = emptyList()): JiebaSegmentation =
             JiebaSegmentation(JiebaWords().apply { text(dictionary) }.build(userDictionaries), HmmModel(model))
     }
 }

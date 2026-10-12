@@ -20,10 +20,10 @@ class JiebaSegmentationFactory : SegmentationFactory {
         if (dict == null || model == null) paths.missing()
         find(paths.auxiliary(dict, model, "idf.utf8")) ?: paths.missing()
         find(paths.auxiliary(dict, model, "stop_words.utf8")) ?: paths.missing()
-        val userText = user?.let { listOf(UTF8Util.decode(found.getValue(it))) } ?: emptyList()
-        val hmm = UTF8Util.decode(found.getValue(model))
-        val algorithm = if (dict.endsWith(".ocd2")) JiebaSegmentation(MarisaDict.fromBytes(found.getValue(dict)), hmm, userText)
-            else JiebaSegmentation.fromText(UTF8Util.decode(found.getValue(dict)), hmm, userText)
+        val userBytes = user?.let { listOf(found.getValue(it)) } ?: emptyList()
+        val hmm = found.getValue(model)
+        val algorithm = if (dict.endsWith(".ocd2")) JiebaSegmentation.fromBytes(MarisaDict.fromBytes(found.getValue(dict)), hmm, userBytes)
+            else JiebaSegmentation.fromBytes(found.getValue(dict), hmm, userBytes)
         return PluginSegmentation(algorithm)
     }
 

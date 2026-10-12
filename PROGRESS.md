@@ -62,6 +62,21 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Added 13 named upstream CLI assertions for risk-option defaults, line/1 MiB boundaries, variation
   selector warnings and missing-input output preservation; JVM and macOS Native processes passed.
 
+### Parallel completion work: encoded Jieba resources and numbers
+
+- Model, base and user dictionaries load from ByteArray through cppjieba-compatible Rune decoding;
+  String overloads remain canonical Kotlin text. Immutable integer trie arcs retain encoded values
+  that cannot be represented as ordinary Unicode strings, with allocation-free lookup.
+- Added portable C-style hexadecimal probability parsing and complete merged-frequency validation,
+  including whitespace, prefix/whole-token distinctions, rounding, subnormals and overflow.
+- Validation passed on five runtimes, plus 335 numeric bit comparisons, the complete bundled
+  2,064 segmentation/9,632 conversion/4,032 streaming corpus, and 109 custom resource profiles with
+  636 segmentation and 684 conversion comparisons. Native profiles comprise 57 accepted, 31 errors
+  and 21 process aborts; the latter map to typed Kotlin failures, not host termination.
+- Measured primitive trie storage increases 995,994 bytes (8.472%) for full encoded Rune support.
+  Packaged dictionary bytes do not change; object headers and construction peaks are excluded.
+  Physical-device performance and complete memory acceptance remain separate shipping gates.
+
 ## Execution log
 
 ### Foundation

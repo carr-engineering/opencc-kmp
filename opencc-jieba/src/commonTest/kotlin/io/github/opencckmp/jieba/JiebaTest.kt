@@ -29,7 +29,7 @@ class JiebaTest {
         assertEquals(listOf("abc", "", "XYZ"), segmenter.segment("abc\u0000XYZ").values)
         assertEquals(emptyList(), segmenter.segment("").values)
         // Construct malformed UTF-16 at runtime; a klib literal may replace an unpaired surrogate.
-        assertFailsWith<InvalidUTF16> { segmenter.segment(0xd800.toChar().toString()) }
+        assertFailsWith<InvalidUTF16> { segmenter.segment(CharArray(1) { 0xd800.toChar() }.concatToString()) }
     }
     @Test fun userOverrideAndSingleCharacterProtectionArePreserved() {
         val protected = JiebaSegmentation.fromText(dictionary, model, listOf("未\n勇敢 0 n\n"))

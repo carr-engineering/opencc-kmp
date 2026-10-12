@@ -1,0 +1,22 @@
+{
+  "upstream": "ver.1.4.2",
+  "dictionary": "jieba_merged.ocd2",
+  "dictionary_sha256": "3d6e9e6614a95cae37ddf6d4995c8c9d338df9d26de377d6e61ccd18f81e9b78",
+  "scope": "exact retained primitive-array element storage; excludes headers and peak construction memory",
+  "entries": 348986,
+  "single_user_runes": 0,
+  "utf16": {
+    "nodes": 497998,
+    "retained_primitive_bytes": 11755846,
+    "label_bytes": 995994
+  },
+  "rune": {
+    "nodes": 497998,
+    "retained_primitive_bytes": 12751840,
+    "label_bytes": 1991988
+  },
+  "delta_bytes": 995994,
+  "delta_percent": 8.472,
+  "packaged_dictionary_delta_bytes": 0,
+  "hot_path": "primitive integer binary search, with no allocated keys or per-lookup objects"
+}
