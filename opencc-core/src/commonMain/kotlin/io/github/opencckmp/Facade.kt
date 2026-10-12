@@ -6,7 +6,7 @@ class SimpleConverter private constructor(private val delegate: Converter) : Con
         configName: String,
         provider: ResourceProvider,
         options: ConfigLoadOptions = ConfigLoadOptions(),
-        readers: List<DictionaryReader> = listOf(TextDictionaryReader),
+        readers: List<DictionaryReader> = standardDictionaryReaders,
     ) : this(Config(provider, readers).newFromFile(configResourceName(configName), options))
 
     companion object {
@@ -61,7 +61,7 @@ suspend fun prepareConfig(
     configName: String,
     provider: AsyncResourceProvider,
     options: ConfigLoadOptions = ConfigLoadOptions(),
-    readers: List<DictionaryReader> = listOf(TextDictionaryReader),
+    readers: List<DictionaryReader> = standardDictionaryReaders,
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
 ): Converter {
     val name = configResourceName(configName).replace('\\', '/')

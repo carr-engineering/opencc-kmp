@@ -10,3 +10,8 @@ and redistributed dictionaries retain the upstream licence and attribution.
 
 No native OpenCC or its third-party libraries are linked into the Kotlin runtime.
 Build-time reference tools use their own upstream third-party licence notices.
+
+The Kotlin MARISA image reader adapts layout and restoration algorithms from MARISA,
+Copyright (c) 2010-2025 Susumu Yata, used under the BSD 2-clause licence option.
+The upstream licence text is reproduced in licenses/marisa.txt and must accompany
+artifacts containing this adaptation.

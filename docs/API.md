@@ -24,6 +24,8 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Dict::KeyMaxLength / GetLexicon / group accessors | keyMaxLength / lexicon / groupItems / matchPolicy | Kotlin text lengths are UTF-16 units |
 | DictEntry / Lexicon / TextDict | DictEntry / Lexicon / TextDict | Kotlin strings and copied candidate lists; UTF-8 scalar sorting; duplicate text keys rejected |
 | DictGroup / UnionDictGroup | DictGroup / UnionDictGroup | ShortCircuit returns first child's match; Union chooses longest across children |
+| DartsDict / BinaryDict readers | DartsDict.fromBytes / BinaryDict.fromBytes | Fixed uint32 and legacy uint64 fields; auto byte-order detection for `.ocd` |
+| MarisaDict / SerializedValues readers | MarisaDict.fromBytes / SerializedValues.fromBytes | LOUDS links, nested tries, text/binary tails, ordered values; portable runtime lookup |
 | ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
@@ -40,7 +42,8 @@ strings merely because they contain a NUL.
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
 | Filesystem/environment/executable search paths and resource zip support | Platform adapters pending |
-| `.ocd` / `.ocd2` and SerializedValues | Readers/writers and cross-platform format tests pending |
+| `.ocd` / `.ocd2` writers/builders | Runtime readers implemented; deterministic writers and builders pending |
+| Additional MARISA image layouts | Native little-endian images verified; big-endian/32-bit MARISA fixtures pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Dictionary builders / conversion tool / phrase extraction | Pending in separate tooling modules |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |

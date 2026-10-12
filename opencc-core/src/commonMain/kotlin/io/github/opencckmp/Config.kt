@@ -11,7 +11,7 @@ fun interface SegmentationFactory {
 /** Stateless loader. Dictionaries are shared within one load; cross-load caching is provider-owned. */
 class Config(
     private val provider: ResourceProvider = ResourceProvider { throw FileNotFound(it) },
-    readers: List<DictionaryReader> = listOf(TextDictionaryReader),
+    readers: List<DictionaryReader> = standardDictionaryReaders,
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
     private val warningSink: (ConfigWarning) -> Unit = {},
 ) {

@@ -41,11 +41,12 @@ check(converter.convert("汉字") == "漢字")
 val trace = converter.inspect("汉字")
 ```
 
-Text dictionary resources can be supplied through `ResourceProvider`. Binary formats and bundled
-resource delivery are still in progress. [API mappings](docs/API.md) distinguish implemented
+Text and upstream `.ocd` / `.ocd2` dictionary resources can be supplied through `ResourceProvider`.
+Format writers and bundled resource delivery are still in progress. [API mappings](docs/API.md) distinguish implemented
 capabilities from remaining parity work. `upstreamConformance` builds the native reference using
 CMake and checks all upstream answer pairs, golden corpora and all 16 configurations using text
-dictionaries. Common unit tests do not need CMake or upstream downloads.
+dictionaries and original `.ocd2` dictionaries. It also verifies all 22 binary dictionaries in both
+formats. Common unit tests do not need CMake or upstream downloads.
 
 ## Provenance
 

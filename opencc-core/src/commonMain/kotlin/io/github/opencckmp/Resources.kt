@@ -32,3 +32,6 @@ object TextDictionaryReader : DictionaryReader {
     override fun read(bytes: ByteArray): Dict = TextDict.fromBytes(bytes)
 }
 
+/** Standard OpenCC runtime formats; dictionary builders and writers live in the tooling module. */
+val standardDictionaryReaders: List<DictionaryReader>
+    get() = listOf(TextDictionaryReader, DartsDictionaryReader, MarisaDictionaryReader)

@@ -12,12 +12,19 @@ def prepare():
     oracle = build()
     target = ROOT / ".cache/conformance/text"
     target.mkdir(parents=True, exist_ok=True)
+    ocd_target = ROOT / ".cache/conformance/ocd"
+    ocd_target.mkdir(parents=True, exist_ok=True)
     dict_tool = oracle / "src/tools/opencc_dict"
     if not dict_tool.exists():
         dict_tool = dict_tool.with_suffix(".exe")
     for dictionary in sorted((oracle / "data").glob("*.ocd2")):
         subprocess.run([str(dict_tool), "-i", str(dictionary), "-o", str(target / (dictionary.stem + ".txt")),
                         "-f", "ocd2", "-t", "text"], check=True)
+        # The pinned upstream ocd2 -> ocd path passes MARISA ID order to Darts, which requires
+        # sorted keys and aborts. Loading the exported text invokes upstream's sorting step.
+        subprocess.run([str(dict_tool), "-i", str(target / (dictionary.stem + ".txt")),
+                        "-o", str(ocd_target / (dictionary.stem + ".ocd")),
+                        "-f", "text", "-t", "ocd"], check=True)
     for config in sorted((source / "data/config").glob("*.json")):
         if config.name.endswith(".schema.json"):
             continue
@@ -28,4 +35,3 @@ def prepare():
 
 if __name__ == "__main__":
     prepare()
-

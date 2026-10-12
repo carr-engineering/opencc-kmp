@@ -51,6 +51,25 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Platform adapters and published consumer fixtures; no binary size budgets have been claimed yet.
 - Remaining upstream utility, experimental API, phrase extraction, CLI and Jieba parity; see API.md.
 
+### Binary dictionary readers
+
+- Implemented `.ocd` double-array traversal, BinaryDict payloads, legacy uint64 layouts and both byte
+  orders, plus `.ocd2` MARISA LOUDS restoration with nested links, text/binary tails and ordered values.
+- Native `.ocd2` dictionaries restore into a packed Kotlin trie; this reader makes no native calls.
+  Bundled format builders/writers, further layout fixtures and memory/startup optimization remain pending.
+- Validation: all 22 upstream dictionaries in both formats matched 65,175 ordered entries/candidate
+  sets and exact/prefix lookups against native-exported text. The 556 answer pairs, five golden corpus
+  pairs and 16-config native comparisons also passed using original upstream `.ocd2` inputs.
+- Portable fixtures and simulated legacy/endian `.ocd` layouts passed on JVM, JS/Node, Wasm/Node,
+  macOS Arm64 and iOS Arm64 simulator: 13 common tests per target (10 engine/facade, 3 binary).
+- Disabled Wasm incremental compilation after a Kotlin 2.4.0 internal linkage-cache failure; a full
+  linkage rerun passed. This changes build caching, not runtime semantics.
+- Upstream's direct `.ocd2` → `.ocd` tool path aborts on unsorted MARISA IDs. Oracle fixture generation
+  uses upstream text export and text → `.ocd` sorting; reference source is unmodified.
+- Initial data-only measurement: all 22 built-in `.ocd2` files total 1,246,899 raw bytes; individually
+  deflated files total 606,213 bytes. This is not a final application-size budget or claim.
+- MARISA adaptation attribution and the selected BSD-2-Clause licence text are recorded.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

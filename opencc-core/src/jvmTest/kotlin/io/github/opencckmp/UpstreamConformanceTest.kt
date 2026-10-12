@@ -16,6 +16,14 @@ class UpstreamConformanceTest {
             file.readBytes()
         }).newFromFile("$config.json")
     }
+    private fun binaryEngine(config: String): Converter = engines.getOrPut("binary:$config") {
+        Config(ResourceProvider { name ->
+            val file = if (name.endsWith(".json")) File(source, "data/config/$name")
+                else File(root, ".cache/oracle/data/$name")
+            if (!file.isFile) throw FileNotFound(name)
+            file.readBytes()
+        }).newFromFile("$config.json")
+    }
 
     @Test fun allUpstreamCasePairs() {
         val cases = JsonParser(File(source, "test/testcases/testcases.json").readText()).parse() as JsonValue.Object
@@ -25,6 +33,8 @@ class UpstreamConformanceTest {
             for ((config, expected) in case.obj("expected").members) {
                 assertEquals((expected as JsonValue.StringValue).value, engine(config).convert(case.string("input")),
                     "${case.string("id")} / $config")
+                assertEquals(expected.value, binaryEngine(config).convert(case.string("input")),
+                    "${case.string("id")} / $config / upstream ocd2")
                 count++
             }
         }
@@ -40,6 +50,7 @@ class UpstreamConformanceTest {
             val input = File(golden, "input/" + output.nameWithoutExtension.substringBeforeLast('.') + ".txt")
             if (!input.exists() || !File(data, "$config.json").exists()) continue
             assertEquals(output.readText(), engine(config).convert(input.readText()), output.name)
+            assertEquals(output.readText(), binaryEngine(config).convert(input.readText()), output.name + " / upstream ocd2")
             count++
         }
         assertTrue(count > 0, "No golden corpus pairs found")
@@ -60,6 +71,7 @@ class UpstreamConformanceTest {
             val messages = process.inputStream.bufferedReader().readText()
             assertEquals(0, process.waitFor(), messages)
             assertEquals(output.readText(), engine(config.nameWithoutExtension).convert(input), config.name)
+            assertEquals(output.readText(), binaryEngine(config.nameWithoutExtension).convert(input), config.name + " / upstream ocd2")
             count++
         }
         assertEquals(16, count)

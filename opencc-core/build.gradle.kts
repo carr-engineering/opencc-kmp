@@ -5,14 +5,13 @@ val prepareConformance by tasks.registering(Exec::class) {
     commandLine("python3", "tools/prepare_conformance.py")
 }
 tasks.withType<Test>().configureEach {
-    if (name == "jvmTest") exclude("**/UpstreamConformanceTest*")
+    if (name == "jvmTest") exclude("**/Upstream*Test*")
 }
 tasks.register<Test>("upstreamConformance") {
     dependsOn(prepareConformance, "jvmTestClasses")
     val standard = tasks.named<Test>("jvmTest")
     testClassesDirs = standard.get().testClassesDirs
     classpath = standard.get().classpath
-    include("**/UpstreamConformanceTest*")
+    include("**/Upstream*Test*")
     systemProperty("opencc.projectRoot", rootDir.absolutePath)
 }
-
