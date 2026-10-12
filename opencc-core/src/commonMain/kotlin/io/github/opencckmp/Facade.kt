@@ -1,7 +1,7 @@
 package io.github.opencckmp
 
 /** High-level facade with the same conversion capabilities and Kotlin-owned return values. */
-class SimpleConverter private constructor(private val delegate: Converter) : Converter by delegate {
+class SimpleConverter private constructor(internal val delegate: Converter) : Converter by delegate {
     constructor(
         configName: String,
         provider: ResourceProvider,

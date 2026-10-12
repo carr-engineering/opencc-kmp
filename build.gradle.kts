@@ -70,3 +70,9 @@ tasks.register<Exec>("fetchUpstream") {
     commandLine("python3", "tools/upstream.py", "fetch")
 }
 
+tasks.register<Exec>("prepareNativeProbes") {
+    workingDir(rootDir)
+    commandLine("python3", "tools/build_probes.py")
+    mustRunAfter(":opencc-core:prepareConformance")
+}
+

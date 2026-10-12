@@ -35,7 +35,7 @@ class Config(
                     if (key.isEmpty()) throw InvalidFormat("Inline dictionary key must be a non-empty string")
                     val text = (value as? JsonValue.StringValue)?.value
                     if (text.isNullOrEmpty()) throw InvalidFormat("Inline dictionary value must be a non-empty string: $key")
-                    DictEntry(key, text.split(' '))
+                    DictEntry(key, listOf(text))
                 }
                 return TextDict(Lexicon(entries).sorted())
             }

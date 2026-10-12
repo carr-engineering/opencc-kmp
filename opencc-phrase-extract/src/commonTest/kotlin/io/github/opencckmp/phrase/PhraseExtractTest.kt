@@ -89,6 +89,6 @@ class PhraseExtractTest {
         source.extract("")
         assertTrue(source.wordCandidates.isEmpty())
         assertTrue(source.words.isEmpty())
-        assertFailsWith<InvalidUTF16> { source.setFullText("\uD800") }
+        assertFailsWith<InvalidUTF16> { source.setFullText(charArrayOf(0xD800.toChar()).concatToString()) }
     }
 }

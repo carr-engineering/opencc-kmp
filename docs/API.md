@@ -16,6 +16,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Buffer output | convertTo(String, Appendable/CharArray), convertUtf8To | Counts UTF-16 units for text, bytes for encoded output; insufficient capacity fails before mutation |
 | Converter::Inspect | inspect / ConversionInspectionResult | Initial segments, indexed stage outputs, recursive pipeline trace |
 | Converter accessors | segmentation / conversionChain | Config normalization delegates accessors to the main converter |
+| PipelineConverter accessors | PipelineConverter.segmentation / conversionChain | Last child's segmentation; no single conversion chain |
 | ConverterStream::ConvertChunk / Finish | ConverterStream.convertChunk / finish | Caller-owned session; default keep-tail 16 code points; final input flushes in one conversion |
 | Segmentation / MaxMatchSegmentation | Segmentation.segment / MaxMatchSegmentation | Segments preserve phrase boundaries; unmatched complete IDS remains atomic |
 | Conversion::Convert / AppendConverted | Conversion.convert / appendConverted | One dictionary stage, ordered default candidates |
@@ -29,6 +30,8 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Darts / BinaryDict / SerializedValues serialization | DictionaryWriters.ocd / binaryPayload / serializedValues | Pure Kotlin builders and writers in the separate tooling module; fixed-width output and explicit byte order |
 | MarisaDict serialization | DictionaryWriters.ocd2 | Pure Kotlin nested LOUDS builder; deterministic upstream default layout and ordered candidate serialization |
 | DictConverter | DictionaryConverter.load / write / convert, DictionaryFormat | All five upstream input formats; text, ocd and ocd2 output; cppjieba base/user metadata and override ordering |
+| GetAllConversions (unstable upstream) | Converter.getAllConversions | Normalized word input; exact-match candidate branching, discovery-order deduplication and prefix fallback; requires experimental opt-in |
+| ConvertWithAmbiguities / AmbiguityStream (unstable upstream) | Converter.convertWithAmbiguities / AmbiguityStream | Typed results with UTF-16 spans, normalized sources, global stream source indexes and analyzed status; requires experimental opt-in |
 | PhraseExtract::Extract / step operations / Reset / release operations | PhraseExtract.extract / extractSuffixes / extractPrefixes / calculateFrequency / calculateCohesions / calculateSuffixEntropy / calculatePrefixEntropy / extractWordCandidates / selectWords / reset / releaseSuffixes / releasePrefixes | Separate phrase module; owned mutable session; call reset before reuse; reset retains length options and restores default filters |
 | PhraseExtract setters / Words / WordCandidates / Signals / statistic accessors | Length/filter properties, words / wordCandidates / signal / frequency / probability / logProbability / cohesion / entropy / prefixEntropy / suffixEntropy | Unicode scalar length units, String candidates, immutable signal snapshots and copied lists; filter true excludes a candidate |
 | ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
@@ -51,8 +54,6 @@ strings merely because they contain a NUL.
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
 | Bundled Jieba segmentation extension | Common extension interface implemented; algorithm/data port pending |
-| Experimental candidate lookup / ambiguity annotations | Pending, explicitly separate from stable upstream APIs |
-| Segment map / optional script detection | Pending |
 | Cache lifecycle and cross-load sharing | Per-load dictionary sharing implemented; owned cache implementations pending |
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
@@ -62,3 +63,6 @@ The complete data generator includes 16 built-in configs and 7 experimental Jieb
 The latter remain unavailable for conversion until their segmentation factory is ported; data
 presence is not a claim of algorithm conformance. Selective bundles preserve each selected config's
 full resource closure, including optional dictionaries.
+
+`convertWithMap` and the optional `ScriptDetector` are Kotlin extensions beyond upstream; their
+contracts and selection examples live in [ALIGNMENT_AND_DETECTION.md](ALIGNMENT_AND_DETECTION.md).

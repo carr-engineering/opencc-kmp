@@ -144,6 +144,8 @@ class SingleStageConverter(
 
 open class PipelineConverter(converters: List<Converter>) : Converter {
     protected val children = converters.toList()
+    internal val pipelineConverters: List<Converter> get() = children
+    override val segmentation: Segmentation? get() = children.lastOrNull()?.segmentation
     override fun convert(text: String): String {
         UTF8Util.validate(text)
         var current = text
@@ -170,23 +172,7 @@ class ConverterStream(val converter: Converter, val maxKeepChars: Int = 16) {
     private var pending = ""
     fun convertChunk(input: String): String {
         pending += input
-        // Retain a trailing high surrogate so callers can split a UTF-16 pair between chunks.
-        val completeEnd = if (pending.lastOrNull()?.isHighSurrogate() == true) pending.length - 1 else pending.length
-        UTF8Util.validate(pending.substring(0, completeEnd))
-        var keepStart = completeEnd
-        repeat(maxKeepChars) {
-            if (keepStart > 0) {
-                keepStart--
-                if (pending[keepStart].isLowSurrogate()) keepStart--
-            }
-        }
-        var candidate = completeEnd
-        var count = 0
-        while (candidate > 0 && count++ < 64) {
-            candidate--
-            if (pending[candidate].isLowSurrogate()) candidate--
-            if (UTF8Util.idsEnd(pending, candidate, completeEnd) == -1) keepStart = minOf(keepStart, candidate)
-        }
+        val keepStart = flushableTextCount(pending, maxKeepChars)
         if (keepStart == 0) return ""
         val result = converter.convert(pending.substring(0, keepStart))
         pending = pending.substring(keepStart)
@@ -198,4 +184,25 @@ class ConverterStream(val converter: Converter, val maxKeepChars: Int = 16) {
         pending = ""
         return result
     }
+}
+
+internal fun flushableTextCount(pending: String, maxKeepChars: Int): Int {
+    // Retain a trailing high surrogate so callers can split a UTF-16 pair between chunks.
+    val completeEnd = if (pending.lastOrNull()?.isHighSurrogate() == true) pending.length - 1 else pending.length
+    UTF8Util.validate(pending.substring(0, completeEnd))
+    var keepStart = completeEnd
+    repeat(maxKeepChars) {
+        if (keepStart > 0) {
+            keepStart--
+            if (pending[keepStart].isLowSurrogate()) keepStart--
+        }
+    }
+    var candidate = completeEnd
+    var count = 0
+    while (candidate > 0 && count++ < 64) {
+        candidate--
+        if (pending[candidate].isLowSurrogate()) candidate--
+        if (UTF8Util.idsEnd(pending, candidate, completeEnd) == -1) keepStart = minOf(keepStart, candidate)
+    }
+    return keepStart
 }

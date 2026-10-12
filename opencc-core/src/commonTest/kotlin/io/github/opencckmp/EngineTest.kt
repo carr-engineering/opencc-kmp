@@ -45,7 +45,7 @@ class EngineTest {
         assertEquals("漢", engine.convertPrefix("汉字", 1))
         assertEquals("字", engine.convert("汉字", 1, 2))
         assertFailsWith<IllegalArgumentException> { engine.convert("\uD840\uDC00", 0, 1) }
-        assertFailsWith<InvalidUTF16> { engine.convert("\uD800") }
+        assertFailsWith<InvalidUTF16> { engine.convert(charArrayOf(0xD800.toChar()).concatToString()) }
         assertFailsWith<InvalidUTF8> { engine.convertUtf8(byteArrayOf(0xFF.toByte())) }
         assertEquals("漢", UTF8Util.decode(engine.convertUtf8("汉字".encodeToByteArray(), 0, 3)))
         val output = charArrayOf('!', '!', '!')
@@ -70,8 +70,8 @@ class EngineTest {
         """.trimIndent()
         val loader = Config()
         val engine = loader.newFromString(json)
-        assertEquals("神明亮", engine.convert("神"))
-        assertEquals("神明", loader.newFromString(json, options = ConfigLoadOptions(false)).convert("神"))
+        assertEquals("神明亮 神祇", engine.convert("神"))
+        assertEquals("神明 神祇", loader.newFromString(json, options = ConfigLoadOptions(false)).convert("神"))
         val inspected = engine.inspect("神")
         assertEquals(engine.convert("神"), inspected.output)
         assertEquals(2, inspected.pipelineStages.size)
@@ -99,8 +99,8 @@ class EngineTest {
         assertEquals("", stream.convertChunk("字"))
         assertEquals("漢字甲", stream.finish("\uD840\uDC00"))
         val split = ConverterStream(engine, 0)
-        assertEquals("", split.convertChunk("\uD840"))
-        assertEquals("甲", split.convertChunk("\uDC00"))
+        assertEquals("", split.convertChunk(charArrayOf(0xD840.toChar()).concatToString()))
+        assertEquals("甲", split.convertChunk(charArrayOf(0xDC00.toChar()).concatToString()))
         assertEquals("", split.finish())
     }
 

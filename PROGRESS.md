@@ -133,6 +133,23 @@ checkbox is completed only when its implementation and relevant checks exist.
   floating statistics agreed within 1e-12. Both accepting and rejecting default filters were tested.
 - CLI formatting/distribution remains separate acceptance work.
 
+### Segment maps and experimental candidate APIs
+
+- Added original-to-final half-open UTF-16 maps composed through normalization, dictionary stages
+  and converter pipelines. Maps retain complete input/output coverage through straddled matches,
+  expansion, deletion, supplementary characters and atomic IDS sequences.
+- Added opt-in upstream candidate lookup, ambiguity annotations and ambiguity streaming. Candidate
+  branches preserve ordering/deduplication; streaming uses shared conversion window rules and global
+  source indexes. Pipeline accessors now return the last stage's segmentation as upstream does.
+- Native checks uncovered and fixed inline config values incorrectly split on spaces: they are now
+  one literal string, matching upstream. Key-only entries now preserve their key as default output.
+- Validation: 22 common core tests passed on JVM, JS/Node, Wasm/Node, macOS Arm64 and iOS simulator.
+  Native comparisons passed for 160 built-in cases, 32 custom inline/normalization/group/deletion
+  cases and streaming windows/final flush/source indexes. Existing 556 answers, five golden corpus
+  pairs and dictionary interoperability checks also passed.
+- Malformed UTF-16 test strings are now constructed at runtime: Kotlin/JS replaced lone surrogate
+  string literals during code generation, which otherwise prevented those tests exercising the input.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

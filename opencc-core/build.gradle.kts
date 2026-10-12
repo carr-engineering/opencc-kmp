@@ -8,7 +8,7 @@ tasks.withType<Test>().configureEach {
     if (name == "jvmTest") exclude("**/Upstream*Test*")
 }
 tasks.register<Test>("upstreamConformance") {
-    dependsOn(prepareConformance, "jvmTestClasses")
+    dependsOn(prepareConformance, ":prepareNativeProbes", "jvmTestClasses")
     val standard = tasks.named<Test>("jvmTest")
     testClassesDirs = standard.get().testClassesDirs
     classpath = standard.get().classpath

@@ -4,7 +4,7 @@ package io.github.opencckmp
 class DictEntry(val key: String, values: List<String>) {
     private val storedValues = values.toList()
     val values: List<String> get() = storedValues.toList()
-    val defaultValue: String = storedValues.firstOrNull() ?: throw InvalidFormat("Dictionary entry has no values")
+    val defaultValue: String = storedValues.firstOrNull() ?: key
     val keyLength: Int get() = key.length
     val keyByteLength: Int get() = UTF8Util.encode(key).size
     val numValues: Int get() = storedValues.size
