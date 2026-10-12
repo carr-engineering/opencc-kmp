@@ -4,10 +4,10 @@ package io.github.opencckmp.zip
 import io.github.opencckmp.*
 
 /** A Kotlin-owned resource value; [bytes] is newly allocated and belongs to its recipient. */
-class ZipResource(val name: String, val bytes: ByteArray, val cacheKey: Any)
+class ZipResource(name: String, bytes: ByteArray, cacheKey: Any) : Resource(name, bytes, cacheKey)
 
 /** Pinned OpenCC ZIP semantics: stored entries, normalized names, last duplicate and basename fallback. */
-class ZipResourceProvider(bytes: ByteArray, private val archiveName: String = "archive") : ResourceProvider {
+class ZipResourceProvider(bytes: ByteArray, private val archiveName: String = "archive") : ResourceMetadataProvider {
     private val archive = bytes.copyOf()
     private class Entry(val method: Int, val compressed: Int, val size: Int, val offset: Int)
     private val entries = mutableMapOf<String, Entry>()
@@ -46,12 +46,21 @@ class ZipResourceProvider(bytes: ByteArray, private val archiveName: String = "a
             position += recordLength
         }
     }
-    override fun read(name: String): ByteArray = getResource(name).bytes
+    override fun read(name: String): ByteArray {
+        val entry = entries.getValue(selectEntry(name))
+        return archive.copyOfRange(entry.offset, entry.offset + entry.size)
+    }
 
     /** ZIP data has no filesystem path, matching upstream Resolve's failure capability. */
-    fun resolve(name: String): String = throw FileNotFound(name)
+    override fun resolve(name: String): String = throw FileNotFound(name)
 
-    fun getResource(name: String): ZipResource {
+    override fun getResource(name: String): ZipResource {
+        val key = selectEntry(name)
+        val entry = entries.getValue(key)
+        return ZipResource(key, archive.copyOfRange(entry.offset, entry.offset + entry.size), entry)
+    }
+
+    private fun selectEntry(name: String): String {
         if (absolute(name)) throw FileNotFound(name)
         val normalized = normalize(name)
         if (!safe(normalized)) throw FileNotFound(name)
@@ -63,7 +72,7 @@ class ZipResourceProvider(bytes: ByteArray, private val archiveName: String = "a
         val entry = entries.getValue(key)
         if (entry.method != 0) throw InvalidFormat("Unsupported zip compression method for $key")
         if (entry.compressed != entry.size) throw InvalidFormat("Invalid stored zip entry size for $key")
-        return ZipResource(key, archive.copyOfRange(entry.offset, entry.offset + entry.size), entry)
+        return key
     }
     private fun number(offset: Int, width: Int): Long {
         if (!range(offset, width)) invalid("Invalid zip archive")

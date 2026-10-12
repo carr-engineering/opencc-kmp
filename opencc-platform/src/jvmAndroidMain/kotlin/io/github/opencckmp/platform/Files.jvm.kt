@@ -14,6 +14,10 @@ actual fun writeFileBytes(path: String, bytes: ByteArray) {
     try { File(path).writeBytes(bytes) } catch (_: IOException) { throw FileNotWritable(path) }
 }
 
+internal actual fun isAbsoluteResourcePath(path: String): Boolean =
+    path.startsWith('/') || path.startsWith('\\') ||
+        File.separatorChar == '\\' && path.length >= 3 && path[1] == ':' && (path[2] == '/' || path[2] == '\\')
+
 class ClasspathResourceProvider(
     private val prefix: String = "opencc/",
     private val classLoader: ClassLoader? = ClasspathResourceProvider::class.java.classLoader,

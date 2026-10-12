@@ -5,6 +5,8 @@ import io.github.opencckmp.*
 import kotlinx.cinterop.*
 import platform.posix.*
 
+internal actual fun isAbsoluteResourcePath(path: String): Boolean = path.startsWith('/') || path.startsWith('\\')
+
 actual fun readFileBytes(path: String): ByteArray {
     val file = fopen(path, "rb") ?: throw FileNotFound(path)
     try {

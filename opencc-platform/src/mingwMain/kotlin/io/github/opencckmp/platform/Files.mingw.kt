@@ -4,6 +4,20 @@ package io.github.opencckmp.platform
 import io.github.opencckmp.*
 import kotlinx.cinterop.*
 import platform.posix.*
+import platform.windows.WIN32_FILE_ATTRIBUTE_DATA
+import platform.windows.GetFileAttributesExW
+import platform.windows.GET_FILEEX_INFO_LEVELS
+import platform.windows.FILE_ATTRIBUTE_DIRECTORY
+
+internal actual fun isAbsoluteResourcePath(path: String): Boolean = path.startsWith('/') || path.startsWith('\\') ||
+    path.length >= 3 && path[1] == ':' && (path[2] == '/' || path[2] == '\\')
+
+internal actual fun resourceFileMetadata(path: String): String? = memScoped {
+    val info = alloc<WIN32_FILE_ATTRIBUTE_DATA>()
+    if (GetFileAttributesExW(path, GET_FILEEX_INFO_LEVELS.GetFileExInfoStandard, info.ptr) == 0 ||
+        info.dwFileAttributes and FILE_ATTRIBUTE_DIRECTORY.toUInt() != 0u) return@memScoped null
+    "$path\n${info.ftLastWriteTime.dwHighDateTime}.${info.ftLastWriteTime.dwLowDateTime}\n${info.nFileSizeHigh}.${info.nFileSizeLow}"
+}
 
 // Windows uses UTF-16 paths at the platform boundary; data remains byte-oriented.
 actual fun readFileBytes(path: String): ByteArray = memScoped {

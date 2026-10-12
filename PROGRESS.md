@@ -25,6 +25,19 @@ checkbox is completed only when its implementation and relevant checks exist.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
    infrastructure/documentation. Public publication requires configured ownership and credentials.
 
+### Parallel completion work: resource operations
+
+- Added owned resource snapshots and opt-in metadata/resolve operations without enlarging the
+  minimal read-only provider interface. Corrected ordered filesystem lookup, regular-file checks,
+  absolute names with empty search paths, and upstream missing-path diagnostics.
+- ZIP metadata uses the shared snapshot contract; ordinary reads retain their original allocation
+  path. File freshness adapters keep Android API 23 support and isolate native metadata layouts.
+- Validation: 38 pinned native resolve/resource comparisons, platform/ZIP JVM ownership and version
+  tests including 320 concurrent snapshot reads, and Android/all seven Native/JS/Wasm adapter
+  compilation passed. Core snapshot tests passed JVM/JS/Wasm/macOS/iOS simulator.
+- ABI integration and production-size remeasurement follow the remaining concurrent changes; this
+  entry does not claim the final shipping gates have passed.
+
 ## Execution log
 
 ### Foundation

@@ -11,10 +11,15 @@ class ZipResourceTest {
         bytes.fill(0)
         val resource = provider.getResource("sub/dictionary.txt")
         assertEquals("dictionary.txt", resource.name)
+        assertEquals(8, resource.size)
+        val generic: ResourceProvider = provider
+        assertEquals(resource.cacheKey, generic.getResource("dictionary.txt").cacheKey)
+        assertFailsWith<FileNotFound> { generic.resolve("dictionary.txt") }
         assertSame(resource.cacheKey, provider.getResource("dictionary.txt").cacheKey)
         assertNotSame(resource.cacheKey, ZipResourceProvider(image()).getResource("dictionary.txt").cacheKey)
         assertEquals("汉\t漢\n", UTF8Util.decode(resource.bytes))
         resource.bytes.fill(0)
+        assertEquals("汉\t漢\n", UTF8Util.decode(resource.bytes))
         assertEquals("汉\t漢\n", UTF8Util.decode(provider.read("sub\\dictionary.txt")))
         assertFailsWith<FileNotFound> { provider.read("../ignored") }
         assertFailsWith<FileNotFound> { provider.read("/dictionary.txt") }

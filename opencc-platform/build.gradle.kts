@@ -18,3 +18,16 @@ kotlin {
         }
     }
 }
+
+tasks.withType<Test>().configureEach {
+    if (name == "jvmTest") exclude("**/UpstreamResourceTest*")
+}
+tasks.register<Test>("resourceConformance") {
+    dependsOn(":prepareNativeProbes", "jvmTestClasses")
+    val standard = tasks.named<Test>("jvmTest")
+    testClassesDirs = standard.get().testClassesDirs
+    classpath = standard.get().classpath
+    include("**/UpstreamResourceTest*")
+    systemProperty("opencc.projectRoot", rootDir.absolutePath)
+    outputs.upToDateWhen { false }
+}
