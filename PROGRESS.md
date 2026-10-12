@@ -28,6 +28,29 @@ checkbox is completed only when its implementation and relevant checks exist.
   at this scaffold stage; this is not engine conformance evidence. Other targets remain unverified.
 - The full API mapping, platform delivery, consumer fixtures and size baselines remain in progress.
 
+### Common conversion engine
+
+- Implemented packed text-dictionary prefix lookup, ordered candidate entries, lexicons, both group
+  policies, IDS-aware segmentation, per-segment conversion chains, normalization and typed inspection.
+- Added stdlib-only config parsing with comments/trailing commas, inline dictionaries, load options,
+  provider-relative resources and extension factories. Recursive schema warning parity remains pending.
+- Added UTF-16 string ranges, UTF-8 encoded operations, safe buffer output, streaming, Kotlin facades,
+  context-scoped errors and a suspend resource-preparation factory.
+- Recorded implemented and pending API mappings in `docs/API.md`.
+- Validation: initial 9 common behaviour tests passed on JVM, JS/Node, Wasm/Node, macOS Arm64 and
+  iOS Arm64 simulator. Facade coverage subsequently expanded JVM tests to 10 passing tests.
+- Conformance on JVM with upstream-generated text dictionaries: all 556 upstream answer pairs,
+  5 golden corpus pairs, and native-oracle comparisons for all 16 bundled configs passed.
+- Built the pinned C++ reference and ran its 21 test executables successfully. The oracle build
+  isolates upstream Git-version discovery from this project's history and is never a runtime binding.
+- Removed generated Python bytecode from tracking and added source line-ending/cache rules.
+
+### Next acceptance work
+
+- Native binary formats and their builders/writers, followed by complete/selective binary data packs.
+- Platform adapters and published consumer fixtures; no binary size budgets have been claimed yet.
+- Remaining upstream utility, experimental API, phrase extraction, CLI and Jieba parity; see API.md.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

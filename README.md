@@ -15,6 +15,7 @@ Use JDK 17 or newer and the checked-in Gradle wrapper. Targets can be restricted
 ./gradlew -Popencc.targets=jvm :opencc-core:jvmTest
 ./gradlew -Popencc.targets=jvm,js,wasmJs :opencc-core:allTests
 python3 tools/upstream.py fetch
+./gradlew -Popencc.targets=jvm :opencc-core:upstreamConformance
 ```
 
 Without `opencc.targets`, all planned targets are configured. Android builds require Android SDK 36;
@@ -25,6 +26,26 @@ Core has no data, networking or tooling dependencies. Consumers will be able to 
 and optional tooling, or use `opencc-all` for the complete upstream library surface and offline data.
 Public APIs use Kotlin text, collection, error and ownership conventions; native pointer/allocation
 conventions are mapped to equivalent operations rather than copied.
+
+## Current conversion API
+
+```kotlin
+import io.github.opencckmp.*
+
+val converter = Config().newFromString("""
+    {"name":"example","conversion_chain":[
+      {"dict":{"type":"inline","entries":{"汉字":"漢字"}}}
+    ]}
+""")
+check(converter.convert("汉字") == "漢字")
+val trace = converter.inspect("汉字")
+```
+
+Text dictionary resources can be supplied through `ResourceProvider`. Binary formats and bundled
+resource delivery are still in progress. [API mappings](docs/API.md) distinguish implemented
+capabilities from remaining parity work. `upstreamConformance` builds the native reference using
+CMake and checks all upstream answer pairs, golden corpora and all 16 configurations using text
+dictionaries. Common unit tests do not need CMake or upstream downloads.
 
 ## Provenance
 

@@ -7,4 +7,5 @@ local.properties
 *.hprof
 .idea/
 *.iml
-
+__pycache__/
+*.py[cod]
