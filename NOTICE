@@ -15,3 +15,6 @@ The Kotlin MARISA image reader adapts layout and restoration algorithms from MAR
 Copyright (c) 2010-2025 Susumu Yata, used under the BSD 2-clause licence option.
 The upstream licence text is reproduced in licenses/marisa.txt and must accompany
 artifacts containing this adaptation.
+
+The Kotlin Darts builder adapts Darts-clone, Copyright (c) 2008-2014 Susumu Yata,
+under BSD-2-Clause. See licenses/darts-clone.txt for the retained licence notice.

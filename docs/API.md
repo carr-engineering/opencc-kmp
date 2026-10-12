@@ -26,6 +26,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | DictGroup / UnionDictGroup | DictGroup / UnionDictGroup | ShortCircuit returns first child's match; Union chooses longest across children |
 | DartsDict / BinaryDict readers | DartsDict.fromBytes / BinaryDict.fromBytes | Fixed uint32 and legacy uint64 fields; auto byte-order detection for `.ocd` |
 | MarisaDict / SerializedValues readers | MarisaDict.fromBytes / SerializedValues.fromBytes | LOUDS links, nested tries, text/binary tails, ordered values; portable runtime lookup |
+| Darts / BinaryDict / SerializedValues serialization | DictionaryWriters.ocd / binaryPayload / serializedValues | Pure Kotlin builders and writers in the separate tooling module; fixed-width output and explicit byte order |
 | ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
@@ -43,7 +44,7 @@ strings merely because they contain a NUL.
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
 | Environment/executable search paths, browser/Node resource helpers and zip adapters | Basic filesystem/classpath/Android asset/Apple bundle providers implemented; remaining adapters pending |
-| `.ocd` / `.ocd2` writers/builders | Runtime readers implemented; deterministic writers and builders pending |
+| `.ocd2` writers/builders | `.ocd` builder/writer implemented and byte-identical for all 22 built-in dictionaries; MARISA writer pending |
 | Additional MARISA image layouts | Native little-endian images verified; big-endian/32-bit MARISA fixtures pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Dictionary builders / conversion tool / phrase extraction | Pending in separate tooling modules |

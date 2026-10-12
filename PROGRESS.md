@@ -91,6 +91,17 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 ## Completion policy
 
+### Darts builder and dictionary serialization
+
+- Added a pure Kotlin Darts keyset builder matching upstream's unit placement, free-block ring and
+  fixed-width binary serialization. Builders remain in `opencc-dictionary-tools`, outside core.
+- Added text, BinaryDict payload and SerializedValues writers, explicit byte order and field limits.
+- JVM validation: all 22 built-in `.ocd` outputs were byte-identical to upstream; native OpenCC loaded
+  each Kotlin-generated file and exported identical text. Three common writer tests passed.
+- MARISA builder/writer and cross-target writer verification are next; milestone 3 remains open.
+
+## Completion policy
+
 Do not describe the port as complete until every required configuration, mapped API operation,
 format/tool and target has conformance evidence. Record failures and unsupported environment checks
 explicitly. Publication requires configured ownership, signing credentials and release infrastructure;
