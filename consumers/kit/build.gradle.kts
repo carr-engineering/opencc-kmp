@@ -3,6 +3,9 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 plugins { kotlin("multiplatform") }
 
 val profile = providers.gradleProperty("opencc.profile").orElse("one").get()
+val smallBinary = providers.gradleProperty("opencc.native.smallBinary").orElse("false").get().toBooleanStrict()
+val buildProfile = profile + if (smallBinary) "-small" else ""
+layout.buildDirectory.set(rootProject.layout.projectDirectory.dir("build/profiles/$buildProfile/kit"))
 val pack = when (profile) {
     "one" -> "opencc-data-s2t"
     "multi" -> "opencc-data-s2t-t2s"
@@ -19,27 +22,42 @@ val stageResources by tasks.registering(Sync::class) {
         destinationDir.resolve("Info.plist").writeText("""<?xml version="1.0"?><plist version="1.0"><dict><key>CFBundleIdentifier</key><string>io.github.opencckmp.fixture.resources</string><key>CFBundlePackageType</key><string>BNDL</string></dict></plist>""")
     }
 }
+val generateProfile by tasks.registering {
+    inputs.property("profile", profile)
+    val output = layout.buildDirectory.file("generated/kotlin/Profile.kt")
+    outputs.file(output)
+    doLast { output.get().asFile.apply { parentFile.mkdirs(); writeText("package io.github.opencckmp.consumer\ninternal const val fixtureProfile = \"$profile\"\n") } }
+}
 kotlin {
     jvm()
     iosSimulatorArm64 {
         binaries.framework {
             baseName = "ConsumerKit"
             isStatic = true
+            if (smallBinary) binaryOption("smallBinary", "true")
         }
     }
-    js { browser { testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
-    wasmJs { browser { testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
+    js { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
+    wasmJs { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
             if (profile != "baseline") implementation("io.github.opencckmp:opencc-core:0.1.0-SNAPSHOT")
             if (pack != null) implementation("io.github.opencckmp:opencc-platform:0.1.0-SNAPSHOT")
         }
-        commonMain { kotlin.srcDir("src/$profile/kotlin") }
+        commonMain {
+            kotlin.srcDir(if (pack == null) "src/$profile/kotlin" else "src/data/kotlin")
+            kotlin.srcDir(layout.buildDirectory.dir("generated/kotlin"))
+        }
+        for (target in targets.filter { it.name != "metadata" }) {
+            target.compilations.getByName("main").defaultSourceSet.kotlin.srcDir(
+                if (pack == null) "src/noDataHost/kotlin" else "src/dataHost/${target.name}/kotlin")
+        }
         commonTest.dependencies { implementation(kotlin("test")) }
         commonMain { resources.srcDir(layout.buildDirectory.dir("fixture.bundle")) }
     }
 }
+tasks.matching { it.name.startsWith("compile") }.configureEach { dependsOn(generateProfile) }
 tasks.matching { it.name.endsWith("ProcessResources") }.configureEach { dependsOn(stageResources) }
 tasks.withType<KotlinNativeTest>().configureEach {
     dependsOn(stageResources)

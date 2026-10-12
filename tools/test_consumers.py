@@ -26,7 +26,7 @@ class CorsResources(http.server.SimpleHTTPRequestHandler):
 def verify(profile, tasks):
     base = [str(ROOT / "gradlew"), "-p", str(ROOT / "consumers"), f"-Popencc.profile={profile}"]
     subprocess.run(base + [":kit:stageResources"], check=True)
-    directory = ROOT / "consumers/kit/build/fixture.bundle"
+    directory = ROOT / f"consumers/build/profiles/{profile}/kit/fixture.bundle"
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 8765), functools.partial(CorsResources, directory=str(directory)))
     server.requests = []
     thread = threading.Thread(target=server.serve_forever, daemon=True)

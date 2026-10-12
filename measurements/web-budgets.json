@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "baseline": "web-initial.json",
+  "relative_allowance": 0.05,
+  "absolute_allowance_bytes": 4096,
+  "metric": "incremental_gzip_transport_bytes"
+}
