@@ -31,7 +31,7 @@ For the probe dictionaries (`汉 → 漢`, `字 → Z`, `abc → ABC`), these ar
 
 Native traversal primarily uses leading-byte lengths and bounds-clamps partial sequences. Kotlin
 String operations retain the explicitly documented well-formed UTF-16 contract. ByteArray operations
-need a faithful byte-preserving path rather than routing every input through strict Unicode decoding.
+use a faithful byte-preserving path rather than routing every input through strict Unicode decoding.
 Map explicit lengths and null termination to clear Kotlin options; safe output capacities and Kotlin
 ownership remain required. Native pointer/allocation mechanics are not a reason to reproduce unsafe
 writes. Segmentation, normalization and error timing need separate tests because they affect bytes.

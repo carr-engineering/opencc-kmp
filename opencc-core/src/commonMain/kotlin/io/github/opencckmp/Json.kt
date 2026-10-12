@@ -1,14 +1,14 @@
 package io.github.opencckmp
 
 internal sealed interface JsonValue {
-    data class Object(val members: List<Pair<String, JsonValue>>) : JsonValue {
+    class Object(val members: List<Pair<String, JsonValue>>) : JsonValue {
         operator fun get(name: String): JsonValue? = members.firstOrNull { it.first == name }?.second
     }
-    data class Array(val values: List<JsonValue>) : JsonValue
-    data class StringValue(val value: String) : JsonValue
-    data class BooleanValue(val value: Boolean) : JsonValue
-    data class Number(val value: String) : JsonValue
-    data object Null : JsonValue
+    class Array(val values: List<JsonValue>) : JsonValue
+    class StringValue(val value: String) : JsonValue
+    class BooleanValue(val value: Boolean) : JsonValue
+    class Number(val value: String) : JsonValue
+    object Null : JsonValue
 }
 
 /** Small common parser accepting upstream RapidJSON's comments and trailing commas. */

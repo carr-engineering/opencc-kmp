@@ -279,6 +279,20 @@ checkbox is completed only when its implementation and relevant checks exist.
   partial-engine budget. Required byte behavior is retained; the allowance is unchanged. Optimization
   and complete-engine release baselines remain acceptance work, alongside the other open milestones.
 
+### Lean internal JSON model
+
+- Replaced unused internal JSON data-class copying/equality/stringification with small immutable
+  field holders; parser acceptance, field ordering and duplicate handling are unchanged.
+- Full 71,775-case native differential checks and all 32 common engine tests passed on JVM,
+  JS/Wasm and macOS/iOS simulator. Published byte contracts had independently passed on
+  JVM/JS/Wasm/iOS; all production web profiles passed unchanged size gates.
+- Relative to the encoded feature checkpoint, Android dependency artifacts shrink by 3,265 bytes
+  and engine APK by 479 bytes. Latest engine increments are 189,343 download bytes and 14,207 APK
+  bytes. All APK profiles and selected/full dependency profiles pass; the engine-only dependency
+  budget (176,932 bytes) still fails by 12,411 bytes and remains open. No allowance was widened.
+- Exact measurements are in `measurements/android-lean-json.json`; this optimization retains all
+  encoded/string behavior and candidate data, rather than removing capabilities to satisfy a gate.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,
