@@ -55,6 +55,28 @@ class DartsDict private constructor(private val units: IntArray, override val le
         return result
     }
 
+    private inline fun visitEncoded(input: ByteArray, startIndex: Int, endIndex: Int, terminal: (DictEntry) -> Unit) {
+        EncodedUTF8.range(input, startIndex, endIndex)
+        var node = 0
+        for (cursor in startIndex until endIndex) {
+            val byte = input[cursor].toInt() and 255
+            node = node xor offset(units[node]) xor byte
+            if (label(units[node]) != byte) break
+            if (leaf(units[node])) terminal(value(node))
+        }
+    }
+    override fun matchPrefixUtf8(input: ByteArray, startIndex: Int, endIndex: Int): DictEntry? {
+        var result: DictEntry? = null
+        visitEncoded(input, startIndex, endIndex) { result = it }
+        return result
+    }
+    override fun matchAllPrefixesUtf8(input: ByteArray, startIndex: Int, endIndex: Int): List<DictEntry> {
+        val result = mutableListOf<DictEntry>()
+        visitEncoded(input, startIndex, endIndex) { result.add(it) }
+        result.reverse()
+        return result
+    }
+
     companion object {
         fun fromBytes(bytes: ByteArray, byteOrder: DictionaryByteOrder? = null): DartsDict {
             if (byteOrder != null) return read(BinaryCursor(bytes, byteOrder))

@@ -49,6 +49,11 @@ CMake and checks all upstream answer pairs, golden corpora and all 16 configurat
 dictionaries and original `.ocd2` dictionaries. It also verifies all 22 binary dictionaries in both
 formats. Common unit tests do not need CMake or upstream downloads.
 
+String ranges count UTF-16 units; encoded conversion accepts ByteArray ranges and preserves native
+partial/non-canonical byte behavior. `EncodedInputMode` selects explicit lengths or NUL termination,
+and `Utf8ConverterStream` supplies encoded streaming. See [text and byte contracts](docs/ENCODED_API.md)
+for buffer units, inspection snapshots, NULs, errors and composed deletion maps.
+
 ```kotlin
 import io.github.opencckmp.tools.*
 

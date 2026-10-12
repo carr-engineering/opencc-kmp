@@ -13,9 +13,9 @@ python3 tools/audit_encoded.py
 
 The generated corpus is `.cache/conformance/encoded-cases.json`. It retains input bytes, prefix
 length, operation, output bytes/reported count or exception message, config and upstream pin. The
-first reference run yielded 5,760 successes and 72 errors. This is native-reference evidence, not
-Kotlin conformance. The current Kotlin encoded API uses strict decoding and has identified
-differences that must be corrected before declaring parity.
+first reference run yielded 5,760 successes and 72 errors. The expanded Kotlin differential suite
+now passes 71,775 cases across 29 configs, including all 16 built-ins, native binary dictionaries,
+nested groups, inspection traces and streaming. [ENCODED_API.md](ENCODED_API.md) specifies the implementation.
 
 For the probe dictionaries (`汉 → 漢`, `字 → Z`, `abc → ABC`), these are observable upstream results:
 
@@ -36,6 +36,7 @@ Map explicit lengths and null termination to clear Kotlin options; safe output c
 ownership remain required. Native pointer/allocation mechanics are not a reason to reproduce unsafe
 writes. Segmentation, normalization and error timing need separate tests because they affect bytes.
 
-This corpus starts the next differential implementation checks. Original binary dictionary readers,
-nested groups, encoded streaming/inspection and C-facade operations need additional cases before the
-full encoded-input contract can be marked complete.
+The expanded corpus covers native binary dictionaries, nested groups and encoded streaming/inspection;
+portable facade tests cover byte modes/errors/close. Experimental candidate/ambiguity NUL comparisons
+and composed-map checks also pass. Jieba, malformed resource formats, complete utility inventory and
+production size/release gates still require their separate acceptance work.

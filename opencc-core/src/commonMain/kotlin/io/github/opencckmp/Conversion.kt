@@ -3,6 +3,8 @@ package io.github.opencckmp
 
 interface Segmentation {
     fun segment(text: String): Segments
+    fun segmentUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size): List<ByteArray> =
+        segment(UTF8Util.decode(input, startIndex, endIndex)).map { UTF8Util.encode(it) }
 }
 
 class Segments(values: List<String>) : Iterable<String> {
@@ -34,6 +36,23 @@ class MaxMatchSegmentation(val dict: Dict) : Segmentation {
         if (cursor > unmatchedStart) result.add(text.substring(unmatchedStart, cursor))
         return Segments(result)
     }
+    override fun segmentUtf8(input: ByteArray, startIndex: Int, endIndex: Int): List<ByteArray> {
+        EncodedUTF8.range(input, startIndex, endIndex)
+        val result = mutableListOf<ByteArray>()
+        var cursor = startIndex
+        var unmatchedStart = cursor
+        while (cursor < endIndex) {
+            val matched = dict.matchPrefixUtf8(input, cursor, endIndex)
+            if (matched == null) cursor = EncodedUTF8.unmatchedEnd(input, cursor, endIndex) else {
+                if (cursor > unmatchedStart) result.add(input.copyOfRange(unmatchedStart, cursor))
+                result.add(input.copyOfRange(cursor, cursor + matched.keyByteLength))
+                cursor += matched.keyByteLength
+                unmatchedStart = cursor
+            }
+        }
+        if (cursor > unmatchedStart) result.add(input.copyOfRange(unmatchedStart, cursor))
+        return result
+    }
 }
 
 /** One dictionary stage. Distinct from full-text Converter and segment-map result types. */
@@ -55,7 +74,25 @@ class Conversion(val dict: Dict) {
         }
         if (cursor > unmatchedStart) output.append(text, unmatchedStart, cursor)
     }
-    fun convert(segments: Segments): Segments = Segments(segments.map { convert(it) })
+    fun convert(segments: Segments): Segments = Segments(segments.map { convert(it.substringBefore('\u0000')) })
+    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size,
+                    mode: EncodedInputMode = EncodedInputMode.LengthDelimited): ByteArray {
+        val end = EncodedUTF8.end(input, startIndex, endIndex, mode)
+        val output = ByteOutput(end - startIndex)
+        var cursor = startIndex
+        var unmatchedStart = cursor
+        while (cursor < end) {
+            val matched = dict.matchPrefixUtf8(input, cursor, end)
+            if (matched == null) cursor = EncodedUTF8.unmatchedEnd(input, cursor, end) else {
+                output.append(input, unmatchedStart, cursor)
+                output.append(matched.defaultValue)
+                cursor += matched.keyByteLength
+                unmatchedStart = cursor
+            }
+        }
+        output.append(input, unmatchedStart, cursor)
+        return output.result()
+    }
 }
 
 class ConversionChain(conversions: List<Conversion>) {
@@ -74,6 +111,12 @@ class ConversionChain(conversions: List<Conversion>) {
     fun convertWithTrace(input: Segments): List<Segments> {
         var current = input
         return stored.map { conversion -> conversion.convert(current).also { current = it } }
+    }
+    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size,
+                    mode: EncodedInputMode = EncodedInputMode.LengthDelimited): ByteArray {
+        var current = input.copyOfRange(startIndex, EncodedUTF8.end(input, startIndex, endIndex, mode))
+        for (conversion in stored) current = conversion.convertUtf8(current)
+        return current
     }
 }
 
@@ -110,16 +153,25 @@ interface Converter {
         converted.toCharArray(output, offset)
         return converted.length
     }
-    /** Encoded-input range units and returned data are UTF-8 bytes. No implicit NUL truncation. */
-    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size): ByteArray =
-        UTF8Util.encode(convert(UTF8Util.decode(input, startIndex, endIndex)))
-    fun convertUtf8To(input: ByteArray, output: ByteArray, offset: Int = 0): Int {
+    /** Standard converters preserve upstream encoded traversal; custom converters may override it. */
+    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size,
+                    mode: EncodedInputMode = EncodedInputMode.LengthDelimited): ByteArray =
+        UTF8Util.encode(convert(UTF8Util.decode(input, startIndex, EncodedUTF8.end(input, startIndex, endIndex, mode))))
+    fun convertUtf8Prefix(input: ByteArray, length: Int, mode: EncodedInputMode = EncodedInputMode.LengthDelimited): ByteArray =
+        convertUtf8(input, 0, length, mode)
+    /** Buffer overload defaults to upstream's NUL-terminated prefix input; capacity is always safe. */
+    fun convertUtf8To(input: ByteArray, output: ByteArray, offset: Int = 0,
+                      startIndex: Int = 0, endIndex: Int = input.size,
+                      mode: EncodedInputMode = EncodedInputMode.NullTerminated): Int {
         require(offset in 0..output.size) { "Invalid output offset" }
-        val converted = convertUtf8(input)
+        val converted = convertUtf8(input, startIndex, endIndex, mode)
         require(converted.size <= output.size - offset) { "Insufficient output capacity" }
         converted.copyInto(output, offset)
         return converted.size
     }
+    fun inspectUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size,
+                    mode: EncodedInputMode = EncodedInputMode.LengthDelimited): EncodedInspectionResult =
+        inspect(UTF8Util.decode(input, startIndex, EncodedUTF8.end(input, startIndex, endIndex, mode))).toEncoded()
 }
 
 class SingleStageConverter(
@@ -130,15 +182,37 @@ class SingleStageConverter(
         UTF8Util.validate(text)
         if (segmentation == null) return conversionChain.convert(text)
         return buildString(text.length) {
-            for (segment in segmentation.segment(text)) append(conversionChain.convert(segment))
+            for (segment in segmentation.segment(text)) append(conversionChain.convert(segment.substringBefore('\u0000')))
         }
     }
     override fun inspect(text: String): ConversionInspectionResult {
         UTF8Util.validate(text)
         val initial = segmentation?.segment(text) ?: Segments(listOf(text))
         val trace = conversionChain.convertWithTrace(initial)
-        return ConversionInspectionResult(text, trace.lastOrNull()?.toString() ?: initial.toString(),
-            initial.values, trace.mapIndexed { index, segments -> ConversionInspectionStage(index + 1, segments.values) })
+        fun reported(segments: Segments) = segments.values.map { it.substringBefore('\u0000') }
+        return ConversionInspectionResult(text, reported(trace.lastOrNull() ?: initial).joinToString(""),
+            reported(initial), trace.mapIndexed { index, segments -> ConversionInspectionStage(index + 1, reported(segments)) })
+    }
+    override fun convertUtf8(input: ByteArray, startIndex: Int, endIndex: Int, mode: EncodedInputMode): ByteArray {
+        val end = EncodedUTF8.end(input, startIndex, endIndex, mode)
+        val segmentation = segmentation ?: return conversionChain.convertUtf8(input, startIndex, end)
+        val output = ByteOutput(end - startIndex)
+        for (segment in segmentation.segmentUtf8(input, startIndex, end)) {
+            output.append(conversionChain.convertUtf8(segment, mode = EncodedInputMode.NullTerminated))
+        }
+        return output.result()
+    }
+    override fun inspectUtf8(input: ByteArray, startIndex: Int, endIndex: Int, mode: EncodedInputMode): EncodedInspectionResult {
+        val end = EncodedUTF8.end(input, startIndex, endIndex, mode)
+        val snapshot = input.copyOfRange(startIndex, end)
+        val initial = segmentation?.segmentUtf8(snapshot) ?: listOf(snapshot)
+        var current = initial
+        val trace = conversionChain.conversions.mapIndexed { index, conversion ->
+            current = current.map { conversion.convertUtf8(it, mode = EncodedInputMode.NullTerminated) }
+            EncodedInspectionStage(index + 1, current.nulTerminatedSnapshots())
+        }
+        return EncodedInspectionResult(snapshot, joinEncoded(current.nulTerminatedSnapshots()),
+            initial.nulTerminatedSnapshots(), trace)
     }
 }
 
@@ -157,6 +231,17 @@ open class PipelineConverter(converters: List<Converter>) : Converter {
         var current = text
         val trace = children.map { it.inspect(current).also { result -> current = result.output } }
         return ConversionInspectionResult(text, current, pipelineStages = trace)
+    }
+    override fun convertUtf8(input: ByteArray, startIndex: Int, endIndex: Int, mode: EncodedInputMode): ByteArray {
+        var current = input.copyOfRange(startIndex, EncodedUTF8.end(input, startIndex, endIndex, mode))
+        for (converter in children) current = converter.convertUtf8(current)
+        return current
+    }
+    override fun inspectUtf8(input: ByteArray, startIndex: Int, endIndex: Int, mode: EncodedInputMode): EncodedInspectionResult {
+        val snapshot = input.copyOfRange(startIndex, EncodedUTF8.end(input, startIndex, endIndex, mode))
+        var current = snapshot
+        val trace = children.map { it.inspectUtf8(current).also { result -> current = result.output } }
+        return EncodedInspectionResult(snapshot, current, pipelineStages = trace)
     }
 }
 
@@ -180,7 +265,7 @@ class ConverterStream(val converter: Converter, val maxKeepChars: Int = 16) {
     }
     fun finish(input: String = ""): String {
         pending += input
-        val result = converter.convert(pending)
+        val result = if (pending.isEmpty()) "" else converter.convert(pending)
         pending = ""
         return result
     }

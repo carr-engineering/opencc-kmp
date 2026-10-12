@@ -118,9 +118,11 @@ private fun Converter.aligned(text: String): AlignedText {
         val output = StringBuilder(text.length)
         val runs = mutableListOf<AlignmentRun>()
         for (segment in converter.segmentation?.segment(text) ?: Segments(listOf(text))) {
-            val aligned = walkChain(chain, segment)
+            val prefix = if (converter.segmentation != null) segment.substringBefore('\u0000') else segment
+            val aligned = walkChain(chain, prefix)
             output.append(aligned.output)
             runs.addAll(aligned.runs)
+            if (prefix.length < segment.length) runs.add(AlignmentRun(segment.length - prefix.length, 0))
         }
         return AlignedText(output.toString(), runs)
     }

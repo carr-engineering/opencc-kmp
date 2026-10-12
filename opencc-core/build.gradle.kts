@@ -8,10 +8,15 @@ tasks.withType<Test>().configureEach {
     if (name == "jvmTest") exclude("**/Upstream*Test*")
 }
 tasks.register<Test>("upstreamConformance") {
-    dependsOn(prepareConformance, ":prepareNativeProbes", "jvmTestClasses")
+    dependsOn(prepareConformance, ":prepareNativeProbes", "prepareEncodedConformance", "jvmTestClasses")
     val standard = tasks.named<Test>("jvmTest")
     testClassesDirs = standard.get().testClassesDirs
     classpath = standard.get().classpath
     include("**/Upstream*Test*")
     systemProperty("opencc.projectRoot", rootDir.absolutePath)
+}
+tasks.register<Exec>("prepareEncodedConformance") {
+    dependsOn(":prepareNativeProbes")
+    workingDir(rootDir)
+    commandLine("python3", "tools/audit_encoded.py", "--probes-ready")
 }

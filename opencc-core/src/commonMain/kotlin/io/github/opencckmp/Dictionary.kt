@@ -6,7 +6,7 @@ class DictEntry(val key: String, values: List<String>) {
     val values: List<String> get() = storedValues.toList()
     val defaultValue: String = storedValues.firstOrNull() ?: key
     val keyLength: Int get() = key.length
-    val keyByteLength: Int get() = UTF8Util.encode(key).size
+    val keyByteLength: Int = UTF8Util.byteLength(key)
     val numValues: Int get() = storedValues.size
     override fun toString(): String = key + "\t" + storedValues.joinToString(" ")
 }
@@ -56,6 +56,11 @@ interface Dict {
     fun matchPrefix(text: String, startIndex: Int = 0, endIndex: Int = text.length): DictEntry?
     fun matchAllPrefixes(text: String, startIndex: Int = 0, endIndex: Int = text.length): List<DictEntry>
     fun match(word: String): DictEntry? = matchPrefix(word)?.takeIf { it.key.length == word.length }
+    /** Encoded lookup. Standard dictionaries preserve unmatched non-canonical/truncated bytes. */
+    fun matchPrefixUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size): DictEntry? =
+        matchPrefix(UTF8Util.decode(input, startIndex, endIndex))
+    fun matchAllPrefixesUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size): List<DictEntry> =
+        matchAllPrefixes(UTF8Util.decode(input, startIndex, endIndex))
 }
 
 enum class DictGroupMatchPolicy { ShortCircuit, Union }
@@ -71,7 +76,7 @@ class TextDict(override val lexicon: Lexicon) : Dict {
     private val destinations: IntArray
 
     init {
-        for (entry in entries) UTF8Util.validate(entry.key)
+        // DictEntry has already validated keys while computing their encoded lengths.
         // Sorting indexes changes only construction order, never public lexicon/candidate IDs.
         val ordered = entries.indices.sortedWith { a, b -> entries[a].key.compareTo(entries[b].key) }
         fun sharedPrefix(a: String, b: String): Int {
@@ -80,15 +85,16 @@ class TextDict(override val lexicon: Lexicon) : Dict {
             while (length < limit && a[length] == b[length]) length++
             return length
         }
-        var nodeCount = 1L
+        var nodeCount = 1
         var previous = ""
         for (id in ordered) {
             val key = entries[id].key
-            nodeCount += key.length - sharedPrefix(previous, key)
+            val added = key.length - sharedPrefix(previous, key)
+            if (added > Int.MAX_VALUE - nodeCount) throw InvalidFormat("Text dictionary exceeds Kotlin trie capacity")
+            nodeCount += added
             previous = key
         }
-        if (nodeCount > Int.MAX_VALUE) throw InvalidFormat("Text dictionary exceeds Kotlin trie capacity")
-        val size = nodeCount.toInt()
+        val size = nodeCount
         starts = IntArray(size)
         counts = IntArray(size)
         terminals = IntArray(size) { -1 }
@@ -174,6 +180,35 @@ class TextDict(override val lexicon: Lexicon) : Dict {
         return result
     }
 
+    private inline fun visitEncoded(input: ByteArray, startIndex: Int, endIndex: Int, terminal: (Int) -> Unit) {
+        EncodedUTF8.range(input, startIndex, endIndex)
+        var node = 0
+        var cursor = startIndex
+        while (cursor < endIndex) {
+            val point = EncodedUTF8.scalar(input, cursor, endIndex)
+            if (point < 0) break
+            if (point < 0x10000) node = next(node, point.toChar()) else {
+                node = next(node, (0xD800 + ((point - 0x10000) ushr 10)).toChar())
+                if (node >= 0) node = next(node, (0xDC00 + ((point - 0x10000) and 1023)).toChar())
+            }
+            if (node < 0) break
+            if (terminals[node] >= 0) terminal(terminals[node])
+            cursor += EncodedUTF8.width(input, cursor)
+        }
+    }
+
+    override fun matchPrefixUtf8(input: ByteArray, startIndex: Int, endIndex: Int): DictEntry? {
+        var result: DictEntry? = null
+        visitEncoded(input, startIndex, endIndex) { result = entries[it] }
+        return result
+    }
+    override fun matchAllPrefixesUtf8(input: ByteArray, startIndex: Int, endIndex: Int): List<DictEntry> {
+        val result = mutableListOf<DictEntry>()
+        visitEncoded(input, startIndex, endIndex) { result.add(entries[it]) }
+        result.reverse()
+        return result
+    }
+
     companion object {
         fun fromText(text: String, keyValueDelimiter: Char = '\t'): TextDict = TextDict(Lexicon.parse(text, keyValueDelimiter).sorted())
         fun fromBytes(bytes: ByteArray): TextDict = fromText(UTF8Util.decode(bytes))
@@ -202,6 +237,24 @@ open class DictGroup(dicts: List<Dict>, override val matchPolicy: DictGroupMatch
             for (entry in dict.matchAllPrefixes(text, startIndex, endIndex)) matched.getOrPut(entry.key.length) { entry }
         }
         return matched.values.sortedByDescending { it.key.length }
+    }
+    override fun matchPrefixUtf8(input: ByteArray, startIndex: Int, endIndex: Int): DictEntry? {
+        EncodedUTF8.range(input, startIndex, endIndex)
+        var result: DictEntry? = null
+        for (dict in dictionaries) {
+            val entry = dict.matchPrefixUtf8(input, startIndex, endIndex) ?: continue
+            if (matchPolicy == DictGroupMatchPolicy.ShortCircuit) return entry
+            if (result == null || entry.keyByteLength > result.keyByteLength) result = entry
+        }
+        return result
+    }
+    override fun matchAllPrefixesUtf8(input: ByteArray, startIndex: Int, endIndex: Int): List<DictEntry> {
+        EncodedUTF8.range(input, startIndex, endIndex)
+        val matched = mutableMapOf<Int, DictEntry>()
+        for (dict in dictionaries) for (entry in dict.matchAllPrefixesUtf8(input, startIndex, endIndex)) {
+            matched.getOrPut(entry.keyByteLength) { entry }
+        }
+        return matched.values.sortedByDescending { it.keyByteLength }
     }
 }
 

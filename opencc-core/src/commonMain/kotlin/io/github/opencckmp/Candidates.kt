@@ -45,7 +45,8 @@ fun Converter.convertWithAmbiguities(text: String): AnnotatedConversion {
     val ambiguities = mutableListOf<AmbiguousSpan>()
     val output = StringBuilder(normalized.length)
     for (segment in converter.segmentation?.segment(normalized) ?: Segments(listOf(normalized))) {
-        val aligned = walkChain(chain, segment)
+        val prefix = if (converter.segmentation != null) segment.substringBefore('\u0000') else segment
+        val aligned = walkChain(chain, prefix)
         var source = 0
         var target = output.length
         for (run in aligned.runs) {

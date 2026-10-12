@@ -46,13 +46,13 @@ class UpstreamAnnotationTest {
     }
 
     @Test fun allBuiltinConfigsMatchNativeCandidatesAndAmbiguities() {
-        val samples = listOf("", "里", "面", "头发", "里", "⿱艹里", "𠀀里😀面", "软件鼠标内存条", "头发干燥 里面复盘", "文丑文丑")
+        val samples = listOf("", "里", "面", "头发", "里", "⿱艹里", "𠀀里😀面", "软件鼠标内存条", "头发干燥 里面复盘", "文丑文丑", "里\u0000面", "pre\u0000里\u0000post面")
         var count = 0
         for (config in File(source, "data/config").listFiles().orEmpty().filter { it.extension == "json" && !it.name.endsWith(".schema.json") }) {
             val converter = engine(config)
             for (text in samples) { compare(config, converter, text); count++ }
         }
-        assertEquals(160, count)
+        assertEquals(192, count)
         println("Native candidate/ambiguity and mapped-output comparisons: $count built-in cases")
     }
 

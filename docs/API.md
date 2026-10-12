@@ -12,12 +12,12 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | ConfigLoadOptions::includeTofuRiskDictionaries | ConfigLoadOptions.includeTofuRiskDictionaries | Defaults to true; segmentation always includes its dictionaries |
 | SimpleConverter constructors | SimpleConverter(configName, provider, options, readers) | Bare bundled config names map to `.json`; filesystem search is provider responsibility |
 | Converter / SimpleConverter::Convert | convert(String), convert(String, startIndex, endIndex), convertPrefix | Ordinary text uses half-open UTF-16 ranges; supplementary pairs cannot be split |
-| Encoded input / explicit length conversion | convertUtf8(ByteArray, startIndex, endIndex) | Half-open byte range; currently strict decoding; native permissive traversal and NUL parity remain pending |
-| Buffer output | convertTo(String, Appendable/CharArray), convertUtf8To | Counts UTF-16 units for text, bytes for encoded output; insufficient capacity fails before mutation |
-| Converter::Inspect | inspect / ConversionInspectionResult | Initial segments, indexed stage outputs, recursive pipeline trace |
+| Encoded input / explicit length conversion | convertUtf8 / convertUtf8Prefix, EncodedInputMode | Half-open byte ranges; native bounded partial/non-canonical traversal; explicit-length or NUL-terminated input |
+| Buffer output | convertTo(String, Appendable/CharArray), convertUtf8To | Counts UTF-16 units or bytes; byte buffer input defaults to NUL termination; insufficient capacity fails before mutation |
+| Converter::Inspect | inspect / ConversionInspectionResult and inspectUtf8 / EncodedInspectionResult | Typed text/owned byte snapshots, numbered stages, recursive pipelines and native NUL inspection behavior |
 | Converter accessors | segmentation / conversionChain | Config normalization delegates accessors to the main converter |
 | PipelineConverter accessors | PipelineConverter.segmentation / conversionChain | Last child's segmentation; no single conversion chain |
-| ConverterStream::ConvertChunk / Finish | ConverterStream.convertChunk / finish | Caller-owned session; default keep-tail 16 code points; final input flushes in one conversion |
+| ConverterStream::ConvertChunk / Finish | ConverterStream and Utf8ConverterStream | Owned text/encoded sessions; default tail 16 characters; partial UTF-8/UTF-16 boundaries and final flush |
 | Segmentation / MaxMatchSegmentation | Segmentation.segment / MaxMatchSegmentation | Segments preserve phrase boundaries; unmatched complete IDS remains atomic |
 | Conversion::Convert / AppendConverted | Conversion.convert / appendConverted | One dictionary stage, ordered default candidates |
 | ConversionChain::Convert / ConvertWithTrace | ConversionChain.convert / convertWithTrace | Stages convert each segment independently |
@@ -43,16 +43,15 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Browser/Node resource acquisition | BrowserResourceProvider / NodeFileResourceProvider | JS and Wasm adapters; suspend fetch preparation and synchronous local file loading; no networking in core |
 
 `prepareConfig` is a Kotlin extension: suspending host resource acquisition followed by synchronous
-conversion. It requires no coroutine or network dependency in core. Low-level encoded C-string
-terminator conventions require explicit host adaptation; the Kotlin text API does not truncate
-strings merely because they contain a NUL.
+conversion. It requires no coroutine or network dependency in core. Explicit byte modes replace
+native C-string input conventions. Text and bytes retain upstream's config-dependent NUL behavior;
+byte modes do not impose byte indexing on ordinary String operations.
 
 ## Remaining parity work
 
 | Requirement | Current status |
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
-| Encoded input, NULs, partial/malformed sequences and native buffer overload differences | Native 5,832-case audit recorded; faithful byte-preserving implementation pending |
 | Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
@@ -72,3 +71,5 @@ Cache/concurrency, resource verification and shared dictionary lifetimes are spe
 [CACHES_AND_OWNERSHIP.md](CACHES_AND_OWNERSHIP.md).
 The encoded-input differences and reproducible native probe are recorded in
 [ENCODED_CONTRACT_AUDIT.md](ENCODED_CONTRACT_AUDIT.md).
+
+Implemented byte/text, mode, inspection and streaming contracts are in [ENCODED_API.md](ENCODED_API.md).

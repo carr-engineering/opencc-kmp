@@ -20,6 +20,12 @@ class OwnershipContractTest {
         cache.close()
         assertEquals("漢", first.convert("汉"))
         assertEquals("漢", second.convert("汉"))
+        assertContentEquals(byteArrayOf(0xe6.toByte()), first.convertUtf8Prefix("汉".encodeToByteArray(), 1))
+        assertEquals("漢\u0000x", UTF8Util.decode(first.convertUtf8("汉\u0000x".encodeToByteArray())))
+        val output = ByteArray(8)
+        assertEquals(3, first.convertUtf8To("汉\u0000x".encodeToByteArray(), output))
+        assertEquals("漢", UTF8Util.decode(output, 0, 3))
+        assertEquals("漢", UTF8Util.decode(first.inspectUtf8("汉\u0000x".encodeToByteArray()).output))
         assertFailsWith<ResourceVerificationFailed> { provider.read("unlisted") }
     }
 }

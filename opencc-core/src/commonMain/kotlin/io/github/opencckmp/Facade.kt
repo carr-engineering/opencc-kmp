@@ -43,12 +43,15 @@ class OpenCCHandle internal constructor(converter: Converter, private val contex
     fun convert(text: String): String? = context.capture { current().convert(text) }
     fun convert(text: String, startIndex: Int, endIndex: Int): String? =
         context.capture { current().convert(text, startIndex, endIndex) }
-    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size): ByteArray? =
-        context.capture { current().convertUtf8(input, startIndex, endIndex) }
+    fun convertUtf8(input: ByteArray, startIndex: Int = 0, endIndex: Int = input.size,
+                    mode: EncodedInputMode = EncodedInputMode.LengthDelimited): ByteArray? =
+        context.capture { current().convertUtf8(input, startIndex, endIndex, mode) }
     fun convertTo(text: String, output: Appendable): Int? = context.capture { current().convertTo(text, output) }
     fun convertTo(text: String, output: CharArray, offset: Int = 0): Int? = context.capture { current().convertTo(text, output, offset) }
-    fun convertUtf8To(input: ByteArray, output: ByteArray, offset: Int = 0): Int? =
-        context.capture { current().convertUtf8To(input, output, offset) }
+    fun convertUtf8To(input: ByteArray, output: ByteArray, offset: Int = 0,
+                      startIndex: Int = 0, endIndex: Int = input.size,
+                      mode: EncodedInputMode = EncodedInputMode.NullTerminated): Int? =
+        context.capture { current().convertUtf8To(input, output, offset, startIndex, endIndex, mode) }
     fun close(): Boolean {
         converter = null
         return true

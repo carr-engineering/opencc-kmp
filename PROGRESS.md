@@ -18,7 +18,8 @@ checkbox is completed only when its implementation and relevant checks exist.
 1. Continue startup/memory profiling after the primitive-array builder and owned caches. Initial
    published consumers and package-size baselines exist across Android, Swift/iOS and JS/Wasm;
    physical-device performance, broader peak-memory evidence and production delivery gates remain.
-2. Encoded-input/NUL/malformed-input contracts and complete JSON diagnostics.
+2. Complete JSON acceptance/schema diagnostics and the upstream utility inventory. Encoded conversion,
+   inspection, streaming and equivalent text/map/NUL operations now have differential coverage.
 3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
    infrastructure/documentation. Public publication requires configured ownership and credentials.
@@ -257,6 +258,26 @@ checkbox is completed only when its implementation and relevant checks exist.
   parity pending explicitly; `docs/ENCODED_CONTRACT_AUDIT.md` records examples and next coverage.
 - This audit does not change runtime conversion or claim encoded parity. It is the evidence used
   for the next implementation milestone; strict Kotlin String validation remains a separate contract.
+
+### Byte-preserving conversion and equivalent text contracts
+
+- Implemented direct encoded dictionary prefix lookup, conversion chains/pipelines, explicit-length
+  and NUL-terminated input, safe byte buffers, typed encoded inspection and encoded streaming with
+  native leading-byte/partial/IDS/backwards-window semantics. Cached encoded key lengths and bounded
+  integer accounting avoid per-character byte arrays and JS Long allocation; inspection byte types
+  retain useful fields without unnecessary generated copy/equality methods.
+- Corrected native NUL semantics in inline JSON entries, segmented String conversion, inspection,
+  potential ambiguities and composed UTF-16 deletion maps. Empty stream finish skips conversion.
+- The native differential suite passes 71,775 cases across 29 configs, including every built-in config
+  using original images, text/ocd/ocd2 fixtures, nested groups, normalization, empty chains and inline
+  NUL entries. It checks byte prefixes/modes/buffers, full inspection trees, streaming chunk outputs
+  and final flush; valid inputs additionally check Kotlin String equivalents and composed maps.
+- Eight portable encoded tests passed on JVM, JS, Wasm, macOS and iOS simulator. All prior engine
+  tests and native format/writer checks passed; built-in candidate/ambiguity comparisons expanded to
+  192 cases including NULs. Detailed contracts are in `docs/ENCODED_API.md`.
+- Initial dependency measurements exposed a known engine-only download regression over the earlier
+  partial-engine budget. Required byte behavior is retained; the allowance is unchanged. Optimization
+  and complete-engine release baselines remain acceptance work, alongside the other open milestones.
 
 ## Completion policy
 

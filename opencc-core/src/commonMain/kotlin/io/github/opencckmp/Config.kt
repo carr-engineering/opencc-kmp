@@ -37,7 +37,9 @@ class Config(
                     if (key.isEmpty()) throw InvalidFormat("Inline dictionary key must be a non-empty string")
                     val text = (value as? JsonValue.StringValue)?.value
                     if (text.isNullOrEmpty()) throw InvalidFormat("Inline dictionary value must be a non-empty string: $key")
-                    DictEntry(key, listOf(text))
+                    // RapidJSON validates explicit JSON lengths, then upstream creates C-string
+                    // dictionary entries. Preserve its observable prefix-at-NUL config semantics.
+                    DictEntry(key.substringBefore('\u0000'), listOf(text.substringBefore('\u0000')))
                 }
                 return TextDict(Lexicon(entries).sorted())
             }

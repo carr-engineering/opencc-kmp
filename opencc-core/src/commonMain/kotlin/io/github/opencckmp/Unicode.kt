@@ -44,6 +44,20 @@ object UTF8Util {
         return count
     }
 
+    /** UTF-8 encoded size without constructing a byte array. Text must contain Unicode scalars. */
+    fun byteLength(text: String): Int {
+        var bytes = 0
+        var cursor = 0
+        while (cursor < text.length) {
+            val point = codePoint(text, cursor)
+            val count = when { point < 0x80 -> 1; point < 0x800 -> 2; point < 0x10000 -> 3; else -> 4 }
+            require(count <= Int.MAX_VALUE - bytes) { "Encoded text exceeds Kotlin array capacity" }
+            bytes += count
+            cursor = nextIndex(text, cursor)
+        }
+        return bytes
+    }
+
     /** Valid Unicode scalar order equals unsigned UTF-8 lexicographic order. */
     fun compare(left: String, right: String): Int {
         var a = 0
