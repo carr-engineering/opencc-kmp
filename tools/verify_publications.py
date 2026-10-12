@@ -39,7 +39,8 @@ def check_artifact(path,module):
             assert artifact.read(prefix+name)==(ROOT/name).read_bytes(),(path,name,'stale notice')
         provenance=json.loads(artifact.read(prefix+'provenance.json'))
         assert provenance['upstream']==LOCK,(path,'upstream')
-        if module=='opencc-core': assert prefix+'licenses/marisa.txt' in names,path
+        if module=='opencc-core':
+            assert all(prefix+name in names for name in ['licenses/marisa.txt','licenses/rapidjson.txt']),path
         elif module=='opencc-dictionary-tools':
             assert all(prefix+name in names for name in ['licenses/marisa.txt','licenses/darts-clone.txt']),path
         elif module=='opencc-jieba': assert prefix+'licenses/CPPJIEBA-LICENSE' in names,path

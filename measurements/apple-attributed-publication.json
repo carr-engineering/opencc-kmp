@@ -1,0 +1,224 @@
+{
+  "environment": {
+    "host": "Darwin-25.0.0-arm64-arm-64bit-Mach-O",
+    "kotlin": "2.4.0",
+    "machine": "arm64",
+    "runtime": "iOS 26.0",
+    "simulator": "iPhone 17 Pro",
+    "smallBinary": false,
+    "xcode": "Xcode 26.0.1\nBuild version 17A400"
+  },
+  "limitations": [
+    "Simulator arm64 release app, not an App Store/device-specific download measurement",
+    "Three launches per profile; not a statistically robust physical-device p95",
+    "sampled_memory_bytes is Darwin process peak RSS, including UIKit/system/runtime overhead"
+  ],
+  "profiles": {
+    "baseline": {
+      "application_raw_bytes": 835408,
+      "data_raw_bytes": 0,
+      "executable_bytes": 834648,
+      "incremental_application_raw_bytes": 0,
+      "incremental_executable_bytes": 0,
+      "incremental_zip_container_bytes": 0,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.00599980354309082,
+          "convert_1000_p95_ms": 0.006999969482421875,
+          "first_conversion_ms": 0.17300009727478027,
+          "load_ms": 0.08500003814697266,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "baseline",
+          "sampled_memory_bytes": 109527040.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.00599980354309082,
+          "convert_1000_p95_ms": 0.0070002079010009766,
+          "first_conversion_ms": 0.12799978256225586,
+          "load_ms": 0.08699989318847656,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "baseline",
+          "sampled_memory_bytes": 114442240.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.005000114440917969,
+          "convert_1000_p95_ms": 0.0070002079010009766,
+          "first_conversion_ms": 0.1660001277923584,
+          "load_ms": 0.07800006866455078,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "baseline",
+          "sampled_memory_bytes": 114655232.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 249222
+    },
+    "engine": {
+      "application_raw_bytes": 1882912,
+      "data_raw_bytes": 0,
+      "executable_bytes": 1882152,
+      "incremental_application_raw_bytes": 1047504,
+      "incremental_executable_bytes": 1047504,
+      "incremental_zip_container_bytes": 303491,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.02200007438659668,
+          "convert_1000_p95_ms": 0.024000167846679688,
+          "first_conversion_ms": 2.797999858856201,
+          "load_ms": 2.7749998569488525,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "engine",
+          "sampled_memory_bytes": 115097600.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.01699995994567871,
+          "convert_1000_p95_ms": 0.01900005340576172,
+          "first_conversion_ms": 3.490999937057495,
+          "load_ms": 3.4739999771118164,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "engine",
+          "sampled_memory_bytes": 115130368.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.016000032424926758,
+          "convert_1000_p95_ms": 0.01699995994567871,
+          "first_conversion_ms": 2.4579999446868896,
+          "load_ms": 2.442999839782715,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "engine",
+          "sampled_memory_bytes": 115163136.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 552713
+    },
+    "full": {
+      "application_raw_bytes": 22328156,
+      "data_raw_bytes": 20360524,
+      "executable_bytes": 1966872,
+      "incremental_application_raw_bytes": 21492748,
+      "incremental_executable_bytes": 1132224,
+      "incremental_zip_container_bytes": 6910603,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.12899994850158691,
+          "convert_1000_p95_ms": 0.14100003242492676,
+          "first_conversion_ms": 70.77900004386902,
+          "load_ms": 70.77300000190735,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "full",
+          "sampled_memory_bytes": 159645696.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.12899994850158691,
+          "convert_1000_p95_ms": 0.14700007438659668,
+          "first_conversion_ms": 69.48900008201599,
+          "load_ms": 69.48300004005432,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "full",
+          "sampled_memory_bytes": 160169984.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.13199996948242188,
+          "convert_1000_p95_ms": 0.1510000228881836,
+          "first_conversion_ms": 69.34599995613098,
+          "load_ms": 69.33899998664856,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "full",
+          "sampled_memory_bytes": 160169984.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 7159825
+    },
+    "multi": {
+      "application_raw_bytes": 3074319,
+      "data_raw_bytes": 1106687,
+      "executable_bytes": 1966872,
+      "incremental_application_raw_bytes": 2238911,
+      "incremental_executable_bytes": 1132224,
+      "incremental_zip_container_bytes": 867238,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.12600016593933105,
+          "convert_1000_p95_ms": 0.13499999046325684,
+          "first_conversion_ms": 69.03900003433228,
+          "load_ms": 69.0329999923706,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "multi",
+          "sampled_memory_bytes": 159678464.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.127000093460083,
+          "convert_1000_p95_ms": 0.14399981498718262,
+          "first_conversion_ms": 69.06900000572205,
+          "load_ms": 69.06399989128113,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "multi",
+          "sampled_memory_bytes": 159842304.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.12899994850158691,
+          "convert_1000_p95_ms": 0.14600014686584473,
+          "first_conversion_ms": 71.40299987792969,
+          "load_ms": 71.39599990844727,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "multi",
+          "sampled_memory_bytes": 159842304.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 1116460
+    },
+    "one": {
+      "application_raw_bytes": 2992154,
+      "data_raw_bytes": 1025146,
+      "executable_bytes": 1966248,
+      "incremental_application_raw_bytes": 2156746,
+      "incremental_executable_bytes": 1131600,
+      "incremental_zip_container_bytes": 832009,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.21800017356872559,
+          "convert_1000_p95_ms": 0.23099994659423828,
+          "first_conversion_ms": 105.55599999427795,
+          "load_ms": 105.30800008773804,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 160923648.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.2480001449584961,
+          "convert_1000_p95_ms": 0.2630000114440918,
+          "first_conversion_ms": 124.30799984931946,
+          "load_ms": 124.09299993515015,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 160481280.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.22300004959106445,
+          "convert_1000_p95_ms": 0.23999977111816406,
+          "first_conversion_ms": 105.67799997329712,
+          "load_ms": 105.29999995231628,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 160186368.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 1081231
+    }
+  },
+  "schema_version": 1
+}

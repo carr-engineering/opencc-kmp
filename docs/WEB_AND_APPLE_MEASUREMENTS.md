@@ -87,3 +87,37 @@ profiles pass. Android engine dependency downloads likewise exceed the earlier p
 by 12,411 bytes. These failed gates are recorded, not widened or treated as release acceptance.
 See `measurements/android-lean-json.json`, `measurements/apple-encoded.json` and
 [ENCODED_API.md](ENCODED_API.md) for the exact sizes and contracts.
+
+## Current decimal parser and explicit Native production option
+
+The attributed-publication report exposed a Native regression: the general Kotlin float parser
+pulled in regex code, with engine ZIP increment 303,491 bytes. Common JSON already validates decimal
+grammar; its range checker now follows the pinned RapidJSON arithmetic instead. The engine contains
+no regex symbols. All 4,952 config cases and 71,775 encoded cases pass alongside conversion/format
+checks, including newly covered zero/overflow/exponent behavior. Powers of ten use 36 constants and
+per-exponent ULP corrections; tests compare all 309 values against pinned literals bit for bit on
+JVM/JS/Wasm/macOS/iOS, including Native release builds. No API capability is removed.
+
+The current `apple-decimal-compact-small.json` pairs every profile with a baseline built using the
+same `smallBinary` option. Incremental ZIP bytes are engine 99,054; one 624,630; multi 659,910;
+complete 6,703,271. All unchanged budgets pass and each installed app passes three launches.
+The initial larger decimal table was rejected for its Android APK cost before this compact variant.
+Earlier default-option reports remain evidence of that earlier configuration, rather than a claim
+that every possible consumer build meets the optimized production budget.
+
+The Apple CI size gate explicitly passes `--small-binary`. With the pinned Kotlin 2.4 toolchain,
+production consumers can set `binaryOption("smallBinary", "true")` on release frameworks/executables;
+debug builds do not support it. General library/build defaults stay off. Current release validation
+covers engine tests on macOS/iOS, cache concurrency, Jieba and stored ZIP tests, in addition to the
+installed Swift fixtures. This is a measured size setting, not physical-device p95 proof.
+
+Regenerate the current Apple gate with:
+
+```sh
+python3 tools/measure_apple.py --check --small-binary
+```
+
+`web-decimal-compact.json` records the matching production/browser run. All JS/Wasm budgets pass:
+engine gzip increments are 27,425/17,715 bytes, one 534,927/535,263, multi 569,340/569,706,
+complete 6,606,536/6,606,902. These are paired application/transport measurements, rather than Maven
+dependency estimates. JVM/JS/Wasm/iOS published-consumer checks also pass with 148 HTTP requests.

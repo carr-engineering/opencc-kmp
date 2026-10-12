@@ -110,7 +110,7 @@ internal class JsonParser(private val input: String) {
             while (input.getOrNull(cursor) in '0'..'9') cursor++
         }
         val text = input.substring(start, cursor)
-        if (text.toDoubleOrNull()?.isFinite() != true) fail("Number exceeds JSON double range")
+        if (!JsonNumberRange.accepts(text)) fail("Number exceeds JSON double range")
         return JsonValue.Number(text)
     }
     private fun string(): String {

@@ -1,0 +1,2944 @@
+{
+  "environment": {
+    "compression": "individual files gzip level 9; browser decodes transport; no engine decoder",
+    "host": "Darwin-25.0.0-arm64-arm-64bit-Mach-O",
+    "kotlin": "2.4.0",
+    "machine": "arm64",
+    "webpack": "5.101.3"
+  },
+  "limitations": [
+    "Three cold browser navigations per profile; not a statistically robust device/browser p95",
+    "Browser memory is sampled JS heap and excludes unmeasured process/Wasm linear-memory peaks",
+    "Full packaged data size and lazily requested initial resources are reported separately"
+  ],
+  "profiles": {
+    "baseline": {
+      "js": {
+        "code": {
+          "gzip_bytes": 5594,
+          "raw_bytes": 14779
+        },
+        "data": {
+          "gzip_bytes": 0,
+          "raw_bytes": 0
+        },
+        "files": {
+          "consumer.js": {
+            "bytes": 14779,
+            "sha256": "af058ec9bec13173aa2c9ff04bb88503fe5e2100dcbcf6c5f762720ed5fb61d9"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          }
+        },
+        "gzip_transport_bytes": 5749,
+        "incremental_gzip_transport_bytes": 0,
+        "incremental_raw_bytes": 0,
+        "other": {
+          "gzip_bytes": 155,
+          "raw_bytes": 171
+        },
+        "raw_bytes": 14950,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 5749,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0,
+              "first_conversion_ms": 0.20000004768371582,
+              "load_ms": 0.10000014305114746,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1547513,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.00039,
+              "Documents": 4,
+              "DomContentLoaded": 1187254.879997,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2097152,
+              "JSHeapUsedSize": 1009572,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.02773,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187254.859315,
+              "Nodes": 25,
+              "ProcessTime": 0.069244,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 0.000199,
+              "ResourceFetchers": 4,
+              "Resources": 1,
+              "ScriptDuration": 0.004805,
+              "TaskDuration": 0.040288,
+              "TaskOtherDuration": 0.007135,
+              "ThreadTime": 0.017452,
+              "Timestamp": 1187254.905803,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.9e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 47.700000047683716
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 5749,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0,
+              "first_conversion_ms": 0.20000004768371582,
+              "load_ms": 0.10000014305114746,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1563185,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 7.8e-05,
+              "Documents": 4,
+              "DomContentLoaded": 1187255.842981,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2359296,
+              "JSHeapUsedSize": 1009572,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.008397,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187255.833248,
+              "Nodes": 25,
+              "ProcessTime": 0.066499,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 6.2e-05,
+              "ResourceFetchers": 4,
+              "Resources": 2,
+              "ScriptDuration": 0.001661,
+              "TaskDuration": 0.013759,
+              "TaskOtherDuration": 0.003539,
+              "ThreadTime": 0.012894,
+              "Timestamp": 1187255.859341,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 28.100000143051147
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 5749,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0,
+              "first_conversion_ms": 0.2999999523162842,
+              "load_ms": 0.2999999523162842,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1548093,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 6.5e-05,
+              "Documents": 4,
+              "DomContentLoaded": 1187256.76799,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2097152,
+              "JSHeapUsedSize": 1007664,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.016727,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187256.758587,
+              "Nodes": 25,
+              "ProcessTime": 0.066879,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 6.1e-05,
+              "ResourceFetchers": 4,
+              "Resources": 1,
+              "ScriptDuration": 0.001632,
+              "TaskDuration": 0.021624,
+              "TaskOtherDuration": 0.003117,
+              "ThreadTime": 0.012141,
+              "Timestamp": 1187256.783105,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 34.10000014305115
+          }
+        ],
+        "zip_container_bytes": 5929
+      },
+      "wasmJs": {
+        "code": {
+          "gzip_bytes": 12140,
+          "raw_bytes": 23953
+        },
+        "data": {
+          "gzip_bytes": 0,
+          "raw_bytes": 0
+        },
+        "files": {
+          "36596e5c26b340e528cb.wasm": {
+            "bytes": 17233,
+            "sha256": "cd57796f8b28e538a643f0ba89008bf99c507e6bd888592178b7bc5442ab03c3"
+          },
+          "consumer.js": {
+            "bytes": 6720,
+            "sha256": "fd1fff7f111663eb68ab4e6f7a3e82f67396419e1dede75c79ba9aeec5c8009c"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          }
+        },
+        "gzip_transport_bytes": 12295,
+        "incremental_gzip_transport_bytes": 0,
+        "incremental_raw_bytes": 0,
+        "other": {
+          "gzip_bytes": 155,
+          "raw_bytes": 171
+        },
+        "raw_bytes": 24124,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "36596e5c26b340e528cb.wasm"
+            ],
+            "actual_http_payload_bytes": 12295,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0,
+              "first_conversion_ms": 1.1000001430511475,
+              "load_ms": 1.1000001430511475,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1278881,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000126,
+              "Documents": 4,
+              "DomContentLoaded": 1187257.698901,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2621440,
+              "JSHeapUsedSize": 1291400,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007522,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187257.683848,
+              "Nodes": 25,
+              "ProcessTime": 0.073442,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 9.7e-05,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.006577,
+              "TaskDuration": 0.031386,
+              "TaskOtherDuration": 0.017041,
+              "ThreadTime": 0.017099,
+              "Timestamp": 1187257.727465,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 44.200000047683716
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "36596e5c26b340e528cb.wasm"
+            ],
+            "actual_http_payload_bytes": 12295,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0,
+              "first_conversion_ms": 0.09999990463256836,
+              "load_ms": 0.09999990463256836,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1278401,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000118,
+              "Documents": 4,
+              "DomContentLoaded": 1187258.635736,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2621440,
+              "JSHeapUsedSize": 1290928,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.011057,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187258.625318,
+              "Nodes": 25,
+              "ProcessTime": 0.071674,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 8.8e-05,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.001574,
+              "TaskDuration": 0.01803,
+              "TaskOtherDuration": 0.00517,
+              "ThreadTime": 0.014315,
+              "Timestamp": 1187258.673719,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 48.69999980926514
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "36596e5c26b340e528cb.wasm"
+            ],
+            "actual_http_payload_bytes": 12295,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.09999990463256836,
+              "first_conversion_ms": 0.40000009536743164,
+              "load_ms": 0.3000001907348633,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "baseline",
+              "sampled_memory_bytes": 1278681,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000143,
+              "Documents": 4,
+              "DomContentLoaded": 1187259.614683,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 2621440,
+              "JSHeapUsedSize": 1291424,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.011942,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187259.597807,
+              "Nodes": 25,
+              "ProcessTime": 0.07912,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000115,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.001515,
+              "TaskDuration": 0.021053,
+              "TaskOtherDuration": 0.007317,
+              "ThreadTime": 0.016798,
+              "Timestamp": 1187259.645403,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.1e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 48
+          }
+        ],
+        "zip_container_bytes": 12583
+      }
+    },
+    "engine": {
+      "js": {
+        "code": {
+          "gzip_bytes": 33019,
+          "raw_bytes": 103424
+        },
+        "data": {
+          "gzip_bytes": 0,
+          "raw_bytes": 0
+        },
+        "files": {
+          "consumer.js": {
+            "bytes": 103424,
+            "sha256": "717ade98234275b1f85c5e9e0ddfd83779be5f3aeecd0f08cc0a15e8c0d638c8"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          }
+        },
+        "gzip_transport_bytes": 33174,
+        "incremental_gzip_transport_bytes": 27425,
+        "incremental_raw_bytes": 88645,
+        "other": {
+          "gzip_bytes": 155,
+          "raw_bytes": 171
+        },
+        "raw_bytes": 103595,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 33174,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.10000014305114746,
+              "first_conversion_ms": 1.4000000953674316,
+              "load_ms": 1.4000000953674316,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 2901470,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 2,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 7.3e-05,
+              "Documents": 4,
+              "DomContentLoaded": 1187265.293711,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 3670016,
+              "JSHeapUsedSize": 1662836,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.014553,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187265.264398,
+              "Nodes": 25,
+              "ProcessTime": 0.090998,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 8.9e-05,
+              "ResourceFetchers": 4,
+              "Resources": 1,
+              "ScriptDuration": 0.010672,
+              "TaskDuration": 0.029569,
+              "TaskOtherDuration": 0.004159,
+              "ThreadTime": 0.022329,
+              "Timestamp": 1187265.303329,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 42.39999985694885
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 33174,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.09999990463256836,
+              "first_conversion_ms": 1.2999999523162842,
+              "load_ms": 1.1000001430511475,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 2342510,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 2,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 6.1e-05,
+              "Documents": 4,
+              "DomContentLoaded": 1187266.223178,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 4456448,
+              "JSHeapUsedSize": 1668500,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.015664,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187266.197675,
+              "Nodes": 25,
+              "ProcessTime": 0.086401,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 9.8e-05,
+              "ResourceFetchers": 4,
+              "Resources": 1,
+              "ScriptDuration": 0.008003,
+              "TaskDuration": 0.026612,
+              "TaskOtherDuration": 0.002759,
+              "ThreadTime": 0.018216,
+              "Timestamp": 1187266.228672,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.7e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 33.700000047683716
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js"
+            ],
+            "actual_http_payload_bytes": 33174,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.10000014305114746,
+              "first_conversion_ms": 1.3000001907348633,
+              "load_ms": 1.2000000476837158,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 2343426,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 2,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 6.6e-05,
+              "Documents": 4,
+              "DomContentLoaded": 1187267.135516,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 4456448,
+              "JSHeapUsedSize": 1669468,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.010457,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187267.112863,
+              "Nodes": 25,
+              "ProcessTime": 0.083967,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 7.2e-05,
+              "ResourceFetchers": 4,
+              "Resources": 1,
+              "ScriptDuration": 0.007877,
+              "TaskDuration": 0.022297,
+              "TaskOtherDuration": 0.003799,
+              "ThreadTime": 0.018951,
+              "Timestamp": 1187267.141687,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.6e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 32.09999990463257
+          }
+        ],
+        "zip_container_bytes": 33354
+      },
+      "wasmJs": {
+        "code": {
+          "gzip_bytes": 29855,
+          "raw_bytes": 71350
+        },
+        "data": {
+          "gzip_bytes": 0,
+          "raw_bytes": 0
+        },
+        "files": {
+          "c5e92a21fed08baf16de.wasm": {
+            "bytes": 64024,
+            "sha256": "2013e165ca4b4aa426643c3bb346f8207ecf043b856a2c651f720e4d703ca6c0"
+          },
+          "consumer.js": {
+            "bytes": 7326,
+            "sha256": "ca2357e0e117f25be3e16a68bb538b535c74cbd79d0eeb06e9defbbdf14e3851"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          }
+        },
+        "gzip_transport_bytes": 30010,
+        "incremental_gzip_transport_bytes": 17715,
+        "incremental_raw_bytes": 47397,
+        "other": {
+          "gzip_bytes": 155,
+          "raw_bytes": 171
+        },
+        "raw_bytes": 71521,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "c5e92a21fed08baf16de.wasm"
+            ],
+            "actual_http_payload_bytes": 30010,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.09999990463256836,
+              "convert_1000_p95_ms": 0.10000014305114746,
+              "first_conversion_ms": 0.9000000953674316,
+              "load_ms": 0.9000000953674316,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 1725415,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000127,
+              "Documents": 4,
+              "DomContentLoaded": 1187268.069485,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 3145728,
+              "JSHeapUsedSize": 921700,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.012336,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187268.052176,
+              "Nodes": 25,
+              "ProcessTime": 0.082019,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000108,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.001519,
+              "TaskDuration": 0.025231,
+              "TaskOtherDuration": 0.011119,
+              "ThreadTime": 0.018576,
+              "Timestamp": 1187268.100704,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 52.5
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "c5e92a21fed08baf16de.wasm"
+            ],
+            "actual_http_payload_bytes": 30010,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.10000014305114746,
+              "first_conversion_ms": 1.2000000476837158,
+              "load_ms": 1.1000001430511475,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 1725443,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000132,
+              "Documents": 4,
+              "DomContentLoaded": 1187269.038307,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 3145728,
+              "JSHeapUsedSize": 909532,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.008999,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187269.02872,
+              "Nodes": 25,
+              "ProcessTime": 0.089213,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.0001,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.001606,
+              "TaskDuration": 0.021256,
+              "TaskOtherDuration": 0.010398,
+              "ThreadTime": 0.020101,
+              "Timestamp": 1187269.073805,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.1e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 46.299999952316284
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "c5e92a21fed08baf16de.wasm"
+            ],
+            "actual_http_payload_bytes": 30010,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 1.2000000476837158,
+              "load_ms": 1.0999999046325684,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "engine",
+              "sampled_memory_bytes": 1725511,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 1,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000193,
+              "Documents": 4,
+              "DomContentLoaded": 1187270.002299,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 3145728,
+              "JSHeapUsedSize": 911692,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.013249,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187269.991096,
+              "Nodes": 25,
+              "ProcessTime": 0.086021,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 9.5e-05,
+              "ResourceFetchers": 4,
+              "Resources": 3,
+              "ScriptDuration": 0.001539,
+              "TaskDuration": 0.02544,
+              "TaskOtherDuration": 0.010344,
+              "ThreadTime": 0.019954,
+              "Timestamp": 1187270.04548,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 56.40000009536743
+          }
+        ],
+        "zip_container_bytes": 30298
+      }
+    },
+    "full": {
+      "js": {
+        "code": {
+          "gzip_bytes": 35209,
+          "raw_bytes": 112084
+        },
+        "data": {
+          "gzip_bytes": 6576768,
+          "raw_bytes": 20360658
+        },
+        "files": {
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 112084,
+            "sha256": "fdcc1dd9df2bd65e2bea281a5db4cf4aa4c60fd3f546456f4c07991b9d6e687d"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/HKPhrases.ocd2": {
+            "bytes": 6941,
+            "sha256": "2216e55024b7f2674245fe860452c7c378ecc0e145ca51dcd944de76a6c62687"
+          },
+          "opencc/HKPhrasesRev.ocd2": {
+            "bytes": 6951,
+            "sha256": "f4642fa9e73454ab91e13197ebabcca8343fc042f1997796c5a2cce3ff2bbddd"
+          },
+          "opencc/HKVariants.ocd2": {
+            "bytes": 4957,
+            "sha256": "b4be56685bddda964977bbd271f976df939d1f46a75332b8f9e793d0f06e6c7c"
+          },
+          "opencc/HKVariantsPhrases.ocd2": {
+            "bytes": 10522,
+            "sha256": "80c215b6bef0f324a71340bc21164d063c5540af6f50c07fd1c703af9c1207da"
+          },
+          "opencc/HKVariantsRev.ocd2": {
+            "bytes": 4989,
+            "sha256": "a7b4a063fb5246722762364b0e675247c91fb3a8f195aa741f1459a776d10118"
+          },
+          "opencc/HKVariantsRevPhrases.ocd2": {
+            "bytes": 10336,
+            "sha256": "93a5a86d77bfa7bfa5fe8aae3ddc1e5d33d9ac5eac3866849c98974fca0938ee"
+          },
+          "opencc/JPShinjitaiCharacters.ocd2": {
+            "bytes": 8893,
+            "sha256": "2a5b7494d064967d482ac110772c03d2a5cdd53760eaeb07646d1f5a197cac15"
+          },
+          "opencc/JPShinjitaiCharactersRev.ocd2": {
+            "bytes": 9159,
+            "sha256": "773f3817dcb9a520ac4437b9502585886497282a65d768183057f4d61de572dd"
+          },
+          "opencc/JPShinjitaiPhrases.ocd2": {
+            "bytes": 8493,
+            "sha256": "66ddb233c180f5f622d16cf9d1b28448e8935ce8d8396b7716d79db0ffb5fcad"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/TSCharacters.ocd2": {
+            "bytes": 52410,
+            "sha256": "7a994de7900707925fac9c68728a6bb9cf3059870426f661cf31b601efbf5f2f"
+          },
+          "opencc/TSCharactersExt.ocd2": {
+            "bytes": 14362,
+            "sha256": "e2b0286801dcd1d26119d19ba8b8a35cde021ec173468255d117c4c0951b2906"
+          },
+          "opencc/TSPhrases.ocd2": {
+            "bytes": 13496,
+            "sha256": "2b722237cc00a4ac985790deb6a68c99f34de10e980a0029ac82c72b0f7ae22b"
+          },
+          "opencc/TWPhrases.ocd2": {
+            "bytes": 24015,
+            "sha256": "4298bc78f8ff472eed0afd31996cb35f6e56cd4ace5ef8a6d27a35a5374b9476"
+          },
+          "opencc/TWPhrasesRev.ocd2": {
+            "bytes": 23947,
+            "sha256": "839f5a71c1f02f594f23a54815d9bca4656ca661a7e32805504c67420496da47"
+          },
+          "opencc/TWVariants.ocd2": {
+            "bytes": 4623,
+            "sha256": "ed89fe928857500a77cbb601be4a1769da34ce863875eaae18d1d50bd036db5e"
+          },
+          "opencc/TWVariantsPhrases.ocd2": {
+            "bytes": 4407,
+            "sha256": "a9c356943779f1d9af8b38751fe9222a02dc211a56c83f83871cfc8558afe178"
+          },
+          "opencc/TWVariantsRev.ocd2": {
+            "bytes": 4655,
+            "sha256": "fc043bdf0224666921983f2badcac8faa5e59d8a681a5525c527c9926f66775d"
+          },
+          "opencc/TWVariantsRevPhrases.ocd2": {
+            "bytes": 27059,
+            "sha256": "ae91cb45c12f737bde2b9e340c38efaa7e1868cf55e59a62cc8199de020113e2"
+          },
+          "opencc/hk2s.json": {
+            "bytes": 952,
+            "sha256": "b5fb0d6447f1f111c02a99f405d678b40a97bf73de0a25000219878994a8da37"
+          },
+          "opencc/hk2sp.json": {
+            "bytes": 1026,
+            "sha256": "8a36e56922fa67aeaffb7d145520ed302276aaaf3ab05c092a10615eeda8a161"
+          },
+          "opencc/hk2sp_jieba.json": {
+            "bytes": 1330,
+            "sha256": "ab652c17f06e6aa928881732cd18c681097bea25be8c8350982ce9d959a0fb5c"
+          },
+          "opencc/hk2t.json": {
+            "bytes": 489,
+            "sha256": "e773001c761c5540c38a66baa378f2a8c65378fa09446186b1c4dd78815bccf3"
+          },
+          "opencc/jieba_dict/hmm_model.utf8": {
+            "bytes": 519739,
+            "sha256": "f17790586ac86dd048c8adffed052c4bd2b28ed0682972c1275e59040c0589a7"
+          },
+          "opencc/jieba_dict/idf.utf8": {
+            "bytes": 5998717,
+            "sha256": "dbd1e03d72b2263cc8d84a4304ed77677eed9e7deaf43a1a5133bbba9733b535"
+          },
+          "opencc/jieba_dict/jieba.dict.utf8": {
+            "bytes": 5071194,
+            "sha256": "3ff771c3b5f64a03c16b42899511281d4cb48c19a4239f47fe2826b6b30d999f"
+          },
+          "opencc/jieba_dict/jieba_merged.ocd2": {
+            "bytes": 7463331,
+            "sha256": "3d6e9e6614a95cae37ddf6d4995c8c9d338df9d26de377d6e61ccd18f81e9b78"
+          },
+          "opencc/jieba_dict/stop_words.utf8": {
+            "bytes": 8974,
+            "sha256": "b788b8a939d2e2fe079abd579ea98f12f9fb84370bfd0dddd81bb9381f7ab42c"
+          },
+          "opencc/jieba_dict/user.dict.utf8": {
+            "bytes": 68,
+            "sha256": "4c0e0c6f1ad4ffc7ec08ae4f72c11bd0f205fb412be514129f989fb3172cf5de"
+          },
+          "opencc/jp2t.json": {
+            "bytes": 479,
+            "sha256": "bf056ab3be0c2d0898873662a12d39f8528419a36bc3ad128854a1faefe2c713"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 13790,
+            "sha256": "fe5b2365c9f9e6cdb07d6b9d2b87baced6e094688b1b331302e163423069e477"
+          },
+          "opencc/s2hk.json": {
+            "bytes": 1211,
+            "sha256": "b3a4b6c7f5fdd61c4f7e6eaa292d9a0e29eece584c35fe04fc124b1d9796051b"
+          },
+          "opencc/s2hk_jieba.json": {
+            "bytes": 1361,
+            "sha256": "a05f8ccb661ed2eaa858ee19eccdaebb7ee489fd69b8b4402a19dca0c53f9fd0"
+          },
+          "opencc/s2hkp.json": {
+            "bytes": 1281,
+            "sha256": "d95e38c22f07d8bc1b6d2dd004c590f0881c781fff76b53bf5f9b639e7980619"
+          },
+          "opencc/s2hkp_jieba.json": {
+            "bytes": 1465,
+            "sha256": "846cfb9077284fe439cba467f530d9ce5bf8433f7db69bdd66a84de9dea77f88"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          },
+          "opencc/s2t_jieba.json": {
+            "bytes": 1022,
+            "sha256": "ef761b4d933f5d232cd1fd627c250a1b81be742fc3d7f787c28d6fdc9bd8dd79"
+          },
+          "opencc/s2tw.json": {
+            "bytes": 1209,
+            "sha256": "5830ee3440ba3dc6bf1e197205b4248e2d860b8a3680475db4419b0dbf96ac39"
+          },
+          "opencc/s2tw_jieba.json": {
+            "bytes": 1359,
+            "sha256": "a9bc1527b1d1439ae556ff551f087b1ae8b31d91d9adcd499743d3ad4a600b59"
+          },
+          "opencc/s2twp.json": {
+            "bytes": 1286,
+            "sha256": "681dd1ff5f3a1efe93a6f56006ee7f58f767fa0366fd3a2ec6165c983e39415d"
+          },
+          "opencc/s2twp_jieba.json": {
+            "bytes": 1463,
+            "sha256": "93d0497eb360e0c941f9196fda193f4fa1a0a0917af2d1625d163af0d3d99f8b"
+          },
+          "opencc/t2hk.json": {
+            "bytes": 483,
+            "sha256": "8e2336420ed33b6991841921e930414919d922bd287677f5973564c85b6a3c9b"
+          },
+          "opencc/t2jp.json": {
+            "bytes": 292,
+            "sha256": "6ac813c83a0e57e9d4ff5fd968188ff9e8bc0564dbc833e77fca0c338d27d285"
+          },
+          "opencc/t2s.json": {
+            "bytes": 589,
+            "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f"
+          },
+          "opencc/t2tw.json": {
+            "bytes": 481,
+            "sha256": "bdaa75b82ec25daecb3ce376277e90c7c3388eb9345628650c66a804a2772a19"
+          },
+          "opencc/tw2s.json": {
+            "bytes": 950,
+            "sha256": "9bf1810eea822bcdedc0b24b303348d859ecf8307f379c9c2d210428e0620ff9"
+          },
+          "opencc/tw2sp.json": {
+            "bytes": 1034,
+            "sha256": "f8cf900c1b456a7d2e8477f5bf146814071d28ad64ef37fbc0ae757930c167d5"
+          },
+          "opencc/tw2sp_jieba.json": {
+            "bytes": 1328,
+            "sha256": "67ba541557bba60e7272bce01ee38d2422557e84999413183a352d9c0cc3385c"
+          },
+          "opencc/tw2t.json": {
+            "bytes": 487,
+            "sha256": "5bc1991e12b35100b2df4b6b534bbaeeb18fbbabe5cd5c15c611736011225530"
+          }
+        },
+        "gzip_transport_bytes": 6612285,
+        "incremental_gzip_transport_bytes": 6606536,
+        "incremental_raw_bytes": 20458160,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 20473110,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571292,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.09999990463256836,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 169.60000014305115,
+              "load_ms": 169.5,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 36582584,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 117,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000228,
+              "Documents": 4,
+              "DomContentLoaded": 1187316.165258,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 53837824,
+              "JSHeapUsedSize": 18104740,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007213,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187316.144377,
+              "Nodes": 25,
+              "ProcessTime": 0.363932,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 4,
+              "RecalcStyleDuration": 0.000129,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.007575,
+              "TaskDuration": 0.18143,
+              "TaskOtherDuration": 0.166272,
+              "ThreadTime": 0.170806,
+              "Timestamp": 1187316.346412,
+              "UACSSResources": 0,
+              "V8CompileDuration": 1.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 202.5
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571292,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 169.59999990463257,
+              "load_ms": 169.59999990463257,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 33526840,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 144,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000205,
+              "Documents": 4,
+              "DomContentLoaded": 1187319.978928,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 53575680,
+              "JSHeapUsedSize": 27790816,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.013976,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187319.953223,
+              "Nodes": 25,
+              "ProcessTime": 0.386385,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 8.4e-05,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.007902,
+              "TaskDuration": 0.189868,
+              "TaskOtherDuration": 0.167675,
+              "ThreadTime": 0.178337,
+              "Timestamp": 1187320.161894,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.6e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 209
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571292,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 174.59999990463257,
+              "load_ms": 174.5,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 36674006,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 122,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000191,
+              "Documents": 4,
+              "DomContentLoaded": 1187323.650494,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 54099968,
+              "JSHeapUsedSize": 18119764,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.014727,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187323.624193,
+              "Nodes": 25,
+              "ProcessTime": 0.35818,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 4,
+              "RecalcStyleDuration": 0.000136,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.007881,
+              "TaskDuration": 0.181022,
+              "TaskOtherDuration": 0.158067,
+              "ThreadTime": 0.170168,
+              "Timestamp": 1187323.828184,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 204.5
+          }
+        ],
+        "zip_container_bytes": 6618635
+      },
+      "wasmJs": {
+        "code": {
+          "gzip_bytes": 42121,
+          "raw_bytes": 107551
+        },
+        "data": {
+          "gzip_bytes": 6576768,
+          "raw_bytes": 20360658
+        },
+        "files": {
+          "86be8c4589ba6d382d89.wasm": {
+            "bytes": 99694,
+            "sha256": "9e85ced3ece03920d951e9e31979ad3a53c7ab73831a3829a0a3a29e541c5f16"
+          },
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 7857,
+            "sha256": "522acf2a82b4c58948a2ff2dd950179695d46a2cb13c8fbd19bd394fff22677c"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/HKPhrases.ocd2": {
+            "bytes": 6941,
+            "sha256": "2216e55024b7f2674245fe860452c7c378ecc0e145ca51dcd944de76a6c62687"
+          },
+          "opencc/HKPhrasesRev.ocd2": {
+            "bytes": 6951,
+            "sha256": "f4642fa9e73454ab91e13197ebabcca8343fc042f1997796c5a2cce3ff2bbddd"
+          },
+          "opencc/HKVariants.ocd2": {
+            "bytes": 4957,
+            "sha256": "b4be56685bddda964977bbd271f976df939d1f46a75332b8f9e793d0f06e6c7c"
+          },
+          "opencc/HKVariantsPhrases.ocd2": {
+            "bytes": 10522,
+            "sha256": "80c215b6bef0f324a71340bc21164d063c5540af6f50c07fd1c703af9c1207da"
+          },
+          "opencc/HKVariantsRev.ocd2": {
+            "bytes": 4989,
+            "sha256": "a7b4a063fb5246722762364b0e675247c91fb3a8f195aa741f1459a776d10118"
+          },
+          "opencc/HKVariantsRevPhrases.ocd2": {
+            "bytes": 10336,
+            "sha256": "93a5a86d77bfa7bfa5fe8aae3ddc1e5d33d9ac5eac3866849c98974fca0938ee"
+          },
+          "opencc/JPShinjitaiCharacters.ocd2": {
+            "bytes": 8893,
+            "sha256": "2a5b7494d064967d482ac110772c03d2a5cdd53760eaeb07646d1f5a197cac15"
+          },
+          "opencc/JPShinjitaiCharactersRev.ocd2": {
+            "bytes": 9159,
+            "sha256": "773f3817dcb9a520ac4437b9502585886497282a65d768183057f4d61de572dd"
+          },
+          "opencc/JPShinjitaiPhrases.ocd2": {
+            "bytes": 8493,
+            "sha256": "66ddb233c180f5f622d16cf9d1b28448e8935ce8d8396b7716d79db0ffb5fcad"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/TSCharacters.ocd2": {
+            "bytes": 52410,
+            "sha256": "7a994de7900707925fac9c68728a6bb9cf3059870426f661cf31b601efbf5f2f"
+          },
+          "opencc/TSCharactersExt.ocd2": {
+            "bytes": 14362,
+            "sha256": "e2b0286801dcd1d26119d19ba8b8a35cde021ec173468255d117c4c0951b2906"
+          },
+          "opencc/TSPhrases.ocd2": {
+            "bytes": 13496,
+            "sha256": "2b722237cc00a4ac985790deb6a68c99f34de10e980a0029ac82c72b0f7ae22b"
+          },
+          "opencc/TWPhrases.ocd2": {
+            "bytes": 24015,
+            "sha256": "4298bc78f8ff472eed0afd31996cb35f6e56cd4ace5ef8a6d27a35a5374b9476"
+          },
+          "opencc/TWPhrasesRev.ocd2": {
+            "bytes": 23947,
+            "sha256": "839f5a71c1f02f594f23a54815d9bca4656ca661a7e32805504c67420496da47"
+          },
+          "opencc/TWVariants.ocd2": {
+            "bytes": 4623,
+            "sha256": "ed89fe928857500a77cbb601be4a1769da34ce863875eaae18d1d50bd036db5e"
+          },
+          "opencc/TWVariantsPhrases.ocd2": {
+            "bytes": 4407,
+            "sha256": "a9c356943779f1d9af8b38751fe9222a02dc211a56c83f83871cfc8558afe178"
+          },
+          "opencc/TWVariantsRev.ocd2": {
+            "bytes": 4655,
+            "sha256": "fc043bdf0224666921983f2badcac8faa5e59d8a681a5525c527c9926f66775d"
+          },
+          "opencc/TWVariantsRevPhrases.ocd2": {
+            "bytes": 27059,
+            "sha256": "ae91cb45c12f737bde2b9e340c38efaa7e1868cf55e59a62cc8199de020113e2"
+          },
+          "opencc/hk2s.json": {
+            "bytes": 952,
+            "sha256": "b5fb0d6447f1f111c02a99f405d678b40a97bf73de0a25000219878994a8da37"
+          },
+          "opencc/hk2sp.json": {
+            "bytes": 1026,
+            "sha256": "8a36e56922fa67aeaffb7d145520ed302276aaaf3ab05c092a10615eeda8a161"
+          },
+          "opencc/hk2sp_jieba.json": {
+            "bytes": 1330,
+            "sha256": "ab652c17f06e6aa928881732cd18c681097bea25be8c8350982ce9d959a0fb5c"
+          },
+          "opencc/hk2t.json": {
+            "bytes": 489,
+            "sha256": "e773001c761c5540c38a66baa378f2a8c65378fa09446186b1c4dd78815bccf3"
+          },
+          "opencc/jieba_dict/hmm_model.utf8": {
+            "bytes": 519739,
+            "sha256": "f17790586ac86dd048c8adffed052c4bd2b28ed0682972c1275e59040c0589a7"
+          },
+          "opencc/jieba_dict/idf.utf8": {
+            "bytes": 5998717,
+            "sha256": "dbd1e03d72b2263cc8d84a4304ed77677eed9e7deaf43a1a5133bbba9733b535"
+          },
+          "opencc/jieba_dict/jieba.dict.utf8": {
+            "bytes": 5071194,
+            "sha256": "3ff771c3b5f64a03c16b42899511281d4cb48c19a4239f47fe2826b6b30d999f"
+          },
+          "opencc/jieba_dict/jieba_merged.ocd2": {
+            "bytes": 7463331,
+            "sha256": "3d6e9e6614a95cae37ddf6d4995c8c9d338df9d26de377d6e61ccd18f81e9b78"
+          },
+          "opencc/jieba_dict/stop_words.utf8": {
+            "bytes": 8974,
+            "sha256": "b788b8a939d2e2fe079abd579ea98f12f9fb84370bfd0dddd81bb9381f7ab42c"
+          },
+          "opencc/jieba_dict/user.dict.utf8": {
+            "bytes": 68,
+            "sha256": "4c0e0c6f1ad4ffc7ec08ae4f72c11bd0f205fb412be514129f989fb3172cf5de"
+          },
+          "opencc/jp2t.json": {
+            "bytes": 479,
+            "sha256": "bf056ab3be0c2d0898873662a12d39f8528419a36bc3ad128854a1faefe2c713"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 13790,
+            "sha256": "fe5b2365c9f9e6cdb07d6b9d2b87baced6e094688b1b331302e163423069e477"
+          },
+          "opencc/s2hk.json": {
+            "bytes": 1211,
+            "sha256": "b3a4b6c7f5fdd61c4f7e6eaa292d9a0e29eece584c35fe04fc124b1d9796051b"
+          },
+          "opencc/s2hk_jieba.json": {
+            "bytes": 1361,
+            "sha256": "a05f8ccb661ed2eaa858ee19eccdaebb7ee489fd69b8b4402a19dca0c53f9fd0"
+          },
+          "opencc/s2hkp.json": {
+            "bytes": 1281,
+            "sha256": "d95e38c22f07d8bc1b6d2dd004c590f0881c781fff76b53bf5f9b639e7980619"
+          },
+          "opencc/s2hkp_jieba.json": {
+            "bytes": 1465,
+            "sha256": "846cfb9077284fe439cba467f530d9ce5bf8433f7db69bdd66a84de9dea77f88"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          },
+          "opencc/s2t_jieba.json": {
+            "bytes": 1022,
+            "sha256": "ef761b4d933f5d232cd1fd627c250a1b81be742fc3d7f787c28d6fdc9bd8dd79"
+          },
+          "opencc/s2tw.json": {
+            "bytes": 1209,
+            "sha256": "5830ee3440ba3dc6bf1e197205b4248e2d860b8a3680475db4419b0dbf96ac39"
+          },
+          "opencc/s2tw_jieba.json": {
+            "bytes": 1359,
+            "sha256": "a9bc1527b1d1439ae556ff551f087b1ae8b31d91d9adcd499743d3ad4a600b59"
+          },
+          "opencc/s2twp.json": {
+            "bytes": 1286,
+            "sha256": "681dd1ff5f3a1efe93a6f56006ee7f58f767fa0366fd3a2ec6165c983e39415d"
+          },
+          "opencc/s2twp_jieba.json": {
+            "bytes": 1463,
+            "sha256": "93d0497eb360e0c941f9196fda193f4fa1a0a0917af2d1625d163af0d3d99f8b"
+          },
+          "opencc/t2hk.json": {
+            "bytes": 483,
+            "sha256": "8e2336420ed33b6991841921e930414919d922bd287677f5973564c85b6a3c9b"
+          },
+          "opencc/t2jp.json": {
+            "bytes": 292,
+            "sha256": "6ac813c83a0e57e9d4ff5fd968188ff9e8bc0564dbc833e77fca0c338d27d285"
+          },
+          "opencc/t2s.json": {
+            "bytes": 589,
+            "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f"
+          },
+          "opencc/t2tw.json": {
+            "bytes": 481,
+            "sha256": "bdaa75b82ec25daecb3ce376277e90c7c3388eb9345628650c66a804a2772a19"
+          },
+          "opencc/tw2s.json": {
+            "bytes": 950,
+            "sha256": "9bf1810eea822bcdedc0b24b303348d859ecf8307f379c9c2d210428e0620ff9"
+          },
+          "opencc/tw2sp.json": {
+            "bytes": 1034,
+            "sha256": "f8cf900c1b456a7d2e8477f5bf146814071d28ad64ef37fbc0ae757930c167d5"
+          },
+          "opencc/tw2sp_jieba.json": {
+            "bytes": 1328,
+            "sha256": "67ba541557bba60e7272bce01ee38d2422557e84999413183a352d9c0cc3385c"
+          },
+          "opencc/tw2t.json": {
+            "bytes": 487,
+            "sha256": "5bc1991e12b35100b2df4b6b534bbaeeb18fbbabe5cd5c15c611736011225530"
+          }
+        },
+        "gzip_transport_bytes": 6619197,
+        "incremental_gzip_transport_bytes": 6606902,
+        "incremental_raw_bytes": 20444453,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 20468577,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "86be8c4589ba6d382d89.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578204,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.19999980926513672,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 168.70000004768372,
+              "load_ms": 168.70000004768372,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 37968134,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000291,
+              "Documents": 4,
+              "DomContentLoaded": 1187334.999826,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 57278464,
+              "JSHeapUsedSize": 22918604,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.00724,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187334.966688,
+              "Nodes": 25,
+              "ProcessTime": 0.233213,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 9.4e-05,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.001635,
+              "TaskDuration": 0.09481,
+              "TaskOtherDuration": 0.08553,
+              "ThreadTime": 0.090668,
+              "Timestamp": 1187335.213046,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 246.79999995231628
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "86be8c4589ba6d382d89.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578204,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.19999980926513672,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 86.70000004768372,
+              "load_ms": 86.59999990463257,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 37999090,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000213,
+              "Documents": 4,
+              "DomContentLoaded": 1187338.740236,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 56754176,
+              "JSHeapUsedSize": 22920336,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.009569,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187338.723705,
+              "Nodes": 25,
+              "ProcessTime": 0.257164,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 8.9e-05,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.003783,
+              "TaskDuration": 0.100973,
+              "TaskOtherDuration": 0.087287,
+              "ThreadTime": 0.09474,
+              "Timestamp": 1187338.854276,
+              "UACSSResources": 0,
+              "V8CompileDuration": 3.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 130.89999985694885
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "86be8c4589ba6d382d89.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578204,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 83.40000009536743,
+              "load_ms": 83.40000009536743,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "full",
+              "sampled_memory_bytes": 37973826,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000172,
+              "Documents": 4,
+              "DomContentLoaded": 1187342.321086,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 56754176,
+              "JSHeapUsedSize": 23053568,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.008272,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187342.297508,
+              "Nodes": 25,
+              "ProcessTime": 0.248528,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000121,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.002237,
+              "TaskDuration": 0.099797,
+              "TaskOtherDuration": 0.088958,
+              "ThreadTime": 0.094457,
+              "Timestamp": 1187342.429072,
+              "UACSSResources": 0,
+              "V8CompileDuration": 3.7e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 132.09999990463257
+          }
+        ],
+        "zip_container_bytes": 6625655
+      }
+    },
+    "multi": {
+      "js": {
+        "code": {
+          "gzip_bytes": 35210,
+          "raw_bytes": 112085
+        },
+        "data": {
+          "gzip_bytes": 539571,
+          "raw_bytes": 1106821
+        },
+        "files": {
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 112085,
+            "sha256": "2045e85627e469e02387be3492d5cb4b8657c6fa31cbc32a341cf0caa4e242ab"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/TSCharacters.ocd2": {
+            "bytes": 52410,
+            "sha256": "7a994de7900707925fac9c68728a6bb9cf3059870426f661cf31b601efbf5f2f"
+          },
+          "opencc/TSCharactersExt.ocd2": {
+            "bytes": 14362,
+            "sha256": "e2b0286801dcd1d26119d19ba8b8a35cde021ec173468255d117c4c0951b2906"
+          },
+          "opencc/TSPhrases.ocd2": {
+            "bytes": 13496,
+            "sha256": "2b722237cc00a4ac985790deb6a68c99f34de10e980a0029ac82c72b0f7ae22b"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 2911,
+            "sha256": "b830624816fd00734eaef9d8f9d5e29a16eccc3586711532e3f7e63b7c82139c"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          },
+          "opencc/t2s.json": {
+            "bytes": 589,
+            "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f"
+          }
+        },
+        "gzip_transport_bytes": 575089,
+        "incremental_gzip_transport_bytes": 569340,
+        "incremental_raw_bytes": 1204324,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 1219274,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571293,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 177.79999995231628,
+              "load_ms": 177.79999995231628,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 36885861,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 116,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000152,
+              "Documents": 4,
+              "DomContentLoaded": 1187290.155571,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 53837824,
+              "JSHeapUsedSize": 18083180,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007661,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187290.128332,
+              "Nodes": 25,
+              "ProcessTime": 0.3976,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 9.8e-05,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.007448,
+              "TaskDuration": 0.196284,
+              "TaskOtherDuration": 0.180901,
+              "ThreadTime": 0.186714,
+              "Timestamp": 1187290.350041,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.4e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 222.40000009536743
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571293,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.19999980926513672,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 198.90000009536743,
+              "load_ms": 198.79999995231628,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 37882155,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 117,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000165,
+              "Documents": 4,
+              "DomContentLoaded": 1187291.552541,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 54362112,
+              "JSHeapUsedSize": 18245824,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.00909,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187291.52782,
+              "Nodes": 25,
+              "ProcessTime": 0.461137,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000176,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.008903,
+              "TaskDuration": 0.213136,
+              "TaskOtherDuration": 0.194778,
+              "ThreadTime": 0.206689,
+              "Timestamp": 1187291.764588,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.4e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 237.40000009536743
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 571293,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 168.19999980926514,
+              "load_ms": 168.09999990463257,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 36787915,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 122,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000256,
+              "Documents": 4,
+              "DomContentLoaded": 1187292.844242,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 54099968,
+              "JSHeapUsedSize": 18185340,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.008106,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187292.808719,
+              "Nodes": 25,
+              "ProcessTime": 0.380962,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000151,
+              "ResourceFetchers": 4,
+              "Resources": 12,
+              "ScriptDuration": 0.008237,
+              "TaskDuration": 0.185091,
+              "TaskOtherDuration": 0.168326,
+              "ThreadTime": 0.182223,
+              "Timestamp": 1187293.025415,
+              "UACSSResources": 0,
+              "V8CompileDuration": 1.5e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 217.09999990463257
+          }
+        ],
+        "zip_container_bytes": 577041
+      },
+      "wasmJs": {
+        "code": {
+          "gzip_bytes": 42122,
+          "raw_bytes": 107553
+        },
+        "data": {
+          "gzip_bytes": 539571,
+          "raw_bytes": 1106821
+        },
+        "files": {
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 7857,
+            "sha256": "4f0400b55e1e959fd13ca10a30c640c495454ed0d2bea1d978f89f6385235fa0"
+          },
+          "fd3fbcb3aa5928eb7f0d.wasm": {
+            "bytes": 99696,
+            "sha256": "00c5f3c62cf8b58904d9e59bc9379e4ce341133a2519c9556946f658ea6b5095"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/TSCharacters.ocd2": {
+            "bytes": 52410,
+            "sha256": "7a994de7900707925fac9c68728a6bb9cf3059870426f661cf31b601efbf5f2f"
+          },
+          "opencc/TSCharactersExt.ocd2": {
+            "bytes": 14362,
+            "sha256": "e2b0286801dcd1d26119d19ba8b8a35cde021ec173468255d117c4c0951b2906"
+          },
+          "opencc/TSPhrases.ocd2": {
+            "bytes": 13496,
+            "sha256": "2b722237cc00a4ac985790deb6a68c99f34de10e980a0029ac82c72b0f7ae22b"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 2911,
+            "sha256": "b830624816fd00734eaef9d8f9d5e29a16eccc3586711532e3f7e63b7c82139c"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          },
+          "opencc/t2s.json": {
+            "bytes": 589,
+            "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f"
+          }
+        },
+        "gzip_transport_bytes": 582001,
+        "incremental_gzip_transport_bytes": 569706,
+        "incremental_raw_bytes": 1190618,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 1214742,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "fd3fbcb3aa5928eb7f0d.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578205,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 91.20000004768372,
+              "load_ms": 91.20000004768372,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 38010998,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000214,
+              "Documents": 4,
+              "DomContentLoaded": 1187294.568546,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 56754176,
+              "JSHeapUsedSize": 22948736,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007615,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187294.558267,
+              "Nodes": 25,
+              "ProcessTime": 0.268663,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000146,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.001723,
+              "TaskDuration": 0.104934,
+              "TaskOtherDuration": 0.095214,
+              "ThreadTime": 0.102098,
+              "Timestamp": 1187294.685271,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 129.29999995231628
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "fd3fbcb3aa5928eb7f0d.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578205,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 90.09999990463257,
+              "load_ms": 90,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 37974798,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.00016,
+              "Documents": 4,
+              "DomContentLoaded": 1187295.842351,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 57016320,
+              "JSHeapUsedSize": 22891968,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.007553,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187295.832889,
+              "Nodes": 25,
+              "ProcessTime": 0.260247,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 0.000137,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.001578,
+              "TaskDuration": 0.10406,
+              "TaskOtherDuration": 0.09461,
+              "ThreadTime": 0.1018,
+              "Timestamp": 1187295.959344,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 127.39999985694885
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "fd3fbcb3aa5928eb7f0d.wasm",
+              "opencc/t2s.json",
+              "opencc/TSPhrases.ocd2",
+              "opencc/TSCharactersExt.ocd2",
+              "opencc/TSCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 578205,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 90,
+              "load_ms": 90,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "multi",
+              "sampled_memory_bytes": 38030110,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 11,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000191,
+              "Documents": 4,
+              "DomContentLoaded": 1187297.023804,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 56754176,
+              "JSHeapUsedSize": 22970500,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.016939,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187297.01341,
+              "Nodes": 25,
+              "ProcessTime": 0.266723,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000122,
+              "ResourceFetchers": 4,
+              "Resources": 13,
+              "ScriptDuration": 0.001646,
+              "TaskDuration": 0.115545,
+              "TaskOtherDuration": 0.096624,
+              "ThreadTime": 0.103131,
+              "Timestamp": 1187297.163125,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 150.19999980926514
+          }
+        ],
+        "zip_container_bytes": 584061
+      }
+    },
+    "one": {
+      "js": {
+        "code": {
+          "gzip_bytes": 35208,
+          "raw_bytes": 112025
+        },
+        "data": {
+          "gzip_bytes": 505160,
+          "raw_bytes": 1025280
+        },
+        "files": {
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 112025,
+            "sha256": "03dde378388e1bdd678e21d4acdeb66e5a2d2b7ee65d9821200d202eea73dded"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 2227,
+            "sha256": "f490936bf2d956c85aa29e10d28c39ae74f109ddb3614da075cc2333c19f646e"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          }
+        },
+        "gzip_transport_bytes": 540676,
+        "incremental_gzip_transport_bytes": 534927,
+        "incremental_raw_bytes": 1122723,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 1137673,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 532599,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 196.70000004768372,
+              "load_ms": 196.5,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 29617423,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 67,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000166,
+              "Documents": 4,
+              "DomContentLoaded": 1187276.377458,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 51478528,
+              "JSHeapUsedSize": 24344524,
+              "LayoutCount": 2,
+              "LayoutDuration": 0.004687,
+              "LayoutObjects": 10,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187276.35218,
+              "Nodes": 25,
+              "ProcessTime": 0.448827,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 2,
+              "RecalcStyleDuration": 0.000171,
+              "ResourceFetchers": 4,
+              "Resources": 7,
+              "ScriptDuration": 0.008714,
+              "TaskDuration": 0.21362,
+              "TaskOtherDuration": 0.199849,
+              "ThreadTime": 0.203694,
+              "Timestamp": 1187276.584847,
+              "UACSSResources": 0,
+              "V8CompileDuration": 3.3e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 233
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 532599,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 177.09999990463257,
+              "load_ms": 176.89999985694885,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 33567131,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 79,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000155,
+              "Documents": 4,
+              "DomContentLoaded": 1187277.649325,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 51216384,
+              "JSHeapUsedSize": 28212144,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007912,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187277.626532,
+              "Nodes": 25,
+              "ProcessTime": 0.409494,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.0001,
+              "ResourceFetchers": 4,
+              "Resources": 7,
+              "ScriptDuration": 0.009044,
+              "TaskDuration": 0.196771,
+              "TaskOtherDuration": 0.179536,
+              "ThreadTime": 0.191098,
+              "Timestamp": 1187277.837212,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.4e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 211.20000004768372
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 532599,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.10000014305114746,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 176.89999985694885,
+              "load_ms": 176.79999995231628,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 29611799,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 68,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000168,
+              "Documents": 4,
+              "DomContentLoaded": 1187278.8854,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 52002816,
+              "JSHeapUsedSize": 24330760,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.00795,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187278.864338,
+              "Nodes": 25,
+              "ProcessTime": 0.422841,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000162,
+              "ResourceFetchers": 4,
+              "Resources": 7,
+              "ScriptDuration": 0.008918,
+              "TaskDuration": 0.197544,
+              "TaskOtherDuration": 0.180322,
+              "ThreadTime": 0.193726,
+              "Timestamp": 1187279.073704,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.4e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 209.90000009536743
+          }
+        ],
+        "zip_container_bytes": 542222
+      },
+      "wasmJs": {
+        "code": {
+          "gzip_bytes": 42090,
+          "raw_bytes": 107494
+        },
+        "data": {
+          "gzip_bytes": 505160,
+          "raw_bytes": 1025280
+        },
+        "files": {
+          "743a82ca79b2ba2788ea.wasm": {
+            "bytes": 99637,
+            "sha256": "23888025d326d27216fc629d09adc8a94168492f11edc71d7653f1756694829a"
+          },
+          "Info.plist": {
+            "bytes": 197,
+            "sha256": "fd1214a8a1d582dccf996c683611b26309b9620e5193702b04aee57c269750c5"
+          },
+          "consumer.js": {
+            "bytes": 7857,
+            "sha256": "6d580c99cdfe222cc9fa728a7567a33c9302bf9ea02ca2f23f977260fb1aae20"
+          },
+          "index.html": {
+            "bytes": 171,
+            "sha256": "c4915e1edb5cd610ad981e79cb5018f0389fe349998c73a044e56f24194aa7a4"
+          },
+          "opencc/AUTHORS": {
+            "bytes": 310,
+            "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a"
+          },
+          "opencc/CJK_Compatibility_Ideographs.ocd2": {
+            "bytes": 13843,
+            "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666"
+          },
+          "opencc/LICENSE": {
+            "bytes": 9165,
+            "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+          },
+          "opencc/NOTICE": {
+            "bytes": 1557,
+            "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74"
+          },
+          "opencc/STCharacters.ocd2": {
+            "bytes": 45879,
+            "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2"
+          },
+          "opencc/STPhrases.ocd2": {
+            "bytes": 927077,
+            "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d"
+          },
+          "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2": {
+            "bytes": 19885,
+            "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2"
+          },
+          "opencc/licenses/cppjieba.txt": {
+            "bytes": 1066,
+            "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0"
+          },
+          "opencc/licenses/darts-clone.txt": {
+            "bytes": 1320,
+            "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e"
+          },
+          "opencc/licenses/marisa.txt": {
+            "bytes": 2275,
+            "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+          },
+          "opencc/manifest.json": {
+            "bytes": 2227,
+            "sha256": "f490936bf2d956c85aa29e10d28c39ae74f109ddb3614da075cc2333c19f646e"
+          },
+          "opencc/s2t.json": {
+            "bytes": 676,
+            "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048"
+          }
+        },
+        "gzip_transport_bytes": 547558,
+        "incremental_gzip_transport_bytes": 535263,
+        "incremental_raw_bytes": 1109018,
+        "other": {
+          "gzip_bytes": 308,
+          "raw_bytes": 368
+        },
+        "raw_bytes": 1133142,
+        "runs": [
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "743a82ca79b2ba2788ea.wasm",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 539481,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.20000004768371582,
+              "first_conversion_ms": 100,
+              "load_ms": 99.90000009536743,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 30882882,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 6,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000175,
+              "Documents": 4,
+              "DomContentLoaded": 1187280.584908,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 54657024,
+              "JSHeapUsedSize": 29887104,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.007955,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187280.573615,
+              "Nodes": 25,
+              "ProcessTime": 0.273397,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 9.8e-05,
+              "ResourceFetchers": 4,
+              "Resources": 8,
+              "ScriptDuration": 0.001955,
+              "TaskDuration": 0.116834,
+              "TaskOtherDuration": 0.106629,
+              "ThreadTime": 0.11028,
+              "Timestamp": 1187280.710147,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.2e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 137
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "743a82ca79b2ba2788ea.wasm",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 539481,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 101.59999990463257,
+              "load_ms": 101.5,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 30813434,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 6,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000195,
+              "Documents": 4,
+              "DomContentLoaded": 1187281.788706,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 55181312,
+              "JSHeapUsedSize": 29817652,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.009388,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187281.77514,
+              "Nodes": 25,
+              "ProcessTime": 0.284624,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000103,
+              "ResourceFetchers": 4,
+              "Resources": 8,
+              "ScriptDuration": 0.002974,
+              "TaskDuration": 0.12277,
+              "TaskOtherDuration": 0.110076,
+              "ThreadTime": 0.115847,
+              "Timestamp": 1187281.91369,
+              "UACSSResources": 0,
+              "V8CompileDuration": 3.4e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 139.10000014305115
+          },
+          {
+            "actual_http_files": [
+              "index.html",
+              "consumer.js",
+              "743a82ca79b2ba2788ea.wasm",
+              "opencc/s2t.json",
+              "opencc/STPhrases.ocd2",
+              "opencc/STPhrases_GeneratedFromRegionalPhrases.ocd2",
+              "opencc/STCharacters.ocd2",
+              "opencc/CJK_Compatibility_Ideographs.ocd2"
+            ],
+            "actual_http_payload_bytes": 539481,
+            "browser": "Chrome/152.0.7977.83",
+            "fixture": {
+              "convert_1000_p50_ms": 0.20000004768371582,
+              "convert_1000_p95_ms": 0.2999999523162842,
+              "first_conversion_ms": 94.5,
+              "load_ms": 94.29999995231628,
+              "output": "\u6f22\u5b57\u8f49\u63db",
+              "profile": "one",
+              "sampled_memory_bytes": 30903730,
+              "status": "pass"
+            },
+            "metrics": {
+              "AdSubframes": 0,
+              "ArrayBufferContents": 6,
+              "AudioHandlers": 0,
+              "AudioWorkletProcessors": 0,
+              "ContextLifecycleStateObservers": 8,
+              "DetachedScriptStates": 1,
+              "DevToolsCommandDuration": 0.000144,
+              "Documents": 4,
+              "DomContentLoaded": 1187283.017176,
+              "FirstMeaningfulPaint": 0,
+              "Frames": 4,
+              "JSEventListeners": 0,
+              "JSHeapTotalSize": 54919168,
+              "JSHeapUsedSize": 29907940,
+              "LayoutCount": 3,
+              "LayoutDuration": 0.00818,
+              "LayoutObjects": 11,
+              "MediaKeySessions": 0,
+              "MediaKeys": 0,
+              "NavigationStart": 1187283.005883,
+              "Nodes": 25,
+              "ProcessTime": 0.276356,
+              "RTCPeerConnections": 0,
+              "RecalcStyleCount": 3,
+              "RecalcStyleDuration": 0.000108,
+              "ResourceFetchers": 4,
+              "Resources": 8,
+              "ScriptDuration": 0.001808,
+              "TaskDuration": 0.112987,
+              "TaskOtherDuration": 0.102722,
+              "ThreadTime": 0.108602,
+              "Timestamp": 1187283.135022,
+              "UACSSResources": 0,
+              "V8CompileDuration": 2.5e-05,
+              "V8PerContextDatas": 2,
+              "WorkerGlobalScopes": 0
+            },
+            "observed_ready_ms": 129.59999990463257
+          }
+        ],
+        "zip_container_bytes": 549212
+      }
+    }
+  },
+  "schema_version": 1
+}

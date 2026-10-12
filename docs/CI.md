@@ -15,9 +15,10 @@ there is not yet a Kotlin formatter gate.
 
 Each size gate runs even when another gate fails. Reports are uploaded on failure, and no workflow
 updates baselines automatically. Byte-preserving AAR compression brings all Android application and
-dependency-download profiles within their unchanged budgets; see SIZE_BASELINES.md. The last Apple
-engine measurement exceeded its earlier baseline and still requires a passing current run. CI must
-expose unresolved gates. A passing APK budget does not override a failing dependency-download budget.
+dependency-download profiles within their unchanged budgets; see SIZE_BASELINES.md. The Apple size
+gate explicitly uses the measured `smallBinary` release option with the pinned toolchain; all five
+profiles pass after the compact decimal parser change. General library defaults remain unchanged.
+CI must expose unresolved gates. A passing APK budget does not override a failing dependency-download budget.
 
 Apple jobs select the newest installed Xcode 26.x, record available runtimes, and use ARM64 runners
 with SDK 36. Simulator results are not physical-device startup/memory or App Store delivery evidence.

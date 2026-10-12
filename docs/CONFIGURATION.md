@@ -69,12 +69,20 @@ provider. The custom hook receives the host's AsyncResourceProvider; resource I/
 the engine and precedes synchronous create. The bundled Jieba factory uses this hook to retain
 merged/text fallback and auxiliary-resource lookup without eagerly requiring every possible path.
 
-The differential config corpus checks 3,940 cases through native string/file entry points and both
+The differential config corpus checks 4,952 cases through native string/file entry points and both
 risk options: acceptance/output, first-warning pointers/keyword, error category and meaningful
 semantic diagnostics. It includes all value kinds, dictionaries/groups, plugin fields, duplicate
 members, NUL aliases, escapes/numbers, warning priority and deep JSON. Common tests additionally
 exercise actually suspended reads, option selection, repeated-resource deduplication, load/error
 order, plugin preparation and immutable ordered options on JVM/JS/Wasm/macOS/iOS.
+
+Numeric tokens retain their original spelling. Their lexical grammar and range acceptance follow
+the pinned RapidJSON default decimal path, including its staged unsigned integer, fraction and
+exponent arithmetic. This is not simply a mathematical-finiteness check: `0e309` is rejected, and
+an enormous integer mantissa can overflow before a negative exponent is applied. Tests cover
+1,012 additional range-boundary cases. A common Kotlin checker avoids the general Kotlin/Native
+floating parser and its regex dependency; no JSON capability is removed. The adapted algorithm's
+MIT attribution is retained in the engine artifact.
 
 ```sh
 python3 tools/audit_config.py

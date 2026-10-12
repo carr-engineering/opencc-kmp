@@ -4,6 +4,7 @@ import copy
 import json
 from pathlib import Path
 import re
+import random
 import subprocess
 
 from build_probes import build_probes
@@ -61,6 +62,22 @@ def fixtures():
     for literal in ['0', '-0', '01', '-01', '.1', '1.', '1e', '1e+', '1e999', '-1e999', '1e-999',
                     '18446744073709551616', '9' * 400, 'NaN', 'Infinity', '-Infinity', '+1', '0x10']:
         add("number_" + str(len(result)), '{"name":"x","conversion_chain":[],"unknown":' + literal + '}')
+    # Pinned staged arithmetic differs from mathematical finiteness for some tokens.
+    literals = ['0e309', '-0e999', '0.0e310', '0e-9999999999999999999999',
+                '9'*400+'e-400', '9'*400+'e-1000', '1.7976931348623157e308',
+                '1.7976931348623158e308', '1.7976931348623159e308',
+                '0.'+'0'*350+'1e660', '0.'+'0'*350+'1e661',
+                '18446744073709551615.999e289', '-9223372036854775808.999e289']
+    rng = random.Random(142308)
+    for index in range(240):
+        count = rng.choice([1, 16, 17, 18, 19, 20, 21, 308, 309, 400])
+        digits = str(rng.randrange(1,10))+''.join(str(rng.randrange(10)) for _ in range(count-1))
+        split = rng.choice([0, 1, min(count,17), count])
+        mantissa = ('0.'+digits) if split==0 else digits[:split]+('.'+digits[split:] if split<count else '')
+        exponent = rng.choice([-1000,-400,-309,-308,-1,0,1,308,309,400,1000,308-split])
+        literals.append(('-' if index%2 else '')+mantissa+'e'+str(exponent))
+    for index,literal in enumerate(literals):
+        add('number_range_'+str(index), '{"name":"x","conversion_chain":[],"unknown":'+literal+'}')
     for escape in [r'\ud800', r'\udc00', r'\ud800\udc00', r'\ud800\ud800', r'\ud800x', r'\u12', r'\u-001', r'\u+001', r'\uZZZZ', r'\x20']:
         add("escape_name_" + str(len(result)), '{"name":"' + escape + '","conversion_chain":[]}')
     add("nul_type", {"name": "x", "conversion_chain": [{"dict": {"type": "inline\0suffix", "entries": {"汉": "漢"}}}]})

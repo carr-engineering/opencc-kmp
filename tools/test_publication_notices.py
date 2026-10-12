@@ -18,7 +18,7 @@ class PublicationNoticesTest(unittest.TestCase):
 
     def test_module_licenses_are_focused(self):
         expected = {
-            "opencc-core": {"marisa.txt"},
+            "opencc-core": {"marisa.txt", "rapidjson.txt"},
             "opencc-dictionary-tools": {"marisa.txt", "darts-clone.txt"},
             "opencc-jieba": {"CPPJIEBA-LICENSE"},
             "opencc-cli": {"tclap.txt"},

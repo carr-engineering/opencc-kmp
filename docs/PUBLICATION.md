@@ -30,7 +30,7 @@ upstream-operation inventory, which still require a complete audit.
 ## Shipped licenses and provenance
 
 Publication tasks embed LICENSE, NOTICE, AUTHORS and the locked upstream identity into the actual
-JAR/AAR/KLIB and source artifacts. Additional license texts are module-specific: MARISA in core,
+JAR/AAR/KLIB and source artifacts. Additional license texts are module-specific: MARISA/RapidJSON in core,
 MARISA/Darts in dictionary tools, cppjieba in Jieba, and TCLAP in CLI. KLIB notices are resources
 within the component containing its manifest. Resource ZIP classifiers already carry data notices.
 Embedding runs after artifact construction and before publication metadata and signing, so registry

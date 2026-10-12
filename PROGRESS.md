@@ -481,3 +481,30 @@ local preparation is not evidence of an actual public release.
 - Four payload/routing tests, artifact checksum/graph verification and independent full-bundle
   JVM/JS/Wasm/iOS consumers pass (148 HTTP requests). Remaining platform/export/API/performance
   and release gates remain required; Android size success is not full-plan completion.
+
+### Faithful decimal acceptance without Native regex retention
+
+- Replaced the general float-parser range check with the pinned RapidJSON default staged decimal
+  arithmetic. Fixed previously missed zero/exponent acceptance and huge-mantissa behavior; retained
+  original numeric tokens and errors. Included the adapted MIT license in core publications.
+- Added 1,012 range comparisons, bringing config coverage to 4,952 cases through both native load
+  entry points/risk options. Full encoded (71,775), conversion/format/annotation conformance passes.
+  Forty-four common engine tests pass on JVM/JS/Wasm/macOS/iOS; every power constant is bit exact.
+  Complete ABI checks, all target publication and 150-record/362-file payload verification pass.
+- Native symbol inspection confirms zero regex symbols. A 309-double table initially increased
+  Android APK cost; replaced it with 36 constants and exact ULP corrections, verified on all five
+  runtimes and Native release builds. Fixed overflow thresholds avoid unsigned-division machinery.
+- All Android APK/download gates pass unchanged: engine 17,993/163,150 bytes; one
+  537,273/679,321; multi 572,596/714,138; complete 6,713,090/6,755,733. The rejected large-table
+  report is retained beside the current android-decimal-compact.json report.
+- All Apple budgets pass with the explicitly evaluated smallBinary release option: engine ZIP
+  increment 99,054; one 624,630; multi 659,910; complete 6,703,271. Every installed profile passes
+  three launches. Native release engine/concurrency/Jieba/ZIP checks pass. CI selects this option
+  explicitly; general defaults remain off. Physical-device performance remains unverified.
+- A full-disk failure interrupted browser/Apple reruns. Removed only obsolete local publication
+  snapshots and generated Xcode artifacts, preserved every current publication, and stopped the
+  identified task-owned idle daemon. Subsequent sequential Apple/browser measurements complete.
+  All production web budgets pass: engine JS/Wasm increments 27,425/17,715 gzip bytes; every
+  selected/full profile executes successfully. Exact evidence is in web-decimal-compact.json.
+  Full published JVM/JS/Wasm/iOS consumers pass with 148 HTTP requests. No allowance was widened
+  and no environment failure was reported as conformance.

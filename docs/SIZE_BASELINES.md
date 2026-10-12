@@ -72,3 +72,9 @@ Android application/download budget checks now pass without increasing any allow
 API stays in the published engine. Four artifact-payload/routing tests and actual published consumer checks
 pass; the byte audit covers all entry names, ordering and contents. Regenerate the compression audit
 with `python3 tools/audit_aar_compression.py` after local publication.
+
+The subsequent faithful decimal-range checker adds a compact exact power table and MIT attribution.
+Its current report is `measurements/android-decimal-compact.json`: engine increment 17,993 APK bytes
+and 163,150 dependency bytes; one 537,273/679,321; multi 572,596/714,138; full
+6,713,090/6,755,733. All eight unchanged Android gates pass. The larger-table experiment in
+android-decimal-range.json failed the engine APK gate and is retained as a rejected size alternative.

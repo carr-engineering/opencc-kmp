@@ -4,6 +4,16 @@ import kotlin.test.*
 import kotlin.coroutines.*
 
 class ConfigContractTest {
+    @Test fun decimalRangeMatchesPinnedStagedParsing() {
+        fun config(number: String) = "{\"name\":\"x\",\"conversion_chain\":[],\"unused\":$number}"
+        for (number in listOf("0e309", "-0e999", "0.0e310", "1.7976931348623159e308", "9".repeat(400)+"e-400")) {
+            assertFailsWith<InvalidFormat>(number) { Config().newFromString(config(number)) }
+        }
+        for (number in listOf("0e-9999999999999999999999", "9".repeat(400)+"e-1000",
+                              "1.7976931348623157e308", "18446744073709551615", "-9223372036854775808")) {
+            assertEquals("x", Config().newFromString(config(number)).convert("x"), number)
+        }
+    }
     @Test fun warningsAreAdvisoryFirstViolationAndTypedPointers() {
         val warnings = mutableListOf<ConfigWarning>()
         val loader = Config(warningSink = { warnings.add(it) })

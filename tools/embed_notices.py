@@ -25,7 +25,7 @@ def stored_jar(data):
 
 def payloads(module, version):
     names=['LICENSE','NOTICE','AUTHORS']
-    if module=='opencc-core': names+=['licenses/marisa.txt']
+    if module=='opencc-core': names+=['licenses/marisa.txt','licenses/rapidjson.txt']
     elif module=='opencc-dictionary-tools': names+=['licenses/marisa.txt','licenses/darts-clone.txt']
     elif module=='opencc-jieba': names+=['licenses/CPPJIEBA-LICENSE']
     elif module=='opencc-cli': names+=['licenses/tclap.txt']

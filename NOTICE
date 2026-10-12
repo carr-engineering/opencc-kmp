@@ -24,3 +24,6 @@ under the MIT licence. See licenses/CPPJIEBA-LICENSE for its retained notice.
 
 CLI argument/help output adapts TCLAP, Copyright (c) 2003-2012 Michael E. Smoot,
 2004-2016 Daniel Aarno and 2017 Google LLC, under MIT. See licenses/tclap.txt.
+
+JSON decimal range parsing adapts RapidJSON, Copyright (C) 2015 THL A29 Limited
+and Milo Yip, under MIT. See licenses/rapidjson.txt.
