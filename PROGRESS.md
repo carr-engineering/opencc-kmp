@@ -19,7 +19,14 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 - Started from a directory containing only PLAN.md; initialized Git for focused milestone commits.
 - Resolved OpenCC `ver.1.4.2` to commit `025f371dc76b598d77384fbdab90c937471844d8`.
-- Source hash, API audit, implementation and validation are in progress.
+- Recorded source archive SHA-256 and a verification/fetch script in `upstream.lock.json` and
+  `tools/upstream.py`; checksum verification passed.
+- Added the eight planned modules, configurable KMP target graph, pinned Kotlin 2.4.0 / Gradle
+  8.14.3 wrapper (with distribution checksum), Apache-2.0 attribution and initial README.
+- Generated `docs/upstream-inventory.json` with configuration resource references and header digests.
+- Validation: JVM module graph and CLI entry-point compilation passed. Core tests report NO-SOURCE
+  at this scaffold stage; this is not engine conformance evidence. Other targets remain unverified.
+- The full API mapping, platform delivery, consumer fixtures and size baselines remain in progress.
 
 ## Completion policy
 

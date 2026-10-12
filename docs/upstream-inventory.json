@@ -1,0 +1,216 @@
+{
+  "upstream": {
+    "repository": "https://github.com/BYVoid/OpenCC",
+    "tag": "ver.1.4.2",
+    "tag_object": "d5e960a8f60aa62fb252f48a23a577acb242f3f0",
+    "commit": "025f371dc76b598d77384fbdab90c937471844d8",
+    "archive_url": "https://codeload.github.com/BYVoid/OpenCC/tar.gz/025f371dc76b598d77384fbdab90c937471844d8",
+    "archive_sha256": "8b27931630abab1136b7c3ee920e4a95e78cb84a3cab4670198172bc82104844"
+  },
+  "configs": {
+    "hk2s": {
+      "sha256": "b5fb0d6447f1f111c02a99f405d678b40a97bf73de0a25000219878994a8da37",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKVariantsRev.ocd2",
+        "HKVariantsRevPhrases.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2"
+      ]
+    },
+    "hk2sp": {
+      "sha256": "8a36e56922fa67aeaffb7d145520ed302276aaaf3ab05c092a10615eeda8a161",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKPhrasesRev.ocd2",
+        "HKVariantsRev.ocd2",
+        "HKVariantsRevPhrases.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2"
+      ]
+    },
+    "hk2t": {
+      "sha256": "e773001c761c5540c38a66baa378f2a8c65378fa09446186b1c4dd78815bccf3",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKVariantsRev.ocd2",
+        "HKVariantsRevPhrases.ocd2"
+      ]
+    },
+    "jp2t": {
+      "sha256": "bf056ab3be0c2d0898873662a12d39f8528419a36bc3ad128854a1faefe2c713",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "JPShinjitaiCharacters.ocd2",
+        "JPShinjitaiPhrases.ocd2"
+      ]
+    },
+    "s2hk": {
+      "sha256": "b3a4b6c7f5fdd61c4f7e6eaa292d9a0e29eece584c35fe04fc124b1d9796051b",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2"
+      ]
+    },
+    "s2hkp": {
+      "sha256": "d95e38c22f07d8bc1b6d2dd004c590f0881c781fff76b53bf5f9b639e7980619",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKPhrases.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2"
+      ]
+    },
+    "s2t": {
+      "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2"
+      ]
+    },
+    "s2tw": {
+      "sha256": "5830ee3440ba3dc6bf1e197205b4248e2d860b8a3680475db4419b0dbf96ac39",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2"
+      ]
+    },
+    "s2twp": {
+      "sha256": "681dd1ff5f3a1efe93a6f56006ee7f58f767fa0366fd3a2ec6165c983e39415d",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TWPhrases.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2"
+      ]
+    },
+    "t2hk": {
+      "sha256": "8e2336420ed33b6991841921e930414919d922bd287677f5973564c85b6a3c9b",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2"
+      ]
+    },
+    "t2jp": {
+      "sha256": "6ac813c83a0e57e9d4ff5fd968188ff9e8bc0564dbc833e77fca0c338d27d285",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "JPShinjitaiCharactersRev.ocd2"
+      ]
+    },
+    "t2s": {
+      "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2"
+      ]
+    },
+    "t2tw": {
+      "sha256": "bdaa75b82ec25daecb3ce376277e90c7c3388eb9345628650c66a804a2772a19",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2"
+      ]
+    },
+    "tw2s": {
+      "sha256": "9bf1810eea822bcdedc0b24b303348d859ecf8307f379c9c2d210428e0620ff9",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2",
+        "TWVariantsRev.ocd2",
+        "TWVariantsRevPhrases.ocd2"
+      ]
+    },
+    "tw2sp": {
+      "sha256": "f8cf900c1b456a7d2e8477f5bf146814071d28ad64ef37fbc0ae757930c167d5",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2",
+        "TWPhrasesRev.ocd2",
+        "TWVariantsRev.ocd2",
+        "TWVariantsRevPhrases.ocd2"
+      ]
+    },
+    "tw2t": {
+      "sha256": "5bc1991e12b35100b2df4b6b534bbaeeb18fbbabe5cd5c15c611736011225530",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TWVariantsRev.ocd2",
+        "TWVariantsRevPhrases.ocd2"
+      ]
+    }
+  },
+  "reference_headers": {
+    "src/BinaryDict.hpp": "eae641f9564f6c09304c79eb764d72425341265bf56ed7e9191d170dcca18928",
+    "src/Common.hpp": "5368f033d5c5986de06376e35aa6733a953501c6d78e74abf0671998d3bba8bb",
+    "src/Config.hpp": "e0adb28c426e711d790c8f4227930cc4e946c5c10eccc325c69a0bf0ac5c121b",
+    "src/ConfigBasedConverter.hpp": "4547f180376d6ff59303a97613a6bc53128aa66258a1499706f8bad8e004464e",
+    "src/Conversion.hpp": "f2e110e541bbb5758c28e75ec2de9e9d6a6247707da8408779dda1a29a5828a0",
+    "src/ConversionAmbiguities.hpp": "2465cf21a9c6d2e764863b753a809554082637f7c1bbd69b8b5966364f007a57",
+    "src/ConversionCandidates.hpp": "1928edf610d665c8810a64286eab892c3850a5f6b873e02babf311848adf3fe2",
+    "src/ConversionChain.hpp": "899fc1a294dc21185a1871549ee11f69c9b874c07acd4bda5aac9f4537991e86",
+    "src/ConversionInspection.hpp": "63f1f1a07de2dab7f62bc951bd2b536b153ce4f078a213281978944f17400a5b",
+    "src/Converter.hpp": "0ab21f0877626cf5df56f8fe6e3ef90d30e52f0d61a68e7e92bfd1156f816fcb",
+    "src/DartsDict.hpp": "5e234591eb357a86b9e78f1b0c5a27240e6b967489a54098544f5997867907e5",
+    "src/Dict.hpp": "985669ee0d8269a5c102f398d8e2420934bce8a281bb8cbee0b3e19f51533b13",
+    "src/DictConverter.hpp": "71182030c69a3febfeb6b78513195907ede98eef9265b954d12690a589e1f8ce",
+    "src/DictEntry.hpp": "d06184a04af3df53f35d94239b3032901601d7fd3db80f24e73c75f271e93561",
+    "src/DictGroup.hpp": "daef4aa0856de4a9c0bb1b8ec502e4b9948aefc24bd8ea50f73338a3771a70b0",
+    "src/Exception.hpp": "c36d41654b30da2b7f04feed47b546101f6c13c14c934fdb4f2bbfd66361bc87",
+    "src/Export.hpp": "09cda1cc88720442613cf9224ad154114b73b243e013aa11f62ceda4116746b8",
+    "src/Lexicon.hpp": "5c9dc21b81c6abe093196f431c34fc2d9aa8e984c4a99788eb4bb6183ecff5da",
+    "src/MarisaDict.hpp": "d762a7d81433da47e925968008162fe05d36208320f36e29efb4476d8192b246",
+    "src/MaxMatchSegmentation.hpp": "c98cc6c08b977b00fdef56c8a4b63f50ef974b1827b47941717f519b7006ab36",
+    "src/Optional.hpp": "d18717765561f9681f2e1c132f4e875411dcdceb56a2de05dcaea1a1c383d402",
+    "src/PhraseExtract.hpp": "a5e0df099cfac7f890c5586c8dbb0d83180185389bb38850a2ac18e6e7fe85c1",
+    "src/PipelineConverter.hpp": "078ddcfd08bc8050b104df70020a35754228faa324cb93897850893a2c88bdb8",
+    "src/PluginSegmentation.hpp": "3894a97d22919fb9e1ef178485eb52ca288fc89668f1d879581f25ccf137c1e6",
+    "src/PrefixMatch.hpp": "a974cc76a1e284802e8eb4a0a5da8385ad4546add11ef1bd4fb7420e561a9b4e",
+    "src/ResourceProvider.hpp": "3ff7ad077a5f2c820ee29be3ecef81c7feb0a35b4d2920d0af785319b8d88c7c",
+    "src/Segmentation.hpp": "b77c97fe5f49cc1fe5302c1f6fdc0ac078a277d30c4cba5d74f47d2f87d80801",
+    "src/Segments.hpp": "b1e1a9b2c8d2ead464316a17660ec691ec4b17b21a3ac8fbf07bd60b8cffdfbc",
+    "src/SerializableDict.hpp": "356e1497a5c917792727ed3cf380128c5484bb7440d9c6f5fafdd3c332c065ec",
+    "src/SerializedValues.hpp": "bd9b9de8d2ff38ae9a05cbbb158d171a14591706cd1023f99798496c66731703",
+    "src/SimpleConverter.hpp": "ca21bdf4e1ee827b8554b08beb9824307219653cd9e0c8e63a87f2b1bd8ee746",
+    "src/SingleStageConverter.hpp": "23339d1ce19dea00298e41ba6f33cb609d662ba86237c05eeabf2d6407e05e91",
+    "src/StreamWindow.hpp": "168db6160c69b820f197224da8050776b7a45d9f55d889106698ecdf70f43f52",
+    "src/TextDict.hpp": "b059db3c83a8c8df7772c0fd1816b177dce875c93192801a31bbca0f561c5211",
+    "src/UTF8StringSlice.hpp": "89c24f9b7c37dba60f9ac00a0976cb363ea982eb517c6f8d14f92abbf7f90d0e",
+    "src/UTF8Util.hpp": "1165091df294978b3f9e6ed060f1b825df9a1d2f97a1310e0d34de76e87a06a0",
+    "src/Utf8SkipScan.hpp": "7352299eeab4a344fea0194664e201985d9b54b8c866b3ab197f767aa470301e"
+  },
+  "cli_sources": [
+    "CommandLine.cpp",
+    "CommandLineMain.cpp",
+    "DictConverter.cpp",
+    "PhraseExtract.cpp",
+    "PlatformIO.cpp",
+    "SpeedBenchmark.cpp"
+  ]
+}

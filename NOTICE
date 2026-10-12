@@ -1,0 +1,12 @@
+opencc-kmp
+
+This project is a Kotlin Multiplatform adaptation of Open Chinese Convert (OpenCC).
+OpenCC is Copyright 2010-2026 Carbo Kuo and contributors, licensed under Apache-2.0.
+Reference: https://github.com/BYVoid/OpenCC/tree/ver.1.4.2
+
+The pinned source archive contains LICENSE and AUTHORS but no top-level NOTICE file.
+AUTHORS is reproduced without modification. Kotlin adaptations of OpenCC algorithms
+and redistributed dictionaries retain the upstream licence and attribution.
+
+No native OpenCC or its third-party libraries are linked into the Kotlin runtime.
+Build-time reference tools use their own upstream third-party licence notices.
