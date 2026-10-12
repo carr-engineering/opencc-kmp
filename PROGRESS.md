@@ -120,6 +120,19 @@ checkbox is completed only when its implementation and relevant checks exist.
   common-test runtime. Native big-endian/32-bit hardware itself has not been used; details and limits
   are recorded in `docs/DICTIONARY_FORMATS.md`.
 
+### Phrase extraction
+
+- Added the statistical extraction pipeline in its separate common Kotlin module: suffix/prefix
+  extraction, frequency/probability, candidate ordering, cohesion, both entropies, filters and reset.
+  Public values are Kotlin strings, immutable signal snapshots and copied lists; length options
+  count Unicode scalar values. Extraction sessions own their mutable state.
+- Ported every upstream PhraseExtract unit case into five common tests; all passed on JVM, JS/Node,
+  Wasm/Node, macOS Arm64 and iOS Arm64 simulator.
+- Native differential checks passed on 35 corpora, including supplementary characters and a large
+  rare-phrase corpus: 7,552 candidates had identical ordering, frequencies and filter decisions;
+  floating statistics agreed within 1e-12. Both accepting and rejecting default filters were tested.
+- CLI formatting/distribution remains separate acceptance work.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

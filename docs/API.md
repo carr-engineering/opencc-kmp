@@ -29,6 +29,8 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Darts / BinaryDict / SerializedValues serialization | DictionaryWriters.ocd / binaryPayload / serializedValues | Pure Kotlin builders and writers in the separate tooling module; fixed-width output and explicit byte order |
 | MarisaDict serialization | DictionaryWriters.ocd2 | Pure Kotlin nested LOUDS builder; deterministic upstream default layout and ordered candidate serialization |
 | DictConverter | DictionaryConverter.load / write / convert, DictionaryFormat | All five upstream input formats; text, ocd and ocd2 output; cppjieba base/user metadata and override ordering |
+| PhraseExtract::Extract / step operations / Reset / release operations | PhraseExtract.extract / extractSuffixes / extractPrefixes / calculateFrequency / calculateCohesions / calculateSuffixEntropy / calculatePrefixEntropy / extractWordCandidates / selectWords / reset / releaseSuffixes / releasePrefixes | Separate phrase module; owned mutable session; call reset before reuse; reset retains length options and restores default filters |
+| PhraseExtract setters / Words / WordCandidates / Signals / statistic accessors | Length/filter properties, words / wordCandidates / signal / frequency / probability / logProbability / cohesion / entropy / prefixEntropy / suffixEntropy | Unicode scalar length units, String candidates, immutable signal snapshots and copied lists; filter true excludes a candidate |
 | ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
@@ -47,7 +49,6 @@ strings merely because they contain a NUL.
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
 | Environment/executable search paths, browser/Node resource helpers and zip adapters | Basic filesystem/classpath/Android asset/Apple bundle providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
-| Phrase extraction | Pending in its separate tooling module; dictionary format conversion implemented |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
 | Bundled Jieba segmentation extension | Common extension interface implemented; algorithm/data port pending |
 | Experimental candidate lookup / ambiguity annotations | Pending, explicitly separate from stable upstream APIs |
