@@ -59,5 +59,6 @@ python3 tools/test_consumers.py :kit:jsBrowserTest :kit:wasmJsBrowserTest
 These are local Maven publications, not a Maven Central release. Production JS/Wasm distributions
 and installed Swift apps now exercise all five deployment profiles; detailed evidence is in
 [WEB_AND_APPLE_MEASUREMENTS.md](WEB_AND_APPLE_MEASUREMENTS.md). Android runtime/device checks,
-physical-device performance and full memory/CI gates remain acceptance work. Packaged resources
-do not prove the still-pending Jieba algorithm's conformance.
+physical-device performance and full memory/CI gates remain acceptance work. The optional
+[Jieba module](JIEBA.md) now exercises the full bundle through independent published consumers;
+selected Jieba packs include its implicit IDF/stop-word dependencies.

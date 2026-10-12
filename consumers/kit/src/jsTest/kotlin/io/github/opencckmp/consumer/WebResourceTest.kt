@@ -11,6 +11,7 @@ class WebResourceTest {
         suspend {
             val url = "http://127.0.0.1:8765/opencc"
             assertEquals("漢字轉換", runAsyncFixture(BrowserResourceProvider(url)))
+            verifyPublishedJieba(BrowserResourceProvider(url))
             assertFailsWith<FileNotFound> { BrowserResourceProvider(url).read("missing.ocd2") }
             if (js("typeof process !== 'undefined'") as Boolean) {
                 val directory = js("process.env.OPENCC_FIXTURE_DATA") as String

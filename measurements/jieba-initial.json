@@ -1,0 +1,66 @@
+{
+  "additional_module_artifacts": {
+    "opencc-jieba": {
+      "artifact": "opencc-jieba-0.1.0-20261012.203639-3.jar",
+      "bytes": 5657,
+      "sha256": "ba19caba9def59f27d133bb3bf174269eee8164fba913f4011c4ef108f885618"
+    },
+    "opencc-jieba-android": {
+      "artifact": "opencc-jieba-android-0.1.0-20261012.203639-3.aar",
+      "bytes": 36634,
+      "sha256": "1b0f71200ac5bae74ffa9c0db672f330908ef4edaf2702fb76c44474566553f1"
+    },
+    "opencc-jieba-iossimulatorarm64": {
+      "artifact": "opencc-jieba-iossimulatorarm64-0.1.0-20261012.203639-3.klib",
+      "bytes": 52244,
+      "sha256": "6ba34d8f9f66382ec4feea35457bebae1d5d2708bb8769cf776e668f36c2fcb7"
+    },
+    "opencc-jieba-js": {
+      "artifact": "opencc-jieba-js-0.1.0-20261012.203639-3.klib",
+      "bytes": 51655,
+      "sha256": "61bcadfb4585020c16b666ee800de60ebcf5b18878b712bd1e093794d801c443"
+    },
+    "opencc-jieba-jvm": {
+      "artifact": "opencc-jieba-jvm-0.1.0-20261012.203639-3.jar",
+      "bytes": 38149,
+      "sha256": "ecad4c80ddb2ccf9edc7f00f891c77d3f3c06d2eac1dcda97e5d39f9f9ccc34c"
+    },
+    "opencc-jieba-macosarm64": {
+      "artifact": "opencc-jieba-macosarm64-0.1.0-20261012.203639-3.klib",
+      "bytes": 52192,
+      "sha256": "c8358277004204435a50a42f05a86c0a4533f5c7a0997a8bf5ad369032372840"
+    },
+    "opencc-jieba-wasm-js": {
+      "artifact": "opencc-jieba-wasm-js-0.1.0-20261012.203639-3.klib",
+      "bytes": 51687,
+      "sha256": "90b3be3b2ff44c3e0d2d59c744cfda955004fe51a1fb08fc0f8541a6bc92a4ab"
+    }
+  },
+  "common_tests": {
+    "iosSimulatorArm64Test": 4,
+    "jsNodeTest": 4,
+    "jvmTest": 4,
+    "macosArm64Test": 4,
+    "wasmJsNodeTest": 4
+  },
+  "limitations": [
+    "Artifact bytes describe only the additional Jieba module; dependency metadata, existing core/stdlib and application size are excluded.",
+    "No data is bundled or transitively acquired by opencc-jieba; consumers select data explicitly.",
+    "Custom numeric/malformed-resource acceptance audits, installed-device startup and peak memory remain open."
+  ],
+  "native_cases": {
+    "conversion": 9632,
+    "segmentation": 2064,
+    "streaming": 4032
+  },
+  "native_conversion_errors": 154,
+  "schema_version": 1,
+  "upstream": {
+    "archive_sha256": "8b27931630abab1136b7c3ee920e4a95e78cb84a3cab4670198172bc82104844",
+    "archive_url": "https://codeload.github.com/BYVoid/OpenCC/tar.gz/025f371dc76b598d77384fbdab90c937471844d8",
+    "commit": "025f371dc76b598d77384fbdab90c937471844d8",
+    "repository": "https://github.com/BYVoid/OpenCC",
+    "tag": "ver.1.4.2",
+    "tag_object": "d5e960a8f60aa62fb252f48a23a577acb242f3f0"
+  }
+}

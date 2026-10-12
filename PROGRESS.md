@@ -20,7 +20,8 @@ checkbox is completed only when its implementation and relevant checks exist.
    physical-device performance, broader peak-memory evidence and production delivery gates remain.
 2. Complete the upstream utility inventory and malformed-resource audits. JSON/schema and encoded conversion,
    inspection, streaming and equivalent text/map/NUL operations now have differential coverage.
-3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
+3. The three CLI tools, including all pinned options and exit codes; broader custom Jieba resource/
+   numeric audits remain alongside the encoded/resource compatibility work.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
    infrastructure/documentation. Public publication requires configured ownership and credentials.
 
@@ -339,3 +340,37 @@ local preparation is not evidence of an actual public release.
   210,469 bytes, down from 218,290. All selected/full APK profiles remain within their allowances.
   Engine APK/download and selected-pack dependency budgets still exceed the earlier partial-engine
   baselines; no allowance was widened and complete-engine size acceptance remains open.
+
+### Optional common Jieba segmentation and complete resource closure
+
+- Added opencc-jieba with the pinned weighted prefix/DAG routing, HMM/Viterbi, user metadata and
+  precedence, ASCII/decimal rules, scalar search limit and encoded rune decoder. Packed arcs,
+  primitive frequency/probability arrays and per-call scores avoid per-character lookup allocation
+  and unnecessary temporary objects. Loaded models are immutable; no global caches/native bindings.
+- Added an explicitly registered resource factory, synchronous and actually suspending merged/text
+  fallback, installed user defaults, relative/auxiliary lookup, and native plugin NUL/encoded coverage
+  errors. SegmentationFactory.prepareResources allows host extensions to perform optional/fallback
+  acquisition before synchronous creation. SimpleConverter now accepts factories directly.
+- The complete aggregate includes Jieba; core's runtime graph remains stdlib only. Corrected selected
+  Jieba packs to include implicit IDF/stop-word dependencies, with deduplication and exclusion checks.
+  Retained cppjieba MIT attribution and documented the Kotlin ownership/resource/API equivalents.
+- Native checks pass 2,064 direct segmentation, 9,632 conversion/error and 4,032 streaming cases,
+  including all upstream testcase inputs and all seven experimental configs under both risk options.
+  Byte chunks/final flush, supplementary text, NULs, malformed bytes, String equivalents and composed
+  maps are covered. Eight JVM threads share a real model and verify native token answers concurrently.
+- Four common tests pass on JVM, JS, Wasm, macOS and iOS simulator. The remaining Native variants
+  compile on Linux x64, Windows x64, iOS Arm64/x64 and macOS x64; runtime tests there still require
+  their hosts. The complete aggregate's dependency metadata resolves successfully.
+- Published full-bundle JVM/JS/Wasm/iOS consumers pass all seven configs, actual large-model decoding,
+  shared immutable segmentation and asynchronous preparation (148 real HTTP requests). Jieba remains
+  test-only in these existing measurement profiles. The full-model conformance timeout is 60 seconds;
+  it is not a performance budget. All five data-pack acceptance checks pass.
+- Additional library artifact bytes are recorded in measurements/jieba-initial.json: JVM 38,149;
+  Android 36,634; JS 51,655; Wasm 51,687; macOS 52,192; iOS simulator 52,244. These exclude existing
+  core/stdlib, data and application size and are not presented as a complete dependency measurement.
+  Broader custom numeric/model/malformed-resource audits and physical-device size/performance gates
+  remain open. CLI completion is the next major feature milestone.
+- Latest Android measurements preserve the runtime module graphs and restore every APK profile's
+  unchanged budget: engine APK increment 17,285 bytes. Engine dependency increment is 215,282 bytes;
+  engine/one/multi dependency budgets remain exceeded. measurements/android-jieba-extension.json
+  records these gates explicitly; no download allowance was widened.

@@ -6,5 +6,6 @@ import kotlin.test.*
 class JvmResourceTest {
     @Test fun publishedEngineLoadsPublishedResources() {
         assertEquals("漢字轉換", runFixture(ClasspathResourceProvider()))
+        verifyPublishedJieba(ClasspathResourceProvider())
     }
 }

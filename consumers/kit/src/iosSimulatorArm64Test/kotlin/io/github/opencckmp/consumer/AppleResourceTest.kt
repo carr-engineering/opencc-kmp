@@ -12,5 +12,6 @@ class AppleResourceTest {
         val path = getenv("OPENCC_FIXTURE_BUNDLE")?.toKString() ?: error("Missing fixture bundle")
         val bundle = NSBundle.bundleWithPath(path) ?: error("Bundle not found: $path")
         assertEquals("漢字轉換", runFixture(AppleBundleResourceProvider(bundle)))
+        verifyPublishedJieba(AppleBundleResourceProvider(bundle))
     }
 }

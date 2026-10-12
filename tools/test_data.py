@@ -58,6 +58,21 @@ class DataBundleTests(unittest.TestCase):
             self.assertIn("jieba_dict/hmm_model.utf8", manifest["files"])
             self.assertIn("licenses/cppjieba.txt", manifest["files"])
 
+    def test_jieba_selected_closure_includes_auxiliary_files_and_deduplicates_models(self):
+        with tempfile.TemporaryDirectory(prefix="opencc-pack-") as directory:
+            output = Path(directory) / "opencc"
+            create_bundle(output, ["s2t_jieba", "s2tw_jieba"], self.oracle)
+            manifest = json.loads((output / "manifest.json").read_text())
+            auxiliary = {"jieba_dict/idf.utf8", "jieba_dict/stop_words.utf8",
+                         "jieba_dict/hmm_model.utf8", "jieba_dict/jieba_merged.ocd2"}
+            self.assertTrue(auxiliary.issubset(manifest["configs"]["s2t_jieba"]))
+            self.assertTrue(auxiliary.issubset(manifest["configs"]["s2tw_jieba"]))
+            self.assertTrue(auxiliary.issubset(manifest["files"]))
+            self.assertNotIn("jieba_dict/jieba.dict.utf8", manifest["files"])
+            self.assertNotIn("TSCharacters.ocd2", manifest["files"])
+            with zipfile.ZipFile(output.with_suffix(".zip")) as archive:
+                self.assertEqual(len(archive.namelist()), len(set(archive.namelist())))
+
     def test_unknown_config_is_rejected_and_reselection_removes_stale_resources(self):
         with tempfile.TemporaryDirectory(prefix="opencc-pack-") as directory:
             output = Path(directory) / "opencc"

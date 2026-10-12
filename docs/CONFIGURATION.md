@@ -63,6 +63,12 @@ relative to the config directory. This lets hosts preserve option-dependent reso
 fetching disabled assets. The complete/selected offline bundles still contain the full supported
 resource closure; selective preparation and selective packaging are different choices.
 
+Extensions with optional resources or fallback paths override suspend prepareResources instead.
+The default implementation uses resourcesToPrepare and copies the acquired bytes into a memory
+provider. The custom hook receives the host's AsyncResourceProvider; resource I/O remains outside
+the engine and precedes synchronous create. The bundled Jieba factory uses this hook to retain
+merged/text fallback and auxiliary-resource lookup without eagerly requiring every possible path.
+
 The differential config corpus checks 3,940 cases through native string/file entry points and both
 risk options: acceptance/output, first-warning pointers/keyword, error category and meaningful
 semantic diagnostics. It includes all value kinds, dictionaries/groups, plugin fields, duplicate

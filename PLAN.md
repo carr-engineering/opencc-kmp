@@ -152,6 +152,9 @@ such, without silently omitting them:
 - `opencc-cache`: optional common dictionary-cache and verified-resource implementations, depending
   only on core. Core exposes the cache interface without pulling these implementations into engine
   dependency downloads. Include this module in the complete aggregate dependency.
+- `opencc-jieba`: bundled Jieba segmentation algorithms and resource factory in common Kotlin,
+  depending only on core. Hosts register its factory explicitly; include it in the complete
+  aggregate without adding extension code or data to core-only dependency downloads.
 - `opencc-data`: every upstream dictionary and config, in the formats upstream ships (`.ocd2` plus
   JSON), plus a manifest (file → SHA-256 → size and config → resource dependencies). Produced by a
   reproducible Gradle build from the pinned upstream release. Retain this complete offline bundle.

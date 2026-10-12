@@ -56,6 +56,20 @@ for buffer units, inspection snapshots, NULs, errors and composed deletion maps.
 The [configuration contract](docs/CONFIGURATION.md) covers advisory schema warnings, accepted JSON,
 ordered extension options and sync/suspend loading with identical validation/resource order.
 
+`opencc-jieba` supplies the seven experimental Jieba configurations through a common Kotlin
+segmentation factory; `opencc-all` includes the module. Register it when loading those configs:
+
+```kotlin
+import io.github.opencckmp.jieba.JiebaSegmentationFactory
+
+val jieba = SimpleConverter("s2twp_jieba", resources,
+    segmentationFactories = mapOf("jieba" to JiebaSegmentationFactory()))
+check(jieba.convert("勇敢的士兵") == "勇敢的士兵")
+```
+
+The caller supplies `resources` using a bundled/file provider or async preparation. See
+[Jieba contracts](docs/JIEBA.md) for merged/text dictionaries, fallback resources and model ownership.
+
 ```kotlin
 import io.github.opencckmp.tools.*
 
@@ -78,6 +92,7 @@ Run native tooling conformance independently from portable unit tests:
 ./gradlew -Popencc.targets=jvm :opencc-dictionary-tools:upstreamWriterConformance
 ./gradlew -Popencc.targets=jvm :opencc-phrase-extract:upstreamPhraseConformance
 ./gradlew -Popencc.targets=jvm :opencc-detect:upstreamDataDetection
+./gradlew -Popencc.targets=jvm :opencc-jieba:upstreamJiebaConformance
 ```
 
 ## Data selection and platform resources

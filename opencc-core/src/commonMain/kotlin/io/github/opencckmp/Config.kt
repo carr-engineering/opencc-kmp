@@ -8,6 +8,13 @@ fun interface SegmentationFactory {
     fun create(properties: SegmentationProperties, resources: ResourceProvider): Segmentation
     /** Resolved provider names needed before synchronous initialization; hosts may apply option logic. */
     fun resourcesToPrepare(properties: SegmentationProperties, declaredResources: List<String>): List<String> = declaredResources
+    /** Extensions with optional resources or fallback paths may perform their own ordered preparation. */
+    suspend fun prepareResources(properties: SegmentationProperties, resources: AsyncResourceProvider,
+                                 declaredResources: List<String>): ResourceProvider {
+        val bytes = linkedMapOf<String, ByteArray>()
+        for (name in resourcesToPrepare(properties, declaredResources).distinct()) bytes[name] = resources.read(name)
+        return MemoryResourceProvider(bytes)
+    }
 }
 
 /** Stateless loader. Optional caller-owned [dictionaryCache] shares dictionaries across loads. */
@@ -38,9 +45,14 @@ class Config(
         val session = LoadSession(json, configDirectory, options, null)
         while (true) {
             val request = session.advance() ?: return session.result!!
-            val bytes = mutableListOf<ByteArray>()
-            for (name in request.names) bytes.add(read(name))
-            session.provide(bytes)
+            val factory = request.factory
+            if (factory == null) {
+                val bytes = mutableListOf<ByteArray>()
+                for (name in request.names) bytes.add(read(name))
+                session.provide(bytes)
+            } else {
+                session.providePlugin(factory.prepareResources(request.properties!!, AsyncResourceProvider(read), request.names))
+            }
         }
     }
 
@@ -72,7 +84,13 @@ class Config(
             val request = checkNotNull(pending)
             check(bytes.size == request.names.size)
             pending = null
-            next = { request.complete(bytes) }
+            next = { request.complete!!(bytes) }
+        }
+
+        fun providePlugin(resources: ResourceProvider) {
+            val request = checkNotNull(pending)
+            pending = null
+            next = { request.completePlugin!!(resources) }
         }
 
         private fun request(names: List<String>, complete: (List<ByteArray>) -> Unit) {
@@ -188,8 +206,7 @@ class Config(
             val factory = segmentationFactories[type] ?: throw UnavailableSegmentationExtension(type)
             val pairs = SegmentationProperties(properties)
             if (pluginProvider != null) { main(factory.create(pairs, pluginProvider)); return }
-            val names = factory.resourcesToPrepare(pairs, declared).distinct()
-            request(names) { bytes -> main(factory.create(pairs, MemoryResourceProvider(names.zip(bytes).toMap()))) }
+            pending = LoadRequest(declared, null, factory, pairs) { resources -> main(factory.create(pairs, resources)) }
         }
 
         private fun main(segmentation: Segmentation?) {
@@ -204,7 +221,9 @@ class Config(
         }
     }
 
-    private class LoadRequest(val names: List<String>, val complete: (List<ByteArray>) -> Unit)
+    private class LoadRequest(val names: List<String>, val complete: ((List<ByteArray>) -> Unit)?,
+                              val factory: SegmentationFactory? = null, val properties: SegmentationProperties? = null,
+                              val completePlugin: ((ResourceProvider) -> Unit)? = null)
 
 }
 

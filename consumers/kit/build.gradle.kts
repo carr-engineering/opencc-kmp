@@ -37,8 +37,8 @@ kotlin {
             if (smallBinary) binaryOption("smallBinary", "true")
         }
     }
-    js { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
-    wasmJs { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs(); binaries.executable() }
+    js { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs { testTask { useMocha { timeout = "60s" } } }; binaries.executable() }
+    wasmJs { browser { commonWebpackConfig { outputFileName = "consumer.js"; sourceMaps = false }; testTask { useKarma { useChromeHeadless() } } }; nodejs { testTask { useMocha { timeout = "60s" } } }; binaries.executable() }
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
@@ -55,6 +55,7 @@ kotlin {
         }
         commonTest.dependencies { implementation(kotlin("test")) }
         if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-cache:0.1.0-SNAPSHOT") }
+        if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-jieba:0.1.0-SNAPSHOT") }
         if (profile != "baseline") commonTest { kotlin.srcDir("src/engineTest/kotlin") }
         commonMain { resources.srcDir(layout.buildDirectory.dir("fixture.bundle")) }
     }

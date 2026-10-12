@@ -20,6 +20,10 @@ def references(node):
         for name in node.get("resources", {}).values():
             if isinstance(name, str):
                 result.add(name)
+        if node.get("type") == "jieba":
+            # The pinned plugin initializes these auxiliary resources even though Cut uses only
+            # the merged dictionary/HMM. They are part of the installed config dependency closure.
+            result.update({"jieba_dict/idf.utf8", "jieba_dict/stop_words.utf8"})
         for value in node.values():
             result.update(references(value))
     elif isinstance(node, list):

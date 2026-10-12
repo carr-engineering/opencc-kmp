@@ -10,7 +10,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | --- | --- | --- |
 | Config::NewFromString / NewFromFile | Config.newFromString / newFromFile | JSON, provider resources, options, relative logical names |
 | ConfigLoadOptions::includeTofuRiskDictionaries | ConfigLoadOptions.includeTofuRiskDictionaries | Defaults to true; segmentation always includes its dictionaries |
-| SimpleConverter constructors | SimpleConverter(configName, provider, options, readers) | Bare bundled config names map to `.json`; filesystem search is provider responsibility |
+| SimpleConverter constructors | SimpleConverter(configName, provider, options, readers, dictionaryCache, cacheIdentity, segmentationFactories) / fromConfig | Bare config names map to `.json`; providers resolve resources and hosts register extensions |
 | Converter / SimpleConverter::Convert | convert(String), convert(String, startIndex, endIndex), convertPrefix | Ordinary text uses half-open UTF-16 ranges; supplementary pairs cannot be split |
 | Encoded input / explicit length conversion | convertUtf8 / convertUtf8Prefix, EncodedInputMode | Half-open byte ranges; native bounded partial/non-canonical traversal; explicit-length or NUL-terminated input |
 | Buffer output | convertTo(String, Appendable/CharArray), convertUtf8To | Counts UTF-16 units or bytes; byte buffer input defaults to NUL termination; insufficient capacity fails before mutation |
@@ -54,15 +54,19 @@ byte modes do not impose byte indexing on ordinary String operations.
 | Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
-| Bundled Jieba segmentation extension | Common extension interface implemented; algorithm/data port pending |
+| Custom segmentation resource/numeric edge audits | Bundled Jieba algorithms/configs are tested; broader custom resource/error audits remain |
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
 with each milestone; conformance counts in PROGRESS.md describe exactly what was tested.
 
 The complete data generator includes 16 built-in configs and 7 experimental Jieba configs/assets.
-The latter remain unavailable for conversion until their segmentation factory is ported; data
-presence is not a claim of algorithm conformance. Selective bundles preserve each selected config's
-full resource closure, including optional dictionaries.
+JiebaSegmentation / fromText and JiebaSegmentationFactory in optional opencc-jieba provide the
+bundled extension's constructors and segmentation operations through Kotlin-owned dictionary/model
+values and providers. Register the factory under jieba in Config, SimpleConverter or prepareConfig;
+no native plugin ABI or path-based binary loading is required. Direct/plugin NUL behavior, byte
+decoding, resource fallback and conformance scope are documented in [JIEBA.md](JIEBA.md).
+Selective bundles retain each config's full resource closure, including optional dictionaries and
+the IDF/stop-word assets required by the pinned Jieba plugin.
 
 `convertWithMap` and the optional `ScriptDetector` are Kotlin extensions beyond upstream; their
 contracts and selection examples live in [ALIGNMENT_AND_DETECTION.md](ALIGNMENT_AND_DETECTION.md).

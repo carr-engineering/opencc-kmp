@@ -18,3 +18,6 @@ artifacts containing this adaptation.
 
 The Kotlin Darts builder adapts Darts-clone, Copyright (c) 2008-2014 Susumu Yata,
 under BSD-2-Clause. See licenses/darts-clone.txt for the retained licence notice.
+
+The optional Kotlin Jieba segmentation module adapts cppjieba, Copyright (c) 2013,
+under the MIT licence. See licenses/CPPJIEBA-LICENSE for its retained notice.

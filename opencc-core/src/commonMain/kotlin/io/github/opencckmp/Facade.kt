@@ -9,7 +9,8 @@ class SimpleConverter private constructor(internal val delegate: Converter) : Co
         readers: List<DictionaryReader> = standardDictionaryReaders,
         dictionaryCache: DictionaryCache? = null,
         cacheIdentity: Any = provider,
-    ) : this(Config(provider, readers, dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)
+        segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
+    ) : this(Config(provider, readers, segmentationFactories, dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)
         .newFromFile(configResourceName(configName), options))
 
     companion object {
