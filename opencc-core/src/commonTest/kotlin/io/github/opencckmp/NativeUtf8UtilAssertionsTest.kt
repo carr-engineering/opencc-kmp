@@ -3,7 +3,7 @@ package io.github.opencckmp
 
 import kotlin.test.*
 
-class UpstreamUtf8UtilTest {
+class NativeUtf8UtilAssertionsTest {
     private val text = "東菄鶇䍶𠍀倲𩜍𢘐"
     private val bytes = UTF8Util.encode(text)
     @Test fun nextCharLength() {

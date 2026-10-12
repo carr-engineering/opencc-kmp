@@ -50,6 +50,18 @@ checkbox is completed only when its implementation and relevant checks exist.
   from a single empty candidate. Full upstream assertion-level review still has 256 pending cases;
   declaration mappings are not themselves conformance evidence. ABI/size integration follows.
 
+### Parallel completion work: direct upstream assertion ports
+
+- Added 68 direct assertion ports for conversion/groups/chains/pipelines, text and annotated lexicon
+  serialization, slice equivalents, segmentation and inspection. The case crosswalk now traces 85
+  individual native cases; 188 still require review at this checkpoint.
+- Fixed the UTF8Util assertion class name: the prior `Upstream*` prefix excluded its 17 JVM tests
+  from the ordinary task even though they compiled. Renamed ordinary ports now run on every fixture.
+- Validation: 125 core and 15 dictionary-tool common tests per runtime passed on JVM, JS, Wasm,
+  macOS ARM and iOS simulator ARM. This includes the 3,796-row native utility golden test.
+- Added 13 named upstream CLI assertions for risk-option defaults, line/1 MiB boundaries, variation
+  selector warnings and missing-input output preservation; JVM and macOS Native processes passed.
+
 ## Execution log
 
 ### Foundation
