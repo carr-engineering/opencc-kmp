@@ -1,10 +1,26 @@
 """Deterministically include module-specific provenance/notices in actual published artifacts."""
 import argparse
+import copy
+import io
 import json
 from pathlib import Path
 import tempfile
 import zipfile
 from upstream import ROOT, LOCK
+
+
+def stored_jar(data):
+    """Let the enclosing AAR compress across classes, without changing any entry's bytes."""
+    with zipfile.ZipFile(io.BytesIO(data)) as source:
+        entries=source.infolist()
+        if all(info.compress_type==zipfile.ZIP_STORED for info in entries): return data
+        output=io.BytesIO()
+        with zipfile.ZipFile(output,'w',compression=zipfile.ZIP_STORED) as destination:
+            destination.comment=source.comment
+            for info in entries:
+                stored=copy.copy(info);stored.compress_type=zipfile.ZIP_STORED
+                destination.writestr(stored,source.read(info.filename))
+        return output.getvalue()
 
 
 def payloads(module, version):
@@ -35,13 +51,23 @@ def embed(path, module, version):
             base=manifest.rpartition('/')[0]
             prefix=(base+'/' if base else '')+'resources/META-INF/opencc/'
         entries={prefix+name:data for name,data in wanted.items()}
-        if all(name in archive.namelist() and archive.read(name)==data for name,data in entries.items()): return
+        classes=None
+        if path.suffix=='.aar' and 'classes.jar' in archive.namelist():
+            original=archive.read('classes.jar')
+            packed=stored_jar(original)
+            if packed!=original: classes=packed
+        if classes is None and all(name in archive.namelist() and archive.read(name)==data for name,data in entries.items()): return
         info=archive.infolist()
         with tempfile.NamedTemporaryFile(dir=path.parent,suffix='.notices',delete=False) as stream: temporary=Path(stream.name)
         try:
             with zipfile.ZipFile(temporary,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as target:
+                target.comment=archive.comment
                 for item in info:
-                    if item.filename not in entries: target.writestr(item,archive.read(item.filename))
+                    if item.filename not in entries:
+                        content=classes if item.filename=='classes.jar' and classes is not None else archive.read(item.filename)
+                        packed=copy.copy(item)
+                        if path.suffix=='.aar': packed.compress_type=zipfile.ZIP_DEFLATED
+                        target.writestr(packed,content,compresslevel=9)
                 for name,data in sorted(entries.items()):
                     item=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0));item.compress_type=zipfile.ZIP_DEFLATED;item.external_attr=0o644<<16
                     target.writestr(item,data,compresslevel=9)

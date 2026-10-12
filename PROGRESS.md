@@ -464,3 +464,20 @@ local preparation is not evidence of an actual public release.
   measurements/android-attributed-publication.json: engine APK increment is 17,289 bytes, dependency
   increment 235,272 bytes. All four APK budgets pass; engine/one/multi download budgets fail and the
   complete bundle passes. Budgets remain unchanged; CI intentionally exposes these unresolved gates.
+
+### Byte-preserving Android download optimization
+
+- Identified ineffective nested compression in AARs: individually compressed classes prevent the
+  outer ZIP from exploiting repeated class/metadata structure. Store the inner JAR entries and use
+  standard DEFLATE level 9 on the enclosing AAR before publication metadata/signing.
+- The engine AAR is 159,808 bytes, down from 235,272 (32.1%). All 127 class/metadata/resource entries
+  match the previous publication byte for byte; outer payloads and attribution are unchanged. No
+  runtime decoder, API/module split or algorithm change is introduced. Intermediate JAR disk usage
+  grows to 511,197 bytes; build/read timings are packaging diagnostics, not Android performance claims.
+- Every production APK retains the preceding measurement's size. All eight unchanged Android
+  APK/download budgets now pass: dependency increments engine 159,808, one 675,850, multi 710,667,
+  full 6,752,265 bytes. Exact environment, dependency hashes and ZIP/DEX detail are preserved in
+  measurements/android-aar-compression.json; archive alternatives/hashes in aar-compression.json.
+- Four payload/routing tests, artifact checksum/graph verification and independent full-bundle
+  JVM/JS/Wasm/iOS consumers pass (148 HTTP requests). Remaining platform/export/API/performance
+  and release gates remain required; Android size success is not full-plan completion.

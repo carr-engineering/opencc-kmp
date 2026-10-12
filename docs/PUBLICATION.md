@@ -36,6 +36,12 @@ within the component containing its manifest. Resource ZIP classifiers already c
 Embedding runs after artifact construction and before publication metadata and signing, so registry
 checksums describe the delivered bytes. Runtime code does not read this payload.
 
+Android AARs store the inner `classes.jar` entries and compress the outer archive at DEFLATE level 9.
+This compresses across class/metadata entries, avoiding ineffective double compression. Class bytes,
+Kotlin metadata, resources and notices are preserved; no consumer decoder or runtime code is added.
+The larger intermediate JAR affects build-time disk usage, not the APK. Byte audits and the measured
+consumer results are recorded in [SIZE_BASELINES.md](SIZE_BASELINES.md).
+
 CLI parser/help behavior is adapted from OpenCC's vendored TCLAP. Its `StdOutput.h` matches the
 official TCLAP v1.2.5 source at commit `58c5c8ef24111072fc21fb723f8ab45d23395809` byte for byte;
 `licenses/tclap.txt` contains that release's COPYING file, preserving its MIT attribution.

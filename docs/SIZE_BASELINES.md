@@ -18,8 +18,8 @@ These are actual APK/container bytes, not claims about Google Play delivery or a
 App Bundle split. Dependency totals count resolved runtime artifacts plus the selected archive;
 they exclude POM/module metadata, sources and build tools. Kotlin stdlib is present in the baseline.
 The report separates raw/compressed data and DEX bytes and records dependency coordinates, byte
-sizes and SHA-256 values. Full data includes the still-pending Jieba implementation's resources;
-packaging all data does not imply algorithm completion.
+sizes and SHA-256 values. This initial report predates the optional common Jieba implementation;
+its resources were already included. Current algorithm evidence is recorded separately in PROGRESS.md.
 
 The small engine profile exercises inline conversion. R8 may remove APIs it does not use; the
 published core library still contains the full implemented API. The one/multi/full profiles exercise
@@ -47,3 +47,28 @@ tradeoff gates. Those remain required before release.
 Production web and installed Swift profile evidence now supplements these APK measurements; see
 [WEB_AND_APPLE_MEASUREMENTS.md](WEB_AND_APPLE_MEASUREMENTS.md) for their separate baselines,
 reproducible size gates, Native size-option evaluation and measurement limitations.
+
+## Byte-preserving Android publication compression
+
+`measurements/android-aar-compression.json` measures the attributed current implementation against
+the same budgets. `measurements/aar-compression.json` compares alternative nested ZIP layouts using
+identical compiled entries and records their hashes. All 127 engine JAR entries match the preceding
+published artifact byte for byte, including class files and Kotlin metadata.
+
+Storing the inner JAR entries lets the outer AAR's standard DEFLATE compressor share redundancy
+across classes. The engine AAR falls from 235,272 to 159,808 bytes (32.1%), while its intermediate
+JAR grows from 241,158 to 511,197 bytes. No runtime representation, public API or decoder changes.
+Python extraction/build timings in the audit are diagnostics, not device performance evidence.
+
+| Profile | Incremental APK bytes | Incremental dependency bytes |
+| --- | ---: | ---: |
+| Engine | 17,289 | 159,808 |
+| s2t | 536,628 | 675,850 |
+| s2t + t2s | 571,947 | 710,667 |
+| Complete offline | 6,712,453 | 6,752,265 |
+
+Every APK is unchanged in size from the preceding attributed-publication measurement. All eight
+Android application/download budget checks now pass without increasing any allowance. The complete
+API stays in the published engine. Four artifact-payload/routing tests and actual published consumer checks
+pass; the byte audit covers all entry names, ordering and contents. Regenerate the compression audit
+with `python3 tools/audit_aar_compression.py` after local publication.
