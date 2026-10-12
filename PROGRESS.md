@@ -10,8 +10,17 @@ checkbox is completed only when its implementation and relevant checks exist.
 - [x] 3. Interoperable `.ocd` / `.ocd2` readers and writers, legacy layouts and byte orders.
 - [ ] 4. Reproducible complete/selective data, manifests, closure, deduplication and measured budgets.
 - [ ] 5. Facades, streaming, inspection, tooling, phrase extraction, CLI and differential tests.
-- [ ] 6. Segment mapping and optional detection.
+- [x] 6. Segment mapping and optional detection.
 - [ ] 7. Benchmarks, consumer shrinking, documentation, CI and release readiness.
+
+## Current acceptance priorities
+
+1. Published-artifact Android/iOS/JS/Wasm consumer fixtures, resource delivery and initial application
+   size/download/startup/memory baselines. These remain outstanding despite working JVM resources.
+2. Encoded-input/NUL/malformed-input contracts, complete JSON diagnostics and owned concurrent caches.
+3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
+4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
+   infrastructure/documentation. Public publication requires configured ownership and credentials.
 
 ## Execution log
 
@@ -149,6 +158,16 @@ checkbox is completed only when its implementation and relevant checks exist.
   pairs and dictionary interoperability checks also passed.
 - Malformed UTF-16 test strings are now constructed at runtime: Kotlin/JS replaced lone surrogate
   string literals during code generation, which otherwise prevented those tests exercising the input.
+
+### Optional script detection
+
+- Added the optional, immutable `ScriptDetector` with the planned distinguishing-character set rules,
+  configurable ratios/confidence counts and Hong Kong/Taiwan variant/phrase scoring.
+- Dependencies stay at core only; callers select dictionaries explicitly. The resource factory loads
+  six dictionaries for regional scoring or just two for character-only detection.
+- Validation: three common detection tests passed on JVM, JS/Node, Wasm/Node, macOS Arm64 and the iOS
+  simulator. A JVM test with the real upstream dictionaries verified script/region examples and the
+  two-versus-six resource closure. Heuristic regional tie/scoring behaviour is documented.
 
 ## Completion policy
 
