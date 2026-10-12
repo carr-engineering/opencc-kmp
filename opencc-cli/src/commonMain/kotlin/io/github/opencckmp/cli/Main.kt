@@ -1,5 +1,7 @@
 package io.github.opencckmp.cli
 
-fun main(args: Array<String>) {
-    println("opencc-kmp CLI under development (reference OpenCC 1.4.2)")
-}
+import kotlin.system.exitProcess
+
+fun main(args: Array<String>) { exitProcess(runCli(CliTool.Convert, platformArguments(args), platformHost())) }
+fun dictionaryMain(args: Array<String>) { exitProcess(runCli(CliTool.Dictionary, platformArguments(args), platformHost())) }
+fun phraseMain(args: Array<String>) { exitProcess(runCli(CliTool.Phrase, platformArguments(args), platformHost())) }

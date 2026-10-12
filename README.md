@@ -136,3 +136,17 @@ is still pending; adding its resources alone does not enable those configuration
 Upstream source is fetched only for build-time data generation and conformance. It is never linked
 into the Kotlin runtime. The fetcher checks the archive digest before extraction. Apache-2.0 text,
 upstream authors and notices are included with redistributed data and derived implementations.
+
+## Command-line distributions
+
+The separate `opencc-cli` module now implements `opencc`, `opencc_dict` and
+`opencc_phrase_extract` for JVM and Native desktop targets. Local reproducible archives include
+launchers/executables, complete offline data and notices:
+
+```sh
+./gradlew -Popencc.targets=jvm :opencc-cli:bundleJvmCli
+./gradlew -Popencc.targets=macosArm64 :opencc-cli:bundleMacosArm64Cli
+```
+
+See [CLI contracts and validation scope](docs/CLI.md) for options, framing, resource lookup,
+upstream process comparisons and the remaining platform/edge/release checks.

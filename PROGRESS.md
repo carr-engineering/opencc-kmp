@@ -20,8 +20,8 @@ checkbox is completed only when its implementation and relevant checks exist.
    physical-device performance, broader peak-memory evidence and production delivery gates remain.
 2. Complete the upstream utility inventory and malformed-resource audits. JSON/schema and encoded conversion,
    inspection, streaming and equivalent text/map/NUL operations now have differential coverage.
-3. The three CLI tools, including all pinned options and exit codes; broader custom Jieba resource/
-   numeric audits remain alongside the encoded/resource compatibility work.
+3. Broader CLI argument/filesystem failure and custom Jieba resource/numeric audits, plus
+   Windows/Linux execution and executable-release verification.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
    infrastructure/documentation. Public publication requires configured ownership and credentials.
 
@@ -390,3 +390,28 @@ local preparation is not evidence of an actual public release.
   macOS Native, including ZIP modes, malformed JSONL input and input beyond the 1 MiB buffer.
   This is prerequisite evidence, not yet a claim of complete CLI/distribution or malformed-resource
   conformance. CLI source remains under active implementation for subsequent focused commits.
+
+### Common command-line tools and local executable distributions
+
+- Replaced the scaffold with stateless common implementations of opencc, opencc_dict and
+  opencc_phrase_extract. Added pinned options/defaults/TCLAP diagnostics, all four conversion modes,
+  byte-transparent/human JSON/strict ambiguity JSONL framing, variation warnings, timing/count
+  reports, stored ZIPs, config-relative/package/environment/executable resource lookup and in-place
+  identity/temporary-file/metadata/replacement handling. Tools use the existing common algorithms.
+- JVM and Native have thin owned stream/filesystem adapters and exact statistical number formatting.
+  Native Windows uses typed UTF-16 file paths, command-line arguments and environment APIs. Linux,
+  Windows x64 and macOS Arm64 sources compile; Native runtime checks here cover macOS Arm64.
+- All three tools have JVM entry points and named Native release executables. Reproducible JVM and
+  macOS archives include complete offline data and notices. Both were unpacked and launched from an
+  unrelated cwd without data/plugin environment variables; standard/Jieba configs and all launchers
+  passed. This is local distribution evidence, not a public signed release.
+- The final matrix passes 212 process cases on JVM and another 212 on Native, comparing stdout,
+  stderr, exit codes, produced files, mutation/mode and measured-result schemas with upstream. It
+  exercises all 23 configs in four modes, malformed bytes/NUL/CRLF/IVS, stored ZIPs, embedded options,
+  >1 MiB UTF-8/JSONL, deterministic dictionary combinations, cppjieba multi-input metadata, nonempty
+  phrase statistics, in-place/symlink/hard-link behavior and error timing. Exact evidence is in
+  measurements/cli-initial.json and can be regenerated with tools/test_cli*.py.
+- CLI contracts/build/verification are documented in docs/CLI.md. Broader malformed-resource and
+  filesystem/argument audits remain, as do Windows/Linux runtime checks, Windows JVM link-count
+  parity, public release/export/licensing checks and the outstanding size/performance/CI gates.
+  No milestone is marked complete merely because these selected CLI process cases passed.

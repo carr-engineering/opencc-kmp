@@ -11,6 +11,8 @@ class ZipResourceTest {
         bytes.fill(0)
         val resource = provider.getResource("sub/dictionary.txt")
         assertEquals("dictionary.txt", resource.name)
+        assertSame(resource.cacheKey, provider.getResource("dictionary.txt").cacheKey)
+        assertNotSame(resource.cacheKey, ZipResourceProvider(image()).getResource("dictionary.txt").cacheKey)
         assertEquals("汉\t漢\n", UTF8Util.decode(resource.bytes))
         resource.bytes.fill(0)
         assertEquals("汉\t漢\n", UTF8Util.decode(provider.read("sub\\dictionary.txt")))

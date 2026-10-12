@@ -60,7 +60,9 @@ subprojects {
         }
         sourceSets.commonTest.dependencies { implementation(kotlin("test")) }
         if (isCli) targets.withType<KotlinNativeTarget>().configureEach {
-            binaries.executable { entryPoint = "io.github.opencckmp.cli.main" }
+            for ((name, entry) in listOf("opencc" to "main", "opencc_dict" to "dictionaryMain", "opencc_phrase_extract" to "phraseMain")) {
+                binaries.executable(name) { baseName = name; entryPoint = "io.github.opencckmp.cli.$entry" }
+            }
         }
     }
     extensions.configure<PublishingExtension> {

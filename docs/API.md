@@ -53,7 +53,7 @@ byte modes do not impose byte indexing on ordinary String operations.
 | --- | --- |
 | Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
-| Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
+| CLI edge/runtime/distribution conformance | All three tools implemented locally; broader malformed-resource, filesystem and Windows/Linux runtime gates remain |
 | Custom segmentation resource/numeric edge audits | Bundled Jieba algorithms/configs are tested; broader custom resource/error audits remain |
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
@@ -78,3 +78,6 @@ The encoded-input differences and reproducible native probe are recorded in
 Implemented byte/text, mode, inspection and streaming contracts are in [ENCODED_API.md](ENCODED_API.md).
 Pinned schema diagnostics, JSON/semantic acceptance, ordered extension options and shared sync/async
 loading are specified in [CONFIGURATION.md](CONFIGURATION.md).
+
+The separate three-tool implementation, I/O/format mapping, local distribution and verification scope
+are specified in [CLI.md](CLI.md). Stored resource archives are covered in [ZIP_RESOURCES.md](ZIP_RESOURCES.md).
