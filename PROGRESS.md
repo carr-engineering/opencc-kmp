@@ -508,3 +508,11 @@ local preparation is not evidence of an actual public release.
   selected/full profile executes successfully. Exact evidence is in web-decimal-compact.json.
   Full published JVM/JS/Wasm/iOS consumers pass with 148 HTTP requests. No allowance was widened
   and no environment failure was reported as conformance.
+
+### Isolated HTTP delivery in published-consumer fixtures
+
+- Replaced the fixed HTTP port with an OS-assigned ephemeral port and generated its URL in test-only
+  Kotlin sources. Independent/concurrent test runs no longer conflict with an existing local service.
+  Production fixture source and dependency graphs are unchanged.
+- Full JVM/JS/Wasm/iOS published consumers pass with 148 actual requests, including missing-resource
+  errors, async preparation and all bundled Jieba configurations. No unrelated service was stopped.

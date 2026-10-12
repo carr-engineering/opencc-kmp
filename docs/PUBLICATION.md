@@ -60,6 +60,11 @@ published artifacts from `.cache/maven`, exercising KLIB linking and resource pr
 than substituting repository projects. Successful local checks are not evidence of registry upload,
 signature verification, Windows/Linux execution or physical-device performance.
 
+The consumer runner owns an ephemeral localhost HTTP port and generates the test-only resource URL.
+Manual Gradle test runs retain the `opencc.fixturePort=8765` default; the Python runner supplies its
+allocated port automatically. This keeps concurrent fixtures isolated without changing production
+application code or resource-delivery contracts.
+
 Neither the engine nor its narrow browser resource adapter uses Kotlin's legacy DOM declarations.
 `kotlin.js.stdlib.dom.api.included=false` avoids publishing that automatic dependency. Hosts may add
 their chosen browser API library separately; this does not change resource preparation or conversion.

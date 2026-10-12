@@ -27,7 +27,7 @@ def verify(profile, tasks):
     base = [str(ROOT / "gradlew"), "-p", str(ROOT / "consumers"), f"-Popencc.profile={profile}"]
     subprocess.run(base + [":kit:stageResources"], check=True)
     directory = ROOT / f"consumers/build/profiles/{profile}/kit/fixture.bundle"
-    server = http.server.ThreadingHTTPServer(("127.0.0.1", 8765), functools.partial(CorsResources, directory=str(directory)))
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(CorsResources, directory=str(directory)))
     server.requests = []
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -37,7 +37,7 @@ def verify(profile, tasks):
     if chrome.exists():
         environment["CHROME_BIN"] = str(chrome)
     try:
-        subprocess.run(base + tasks, env=environment, check=True)
+        subprocess.run(base + [f"-Popencc.fixturePort={server.server_port}"] + tasks, env=environment, check=True)
         web_tests = sum(task.endswith(("jsNodeTest", "wasmJsNodeTest", "jsBrowserTest", "wasmJsBrowserTest")) for task in tasks)
         if web_tests:
             assert server.requests.count("/opencc/missing.ocd2") == web_tests, server.requests

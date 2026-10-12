@@ -9,7 +9,7 @@ import kotlin.test.*
 class WebResourceTest {
     @Test fun publishedResourcesPrepareAsynchronously(): Promise<Unit> = Promise { resolve, reject ->
         suspend {
-            val url = "http://127.0.0.1:8765/opencc"
+            val url = fixtureResourceUrl
             assertEquals("漢字轉換", runAsyncFixture(BrowserResourceProvider(url)))
             verifyPublishedJieba(BrowserResourceProvider(url))
             assertFailsWith<FileNotFound> { BrowserResourceProvider(url).read("missing.ocd2") }

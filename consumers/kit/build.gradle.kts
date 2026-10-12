@@ -28,6 +28,16 @@ val generateProfile by tasks.registering {
     outputs.file(output)
     doLast { output.get().asFile.apply { parentFile.mkdirs(); writeText("package io.github.opencckmp.consumer\ninternal const val fixtureProfile = \"$profile\"\n") } }
 }
+val generateFixtureHost by tasks.registering {
+    val port = providers.gradleProperty("opencc.fixturePort").orElse("8765")
+    inputs.property("port", port)
+    val output = layout.buildDirectory.file("generatedTest/kotlin/FixtureHost.kt")
+    outputs.file(output)
+    doLast { output.get().asFile.apply {
+        parentFile.mkdirs()
+        writeText("package io.github.opencckmp.consumer\ninternal const val fixtureResourceUrl = \"http://127.0.0.1:${port.get()}/opencc\"\n")
+    } }
+}
 kotlin {
     jvm()
     iosSimulatorArm64 {
@@ -54,6 +64,7 @@ kotlin {
                 if (pack == null) "src/noDataHost/kotlin" else "src/dataHost/${target.name}/kotlin")
         }
         commonTest.dependencies { implementation(kotlin("test")) }
+        commonTest { kotlin.srcDir(layout.buildDirectory.dir("generatedTest/kotlin")) }
         if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-cache:0.1.0-SNAPSHOT") }
         if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-jieba:0.1.0-SNAPSHOT") }
         if (profile != "baseline") commonTest { kotlin.srcDir("src/engineTest/kotlin") }
@@ -61,6 +72,7 @@ kotlin {
     }
 }
 tasks.matching { it.name.startsWith("compile") }.configureEach { dependsOn(generateProfile) }
+tasks.matching { it.name.startsWith("compileTest") }.configureEach { dependsOn(generateFixtureHost) }
 tasks.matching { it.name.endsWith("ProcessResources") }.configureEach { dependsOn(stageResources) }
 tasks.withType<KotlinNativeTest>().configureEach {
     dependsOn(stageResources)
