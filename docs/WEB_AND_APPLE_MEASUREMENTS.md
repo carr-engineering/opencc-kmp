@@ -61,3 +61,19 @@ are independently reproducible. They do not replace App Store/Play delivery meas
 physical-device performance, comprehensive peak-memory profiling, the planned benchmark corpus
 and CI/release conformance checks. Additional internal compression/representations still require
 complete dictionary semantics and measured total decoder/startup/memory tradeoffs.
+
+The subsequent dictionary-construction experiment retains a primitive-array UTF-16 trie builder.
+It avoids allocating a map and object for every trie node while keeping the same lookup layout,
+public entry identities, candidates and file readers. The s2t app ZIP fell by 668 bytes and its
+simulator peak RSS was 152–154 MiB, versus 196–198 MiB in the initial run. JS gzip increased by
+79 bytes and Wasm by 707 bytes; first conversion was 154–171 ms and 78–82 ms respectively.
+Simulator first conversion varied from 113–173 ms, so these observations establish reduced
+preparation allocation, not a physical-device startup improvement. Android release size budgets
+also passed. The full 65,175-entry upstream dictionary comparison now checks every prefix match.
+
+A separate direct-MARISA lookup prototype was rejected: it saved similar simulator memory but
+added 6,664 app ZIP bytes, increased browser decoder size and slowed JS preparation/hot lookup.
+The default reader still restores dictionary keys and uses the packed UTF-16 trie. Both experiments
+preserved conversion output and candidates. Complete three-run evidence is retained in the
+`web-primitive-trie`, `apple-primitive-trie`, `web-compact-marisa` and `apple-compact-marisa` JSON
+reports in `measurements/`; the compact-MARISA implementation is not shipped.

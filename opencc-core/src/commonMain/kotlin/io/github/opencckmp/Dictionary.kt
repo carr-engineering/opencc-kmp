@@ -52,10 +52,6 @@ enum class DictGroupMatchPolicy { ShortCircuit, Union }
 
 /** Packed UTF-16 trie: hot-path prefix lookups return stored entries and allocate no substrings. */
 class TextDict(override val lexicon: Lexicon) : Dict {
-    private class BuildNode {
-        val children = mutableMapOf<Char, Int>()
-        var entry = -1
-    }
     private val entries = lexicon.entries
     override val keyMaxLength: Int = entries.maxOfOrNull { it.key.length } ?: 0
     private val starts: IntArray
@@ -65,30 +61,60 @@ class TextDict(override val lexicon: Lexicon) : Dict {
     private val destinations: IntArray
 
     init {
-        val nodes = mutableListOf(BuildNode())
-        entries.forEachIndexed { id, entry ->
-            UTF8Util.validate(entry.key)
-            var node = 0
-            for (char in entry.key) {
-                node = nodes[node].children.getOrPut(char) { nodes.add(BuildNode()); nodes.lastIndex }
-            }
-            if (nodes[node].entry != -1) throw InvalidFormat("The text dictionary contains duplicated keys: ${entry.key}.")
-            nodes[node].entry = id
+        for (entry in entries) UTF8Util.validate(entry.key)
+        // Sorting indexes changes only construction order, never public lexicon/candidate IDs.
+        val ordered = entries.indices.sortedWith { a, b -> entries[a].key.compareTo(entries[b].key) }
+        fun sharedPrefix(a: String, b: String): Int {
+            var length = 0
+            val limit = minOf(a.length, b.length)
+            while (length < limit && a[length] == b[length]) length++
+            return length
         }
-        starts = IntArray(nodes.size)
-        counts = IntArray(nodes.size)
-        terminals = IntArray(nodes.size)
-        labels = CharArray(nodes.size - 1)
+        var nodeCount = 1L
+        var previous = ""
+        for (id in ordered) {
+            val key = entries[id].key
+            nodeCount += key.length - sharedPrefix(previous, key)
+            previous = key
+        }
+        if (nodeCount > Int.MAX_VALUE) throw InvalidFormat("Text dictionary exceeds Kotlin trie capacity")
+        val size = nodeCount.toInt()
+        starts = IntArray(size)
+        counts = IntArray(size)
+        terminals = IntArray(size) { -1 }
+        val parents = IntArray(size)
+        val nodeLabels = CharArray(size)
+        val path = IntArray(keyMaxLength + 1)
+        var node = 1
+        previous = ""
+        for (id in ordered) {
+            val key = entries[id].key
+            val shared = sharedPrefix(previous, key)
+            for (position in shared until key.length) {
+                val parent = path[position]
+                parents[node] = parent
+                nodeLabels[node] = key[position]
+                counts[parent]++
+                path[position + 1] = node++
+            }
+            val terminal = path[key.length]
+            if (terminals[terminal] >= 0) throw InvalidFormat("The text dictionary contains duplicated keys: $key.")
+            terminals[terminal] = id
+            previous = key
+        }
+        labels = CharArray(size - 1)
         destinations = IntArray(labels.size)
         var arc = 0
-        nodes.forEachIndexed { index, node ->
+        for (index in 0 until size) {
             starts[index] = arc
-            counts[index] = node.children.size
-            terminals[index] = node.entry
-            for ((label, destination) in node.children.entries.sortedBy { it.key }) {
-                labels[arc] = label
-                destinations[arc++] = destination
-            }
+            arc += counts[index]
+        }
+        val filled = IntArray(size)
+        for (child in 1 until size) {
+            val parent = parents[child]
+            val index = starts[parent] + filled[parent]++
+            labels[index] = nodeLabels[child]
+            destinations[index] = child
         }
     }
 
@@ -107,6 +133,7 @@ class TextDict(override val lexicon: Lexicon) : Dict {
     }
 
     override fun matchPrefix(text: String, startIndex: Int, endIndex: Int): DictEntry? {
+        UTF8Util.requireRange(text, startIndex, endIndex)
         var node = 0
         var result: DictEntry? = null
         var cursor = startIndex
@@ -124,6 +151,7 @@ class TextDict(override val lexicon: Lexicon) : Dict {
     }
 
     override fun matchAllPrefixes(text: String, startIndex: Int, endIndex: Int): List<DictEntry> {
+        UTF8Util.requireRange(text, startIndex, endIndex)
         val result = mutableListOf<DictEntry>()
         var node = 0
         var cursor = startIndex

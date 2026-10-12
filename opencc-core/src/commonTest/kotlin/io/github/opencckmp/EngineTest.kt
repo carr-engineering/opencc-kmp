@@ -3,6 +3,19 @@ package io.github.opencckmp
 import kotlin.test.*
 
 class EngineTest {
+    @Test fun primitiveTriePreservesInputIdsAndUtf16ArcOrder() {
+        val entries = listOf(DictEntry("𠀀", listOf("A", "B")), DictEntry("神", listOf("神")),
+            DictEntry("abc", listOf("C")), DictEntry("a", listOf("A")), DictEntry("ab", listOf("B")),
+            DictEntry("", listOf("empty")), DictEntry("𠀀字", listOf("AX")), DictEntry("神字", listOf("神字")))
+        val source = TextDict(Lexicon(entries))
+        assertEquals(entries, source.lexicon.entries)
+        entries.forEach { assertSame(it, source.match(it.key)) }
+        assertEquals(listOf("abc", "ab", "a"), source.matchAllPrefixes("abcd").map { it.key })
+        assertEquals("𠀀字", source.matchPrefix("𠀀字!")?.key)
+        assertEquals("神字", source.matchPrefix("神字!")?.key)
+        assertEquals("a", source.matchPrefix("ax")?.key)
+        assertNull(source.matchPrefix("x"))
+    }
     private fun dict(vararg entries: Pair<String, String>): TextDict =
         TextDict(Lexicon(entries.map { DictEntry(it.first, listOf(it.second)) }))
     private fun converter(dict: Dict, segmentation: Dict? = null): Converter =

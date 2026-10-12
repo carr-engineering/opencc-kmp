@@ -20,6 +20,8 @@ class UpstreamBinaryFormatTest {
                 assertEquals(entry.values, darts.match(entry.key)?.values, "${file.name}: ${entry.key}")
                 assertEquals(entry.key, marisa.matchPrefix(entry.key + "!")?.key, file.name)
                 assertEquals(entry.key, darts.matchPrefix(entry.key + "!")?.key, file.name)
+                assertEquals(expected.matchAllPrefixes(entry.key).map { it.toString() },
+                    marisa.matchAllPrefixes(entry.key).map { it.toString() }, "all prefixes ${file.name}: ${entry.key}")
                 entries++
             }
             count++

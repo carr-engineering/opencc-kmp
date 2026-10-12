@@ -1,0 +1,57 @@
+{
+  "environment": {
+    "host": "Darwin-25.0.0-arm64-arm-64bit-Mach-O",
+    "kotlin": "2.4.0",
+    "machine": "arm64",
+    "runtime": "iOS 26.0",
+    "simulator": "iPhone 17 Pro",
+    "smallBinary": false,
+    "xcode": "Xcode 26.0.1\nBuild version 17A400"
+  },
+  "limitations": [
+    "Simulator arm64 release app, not an App Store/device-specific download measurement",
+    "Three launches per profile; not a statistically robust physical-device p95",
+    "sampled_memory_bytes is Darwin process peak RSS, including UIKit/system/runtime overhead"
+  ],
+  "profiles": {
+    "one": {
+      "application_raw_bytes": 2290103,
+      "data_raw_bytes": 1024823,
+      "executable_bytes": 1264520,
+      "runs": [
+        {
+          "convert_1000_p50_ms": 0.22799992561340332,
+          "convert_1000_p95_ms": 0.2780001163482666,
+          "first_conversion_ms": 110.11199998855591,
+          "load_ms": 110.08799982070923,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 157614080.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.23000001907348633,
+          "convert_1000_p95_ms": 0.28100013732910156,
+          "first_conversion_ms": 127.83500003814697,
+          "load_ms": 127.8140001296997,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 161103872.0,
+          "status": "pass"
+        },
+        {
+          "convert_1000_p50_ms": 0.23100018501281738,
+          "convert_1000_p95_ms": 0.2779998779296875,
+          "first_conversion_ms": 71.68400001525879,
+          "load_ms": 71.6710000038147,
+          "output": "\u6f22\u5b57\u8f49\u63db",
+          "profile": "one",
+          "sampled_memory_bytes": 160366592.0,
+          "status": "pass"
+        }
+      ],
+      "zip_container_bytes": 874469
+    }
+  },
+  "schema_version": 1
+}

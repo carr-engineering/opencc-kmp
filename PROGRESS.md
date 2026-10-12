@@ -214,6 +214,17 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Measured data preparation and process/heap footprints expose further optimization work. These
   host/simulator observations do not prove physical-device p95 targets or complete peak-memory gates.
 
+### Dictionary preparation allocation
+
+- Replaced per-node construction objects/maps with shared-prefix construction into primitive arrays;
+  public lexicon IDs, ordered candidates and the allocation-free hot lookup layout are preserved.
+- All 24 common engine tests passed on JVM, JS, Wasm, macOS and the iOS simulator; upstream format,
+  conversion/annotation and deterministic writer checks passed. All 65,175 upstream dictionary
+  entries now have complete prefix-result comparisons. Android release size gates passed.
+- Three installed s2t simulator launches measured 152–154 MiB peak RSS, down from 196–198 MiB in the
+  initial run. Production web/Swift consumer reports and the rejected direct-MARISA tradeoff are
+  documented in `docs/WEB_AND_APPLE_MEASUREMENTS.md`; startup samples remain environment-limited.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

@@ -73,4 +73,19 @@ class BinaryReaderTest {
             assertEquals(listOf("abc", "ab", "a"), dict.matchAllPrefixes("abcd").map { it.key })
         }
     }
+
+    @Test fun compressedPrefixesRangesAndOwnedImageBytes() {
+        val bytes = BinaryTestImages.ocd2.copyOf()
+        val dict = MarisaDict.fromBytes(bytes)
+        bytes.fill(0)
+        assertEquals(expected, dict.lexicon.entries.associate { it.key to it.values })
+        assertSame(dict.match("abc"), dict.matchPrefix("abcd"))
+        assertEquals("a", dict.matchPrefix("ac" )?.key)
+        assertEquals(listOf("abc", "ab", "a"), dict.matchAllPrefixes("_abcd", 1, 5).map { it.key })
+        assertNull(dict.match("long_shared_prefix_one_suffi"))
+        assertNull(dict.matchPrefix("long_shared_prefix_one_suffiz"))
+        assertEquals("long_shared_prefix_one_suffix", dict.matchPrefix("long_shared_prefix_one_suffix!")?.key)
+        assertEquals("😀", dict.matchPrefix("_😀!", 1, 3)?.key)
+        assertFailsWith<IllegalArgumentException> { dict.matchPrefix("😀", 0, 1) }
+    }
 }
