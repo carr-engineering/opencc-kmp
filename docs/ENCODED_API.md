@@ -64,3 +64,15 @@ chunks and flushes; valid inputs also check String equivalents and composed maps
 contract tests run on JVM, JS, Wasm, macOS and iOS simulator. See [the audit](ENCODED_CONTRACT_AUDIT.md).
 Jieba/CLI, complete utility inventory, malformed resource formats and release/size gates remain
 separate acceptance work.
+
+Encoded ambiguity operations are available through the experimental convertWithAmbiguitiesUtf8 and
+Utf8AmbiguityStream APIs. Their typed spans use byte offsets/lengths; output and source arrays belong
+to callers. String ambiguity operations retain UTF-16 units. Encoded walks preserve noncanonical,
+partial and NUL input before a consuming JSON writer applies its own strict encoding policy. Stream
+source IDs are global, definitions are emitted once and returned arrays cannot mutate that table.
+
+InvalidUTF8 can include an owned encodedContext and byteOffset from a failing encoded walk. The
+context is the logical suffix within that operation's supplied byte range, ending at NUL; its getter
+returns a copy. Offsets refer to the failing stage buffer, which can be normalized/converted text.
+Ordinary exception messages remain Kotlin strings. Strict text-decoder failures need not supply byte
+context. No operation reads past Kotlin array/range bounds to reproduce a native diagnostic pointer.

@@ -155,6 +155,9 @@ such, without silently omitting them:
 - `opencc-jieba`: bundled Jieba segmentation algorithms and resource factory in common Kotlin,
   depending only on core. Hosts register its factory explicitly; include it in the complete
   aggregate without adding extension code or data to core-only dependency downloads.
+- `opencc-zip`: optional common stored-ZIP resource reader matching the pinned provider's supported
+  format, lookup and error capabilities. Include it in the complete aggregate; keep ZIP handling
+  outside core and ordinary file/asset adapter downloads.
 - `opencc-data`: every upstream dictionary and config, in the formats upstream ships (`.ocd2` plus
   JSON), plus a manifest (file → SHA-256 → size and config → resource dependencies). Produced by a
   reproducible Gradle build from the pinned upstream release. Retain this complete offline bundle.

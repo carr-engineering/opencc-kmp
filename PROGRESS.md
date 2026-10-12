@@ -374,3 +374,19 @@ local preparation is not evidence of an actual public release.
   unchanged budget: engine APK increment 17,285 bytes. Engine dependency increment is 215,282 bytes;
   engine/one/multi dependency budgets remain exceeded. measurements/android-jieba-extension.json
   records these gates explicitly; no download allowance was widened.
+
+### Encoded ambiguity and stored-ZIP prerequisites for CLI conformance
+
+- Added experimental byte-oriented ambiguity conversion and streaming with byte-unit spans, source
+  identity, normalization, group/chain composition, native windows and caller-owned result arrays.
+  Reused the shared alignment composition; normal conversion lookup allocation behavior is unchanged.
+- Encoded UTF-8 failures can retain copied logical byte context and a stage-buffer offset. This lets
+  CLI diagnostics preserve malformed native bytes without placing them in ordinary Kotlin text.
+- Added optional opencc-zip with the pinned stored-entry format, name filtering/normalization,
+  duplicate/basename semantics, immutable archive ownership, opaque entry cache keys and typed errors.
+  Core and ordinary platform/data dependency graphs do not gain ZIP code or a decompression codec.
+- Four encoded ambiguity/ownership/range tests and two ZIP tests passed on JVM, JS, Wasm, macOS and
+  iOS simulator. In-progress CLI execution also passes 96 native process comparisons on JVM and
+  macOS Native, including ZIP modes, malformed JSONL input and input beyond the 1 MiB buffer.
+  This is prerequisite evidence, not yet a claim of complete CLI/distribution or malformed-resource
+  conformance. CLI source remains under active implementation for subsequent focused commits.

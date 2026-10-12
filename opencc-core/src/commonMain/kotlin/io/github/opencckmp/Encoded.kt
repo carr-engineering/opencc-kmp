@@ -38,8 +38,12 @@ internal object EncodedUTF8 {
         val minimum = when (count) { 1 -> 0; 2 -> 0x80; 3 -> 0x800; else -> 0x10000 }
         return if (point < minimum || point > 0x10FFFF || point in 0xD800..0xDFFF) -1 else point
     }
-    fun invalid(bytes: ByteArray, offset: Int): Nothing = throw InvalidUTF8("Invalid leading byte 0x" +
-        (bytes[offset].toInt() and 255).toString(16).padStart(2, '0') + " at byte offset $offset")
+    fun invalid(bytes: ByteArray, offset: Int, end: Int = bytes.size): Nothing {
+        var contextEnd = offset
+        while (contextEnd < end && bytes[contextEnd] != 0.toByte()) contextEnd++
+        throw InvalidUTF8("Invalid leading byte 0x" + (bytes[offset].toInt() and 255).toString(16).padStart(2, '0') +
+            " at byte offset $offset", encodedContext = bytes.copyOfRange(offset, contextEnd), byteOffset = offset)
+    }
 
     // Complete end offset, -1 incomplete, -2 invalid/non-IDS. Traversal mirrors native leading-byte
     // semantics, including legacy 5/6-byte sequences and masked non-canonical code points.
@@ -68,7 +72,7 @@ internal object EncodedUTF8 {
         val ids = idsEnd(bytes, start, end)
         if (ids > start) return ids
         val count = width(bytes, start)
-        if (count == 0) invalid(bytes, start)
+        if (count == 0) invalid(bytes, start, end)
         return start + minOf(count, end - start)
     }
     fun previous(bytes: ByteArray, end: Int): Int {
