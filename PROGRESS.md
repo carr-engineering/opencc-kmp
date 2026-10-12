@@ -247,6 +247,17 @@ checkbox is completed only when its implementation and relevant checks exist.
   The optional cache implementation is exercised through test-only published dependencies, so it
   cannot silently increase the runtime graph of the uncached engine/data measurement profiles.
 
+### Encoded-input reference audit
+
+- Added a byte-oriented native probe and a reproducible 5,832-case corpus across four configs and
+  explicit-length/C-string/buffer operations. The reference accepts many partial/malformed sequences,
+  while standalone continuation bytes usually raise InvalidUTF8; an empty chain returns raw bytes.
+- Confirmed config-dependent NUL behavior and different buffer/prefix contracts. These expose
+  concrete differences in the current strict Kotlin decoding path. API mapping now marks encoded
+  parity pending explicitly; `docs/ENCODED_CONTRACT_AUDIT.md` records examples and next coverage.
+- This audit does not change runtime conversion or claim encoded parity. It is the evidence used
+  for the next implementation milestone; strict Kotlin String validation remains a separate contract.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,

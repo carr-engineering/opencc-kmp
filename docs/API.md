@@ -12,7 +12,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | ConfigLoadOptions::includeTofuRiskDictionaries | ConfigLoadOptions.includeTofuRiskDictionaries | Defaults to true; segmentation always includes its dictionaries |
 | SimpleConverter constructors | SimpleConverter(configName, provider, options, readers) | Bare bundled config names map to `.json`; filesystem search is provider responsibility |
 | Converter / SimpleConverter::Convert | convert(String), convert(String, startIndex, endIndex), convertPrefix | Ordinary text uses half-open UTF-16 ranges; supplementary pairs cannot be split |
-| Encoded input / explicit length conversion | convertUtf8(ByteArray, startIndex, endIndex) | Half-open UTF-8 byte range; no implicit NUL truncation; malformed encoding raises InvalidUTF8 |
+| Encoded input / explicit length conversion | convertUtf8(ByteArray, startIndex, endIndex) | Half-open byte range; currently strict decoding; native permissive traversal and NUL parity remain pending |
 | Buffer output | convertTo(String, Appendable/CharArray), convertUtf8To | Counts UTF-16 units for text, bytes for encoded output; insufficient capacity fails before mutation |
 | Converter::Inspect | inspect / ConversionInspectionResult | Initial segments, indexed stage outputs, recursive pipeline trace |
 | Converter accessors | segmentation / conversionChain | Config normalization delegates accessors to the main converter |
@@ -52,6 +52,7 @@ strings merely because they contain a NUL.
 | Requirement | Current status |
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
+| Encoded input, NULs, partial/malformed sequences and native buffer overload differences | Native 5,832-case audit recorded; faithful byte-preserving implementation pending |
 | Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
@@ -69,3 +70,5 @@ full resource closure, including optional dictionaries.
 contracts and selection examples live in [ALIGNMENT_AND_DETECTION.md](ALIGNMENT_AND_DETECTION.md).
 Cache/concurrency, resource verification and shared dictionary lifetimes are specified in
 [CACHES_AND_OWNERSHIP.md](CACHES_AND_OWNERSHIP.md).
+The encoded-input differences and reproducible native probe are recorded in
+[ENCODED_CONTRACT_AUDIT.md](ENCODED_CONTRACT_AUDIT.md).
