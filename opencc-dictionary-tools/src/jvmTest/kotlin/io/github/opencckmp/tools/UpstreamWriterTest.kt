@@ -88,4 +88,22 @@ class UpstreamWriterTest {
         identical(File(root, ".cache/oracle/plugins/jieba/jieba_dict/jieba_merged.ocd2").readBytes(), actual, "merged Jieba")
         println("Merged Jieba dictionary: ${merged.lexicon.size} entries and exact native image verified")
     }
+
+    @Test fun nativeGraphsInteroperateAcrossAllSupportedWordLayouts() {
+        val target = File(root, ".cache/conformance/layouts")
+        val process = ProcessBuilder("python3", File(root, "tools/marisa_layout.py").absolutePath,
+            File(root, ".cache/oracle/data").absolutePath, target.absolutePath).redirectErrorStream(true).start()
+        val messages = process.inputStream.bufferedReader().readText()
+        assertEquals(0, process.waitFor(), messages)
+        for (file in File(root, ".cache/conformance/text").listFiles().orEmpty().filter { it.extension == "txt" }) {
+            val dictionary = TextDict.fromBytes(file.readBytes())
+            val expected = dictionary.lexicon.entries.associate { it.key to it.values }
+            for (order in DictionaryByteOrder.entries) for (wordSize in listOf(32, 64)) {
+                val endian = if (order == DictionaryByteOrder.LittleEndian) "little" else "big"
+                val image = File(target, "${file.nameWithoutExtension}-$endian-$wordSize.ocd2").readBytes()
+                identical(image, DictionaryWriters.ocd2(dictionary, order, wordSize), "${file.name}/$endian/$wordSize")
+                assertEquals(expected, MarisaDict.fromBytes(image).lexicon.entries.associate { it.key to it.values })
+            }
+        }
+    }
 }

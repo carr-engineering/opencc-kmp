@@ -8,19 +8,23 @@ package io.github.opencckmp
 /** Reads upstream MARISA LOUDS images, restoring ordered key IDs into a packed Kotlin lookup trie. */
 class MarisaDict private constructor(private val dictionary: TextDict) : Dict by dictionary {
     companion object {
-        fun fromBytes(bytes: ByteArray, byteOrder: DictionaryByteOrder? = null): MarisaDict {
-            if (byteOrder != null) return read(BinaryCursor(bytes, byteOrder))
-            return try { read(BinaryCursor(bytes, DictionaryByteOrder.LittleEndian)) }
-            catch (little: InvalidFormat) {
-                try { read(BinaryCursor(bytes, DictionaryByteOrder.BigEndian)) }
-                catch (_: InvalidFormat) { throw little }
+        /** MARISA stores native-endian 32- or 64-bit packed words; little-endian layouts coincide. */
+        fun fromBytes(bytes: ByteArray, byteOrder: DictionaryByteOrder? = null, wordSize: Int? = null): MarisaDict {
+            require(wordSize == null || wordSize == 32 || wordSize == 64) { "MARISA wordSize must be 32 or 64" }
+            var first: InvalidFormat? = null
+            for (order in byteOrder?.let { listOf(it) } ?: DictionaryByteOrder.entries) {
+                for (width in wordSize?.let { listOf(it) } ?: listOf(64, 32)) {
+                    try { return read(BinaryCursor(bytes, order), width) }
+                    catch (error: InvalidFormat) { if (first == null) first = error }
+                }
             }
+            throw first!!
         }
 
-        private fun read(cursor: BinaryCursor): MarisaDict {
+        private fun read(cursor: BinaryCursor, wordSize: Int): MarisaDict {
             cursor.expect("OPENCC_MARISA_0.2.5")
             cursor.expect("We love Marisa.\u0000")
-            val trie = LoudsImage.read(cursor, 0)
+            val trie = LoudsImage.read(cursor, 0, wordSize)
             val values = SerializedValues.read(cursor)
             if (values.size != trie.terminals.ones.size) throw InvalidFormat("Marisa dictionary key count mismatch")
             val entries = List(values.size) { id ->
@@ -28,6 +32,16 @@ class MarisaDict private constructor(private val dictionary: TextDict) : Dict by
                 DictEntry(key, values[id])
             }
             return MarisaDict(TextDict(Lexicon(entries)))
+        }
+    }
+}
+
+private fun packedWords(data: ByteArray, order: DictionaryByteOrder, wordSize: Int): LongArray {
+    val reader = BinaryCursor(data, order)
+    return LongArray(data.size / 8) {
+        if (wordSize == 64) reader.integer(8) else {
+            val low = reader.integer(4)
+            low or (reader.integer(4) shl 32)
         }
     }
 }
@@ -52,7 +66,7 @@ internal class PackedBits(private val words: LongArray, val size: Int, val ones:
         return ranks[word] + if (bit == 0) 0 else (words[word] and ((1L shl bit) - 1)).countOneBits()
     }
     companion object {
-        fun read(cursor: BinaryCursor): PackedBits {
+        fun read(cursor: BinaryCursor, wordSize: Int): PackedBits {
             val data = cursor.vector()
             if (data.size % 8 != 0) throw InvalidFormat("Marisa bit-vector alignment")
             val size = cursor.count(4, data.size * 8)
@@ -61,8 +75,7 @@ internal class PackedBits(private val words: LongArray, val size: Int, val ones:
             cursor.vector()
             cursor.vector()
             cursor.vector()
-            val reader = BinaryCursor(data, cursor.order)
-            val words = LongArray(data.size / 8) { reader.integer(8) }
+            val words = packedWords(data, cursor.order, wordSize)
             val positions = IntArray(count)
             var found = 0
             for (wordIndex in words.indices) {
@@ -94,7 +107,7 @@ internal class FlatValues(private val words: LongArray, private val width: Int, 
         return value and ((1L shl width) - 1)
     }
     companion object {
-        fun read(cursor: BinaryCursor): FlatValues {
+        fun read(cursor: BinaryCursor, wordSize: Int): FlatValues {
             val data = cursor.vector()
             if (data.size % 8 != 0) throw InvalidFormat("Marisa packed-vector alignment")
             val width = cursor.count(4, 32)
@@ -102,8 +115,7 @@ internal class FlatValues(private val words: LongArray, private val width: Int, 
             if (mask != (1L shl width) - 1) throw InvalidFormat("Marisa packed-vector mask mismatch")
             val size = cursor.count(8)
             if (width.toLong() * size > data.size.toLong() * 8) throw InvalidFormat("Marisa packed-vector size mismatch")
-            val reader = BinaryCursor(data, cursor.order)
-            return FlatValues(LongArray(data.size / 8) { reader.integer(8) }, width, size)
+            return FlatValues(packedWords(data, cursor.order, wordSize), width, size)
         }
     }
 }
@@ -184,19 +196,19 @@ internal class LoudsImage(
     }
 
     companion object {
-        fun read(cursor: BinaryCursor, depth: Int): LoudsImage {
+        fun read(cursor: BinaryCursor, depth: Int, wordSize: Int): LoudsImage {
             if (depth > 127) throw InvalidFormat("Marisa trie nesting limit")
-            val louds = PackedBits.read(cursor)
-            val terminals = PackedBits.read(cursor)
-            val links = PackedBits.read(cursor)
+            val louds = PackedBits.read(cursor, wordSize)
+            val terminals = PackedBits.read(cursor, wordSize)
+            val links = PackedBits.read(cursor, wordSize)
             val bases = cursor.vector()
-            val extras = FlatValues.read(cursor)
+            val extras = FlatValues.read(cursor, wordSize)
             val tail = cursor.vector()
-            val tailEnds = PackedBits.read(cursor)
+            val tailEnds = PackedBits.read(cursor, wordSize)
             if (bases.isEmpty() || louds.ones.size != bases.size || links.size != bases.size || extras.size != links.ones.size) {
                 throw InvalidFormat("Marisa node/vector counts mismatch")
             }
-            val next = if (links.ones.isNotEmpty() && tail.isEmpty()) read(cursor, depth + 1) else null
+            val next = if (links.ones.isNotEmpty() && tail.isEmpty()) read(cursor, depth + 1, wordSize) else null
             val cache = cursor.vector()
             if (cache.size == 0 || cache.size % 12 != 0) throw InvalidFormat("Marisa cache size/alignment")
             val firstLevel = cursor.count(4, bases.size)

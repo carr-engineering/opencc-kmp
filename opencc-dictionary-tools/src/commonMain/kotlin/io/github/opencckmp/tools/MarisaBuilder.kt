@@ -48,7 +48,7 @@ internal class MarisaBuilder {
         }
     }
 
-    fun build(lexicon: Lexicon, byteOrder: DictionaryByteOrder): Pair<ByteArray, Lexicon> {
+    fun build(lexicon: Lexicon, byteOrder: DictionaryByteOrder, wordSize: Int): Pair<ByteArray, Lexicon> {
         if (!lexicon.isUnique()) throw InvalidFormat("Dictionary contains duplicate keys")
         val entries = lexicon.entries
         val keys = entries.map { entry ->
@@ -64,7 +64,7 @@ internal class MarisaBuilder {
         var rank = 0
         for (node in 0 until trie.bases.size) { ids[node] = rank; if (trie.terminalFlags[node]) rank++ }
         val sorted = entries.indices.sortedBy { ids[trie.terminals[it]] }.map { entries[it] }
-        val output = BinaryOutput(byteOrder)
+        val output = BinaryOutput(byteOrder, wordSize)
         output.append("We love Marisa.\u0000".encodeToByteArray())
         trie.write(output)
         return output.toByteArray() to Lexicon(sorted)

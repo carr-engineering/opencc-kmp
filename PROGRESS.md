@@ -7,7 +7,7 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 - [ ] 1. KMP modules/targets, pinned upstream identity, API inventory, resource delivery, consumer fixtures.
 - [ ] 2. Text dictionaries, config parsing, segmentation, normalization, conversion and API contracts.
-- [ ] 3. Interoperable `.ocd` / `.ocd2` readers and writers, legacy layouts and byte orders.
+- [x] 3. Interoperable `.ocd` / `.ocd2` readers and writers, legacy layouts and byte orders.
 - [ ] 4. Reproducible complete/selective data, manifests, closure, deduplication and measured budgets.
 - [ ] 5. Facades, streaming, inspection, tooling, phrase extraction, CLI and differential tests.
 - [ ] 6. Segment mapping and optional detection.
@@ -109,6 +109,16 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Five common tooling tests passed on JVM, JS/Node, Wasm/Node, macOS Arm64 and iOS Arm64 simulator.
 - Added the Darts adaptation licence to generated data bundles alongside its attribution.
 - Further MARISA byte-order/word-layout fixtures remain required before milestone 3 closes.
+
+### Binary layout portability
+
+- Added explicit/detected MARISA packed-word layouts for little/big endian and 32/64-bit words.
+  Little-endian 32/64 layouts coincide; big-endian layouts require different word decoding.
+- An independent Python translator preserves native graph/ID/rank/cache data and changes numeric
+  layout only. All 88 built-in variants matched the Kotlin writer and reader on JVM.
+- A translated native BE32 fixture and current/legacy/endian Darts fixtures passed on every available
+  common-test runtime. Native big-endian/32-bit hardware itself has not been used; details and limits
+  are recorded in `docs/DICTIONARY_FORMATS.md`.
 
 ## Completion policy
 

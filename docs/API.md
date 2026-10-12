@@ -46,7 +46,6 @@ strings merely because they contain a NUL.
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
 | Environment/executable search paths, browser/Node resource helpers and zip adapters | Basic filesystem/classpath/Android asset/Apple bundle providers implemented; remaining adapters pending |
-| Additional MARISA image layouts | Native little-endian images verified; big-endian/32-bit MARISA fixtures pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Phrase extraction | Pending in its separate tooling module; dictionary format conversion implemented |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |

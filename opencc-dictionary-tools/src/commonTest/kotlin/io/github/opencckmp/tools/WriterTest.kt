@@ -23,9 +23,10 @@ class WriterTest {
     }
     @Test fun marisaNestedTrieAndEndiannessRoundTrip() {
         val source = TextDict.fromText("a\tA B\nab\tX\nabc\tY Z\nlong_shared_prefix_one_suffix\tone\nlong_shared_prefix_two_suffix\ttwo\n汉\t漢\n汉字\t漢字\n𠀀\t甲 乙\n😀\tsmile\n")
-        for (order in DictionaryByteOrder.entries) {
-            val encoded = DictionaryWriters.ocd2(source, order)
+        for (order in DictionaryByteOrder.entries) for (wordSize in listOf(32, 64)) {
+            val encoded = DictionaryWriters.ocd2(source, order, wordSize)
             val decoded = MarisaDict.fromBytes(encoded)
+            assertEquals(decoded.lexicon.entries.map { it.toString() }, MarisaDict.fromBytes(encoded, order, wordSize).lexicon.entries.map { it.toString() })
             assertEquals(source.lexicon.entries.associate { it.key to it.values }, decoded.lexicon.entries.associate { it.key to it.values })
             assertEquals(listOf("abc", "ab", "a"), decoded.matchAllPrefixes("abcd").map { it.key })
         }

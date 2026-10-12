@@ -1,7 +1,7 @@
 /* Adapted from MARISA, Copyright (c) 2010-2025 Susumu Yata, BSD-2-Clause. */
 package io.github.opencckmp.tools
 
-/** Portable 64-bit image layout with upstream-compatible rank/select acceleration tables. */
+/** Native 32/64-bit packed-word layout with upstream-compatible rank/select acceleration tables. */
 internal class MarisaBits {
     private val bits = mutableListOf<Boolean>()
     val size: Int get() = bits.size
@@ -13,7 +13,7 @@ internal class MarisaBits {
         val words = LongArray((bits.size + 63) / 64)
         for (index in bits.indices) if (bits[index]) words[index / 64] = words[index / 64] or (1L shl (index % 64))
         val data = output.sibling()
-        for (word in words) data.integer(word, 8)
+        for (word in words) data.packedWord(word)
         output.vector(data.toByteArray())
         output.integer(bits.size.toLong(), 4)
         output.integer(words.sumOf { it.countOneBits() }.toLong(), 4)
@@ -82,7 +82,7 @@ internal fun writeMarisaFlat(output: BinaryOutput, values: IntArray) {
         if (offset + width > 64) words[unit + 1] = words[unit + 1] or (values[index].toLong() ushr (64 - offset))
     }
     val data = output.sibling()
-    for (word in words) data.integer(word, 8)
+    for (word in words) data.packedWord(word)
     output.vector(data.toByteArray())
     output.integer(width.toLong(), 4)
     output.integer((1L shl width) - 1, 4)

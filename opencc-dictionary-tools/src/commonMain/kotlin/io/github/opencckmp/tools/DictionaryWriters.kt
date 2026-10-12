@@ -5,8 +5,8 @@ import io.github.opencckmp.*
 
 object DictionaryWriters {
     /** Default OpenCC MARISA build (three tries, weight order, normal cache, text tails). */
-    fun ocd2(dict: Dict, byteOrder: DictionaryByteOrder = DictionaryByteOrder.LittleEndian): ByteArray {
-        val (trie, ordered) = MarisaBuilder().build(dict.lexicon, byteOrder)
+    fun ocd2(dict: Dict, byteOrder: DictionaryByteOrder = DictionaryByteOrder.LittleEndian, wordSize: Int = 64): ByteArray {
+        val (trie, ordered) = MarisaBuilder().build(dict.lexicon, byteOrder, wordSize)
         val output = BinaryOutput(byteOrder)
         output.append("OPENCC_MARISA_0.2.5".encodeToByteArray())
         output.append(trie)

@@ -65,4 +65,12 @@ class BinaryReaderTest {
         assertFailsWith<InvalidFormat> { MarisaDict.fromBytes(BinaryTestImages.ocd2.dropLast(1).toByteArray()) }
         assertFailsWith<InvalidFormat> { DartsDict.fromBytes(BinaryTestImages.ocd.dropLast(1).toByteArray()) }
     }
+
+    @Test fun independentBigEndian32BitMarisaGraphDecodes() {
+        for (dict in listOf(MarisaDict.fromBytes(marisaBigEndian32),
+            MarisaDict.fromBytes(marisaBigEndian32, DictionaryByteOrder.BigEndian, 32))) {
+            assertEquals(expected, dict.lexicon.entries.associate { it.key to it.values })
+            assertEquals(listOf("abc", "ab", "a"), dict.matchAllPrefixes("abcd").map { it.key })
+        }
+    }
 }

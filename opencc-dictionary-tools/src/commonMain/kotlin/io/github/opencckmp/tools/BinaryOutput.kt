@@ -3,8 +3,15 @@ package io.github.opencckmp.tools
 import io.github.opencckmp.DictionaryByteOrder
 import io.github.opencckmp.InvalidFormat
 
-internal class BinaryOutput(private val order: DictionaryByteOrder = DictionaryByteOrder.LittleEndian) {
-    fun sibling(): BinaryOutput = BinaryOutput(order)
+internal class BinaryOutput(private val order: DictionaryByteOrder = DictionaryByteOrder.LittleEndian, private val packedWordSize: Int = 64) {
+    init { require(packedWordSize == 32 || packedWordSize == 64) }
+    fun sibling(): BinaryOutput = BinaryOutput(order, packedWordSize)
+    fun packedWord(value: Long) {
+        if (packedWordSize == 64) integer(value, 8) else {
+            integer(value and 0xFFFFFFFFL, 4)
+            integer(value ushr 32, 4)
+        }
+    }
     private var bytes = ByteArray(256)
     var size: Int = 0
         private set
