@@ -17,7 +17,8 @@
         "TSCharacters.ocd2",
         "TSCharactersExt.ocd2",
         "TSPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "hk2sp": {
       "sha256": "8a36e56922fa67aeaffb7d145520ed302276aaaf3ab05c092a10615eeda8a161",
@@ -29,7 +30,8 @@
         "TSCharacters.ocd2",
         "TSCharactersExt.ocd2",
         "TSPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "hk2t": {
       "sha256": "e773001c761c5540c38a66baa378f2a8c65378fa09446186b1c4dd78815bccf3",
@@ -37,7 +39,8 @@
         "CJK_Compatibility_Ideographs.ocd2",
         "HKVariantsRev.ocd2",
         "HKVariantsRevPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "jp2t": {
       "sha256": "bf056ab3be0c2d0898873662a12d39f8528419a36bc3ad128854a1faefe2c713",
@@ -45,7 +48,8 @@
         "CJK_Compatibility_Ideographs.ocd2",
         "JPShinjitaiCharacters.ocd2",
         "JPShinjitaiPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "s2hk": {
       "sha256": "b3a4b6c7f5fdd61c4f7e6eaa292d9a0e29eece584c35fe04fc124b1d9796051b",
@@ -56,7 +60,8 @@
         "STCharacters.ocd2",
         "STPhrases.ocd2",
         "STPhrases_GeneratedFromRegionalPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "s2hkp": {
       "sha256": "d95e38c22f07d8bc1b6d2dd004c590f0881c781fff76b53bf5f9b639e7980619",
@@ -68,7 +73,8 @@
         "STCharacters.ocd2",
         "STPhrases.ocd2",
         "STPhrases_GeneratedFromRegionalPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "s2t": {
       "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048",
@@ -77,7 +83,8 @@
         "STCharacters.ocd2",
         "STPhrases.ocd2",
         "STPhrases_GeneratedFromRegionalPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "s2tw": {
       "sha256": "5830ee3440ba3dc6bf1e197205b4248e2d860b8a3680475db4419b0dbf96ac39",
@@ -88,7 +95,8 @@
         "STPhrases_GeneratedFromRegionalPhrases.ocd2",
         "TWVariants.ocd2",
         "TWVariantsPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "s2twp": {
       "sha256": "681dd1ff5f3a1efe93a6f56006ee7f58f767fa0366fd3a2ec6165c983e39415d",
@@ -100,7 +108,8 @@
         "TWPhrases.ocd2",
         "TWVariants.ocd2",
         "TWVariantsPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "t2hk": {
       "sha256": "8e2336420ed33b6991841921e930414919d922bd287677f5973564c85b6a3c9b",
@@ -108,14 +117,16 @@
         "CJK_Compatibility_Ideographs.ocd2",
         "HKVariants.ocd2",
         "HKVariantsPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "t2jp": {
       "sha256": "6ac813c83a0e57e9d4ff5fd968188ff9e8bc0564dbc833e77fca0c338d27d285",
       "resources": [
         "CJK_Compatibility_Ideographs.ocd2",
         "JPShinjitaiCharactersRev.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "t2s": {
       "sha256": "96fe5cc374a80ccc49e3370006cce3aefe4af955868ae0b14fb3079ec695be4f",
@@ -124,7 +135,8 @@
         "TSCharacters.ocd2",
         "TSCharactersExt.ocd2",
         "TSPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "t2tw": {
       "sha256": "bdaa75b82ec25daecb3ce376277e90c7c3388eb9345628650c66a804a2772a19",
@@ -132,7 +144,8 @@
         "CJK_Compatibility_Ideographs.ocd2",
         "TWVariants.ocd2",
         "TWVariantsPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "tw2s": {
       "sha256": "9bf1810eea822bcdedc0b24b303348d859ecf8307f379c9c2d210428e0620ff9",
@@ -143,7 +156,8 @@
         "TSPhrases.ocd2",
         "TWVariantsRev.ocd2",
         "TWVariantsRevPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "tw2sp": {
       "sha256": "f8cf900c1b456a7d2e8477f5bf146814071d28ad64ef37fbc0ae757930c167d5",
@@ -155,7 +169,8 @@
         "TWPhrasesRev.ocd2",
         "TWVariantsRev.ocd2",
         "TWVariantsRevPhrases.ocd2"
-      ]
+      ],
+      "extension": null
     },
     "tw2t": {
       "sha256": "5bc1991e12b35100b2df4b6b534bbaeeb18fbbabe5cd5c15c611736011225530",
@@ -163,9 +178,128 @@
         "CJK_Compatibility_Ideographs.ocd2",
         "TWVariantsRev.ocd2",
         "TWVariantsRevPhrases.ocd2"
-      ]
+      ],
+      "extension": null
+    },
+    "hk2sp_jieba": {
+      "sha256": "ab652c17f06e6aa928881732cd18c681097bea25be8c8350982ce9d959a0fb5c",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKPhrasesRev.ocd2",
+        "HKVariantsRev.ocd2",
+        "HKVariantsRevPhrases.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "s2hk_jieba": {
+      "sha256": "a05f8ccb661ed2eaa858ee19eccdaebb7ee489fd69b8b4402a19dca0c53f9fd0",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "s2hkp_jieba": {
+      "sha256": "846cfb9077284fe439cba467f530d9ce5bf8433f7db69bdd66a84de9dea77f88",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "HKPhrases.ocd2",
+        "HKVariants.ocd2",
+        "HKVariantsPhrases.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "s2t_jieba": {
+      "sha256": "ef761b4d933f5d232cd1fd627c250a1b81be742fc3d7f787c28d6fdc9bd8dd79",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "s2tw_jieba": {
+      "sha256": "a9bc1527b1d1439ae556ff551f087b1ae8b31d91d9adcd499743d3ad4a600b59",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "s2twp_jieba": {
+      "sha256": "93d0497eb360e0c941f9196fda193f4fa1a0a0917af2d1625d163af0d3d99f8b",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "STCharacters.ocd2",
+        "STPhrases.ocd2",
+        "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+        "TWPhrases.ocd2",
+        "TWVariants.ocd2",
+        "TWVariantsPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
+    },
+    "tw2sp_jieba": {
+      "sha256": "67ba541557bba60e7272bce01ee38d2422557e84999413183a352d9c0cc3385c",
+      "resources": [
+        "CJK_Compatibility_Ideographs.ocd2",
+        "TSCharacters.ocd2",
+        "TSCharactersExt.ocd2",
+        "TSPhrases.ocd2",
+        "TWPhrasesRev.ocd2",
+        "TWVariantsRev.ocd2",
+        "TWVariantsRevPhrases.ocd2",
+        "jieba_dict/hmm_model.utf8",
+        "jieba_dict/jieba_merged.ocd2"
+      ],
+      "extension": "jieba"
     }
   },
+  "base_configs": [
+    "hk2s",
+    "hk2sp",
+    "hk2t",
+    "jp2t",
+    "s2hk",
+    "s2hkp",
+    "s2t",
+    "s2tw",
+    "s2twp",
+    "t2hk",
+    "t2jp",
+    "t2s",
+    "t2tw",
+    "tw2s",
+    "tw2sp",
+    "tw2t"
+  ],
   "reference_headers": {
     "src/BinaryDict.hpp": "eae641f9564f6c09304c79eb764d72425341265bf56ed7e9191d170dcca18928",
     "src/Common.hpp": "5368f033d5c5986de06376e35aa6733a953501c6d78e74abf0671998d3bba8bb",
@@ -203,7 +337,9 @@
     "src/TextDict.hpp": "b059db3c83a8c8df7772c0fd1816b177dce875c93192801a31bbca0f561c5211",
     "src/UTF8StringSlice.hpp": "89c24f9b7c37dba60f9ac00a0976cb363ea982eb517c6f8d14f92abbf7f90d0e",
     "src/UTF8Util.hpp": "1165091df294978b3f9e6ed060f1b825df9a1d2f97a1310e0d34de76e87a06a0",
-    "src/Utf8SkipScan.hpp": "7352299eeab4a344fea0194664e201985d9b54b8c866b3ab197f767aa470301e"
+    "src/Utf8SkipScan.hpp": "7352299eeab4a344fea0194664e201985d9b54b8c866b3ab197f767aa470301e",
+    "src/opencc.h": "9ca6e15cdf551d6f6a40a41d121c814e3404545f87338c9db4c5c08dcb4a9175",
+    "src/plugin/OpenCCPlugin.h": "021fd637122ae36afd8011fb198327ceb79070742b74d7bad0a860abb7584482"
   },
   "cli_sources": [
     "CommandLine.cpp",

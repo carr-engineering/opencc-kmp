@@ -30,6 +30,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
 | Platform-native wide strings / paths | String and platform resource adapters | No separate wchar_t representation required |
+| Filesystem/provider-backed resources | FileResourceProvider / ClasspathResourceProvider / AndroidAssetResourceProvider / AppleBundleResourceProvider | Platform I/O stays outside core; Windows paths use UTF-16 at the boundary |
 
 `prepareConfig` is a Kotlin extension: suspending host resource acquisition followed by synchronous
 conversion. It requires no coroutine or network dependency in core. Low-level encoded C-string
@@ -41,7 +42,7 @@ strings merely because they contain a NUL.
 | Requirement | Current status |
 | --- | --- |
 | Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
-| Filesystem/environment/executable search paths and resource zip support | Platform adapters pending |
+| Environment/executable search paths, browser/Node resource helpers and zip adapters | Basic filesystem/classpath/Android asset/Apple bundle providers implemented; remaining adapters pending |
 | `.ocd` / `.ocd2` writers/builders | Runtime readers implemented; deterministic writers and builders pending |
 | Additional MARISA image layouts | Native little-endian images verified; big-endian/32-bit MARISA fixtures pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
@@ -54,3 +55,8 @@ strings merely because they contain a NUL.
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
 with each milestone; conformance counts in PROGRESS.md describe exactly what was tested.
+
+The complete data generator includes 16 built-in configs and 7 experimental Jieba configs/assets.
+The latter remain unavailable for conversion until their segmentation factory is ported; data
+presence is not a claim of algorithm conformance. Selective bundles preserve each selected config's
+full resource closure, including optional dictionaries.

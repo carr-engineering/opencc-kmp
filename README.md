@@ -42,11 +42,35 @@ val trace = converter.inspect("汉字")
 ```
 
 Text and upstream `.ocd` / `.ocd2` dictionary resources can be supplied through `ResourceProvider`.
-Format writers and bundled resource delivery are still in progress. [API mappings](docs/API.md) distinguish implemented
+Format writers and final platform resource packaging are still in progress. [API mappings](docs/API.md) distinguish implemented
 capabilities from remaining parity work. `upstreamConformance` builds the native reference using
 CMake and checks all upstream answer pairs, golden corpora and all 16 configurations using text
 dictionaries and original `.ocd2` dictionaries. It also verifies all 22 binary dictionaries in both
 formats. Common unit tests do not need CMake or upstream downloads.
+
+## Data selection and platform resources
+
+Build-time generation requires Python 3.12+, CMake and a C++ compiler for the pinned reference tools:
+
+```sh
+./gradlew -Popencc.targets=jvm :opencc-data:generateData
+./gradlew -Popencc.targets=jvm -Popencc.configs=s2t,t2s :opencc-data:bundleSelectedData
+./gradlew -Popencc.targets=jvm :opencc-data:verifyDataBundles
+```
+
+The full resource directory is `opencc-data/build/generated/resources/opencc`; its deterministic
+archive is `opencc-data/build/bundles/opencc-data.zip`. Selected resources and their archive are
+under `opencc-data/build/selected`. Manifest entries record sizes, SHA-256 hashes, the upstream pin
+and the complete config dependency graph. Selection includes optional dictionaries and deduplicates
+shared resources. The zip is kept outside runtime resource folders to avoid shipping duplicate data.
+
+JVM consumers of `opencc-data` can use `ClasspathResourceProvider`. Other hosts can copy selected
+resources into Android assets or Apple bundles and use the corresponding provider, or supply a
+`FileResourceProvider`/custom provider. Gradle automation for final mobile/browser application
+packaging and published consumer fixtures remains in progress.
+
+The full data distribution includes experimental Jieba assets. The Kotlin Jieba segmentation port
+is still pending; adding its resources alone does not enable those configurations.
 
 ## Provenance
 

@@ -70,6 +70,25 @@ checkbox is completed only when its implementation and relevant checks exist.
   deflated files total 606,213 bytes. This is not a final application-size budget or claim.
 - MARISA adaptation attribution and the selected BSD-2-Clause licence text are recorded.
 
+### Resource adapters and selective data
+
+- Added JVM/classpath, Android assets, Apple bundles and POSIX file providers, plus Windows UTF-16
+  file access. Browser/Wasm blocking filesystem operations explicitly report unavailable files;
+  host-supplied async resource preparation remains supported, with web/Node helpers pending.
+- Validation: Unicode filesystem/resource tests and real packaged-config loading passed on JVM;
+  adapters compiled on Android, iOS simulator, macOS, Linux x64 and Windows x64. Linux/Windows runtime
+  tests have not run on this macOS host.
+- Added Gradle complete/selected bundle generation, dependency manifests, original binary/config
+  assets and deterministic zip archives. Full data includes 23 configs (16 built-in + 7 Jieba),
+  28 dictionary/model resources and licence notices. Jieba conversion itself remains pending.
+- Four data acceptance tests passed: dependency closure including optional data, exclusion of unrelated
+  resources, shared-resource deduplication, hashes, reproducible zip bytes and stale-file pruning.
+- JVM data JAR inspected: one copy of each asset, 23 dictionary images/configs and no nested bundle zip.
+- Measured data archives, including provenance/notices: `s2t` selection 505,317 bytes; full distribution
+  including Jieba assets 6,581,710 bytes. These are data-container measurements, not final app budgets.
+- Remaining: automatic Android/Apple/web delivery in published consumer fixtures, per-config Maven
+  data-pack publication, verification/caching providers, runtime footprint/performance and size gates.
+
 ## Completion policy
 
 Do not describe the port as complete until every required configuration, mapped API operation,
