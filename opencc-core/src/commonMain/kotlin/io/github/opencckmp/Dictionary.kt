@@ -22,13 +22,13 @@ class Lexicon(entries: List<DictEntry>) : Iterable<DictEntry> {
     fun isUnique(): Boolean = storedEntries.map { it.key }.toSet().size == storedEntries.size
 
     companion object {
-        fun parse(text: String): Lexicon {
+        fun parse(text: String, keyValueDelimiter: Char = '\t'): Lexicon {
             UTF8Util.validate(text)
             val entries = mutableListOf<DictEntry>()
             text.removePrefix("\uFEFF").lineSequence().forEachIndexed { index, rawLine ->
                 val line = rawLine.substringBefore('\u0000').substringBefore('\r')
                 if (line.isNotEmpty() && !line.startsWith('#')) {
-                    val separator = line.indexOf('\t')
+                    val separator = line.indexOf(keyValueDelimiter)
                     if (separator < 0) throw InvalidTextDictionary("Tabular not found $line", index + 1)
                     entries.add(DictEntry(line.substring(0, separator), line.substring(separator + 1).split(' ')))
                 }
@@ -137,7 +137,7 @@ class TextDict(override val lexicon: Lexicon) : Dict {
     }
 
     companion object {
-        fun fromText(text: String): TextDict = TextDict(Lexicon.parse(text).sorted())
+        fun fromText(text: String, keyValueDelimiter: Char = '\t'): TextDict = TextDict(Lexicon.parse(text, keyValueDelimiter).sorted())
         fun fromBytes(bytes: ByteArray): TextDict = fromText(UTF8Util.decode(bytes))
         fun fromDict(dict: Dict): TextDict = TextDict(dict.lexicon)
     }

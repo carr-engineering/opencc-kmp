@@ -4,6 +4,7 @@ import io.github.opencckmp.DictionaryByteOrder
 import io.github.opencckmp.InvalidFormat
 
 internal class BinaryOutput(private val order: DictionaryByteOrder = DictionaryByteOrder.LittleEndian) {
+    fun sibling(): BinaryOutput = BinaryOutput(order)
     private var bytes = ByteArray(256)
     var size: Int = 0
         private set

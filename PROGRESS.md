@@ -89,8 +89,6 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Remaining: automatic Android/Apple/web delivery in published consumer fixtures, per-config Maven
   data-pack publication, verification/caching providers, runtime footprint/performance and size gates.
 
-## Completion policy
-
 ### Darts builder and dictionary serialization
 
 - Added a pure Kotlin Darts keyset builder matching upstream's unit placement, free-block ring and
@@ -98,7 +96,19 @@ checkbox is completed only when its implementation and relevant checks exist.
 - Added text, BinaryDict payload and SerializedValues writers, explicit byte order and field limits.
 - JVM validation: all 22 built-in `.ocd` outputs were byte-identical to upstream; native OpenCC loaded
   each Kotlin-generated file and exported identical text. Three common writer tests passed.
-- MARISA builder/writer and cross-target writer verification are next; milestone 3 remains open.
+
+### MARISA builder and format conversion
+
+- Added a pure Kotlin nested LOUDS builder, compressed suffix tails, packed link vectors, native
+  acceleration tables and ordered value serialization. No runtime dependency on the builders.
+- Added all upstream dictionary-converter formats: text, text_space, ocd, ocd2 and cppjieba_utf8,
+  including base/user dictionary precedence and metadata. Host I/O remains separate.
+- JVM native validation: all 22 built-in `.ocd2` images and the 348,986-entry merged Jieba image were
+  byte-identical; native OpenCC read every generated built-in image. Both writers also matched 26
+  varied custom dictionaries (empty keys excluded from the upstream Darts validator).
+- Five common tooling tests passed on JVM, JS/Node, Wasm/Node, macOS Arm64 and iOS Arm64 simulator.
+- Added the Darts adaptation licence to generated data bundles alongside its attribution.
+- Further MARISA byte-order/word-layout fixtures remain required before milestone 3 closes.
 
 ## Completion policy
 

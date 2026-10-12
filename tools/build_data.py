@@ -62,7 +62,7 @@ def create_bundle(output, selected=None, oracle=None, archive=None):
         raise ValueError("Unresolved config resources: " + ", ".join(sorted(missing)))
     files = {name + ".json": configs[name] for name in selected}
     files.update({name: resources[name] for name in sorted(required)})
-    files.update({name: ROOT / name for name in ("LICENSE", "NOTICE", "AUTHORS", "licenses/marisa.txt")})
+    files.update({name: ROOT / name for name in ("LICENSE", "NOTICE", "AUTHORS", "licenses/marisa.txt", "licenses/darts-clone.txt")})
     files["licenses/cppjieba.txt"] = source / "plugins/jieba/deps/cppjieba/LICENSE"
     manifest = {
         "schema_version": 1, "upstream": LOCK, "configs": dependencies,
