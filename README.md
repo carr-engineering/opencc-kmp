@@ -42,11 +42,36 @@ val trace = converter.inspect("汉字")
 ```
 
 Text and upstream `.ocd` / `.ocd2` dictionary resources can be supplied through `ResourceProvider`.
-Format writers and final platform resource packaging are still in progress. [API mappings](docs/API.md) distinguish implemented
+Pure Kotlin format builders/writers are available in `opencc-dictionary-tools`; final consumer
+resource packaging is still in progress. [API mappings](docs/API.md) distinguish implemented
 capabilities from remaining parity work. `upstreamConformance` builds the native reference using
 CMake and checks all upstream answer pairs, golden corpora and all 16 configurations using text
 dictionaries and original `.ocd2` dictionaries. It also verifies all 22 binary dictionaries in both
 formats. Common unit tests do not need CMake or upstream downloads.
+
+```kotlin
+import io.github.opencckmp.tools.*
+
+val dictionary = TextDict.fromText("里\t里 裏\n")
+val image = DictionaryWriters.ocd2(dictionary)
+check(MarisaDict.fromBytes(image).match("里")?.values == listOf("里", "裏"))
+val mapped = converter.convertWithMap("汉字") // half-open UTF-16 input/output ranges
+```
+
+The writers reproduce all built-in native images byte for byte. See
+[dictionary layouts and interoperability](docs/DICTIONARY_FORMATS.md) for endian/legacy support.
+`opencc-phrase-extract` provides the statistical phrase extraction pipeline with Kotlin filters and
+typed signals. Opt-in candidate/ambiguity APIs and the optional `opencc-detect` module are described
+in [alignment and detection](docs/ALIGNMENT_AND_DETECTION.md). Detection depends on core only; its
+dictionaries are selected explicitly.
+
+Run native tooling conformance independently from portable unit tests:
+
+```sh
+./gradlew -Popencc.targets=jvm :opencc-dictionary-tools:upstreamWriterConformance
+./gradlew -Popencc.targets=jvm :opencc-phrase-extract:upstreamPhraseConformance
+./gradlew -Popencc.targets=jvm :opencc-detect:upstreamDataDetection
+```
 
 ## Data selection and platform resources
 
