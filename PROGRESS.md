@@ -38,6 +38,18 @@ checkbox is completed only when its implementation and relevant checks exist.
 - ABI integration and production-size remeasurement follow the remaining concurrent changes; this
   entry does not claim the final shipping gates have passed.
 
+### Parallel completion work: operation inventory and utilities
+
+- Recorded 447 public declarations across 40 pinned headers with Kotlin equivalents and documented
+  ownership/platform adaptations. Added 273 individual native test cases to the inventory.
+- Added String scalar-boundary and encoded ByteArray helpers for traversal, byte budgets/maps,
+  IDS and selectors. Native pointer identity is replaced by documented Kotlin value semantics.
+- Validation: 3,796 native-generated utility expectations and 17 directly ported UTF8Util cases
+  passed JVM/JS/Wasm/macOS/iOS simulator; scanner tests and deterministic regeneration passed.
+- Corrected no-candidate dictionary entry formatting to return the key, preserving the distinction
+  from a single empty candidate. Full upstream assertion-level review still has 256 pending cases;
+  declaration mappings are not themselves conformance evidence. ABI/size integration follows.
+
 ## Execution log
 
 ### Foundation

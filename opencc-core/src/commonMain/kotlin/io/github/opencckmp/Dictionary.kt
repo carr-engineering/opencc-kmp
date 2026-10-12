@@ -8,7 +8,7 @@ class DictEntry(val key: String, values: List<String>) {
     val keyLength: Int get() = key.length
     val keyByteLength: Int = UTF8Util.byteLength(key)
     val numValues: Int get() = storedValues.size
-    override fun toString(): String = key + "\t" + storedValues.joinToString(" ")
+    override fun toString(): String = if (storedValues.isEmpty()) key else key + "\t" + storedValues.joinToString(" ")
 }
 
 class Lexicon(entries: List<DictEntry>) : Iterable<DictEntry> {

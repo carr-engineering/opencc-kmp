@@ -3,6 +3,9 @@
 import hashlib
 import json
 from upstream import ROOT, LOCK, fetch
+from upstream_operations import public_declarations
+from operation_mapping import mapping
+from upstream_tests import test_inventory
 
 
 def references(node):
@@ -38,15 +41,42 @@ def inventory():
             base_configs.append(path.stem)
     headers = {
         str(path.relative_to(source)): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in sorted(list((source / "src").glob("*.hpp")) + list((source / "src").glob("*.h")) + list((source / "src/plugin").glob("*.h")))
+        for path in sorted(list((source / "src").glob("*.hpp")) + list((source / "src").glob("*.h")) + list((source / "src/plugin").glob("*.h")) + list((source / "plugins/jieba/include").glob("*.hpp")))
         if not any(word in path.stem for word in ("Test", "CmdLine", "WinUtil"))
     }
-    return {"upstream": LOCK, "configs": configs, "base_configs": sorted(base_configs), "reference_headers": headers,
+    operations = {}
+    for header in headers:
+        records = public_declarations((source / header).read_text())
+        for record in records:
+            record["kotlin_equivalent"], record["mapping_kind"] = mapping(header, record)
+        operations[header] = records
+    return {"upstream_test_cases": test_inventory(source, ROOT), "public_declarations": operations, "operation_inventory_scope": "Lexical declarations in every reference header; overloads retained; private/protected and internal namespaces excluded. Family mappings require the detailed contract documents and do not assert differential coverage.", "upstream": LOCK, "configs": configs, "base_configs": sorted(base_configs), "reference_headers": headers,
             "cli_sources": sorted(p.name for p in (source / "src/tools").glob("*.cpp"))}
 
 
 if __name__ == "__main__":
     output = ROOT / "docs/upstream-inventory.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(inventory(), indent=2, ensure_ascii=False) + "\n")
+    result = inventory()
+    output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
+    document = ROOT / "docs/UPSTREAM_OPERATIONS.md"
+    if document.exists():
+        marker = "## Source operation crosswalk"
+        intro = document.read_text().split(marker, 1)[0]
+        rows = [intro + marker + "\n\n"]
+        for header, records in result["public_declarations"].items():
+            if not records:
+                continue
+            rows.append(f"### `{header}`\n\n| Upstream operation | Kotlin equivalent | Mapping |\n| --- | --- | --- |\n")
+            seen = set()
+            for record in records:
+                identity = (record["owner"], record["symbol"], record["kotlin_equivalent"])
+                if identity in seen:
+                    continue
+                seen.add(identity)
+                name = (record["owner"] + "::" if record["owner"] else "") + record["symbol"]
+                equivalent = record["kotlin_equivalent"].replace("|", "\\|")
+                rows.append(f"| `{name}` | {equivalent} | {record['mapping_kind']} |\n")
+            rows.append("\n")
+        document.write_text("".join(rows))
     print(output)

@@ -1,7 +1,8 @@
 # Upstream to Kotlin mapping
 
 Reference: OpenCC `ver.1.4.2`, commit `025f371dc76b598d77384fbdab90c937471844d8`.
-`upstream-inventory.json` records the verified release inputs. Public operations are mapped to
+`upstream-inventory.json` records verified release inputs and public declarations. The complete
+[operation crosswalk](UPSTREAM_OPERATIONS.md) records overloads and platform boundaries. Operations are mapped to
 Kotlin capabilities; native pointers, allocation/free and C++ container types are not copied.
 
 ## Implemented runtime surface
@@ -26,7 +27,7 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | DictEntry / Lexicon / TextDict | DictEntry / Lexicon / TextDict | Kotlin strings and copied candidate lists; UTF-8 scalar sorting; duplicate text keys rejected |
 | DictGroup / UnionDictGroup | DictGroup / UnionDictGroup | ShortCircuit returns first child's match; Union chooses longest across children |
 | DartsDict / BinaryDict readers | DartsDict.fromBytes / BinaryDict.fromBytes | Fixed uint32 and legacy uint64 fields; auto byte-order detection for `.ocd` |
-| MarisaDict / SerializedValues readers | MarisaDict.fromBytes / SerializedValues.fromBytes | LOUDS links, nested tries, text/binary tails, ordered values; portable runtime lookup |
+| MarisaDict / SerializedValues readers | MarisaDict.fromBytes / SerializedValues.fromBytes | LOUDS links, nested tries, text/binary tails, ordered values; SerializedValues exposes values/size/indexed access/bytesRead, with empty-key entries equivalent to its values-only native lexicon |
 | Darts / BinaryDict / SerializedValues serialization | DictionaryWriters.ocd / binaryPayload / serializedValues | Pure Kotlin builders and writers in the separate tooling module; fixed-width output and explicit byte order |
 | MarisaDict serialization | DictionaryWriters.ocd2 | Pure Kotlin nested LOUDS builder; deterministic upstream default layout and ordered candidate serialization |
 | DictConverter | DictionaryConverter.load / write / convert, DictionaryFormat | All five upstream input formats; text, ocd and ocd2 output; cppjieba base/user metadata and override ordering |
@@ -34,7 +35,8 @@ Kotlin capabilities; native pointers, allocation/free and C++ container types ar
 | ConvertWithAmbiguities / AmbiguityStream (unstable upstream) | Converter.convertWithAmbiguities / AmbiguityStream | Typed results with UTF-16 spans, normalized sources, global stream source indexes and analyzed status; requires experimental opt-in |
 | PhraseExtract::Extract / step operations / Reset / release operations | PhraseExtract.extract / extractSuffixes / extractPrefixes / calculateFrequency / calculateCohesions / calculateSuffixEntropy / calculatePrefixEntropy / extractWordCandidates / selectWords / reset / releaseSuffixes / releasePrefixes | Separate phrase module; owned mutable session; call reset before reuse; reset retains length options and restores default filters |
 | PhraseExtract setters / Words / WordCandidates / Signals / statistic accessors | Length/filter properties, words / wordCandidates / signal / frequency / probability / logProbability / cohesion / entropy / prefixEntropy / suffixEntropy | Unicode scalar length units, String candidates, immutable signal snapshots and copied lists; filter true excludes a candidate |
-| ResourceProvider buffer access | ResourceProvider.read / MemoryResourceProvider | ByteArray, host-owned lifetime; memory snapshots copy byte arrays |
+| ResourceProvider::Resolve / GetResource / Resource accessors | ResourceProvider.read / resolve / getResource; Resource.name / bytes / size / cacheKey | Owned immutable snapshots, opaque version identity; metadata is opt-in; filesystem lookup and ZIP contracts in RESOURCE_CONTRACTS.md |
+| UTF8Util / UTF8StringSlice operations | UTF8Util extensions and Kotlin String/ByteArray ranges and collection operations | UTF-16 text boundaries; bounded encoded traversal, truncation, maps, IDS and selectors; UPSTREAM_OPERATIONS.md documents pointer/type adaptations |
 | Kotlin resource/cache extensions | DictionaryCache, ResourceDigest, VerifiedResourceProvider / VerifiedAsyncResourceProvider | Explicit cache ownership, content/version/format identity, concurrent initialization and trusted-manifest byte verification |
 | Exceptions | OpenCCException subclasses | Typed Kotlin errors; malformed UTF-16 has an explicit Kotlin error |
 | opencc_open / convert / close / error | OpenCC.open → OpenCCHandle.convert / close; OpenCC.error | Null failure, context-scoped last error; automatic ownership; no manual string free |
@@ -51,10 +53,9 @@ byte modes do not impose byte indexing on ordinary String operations.
 
 | Requirement | Current status |
 | --- | --- |
-| Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
-| Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | CLI edge/runtime/distribution conformance | All three tools implemented locally; broader malformed-resource, filesystem and Windows/Linux runtime gates remain |
 | Custom segmentation resource/numeric edge audits | Bundled Jieba algorithms/configs are tested; broader custom resource/error audits remain |
+| Complete upstream assertion-level test review | Inventory records individual cases and concrete port evidence; unreviewed cases remain explicitly marked |
 
 No row marked pending is claimed as implemented. The source inventory and this table are refined
 with each milestone; conformance counts in PROGRESS.md describe exactly what was tested.

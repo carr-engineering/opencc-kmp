@@ -122,6 +122,9 @@ class EngineTest {
         val entry = DictEntry("a", candidates)
         candidates[0] = "corrupt"
         assertEquals("A", entry.defaultValue)
+        assertEquals("a\tA B", entry.toString())
+        assertEquals("a", DictEntry("a", emptyList()).toString())
+        assertEquals("a\t", DictEntry("a", listOf("")).toString())
         val bytes = byteArrayOf(1, 2)
         val provider = MemoryResourceProvider(mapOf("data" to bytes))
         bytes[0] = 0
