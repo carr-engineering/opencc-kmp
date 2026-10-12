@@ -15,7 +15,7 @@ internal sealed interface JsonValue {
 internal class JsonParser(private val input: String) {
     private var cursor = 0
     fun parse(): JsonValue {
-        val value = value(0)
+        val value = value()
         whitespace()
         if (cursor != input.length) fail("Trailing input")
         return value
@@ -47,8 +47,7 @@ internal class JsonParser(private val input: String) {
         return true
     }
     private fun expect(char: Char) { if (!take(char)) fail("Expected '$char'") }
-    private fun value(depth: Int): JsonValue {
-        if (depth > 256) fail("Nesting limit exceeded")
+    private fun value(): JsonValue {
         whitespace()
         return when (input.getOrNull(cursor)) {
             '{' -> {
@@ -60,7 +59,7 @@ internal class JsonParser(private val input: String) {
                         if (input.getOrNull(cursor) != '"') fail("Expected object key")
                         val name = string()
                         expect(':')
-                        members.add(name to value(depth + 1))
+                        members.add(name to value())
                         if (take('}')) break
                         expect(',')
                     } while (!take('}'))
@@ -72,7 +71,7 @@ internal class JsonParser(private val input: String) {
                 val values = mutableListOf<JsonValue>()
                 if (!take(']')) {
                     do {
-                        values.add(value(depth + 1))
+                        values.add(value())
                         if (take(']')) break
                         expect(',')
                     } while (!take(']'))
@@ -110,7 +109,9 @@ internal class JsonParser(private val input: String) {
             if (input.getOrNull(cursor) !in '0'..'9') fail("Invalid exponent")
             while (input.getOrNull(cursor) in '0'..'9') cursor++
         }
-        return JsonValue.Number(input.substring(start, cursor))
+        val text = input.substring(start, cursor)
+        if (text.toDoubleOrNull()?.isFinite() != true) fail("Number exceeds JSON double range")
+        return JsonValue.Number(text)
     }
     private fun string(): String {
         expect('"')
@@ -128,9 +129,16 @@ internal class JsonParser(private val input: String) {
                             'r' -> append('\r')
                             't' -> append('\t')
                             'u' -> {
-                                if (cursor + 4 > input.length) fail("Incomplete Unicode escape")
-                                val code = input.substring(cursor, cursor + 4).toIntOrNull(16) ?: fail("Invalid Unicode escape")
-                                cursor += 4
+                                val code = hexEscape()
+                                if (code in 0xD800..0xDBFF) {
+                                    if (input.getOrNull(cursor) != '\\' || input.getOrNull(cursor + 1) != 'u') fail("Invalid surrogate escape")
+                                    cursor += 2
+                                    val low = hexEscape()
+                                    if (low !in 0xDC00..0xDFFF) fail("Invalid surrogate escape")
+                                    append(code.toChar()); append(low.toChar())
+                                    continue
+                                }
+                                if (code in 0xDC00..0xDFFF) fail("Invalid surrogate escape")
                                 append(code.toChar())
                             }
                             else -> fail("Invalid escape")
@@ -142,6 +150,16 @@ internal class JsonParser(private val input: String) {
             }
             fail("Unterminated string")
         }
+    }
+    private fun hexEscape(): Int {
+        if (cursor + 4 > input.length) fail("Incomplete Unicode escape")
+        var code = 0
+        repeat(4) {
+            val char = input[cursor++]
+            val digit = when (char) { in '0'..'9' -> char.code - '0'.code; in 'a'..'f' -> char.code - 'a'.code + 10; in 'A'..'F' -> char.code - 'A'.code + 10; else -> fail("Invalid Unicode escape") }
+            code = (code shl 4) or digit
+        }
+        return code
     }
 }
 

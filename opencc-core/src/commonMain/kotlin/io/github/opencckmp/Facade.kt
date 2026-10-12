@@ -60,8 +60,9 @@ class OpenCCHandle internal constructor(converter: Converter, private val contex
 
 /**
  * Prepare resource bytes through a host's suspend provider, then create a synchronous converter.
- * Fetches the full referenced closure, including optional dictionaries. No coroutine/network library
- * is required by core. Segmentation-extension resources are included when named in config resources.
+ * Shares sync validation/loading order and fetches only resources required by selected options.
+ * No coroutine/network library is required by core. Plugin factories may refine their declared
+ * resource preparation list according to options; initialization and conversion stay synchronous.
  */
 suspend fun prepareConfig(
     configName: String,
@@ -71,28 +72,12 @@ suspend fun prepareConfig(
     segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
     dictionaryCache: DictionaryCache? = null,
     cacheIdentity: Any = provider,
+    warningSink: (ConfigWarning) -> Unit = {},
 ): Converter {
     val name = configResourceName(configName).replace('\\', '/')
     val bytes = provider.read(name)
-    val root = JsonParser(UTF8Util.decode(bytes)).parse()
     val directory = name.substringBeforeLast('/', "")
-    val names = linkedSetOf<String>()
-    fun collect(value: JsonValue) {
-        when (value) {
-            is JsonValue.Object -> {
-                (value["file"] as? JsonValue.StringValue)?.value?.let { names.add(resolveResource(directory, it)) }
-                (value["resources"] as? JsonValue.Object)?.members?.forEach { (_, resource) ->
-                    (resource as? JsonValue.StringValue)?.value?.let { names.add(resolveResource(directory, it)) }
-                }
-                value.members.forEach { collect(it.second) }
-            }
-            is JsonValue.Array -> value.values.forEach { collect(it) }
-            else -> Unit
-        }
-    }
-    collect(root)
-    val prepared = mutableMapOf(name to bytes)
-    for (resource in names) if (!prepared.containsKey(resource)) prepared[resource] = provider.read(resource)
-    return Config(MemoryResourceProvider(prepared), readers, segmentationFactories,
-        dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity).newFromFile(name, options)
+    return Config(readers = readers, segmentationFactories = segmentationFactories, warningSink = warningSink,
+        dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)
+        .prepareFromString(UTF8Util.decode(bytes), directory, options) { provider.read(it) }
 }

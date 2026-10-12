@@ -2,10 +2,12 @@
 package io.github.opencckmp
 
 data class ConfigLoadOptions(val includeTofuRiskDictionaries: Boolean = true)
-data class ConfigWarning(val path: String, val message: String)
+data class ConfigWarning(val path: String, val message: String, val schemaPath: String = "", val keyword: String = "")
 
 fun interface SegmentationFactory {
-    fun create(properties: Map<String, String>, resources: ResourceProvider): Segmentation
+    fun create(properties: SegmentationProperties, resources: ResourceProvider): Segmentation
+    /** Resolved provider names needed before synchronous initialization; hosts may apply option logic. */
+    fun resourcesToPrepare(properties: SegmentationProperties, declaredResources: List<String>): List<String> = declaredResources
 }
 
 /** Stateless loader. Optional caller-owned [dictionaryCache] shares dictionaries across loads. */
@@ -26,101 +28,121 @@ class Config(
     }
 
     fun newFromString(json: String, configDirectory: String = "", options: ConfigLoadOptions = ConfigLoadOptions()): Converter {
-        val root = JsonParser(json).parse() as? JsonValue.Object ?: throw InvalidFormat("Root of configuration must be an object")
-        schemaWarnings(root)
+        return runSynchronous { load(json, configDirectory, options, { provider.read(it) }, { _, _, _ -> provider }) }
+    }
+
+    internal suspend fun prepareFromString(json: String, configDirectory: String, options: ConfigLoadOptions,
+                                          read: suspend (String) -> ByteArray): Converter =
+        load(json, configDirectory, options, read) { factory, properties, declared ->
+            val resources = linkedMapOf<String, ByteArray>()
+            for (name in factory.resourcesToPrepare(properties, declared).distinct()) resources[name] = read(name)
+            MemoryResourceProvider(resources)
+        }
+
+    private suspend fun load(json: String, configDirectory: String, options: ConfigLoadOptions,
+                             read: suspend (String) -> ByteArray,
+                             pluginResources: suspend (SegmentationFactory, SegmentationProperties, List<String>) -> ResourceProvider): Converter {
+        val root = parseConfiguration(json)
+        ConfigSchema.warning(root)?.let(warningSink)
         val loaded = mutableMapOf<String, Dict>()
-        fun parseDict(doc: JsonValue.Object, includeTofu: Boolean): Dict? {
+        suspend fun parseDict(doc: JsonValue.Object, includeTofu: Boolean): Dict? {
             val type = doc.string("type")
             if (type == "inline") {
                 if (doc["may_output_tofu"] != null) throw InvalidFormat("Inline dictionary does not support may_output_tofu")
                 val entries = doc.obj("entries").members.map { (key, value) ->
                     if (key.isEmpty()) throw InvalidFormat("Inline dictionary key must be a non-empty string")
                     val text = (value as? JsonValue.StringValue)?.value
-                    if (text.isNullOrEmpty()) throw InvalidFormat("Inline dictionary value must be a non-empty string: $key")
+                    if (text.isNullOrEmpty()) throw InvalidFormat("Inline dictionary value must be a non-empty string: ${key.substringBefore('\u0000')}")
                     // RapidJSON validates explicit JSON lengths, then upstream creates C-string
                     // dictionary entries. Preserve its observable prefix-at-NUL config semantics.
                     DictEntry(key.substringBefore('\u0000'), listOf(text.substringBefore('\u0000')))
                 }
-                return TextDict(Lexicon(entries).sorted())
+                val lexicon = Lexicon(entries).sorted()
+                for (index in 1 until lexicon.size) if (lexicon[index - 1].key == lexicon[index].key) {
+                    throw InvalidFormat("Inline dictionary contains duplicate key: ${lexicon[index].key}")
+                }
+                return TextDict(lexicon)
             }
             val tofu = when (val value = doc["may_output_tofu"]) {
                 null -> false
                 is JsonValue.BooleanValue -> value.value
-                else -> throw InvalidFormat("Property 'may_output_tofu' must be a boolean")
+                else -> throw InvalidFormat("Property must be a boolean: may_output_tofu")
             }
             if (tofu && !includeTofu) return null
             if (type == "group") {
                 val policy = when (val value = doc["match_policy"]) {
                     null -> DictGroupMatchPolicy.ShortCircuit
-                    is JsonValue.StringValue -> when (value.value) {
+                    is JsonValue.StringValue -> when (val policy = value.value.substringBefore('\u0000')) {
                         "short_circuit" -> DictGroupMatchPolicy.ShortCircuit
                         "union" -> DictGroupMatchPolicy.Union
-                        else -> throw InvalidFormat("Unknown dictionary group match_policy: ${value.value}")
+                        else -> throw InvalidFormat("Unknown dictionary group match_policy: $policy")
                     }
-                    else -> throw InvalidFormat("Property 'match_policy' must be a string")
+                    else -> throw InvalidFormat("Property must be a string: match_policy")
                 }
                 val dicts = doc.array("dicts").values.mapNotNull { value ->
                     parseDict(value as? JsonValue.Object ?: throw InvalidFormat("Element of the array must be an object"), includeTofu)
                 }
                 return if (dicts.isEmpty()) null else DictGroup(dicts, policy)
             }
-            val reader = readers[type] ?: throw InvalidFormat("Unknown or unavailable dictionary type: $type")
             val file = resolveResource(configDirectory, doc.string("file"))
+            val reader = readers[type] ?: throw InvalidFormat("Unknown dictionary type: $type")
             return loaded.getOrPut(type + "\n" + file) {
-                val bytes = provider.read(file)
+                val bytes = read(file)
                 dictionaryCache?.load(cacheIdentity, file, bytes, reader) ?: reader.read(bytes)
             }
         }
-        fun chain(value: JsonValue.Array, includeTofu: Boolean): ConversionChain = ConversionChain(
+        suspend fun chain(value: JsonValue.Array, includeTofu: Boolean): ConversionChain = ConversionChain(
             value.values.mapNotNull { item ->
                 // Upstream ignores non-object conversion steps after advisory schema validation.
                 val doc = item as? JsonValue.Object ?: return@mapNotNull null
                 parseDict(doc.obj("dict"), includeTofu)?.let { Conversion(it) }
             })
         val segmentation = root["segmentation"]?.let { value ->
-            val doc = value as? JsonValue.Object ?: throw InvalidFormat("Property 'segmentation' must be an object")
+            val doc = value as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: segmentation")
             val type = doc.string("type")
             if (type == "mmseg") {
                 MaxMatchSegmentation(parseDict(doc.obj("dict"), true) ?: TextDict(Lexicon(emptyList())))
             } else {
-                val factory = segmentationFactories[type] ?: throw InvalidFormat("Unavailable segmentation extension: $type")
-                val properties = mutableMapOf("__config_dir" to configDirectory)
+                val properties = mutableListOf("__config_dir" to configDirectory)
+                val declared = mutableListOf<String>()
                 doc["resources"]?.let { resources ->
-                    for ((name, resource) in (resources as? JsonValue.Object ?: throw InvalidFormat("Segmentation resources must be an object")).members) {
-                        properties[name] = (resource as? JsonValue.StringValue)?.value ?: throw InvalidFormat("Segmentation resource must be a string: $name")
+                    for ((name, resource) in (resources as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: resources")).members) {
+                        val text = (resource as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation resource must be a string: ${name.substringBefore('\u0000')}")
+                        properties.add(name.substringBefore('\u0000') to text)
+                        declared.add(resolveResource(configDirectory, text))
                     }
                 }
                 for ((name, property) in doc.members) {
-                    if (name != "type" && name != "resources") {
-                        properties[name] = (property as? JsonValue.StringValue)?.value ?: throw InvalidFormat("Segmentation plugin property must be a string: $name")
+                    val key = name.substringBefore('\u0000')
+                    if (key != "type" && key != "resources") {
+                        val text = (property as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Segmentation plugin property must be a string: $key")
+                        properties.add(key to text)
                     }
                 }
-                factory.create(properties.toMap(), provider)
+                val factory = segmentationFactories[type] ?: throw UnavailableSegmentationExtension(type)
+                val pairs = SegmentationProperties(properties)
+                factory.create(pairs, pluginResources(factory, pairs, declared))
             }
         }
         val main = SingleStageConverter(segmentation, chain(root.array("conversion_chain"), options.includeTofuRiskDictionaries))
         return root["normalization"]?.let { value ->
-            val normalized = value as? JsonValue.Array ?: throw InvalidFormat("Property 'normalization' must be an array")
+            val normalized = value as? JsonValue.Array ?: throw InvalidFormat("Property must be an array: normalization")
             ConfigBasedConverter(SingleStageConverter(null, chain(normalized, options.includeTofuRiskDictionaries)), main)
         } ?: main
     }
 
-    private fun schemaWarnings(root: JsonValue.Object) {
-        // Schema diagnostics are advisory; parsing below remains the behavioural authority.
-        if (root["name"] !is JsonValue.StringValue) warningSink(ConfigWarning("/name", "Expected configuration name"))
-        for ((name, _) in root.members) if (name !in setOf("name", "normalization", "segmentation", "conversion_chain")) {
-            warningSink(ConfigWarning("/$name", "Unknown configuration property"))
-        }
-        for (name in listOf("normalization", "conversion_chain")) {
-            val value = root[name]
-            if (value is JsonValue.Array && value.values.isEmpty()) warningSink(ConfigWarning("/$name", "Empty conversion chain"))
-        }
-    }
 }
 
+internal fun parseConfiguration(json: String): JsonValue.Object {
+    val document = try { JsonParser(json.substringBefore('\u0000')).parse() }
+        catch (_: InvalidFormat) { throw InvalidFormat("Error parsing JSON") }
+    return document as? JsonValue.Object ?: throw InvalidFormat("Root of configuration must be an object")
+}
+
+internal fun JsonValue.Object.property(name: String): JsonValue = this[name] ?: throw InvalidFormat("Required property not found: $name")
 internal fun JsonValue.Object.string(name: String): String =
-    (this[name] as? JsonValue.StringValue)?.value ?: throw InvalidFormat("Property '$name' must be a string")
+    (property(name) as? JsonValue.StringValue)?.value?.substringBefore('\u0000') ?: throw InvalidFormat("Property must be a string: $name")
 internal fun JsonValue.Object.obj(name: String): JsonValue.Object =
-    this[name] as? JsonValue.Object ?: throw InvalidFormat("Property '$name' must be an object")
+    property(name) as? JsonValue.Object ?: throw InvalidFormat("Property must be an object: $name")
 internal fun JsonValue.Object.array(name: String): JsonValue.Array =
-    this[name] as? JsonValue.Array ?: throw InvalidFormat("Property '$name' must be an array")
+    property(name) as? JsonValue.Array ?: throw InvalidFormat("Property must be an array: $name")

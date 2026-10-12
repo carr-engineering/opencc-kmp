@@ -51,7 +51,6 @@ byte modes do not impose byte indexing on ordinary String operations.
 
 | Requirement | Current status |
 | --- | --- |
-| Full advisory config schema diagnostics | Basic root diagnostics implemented; recursive parity pending |
 | Environment/executable search paths and runtime zip adapters | File/classpath/Android/Apple/browser/Node providers implemented; remaining adapters pending |
 | Full upstream UTF8Util / UTF8StringSlice operation inventory | Conversion helpers implemented; remaining utility mappings pending |
 | Complete CLI options, diagnostics, exit codes | Pending; CLI currently a scaffold |
@@ -73,3 +72,5 @@ The encoded-input differences and reproducible native probe are recorded in
 [ENCODED_CONTRACT_AUDIT.md](ENCODED_CONTRACT_AUDIT.md).
 
 Implemented byte/text, mode, inspection and streaming contracts are in [ENCODED_API.md](ENCODED_API.md).
+Pinned schema diagnostics, JSON/semantic acceptance, ordered extension options and shared sync/async
+loading are specified in [CONFIGURATION.md](CONFIGURATION.md).

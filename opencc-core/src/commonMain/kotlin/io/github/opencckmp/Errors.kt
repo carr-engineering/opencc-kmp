@@ -10,4 +10,5 @@ class InvalidTextDictionary(message: String, val lineNumber: Int) :
 class InvalidUTF8(message: String, cause: Throwable? = null) : OpenCCException("Invalid UTF8: $message", cause)
 class InvalidUTF16(val offset: Int) : OpenCCException("Unpaired UTF-16 surrogate at offset $offset")
 class ShouldNotBeHere : OpenCCException("ShouldNotBeHere! This must be a bug.")
+class UnavailableSegmentationExtension(val type: String) : OpenCCException("Unavailable segmentation extension: $type")
 

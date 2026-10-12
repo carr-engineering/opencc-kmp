@@ -15,6 +15,9 @@ resource acquisition finishes before synchronous conversion starts.
 The browser adapter uses fetch in the platform module. It adds no network dependency to core.
 Node adapters do not import a Node package into browser module graphs. Hosts can still supply their
 own sync/suspend providers and resource verification/download policy.
+Sync and suspend config loading share validation/error order and acquire only resources enabled by
+load options. Plugin factories can refine their preparation list; ordered option pairs retain native
+precedence. See [CONFIGURATION.md](CONFIGURATION.md) for these contracts.
 Optional verified providers and caller-owned cross-load dictionary caches are described in
 [CACHES_AND_OWNERSHIP.md](CACHES_AND_OWNERSHIP.md). Resource bytes are acquired and hashed on cache
 hits; caching decoded dictionaries and caching/download delivery are separate host choices.

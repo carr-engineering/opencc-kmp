@@ -18,7 +18,7 @@ checkbox is completed only when its implementation and relevant checks exist.
 1. Continue startup/memory profiling after the primitive-array builder and owned caches. Initial
    published consumers and package-size baselines exist across Android, Swift/iOS and JS/Wasm;
    physical-device performance, broader peak-memory evidence and production delivery gates remain.
-2. Complete JSON acceptance/schema diagnostics and the upstream utility inventory. Encoded conversion,
+2. Complete the upstream utility inventory and malformed-resource audits. JSON/schema and encoded conversion,
    inspection, streaming and equivalent text/map/NUL operations now have differential coverage.
 3. Bundled Jieba segmentation and the three CLI tools, including all pinned options and exit codes.
 4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
@@ -296,6 +296,26 @@ checkbox is completed only when its implementation and relevant checks exist.
   Native engine-only ZIP increment is 102,182 bytes versus its 99,800-byte budget, a 2,382-byte
   regression. Selected/full profiles pass their ZIP budgets. `measurements/apple-encoded.json`
   records the complete runs; the Native and dependency engine-only gates remain open together.
+
+### Pinned schema, JSON semantics and shared resource loading
+
+- Implemented the complete finite pinned schema with advisory first-violation diagnostics, matching
+  document/schema pointers and keywords. Corrected number overflow, Unicode escapes, actual NUL
+  input suffixes, logical string prefixes, duplicate-key diagnostics and semantic validation order;
+  removed the artificial JSON nesting limit. Native error wording maps to Kotlin string/boolean.
+- Missing segmentation extensions now have the correct base error capability. Immutable plugin
+  options expose both convenient first-occurrence Map lookup and every ordered duplicate pair.
+- Sync/suspend config loading shares validation and acquisition order. Async preparation no longer
+  mistakes inline file keys or ignored metadata for resources, or fetches disabled risk dictionaries.
+  Factories can specify option-dependent/additional preparation names before synchronous creation.
+- Native comparisons pass 3,940 string/file/risk-option cases, including schema pointer/keyword and
+  semantic diagnostics, alongside the 71,775 encoded cases and all existing conversion/format checks.
+  Six common config tests and cache tests pass across five runtimes, including real suspend/resume,
+  load/error order, deduplication, option selection and plugin preparation. Contracts are documented
+  in `docs/CONFIGURATION.md`. Publication/consumer and size checks follow this feature checkpoint.
+- Published JVM/JS/Wasm/iOS consumers passed the updated loader, including actual HTTP acquisition.
+  Native conformance always reruns when its external probes/fixtures are regenerated, preventing
+  stale up-to-date test results from standing in for current reference comparisons.
 
 ## Completion policy
 

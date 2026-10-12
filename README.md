@@ -53,6 +53,8 @@ String ranges count UTF-16 units; encoded conversion accepts ByteArray ranges an
 partial/non-canonical byte behavior. `EncodedInputMode` selects explicit lengths or NUL termination,
 and `Utf8ConverterStream` supplies encoded streaming. See [text and byte contracts](docs/ENCODED_API.md)
 for buffer units, inspection snapshots, NULs, errors and composed deletion maps.
+The [configuration contract](docs/CONFIGURATION.md) covers advisory schema warnings, accepted JSON,
+ordered extension options and sync/suspend loading with identical validation/resource order.
 
 ```kotlin
 import io.github.opencckmp.tools.*

@@ -8,15 +8,22 @@ tasks.withType<Test>().configureEach {
     if (name == "jvmTest") exclude("**/Upstream*Test*")
 }
 tasks.register<Test>("upstreamConformance") {
-    dependsOn(prepareConformance, ":prepareNativeProbes", "prepareEncodedConformance", "jvmTestClasses")
+    dependsOn(prepareConformance, ":prepareNativeProbes", "prepareEncodedConformance", "prepareConfigConformance", "jvmTestClasses")
     val standard = tasks.named<Test>("jvmTest")
     testClassesDirs = standard.get().testClassesDirs
     classpath = standard.get().classpath
     include("**/Upstream*Test*")
     systemProperty("opencc.projectRoot", rootDir.absolutePath)
+    // Native probes/fixtures are regenerated outside ordinary test-class inputs.
+    outputs.upToDateWhen { false }
 }
 tasks.register<Exec>("prepareEncodedConformance") {
     dependsOn(":prepareNativeProbes")
     workingDir(rootDir)
     commandLine("python3", "tools/audit_encoded.py", "--probes-ready")
+}
+tasks.register<Exec>("prepareConfigConformance") {
+    dependsOn(":prepareNativeProbes")
+    workingDir(rootDir)
+    commandLine("python3", "tools/audit_config.py", "--probes-ready")
 }
