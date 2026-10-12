@@ -5,11 +5,13 @@ import os
 from pathlib import Path
 import random
 import subprocess
+import sys
 import zipfile
 from upstream import ROOT
 
 TOOLS = {'opencc':'io.github.opencckmp.cli.MainKt', 'opencc_dict':'io.github.opencckmp.cli.DictionaryCommand', 'opencc_phrase_extract':'io.github.opencckmp.cli.PhraseCommand'}
 BACKEND = 'jvm'
+NATIVE_TARGET = 'linuxX64' if sys.platform.startswith('linux') else 'mingwX64' if sys.platform=='win32' else 'macosArm64'
 
 
 def run(tool, args, input_bytes, native):
@@ -21,7 +23,8 @@ def run(tool, args, input_bytes, native):
         command = ['java','-cp',classpath,TOOLS[tool],*args]
         executable = None
     else:
-        command = [str(ROOT/'opencc-cli/build/bin/macosArm64'/(tool+'ReleaseExecutable')/(tool+'.kexe')), *args]
+        extension = '.exe' if NATIVE_TARGET=='mingwX64' else '.kexe'
+        command = [str(ROOT/'opencc-cli/build/bin'/NATIVE_TARGET/(tool+'ReleaseExecutable')/(tool+extension)), *args]
         executable = None
     environment = os.environ.copy()
     environment['OPENCC_SEGMENTATION_PLUGIN_PATH'] = str(ROOT/'.cache/oracle/plugins/jieba')
@@ -136,5 +139,6 @@ def verify():
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--backend',choices=['jvm','native'],default='jvm')
-    BACKEND=parser.parse_args().backend
+    parser.add_argument('--native-target',choices=['macosArm64','macosX64','linuxX64','mingwX64'],default=NATIVE_TARGET)
+    args=parser.parse_args();BACKEND=args.backend;NATIVE_TARGET=args.native_target
     raise SystemExit(0 if verify() else 1)

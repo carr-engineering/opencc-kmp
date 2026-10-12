@@ -1,0 +1,24 @@
+name: Bug report
+description: Report a reproducible conversion, tooling, resource or platform defect.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit and platform
+      placeholder: Commit, Kotlin version, target and host environment
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include input, configuration, relevant dictionary entries and API or CLI arguments.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual result
+      description: Include pinned OpenCC results when available, plus the observed error or output.
+    validations:
+      required: true

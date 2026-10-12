@@ -8,6 +8,8 @@ OpenCC is maintained by Carbo Kuo and contributors and licensed under Apache-2.0
 remaining milestones. This repository does not yet claim full upstream parity or release readiness.
 See [publication verification](docs/PUBLICATION.md) for ABI baselines, generated API documentation,
 embedded attribution and independent published-artifact consumers.
+Contributor checks and release gates are described in [CONTRIBUTING.md](CONTRIBUTING.md) and
+[CI scope](docs/CI.md).
 
 ## Building
 

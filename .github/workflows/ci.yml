@@ -1,0 +1,178 @@
+name: Conformance and published consumers
+"on":
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Syntax and publication payload checks
+        run: |
+          python3 -m compileall -q tools
+          python3 tools/lint_workflows.py
+          python3 tools/test_publication_notices.py
+          git show --format= --check HEAD
+      - name: Portable tests and Linux Native execution
+        run: ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs jvmTest linuxX64Test jsNodeTest wasmJsNodeTest
+      - name: Pinned upstream differential matrices
+        run: >-
+          ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs
+          upstreamConformance upstreamWriterConformance upstreamPhraseConformance
+          upstreamJiebaConformance upstreamDataDetection
+      - name: Complete and selective data acceptance
+        run: python3 tools/test_data.py
+      - name: Build local publications and CLI distributions
+        run: >-
+          ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs
+          publishAllPublicationsToConsumerRepository :opencc-cli:writeJvmClasspath
+          :opencc-cli:bundleJvmCli :opencc-cli:bundleLinuxX64Cli
+      - name: Published-artifact consumers and graphs
+        run: |
+          python3 tools/verify_publications.py --targets jvm,linuxX64,js,wasmJs
+          python3 tools/test_consumers.py --profile full :kit:jvmTest :kit:jsNodeTest :kit:wasmJsNodeTest
+      - name: Tool processes and unpacked distributions
+        run: |
+          python3 tools/test_cli.py --backend jvm
+          python3 tools/test_cli.py --backend native --native-target linuxX64
+          python3 tools/test_cli_distributions.py jvm linuxX64
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: linux-conformance
+          include-hidden-files: true
+          path: |
+            **/build/reports/tests/**
+            .cache/cli-contract/report-*.json
+            .cache/cli-contract/differences-*.json
+            .cache/cli-unpacked/report.json
+            .cache/publications-verification.json
+            .cache/oracle-build.log
+
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Windows common/runtime tests and all three executables
+        run: >-
+          .\gradlew.bat '-Popencc.targets=jvm,mingwX64' jvmTest mingwX64Test
+          :opencc-cli:writeJvmClasspath :opencc-cli:linkOpenccReleaseExecutableMingwX64
+          :opencc-cli:linkOpencc_dictReleaseExecutableMingwX64
+          :opencc-cli:linkOpencc_phrase_extractReleaseExecutableMingwX64
+      - name: Unicode paths, conversion, in-place output and binary writer smoke
+        run: python tools/test_cli_smoke.py --native-target mingwX64
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: windows-tests
+          path: '**/build/reports/tests/**'
+
+  apple:
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Select Xcode 26 and record host tools
+        run: |
+          python3 tools/select_ci_xcode.py
+          xcodebuild -version
+          xcrun simctl list runtimes
+          sdkmanager 'platforms;android-36'
+      - name: All-target compilation, API compatibility and reference docs
+        run: ./gradlew checkKotlinAbi dokkaGenerate jvmTest macosArm64Test iosSimulatorArm64Test
+      - name: Publish every KMP variant locally
+        run: ./gradlew publishAllPublicationsToConsumerRepository
+      - name: Every target artifact and independent consumers
+        run: |
+          python3 tools/verify_publications.py --targets jvm,android,js,wasmJs,iosArm64,iosSimulatorArm64,iosX64,macosArm64,macosX64,linuxX64,mingwX64
+          python3 tools/test_consumers.py --profile full :kit:jvmTest :kit:jsNodeTest :kit:wasmJsNodeTest :kit:iosSimulatorArm64Test :android:assembleRelease
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: apple-api-and-consumers
+          include-hidden-files: true
+          path: |
+            **/build/reports/tests/**
+            build/dokka/html/**
+            .cache/publications-verification.json
+
+  size:
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Prepare SDKs and attributed local publications
+        run: |
+          python3 tools/select_ci_xcode.py
+          sdkmanager 'platforms;android-36'
+          ./gradlew -Popencc.targets=jvm,android,js,wasmJs,iosSimulatorArm64 publishAllPublicationsToConsumerRepository
+      # Run every platform gate even when another gate fails. Budgets are never auto-updated.
+      - name: Android release shrinking and dependency download budgets
+        if: success() || failure()
+        run: python3 tools/measure_android.py --check
+      - name: Production JS/Wasm delivered-byte budgets and browser execution
+        if: success() || failure()
+        run: python3 tools/measure_web.py --check
+      - name: Swift release application budgets and simulator execution
+        if: success() || failure()
+        run: python3 tools/measure_apple.py --check
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: size-and-runtime-evidence
+          include-hidden-files: true
+          path: |
+            .cache/measurements/*-current.json
+            .cache/consumer-xcode/*.log

@@ -7,3 +7,6 @@ gradlew.bat text eol=crlf
 *.jar binary
 *.ocd binary
 *.ocd2 binary
+# Preserve compiler-generated ABI whitespace and verbatim upstream license formatting.
+**/api/** -whitespace
+licenses/** -whitespace

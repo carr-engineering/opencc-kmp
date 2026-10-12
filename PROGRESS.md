@@ -438,3 +438,29 @@ local preparation is not evidence of an actual public release.
 - Public ownership/credentials, remote CI, remaining export/API/resource audits and measured release
   budgets are still open. Artifact notices add delivered bytes; those bytes must be included in the
   next size run. Existing allowances have not been widened.
+
+### Cross-host CI definitions and repository contribution guidance
+
+- Added immutable-action-pin jobs for Linux differential matrices and unpacked distributions,
+  Windows JVM/Native execution and Unicode tool smoke, and Apple all-target ABI/documentation/local
+  publication/consumer checks. All size gates run independently and retain reports on failure.
+  Added checksum-pinned actionlint, syntax/whitespace checks and dependency update proposals.
+- Generalized the CLI differential runner's Native target selection. The macOS process matrix still
+  passes all 212 cases; a separate JVM/Native smoke runner passes 22 checks for tool help/version,
+  Unicode paths/stdin, in-place output and binary dictionary round trips. The smoke runner does not
+  claim the complete Windows oracle matrix.
+- Added contribution/release procedures, conduct/security policies, an unreleased changelog and
+  issue/PR templates. Owner-specific reporting contacts and public publishing remain unconfigured.
+  Workflow lint and Linux/Windows Gradle task-graph selection pass locally. There is no Git remote,
+  so hosted CI and Windows/Linux runtime success are not claimed.
+- All-target publication uncovered a POSIX metadata-commonization failure hidden by individual
+  target compilation: Darwin/Linux stat fields have different native widths. Moved field access
+  into their thin target adapters, preserving the filesystem contracts without leaking those typedefs
+  into common metadata.
+- Every target now publishes locally and the complete ABI check passes. Artifact verification
+  covers 150 publication records and 362 files across all eleven targets. Rebuilt macOS tools pass
+  the 212-case differential matrix, 22 JVM/Native smoke checks and the unpacked complete-data archive.
+- Refreshed Android production evidence after attribution packaging in
+  measurements/android-attributed-publication.json: engine APK increment is 17,289 bytes, dependency
+  increment 235,272 bytes. All four APK budgets pass; engine/one/multi download budgets fail and the
+  complete bundle passes. Budgets remain unchanged; CI intentionally exposes these unresolved gates.
