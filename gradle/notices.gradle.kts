@@ -1,6 +1,8 @@
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Exec
 
+val noticeSourceRoot = rootProject.findProperty("opencc.sourceRoot")?.let { rootProject.file(it) } ?: rootProject.projectDir
+
 // Stage before publication metadata/signing: checksums must describe the shipped bytes. This also
 // embeds notices in native/JS klibs, which do not consume JVM resource source-set packaging.
 extensions.configure<PublishingExtension> {
@@ -10,14 +12,14 @@ extensions.configure<PublishingExtension> {
         val stage = tasks.register<Exec>("embed${capital}Notices") {
             dependsOn(provider { publication.artifacts.flatMap { it.buildDependencies.getDependencies(null) } })
             val manifest = layout.buildDirectory.file("reports/notices/${publication.name}.json")
-            inputs.files(rootProject.files("LICENSE", "NOTICE", "AUTHORS", "upstream.lock.json"))
-            inputs.dir(rootProject.file("licenses"))
-            inputs.file(rootProject.file("tools/embed_notices.py"))
+            inputs.files(rootProject.files(listOf("LICENSE", "NOTICE", "AUTHORS", "upstream.lock.json").map { noticeSourceRoot.resolve(it) }))
+            inputs.dir(noticeSourceRoot.resolve("licenses"))
+            inputs.file(noticeSourceRoot.resolve("tools/embed_notices.py"))
             inputs.property("module", project.name)
             inputs.property("version", project.version.toString())
             // Compilers/JAR tasks can regenerate the artifact independently, so inspect every time.
             outputs.upToDateWhen { false }
-            workingDir(rootDir)
+            workingDir(noticeSourceRoot)
             doFirst {
                 manifest.get().asFile.apply {
                     parentFile.mkdirs()
@@ -25,7 +27,7 @@ extensions.configure<PublishingExtension> {
                         "\"" + it.file.absolutePath.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
                     })
                 }
-                commandLine("python3", rootProject.file("tools/embed_notices.py"), "--module", project.name,
+                commandLine("python3", noticeSourceRoot.resolve("tools/embed_notices.py"), "--module", project.name,
                     "--version", project.version.toString(), "--manifest", manifest.get().asFile)
             }
         }

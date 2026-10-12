@@ -16,9 +16,17 @@ class PublicationNoticesTest(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, "omits target variants"):
             check_root_variants("opencc-core", data, ["jvm", "js"])
 
+    def test_owned_namespace_and_focused_export_targets(self):
+        group="io.github.example.opencc"
+        data={"variants":[{"available-at":{"group":group,"module":"opencc-interop-js"}},
+                          {"available-at":{"group":group,"module":"opencc-interop-macosarm64"}}]}
+        check_root_variants("opencc-interop",data,["js","macosArm64","android","wasmJs"],group)
+        with self.assertRaises(AssertionError): check_root_variants("opencc-interop",data,["jvm"],group)
+
     def test_module_licenses_are_focused(self):
         expected = {
             "opencc-core": {"marisa.txt", "rapidjson.txt"},
+            "opencc-interop": {"marisa.txt", "rapidjson.txt"},
             "opencc-dictionary-tools": {"marisa.txt", "darts-clone.txt"},
             "opencc-jieba": {"CPPJIEBA-LICENSE"},
             "opencc-cli": {"tclap.txt"},

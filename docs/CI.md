@@ -9,6 +9,7 @@ there is not yet a Kotlin formatter gate.
 | Job | Coverage |
 | --- | --- |
 | Linux | JVM/Linux Native/JS/Wasm common tests, all differential matrices, data acceptance, actual published consumers, CLI process comparisons and unpacked JVM/Linux distributions |
+| Android | Owned API 35 x86_64 emulator executes all four R8 release consumer profiles, checks real inline/asset conversion assertions and records APK hashes/device logs |
 | Windows | JVM/Windows Native tests, all three release executable links, Unicode-file conversion/in-place output and binary writer smoke checks |
 | Apple | All configured target compilation/ABI checks, Dokka, JVM/macOS/iOS simulator tests, all local publication variants, artifact checks and independent Android/iOS/JS/Wasm/JVM consumers |
 | Size | Attributed publications, R8 APK and dependency measurements, production webpack/DCE/Wasm and browser execution, Swift release-app/simulator measurements; unchanged checked-in budgets |
@@ -37,8 +38,21 @@ operation/platform export. Configure the owner/repository URL, registry namespac
 contacts, signing credentials and release infrastructure. Decide the initial stable API and record
 its semantic version independently from upstream OpenCC's version.
 
-Current tags trigger verification only. Automatic registry/tag publication remains unconfigured;
-local Maven artifacts and executable archives are reviewable preparation. A release workflow must
-require the conformance/API/resource/size gates, sign final artifacts after notice embedding, verify
-signatures/checksums, and publish every platform variant, selected data pack and complete distribution.
-Never report public publication from local task success.
+Tag publication is implemented in `.github/workflows/release.yml` and remains disabled until the owner
+sets `OPENCC_PUBLIC_RELEASE_ENABLED=true` after complete acceptance review. It runs after Linux,
+Windows, Apple, Android and size jobs pass. Exact-version staged artifacts and consumers are checked
+before the protected `public-release` environment signs and submits the Central bundle. GitHub CLI
+assets are released only after Central confirms publication. See [PUBLICATION.md](PUBLICATION.md) for
+owner variables, secrets, approval and recovery procedures. Neither local task success nor a checked-in
+workflow proves successful hosted execution or public publication.
+
+Android emulator coverage exercises release shrinking and Android asset loading on a real Android
+runtime. The runner owns its temporary AVD and emulator process; it does not stop existing devices.
+The checked-in runner has not been executed locally because this checkout has no installed emulator.
+It does not establish mid-range physical-device startup, throughput or peak-memory targets.
+
+The Apple job also builds `interop/` against published engine artifacts, checks its committed ABI,
+validates generated TypeScript, and executes direct Swift/JavaScript consumers of the optimized exports.
+These checks cover binary resource injection and host-language error/stream contracts; they do not
+replace the complete Kotlin API inventory. Export-library byte measurements are reported separately
+from the engine application's checked-in budgets.

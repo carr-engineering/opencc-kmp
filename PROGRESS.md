@@ -77,6 +77,21 @@ checkbox is completed only when its implementation and relevant checks exist.
   Packaged dictionary bytes do not change; object headers and construction peaks are excluded.
   Physical-device performance and complete memory acceptance remain separate shipping gates.
 
+### Parallel completion work: release infrastructure and platform exports
+
+- Added configurable namespace/version/repository metadata, local exact-version release staging,
+  signature/checksum verification and tag-driven Central/GitHub publication after required CI jobs.
+  Publication remains disabled until owner configuration and complete acceptance review.
+- Release selection includes all 23 single-config packs plus the common multi-config pack; manifests,
+  original config hashes, complete closures and resource hashes are checked before signing.
+- Added opt-in focused Swift/JS exports consuming published core, with real binary injection,
+  inspection/maps, streaming and error/close contracts. Direct and unpacked Node/Swift consumers,
+  seven-target ABI checks and Apple XCFramework/production JS packaging passed locally.
+- Added an owned Android emulator runtime gate and host benchmark wiring. Workflow lint, five
+  signature/integrity tests and five notice tests pass. Final interop documentation/publication and
+  iOS simulator checks are queued with integration. No hosted CI, device or public release success
+  is claimed; this checkout still has no configured Git remote or release credentials.
+
 ## Execution log
 
 ### Foundation

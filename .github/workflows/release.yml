@@ -1,0 +1,184 @@
+name: Signed public release
+"on":
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+concurrency:
+  group: public-release-${{ inputs.release_tag }}
+  cancel-in-progress: false
+jobs:
+  cli:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linuxX64
+            bundle: bundleLinuxX64Cli
+          - os: windows-2022
+            target: mingwX64
+            bundle: bundleMingwX64Cli
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      RELEASE_TAG: ${{ inputs.release_tag }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Verify tag and build CLI distribution
+        shell: bash
+        env:
+          NATIVE_TARGET: ${{ matrix.target }}
+          BUNDLE_TASK: ${{ matrix.bundle }}
+        run: |
+          python tools/release.py check-tag "$RELEASE_TAG" --commit "$GITHUB_SHA"
+          ./gradlew "-Popencc.version=${RELEASE_TAG#v}" "-Popencc.targets=$NATIVE_TARGET" ":opencc-cli:$BUNDLE_TASK"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: release-cli-${{ matrix.target }}
+          path: opencc-cli/build/distributions/*.zip
+          if-no-files-found: error
+
+  stage:
+    runs-on: macos-15
+    timeout-minutes: 120
+    env:
+      RELEASE_TAG: ${{ inputs.release_tag }}
+      OPENCC_GROUP: ${{ vars.OPENCC_GROUP }}
+      OPENCC_REPOSITORY_URL: ${{ vars.OPENCC_REPOSITORY_URL }}
+      OPENCC_DEVELOPER_ID: ${{ vars.OPENCC_DEVELOPER_ID }}
+      OPENCC_DEVELOPER_NAME: ${{ vars.OPENCC_DEVELOPER_NAME }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Require owner metadata and exact release tag
+        run: |
+          test -n "$OPENCC_GROUP" && test -n "$OPENCC_REPOSITORY_URL"
+          test -n "$OPENCC_DEVELOPER_ID" && test -n "$OPENCC_DEVELOPER_NAME"
+          python3 tools/release.py check-tag "$RELEASE_TAG" --commit "$GITHUB_SHA"
+          echo "OPENCC_PACKS=$(python3 tools/release.py pack-selections)" >> "$GITHUB_ENV"
+          python3 tools/select_ci_xcode.py
+          sdkmanager 'platforms;android-36'
+      - name: Stage all release variants with sources and reference documentation
+        run: >-
+          ./gradlew "-Popencc.packs=$OPENCC_PACKS" "-Popencc.group=$OPENCC_GROUP" "-Popencc.version=${RELEASE_TAG#v}"
+          -Popencc.release=true "-Popencc.repositoryUrl=$OPENCC_REPOSITORY_URL"
+          "-Popencc.developerId=$OPENCC_DEVELOPER_ID" "-Popencc.developerName=$OPENCC_DEVELOPER_NAME"
+          publishAllPublicationsToReleaseStagingRepository
+          :opencc-cli:bundleJvmCli :opencc-cli:bundleMacosArm64Cli :opencc-cli:bundleMacosX64Cli
+      - name: Verify release coordinates and independent exact-version consumers
+        run: |
+          python3 tools/verify_publications.py --repository .cache/release/maven --group "$OPENCC_GROUP" --version "${RELEASE_TAG#v}" --targets jvm,android,js,wasmJs,iosArm64,iosSimulatorArm64,iosX64,macosArm64,macosX64,linuxX64,mingwX64
+          python3 tools/test_consumers.py --repository .cache/release/maven --group "$OPENCC_GROUP" --version "${RELEASE_TAG#v}" --profile full :kit:jvmTest :kit:jsNodeTest :kit:wasmJsNodeTest :kit:iosSimulatorArm64Test :android:assembleRelease
+      - name: Stage optional focused Swift and JavaScript release exports
+        run: >-
+          ./gradlew -p interop "-Popencc.group=$OPENCC_GROUP" "-Popencc.version=${RELEASE_TAG#v}"
+          "-Popencc.repository=$PWD/.cache/release/maven" -Popencc.release=true
+          "-Popencc.repositoryUrl=$OPENCC_REPOSITORY_URL" "-Popencc.developerId=$OPENCC_DEVELOPER_ID"
+          "-Popencc.developerName=$OPENCC_DEVELOPER_NAME" publishAllPublicationsToReleaseStagingRepository
+          jvmTest jsNodeTest macosArm64Test iosSimulatorArm64Test
+      - name: Direct Swift and JavaScript consumers and complete release graph
+        run: |
+          python3 tools/test_exports.py
+          python3 tools/release.py inventory --group "$OPENCC_GROUP" --version "${RELEASE_TAG#v}"
+          python3 tools/verify_publications.py --repository .cache/release/maven --group "$OPENCC_GROUP" --version "${RELEASE_TAG#v}" --targets jvm,android,js,wasmJs,iosArm64,iosSimulatorArm64,iosX64,macosArm64,macosX64,linuxX64,mingwX64
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: release-staging
+          include-hidden-files: true
+          if-no-files-found: error
+          path: |
+            .cache/release/maven/**
+            .cache/release/staged-inventory.json
+            .cache/publications-verification.json
+            opencc-cli/build/distributions/*.zip
+
+  publish:
+    needs: [cli, stage]
+    runs-on: macos-15
+    timeout-minutes: 45
+    environment: public-release
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ inputs.release_tag }}
+      OPENCC_GROUP: ${{ vars.OPENCC_GROUP }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: release-*
+          path: .cache/release/downloaded
+      - name: Collect exact-version staged payloads
+        run: |
+          python3 tools/release.py check-tag "$RELEASE_TAG" --commit "$GITHUB_SHA"
+          python3 tools/release.py collect --version "${RELEASE_TAG#v}" --downloaded .cache/release/downloaded
+          brew install gnupg
+      - name: Sign final bytes and verify every signature and checksum
+        env:
+          OPENCC_SIGNING_KEY: ${{ secrets.OPENCC_SIGNING_KEY }}
+          OPENCC_SIGNING_PASSWORD: ${{ secrets.OPENCC_SIGNING_PASSWORD }}
+          OPENCC_SIGNING_KEY_ID: ${{ vars.OPENCC_SIGNING_KEY_ID }}
+        run: |
+          export GNUPGHOME="$(mktemp -d)"
+          chmod 700 "$GNUPGHOME"
+          trap 'rm -rf "$GNUPGHOME"' EXIT
+          python3 tools/release.py import-key
+          python3 tools/release.py prepare --group "$OPENCC_GROUP" --version "${RELEASE_TAG#v}"
+          python3 tools/release.py prepare-assets --version "${RELEASE_TAG#v}"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: signed-release-evidence
+          include-hidden-files: true
+          path: |
+            .cache/release/central-bundle.zip
+            .cache/release/central-bundle.json
+            .cache/release/assets/**
+      - name: Publish validated signed bundle to Maven Central
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+        run: |
+          export GNUPGHOME="$(mktemp -d)"
+          chmod 700 "$GNUPGHOME"
+          trap 'rm -rf "$GNUPGHOME"' EXIT
+          gpg --batch --import .cache/release/assets/release-key.asc
+          python3 tools/release.py upload .cache/release/central-bundle.zip
+      - name: Publish CLI assets after Central confirms publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$RELEASE_TAG" .cache/release/assets/* --verify-tag --title "OpenCC KMP ${RELEASE_TAG#v}" --notes-file .cache/release/assets/RELEASE_NOTES.md
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: central-deployment-state
+          include-hidden-files: true
+          path: .cache/release/deployment.json

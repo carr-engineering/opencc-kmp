@@ -23,8 +23,9 @@ class CorsResources(http.server.SimpleHTTPRequestHandler):
         pass
 
 
-def verify(profile, tasks):
-    base = [str(ROOT / "gradlew"), "-p", str(ROOT / "consumers"), f"-Popencc.profile={profile}"]
+def verify(profile, tasks, group="io.github.opencckmp", version="0.1.0-SNAPSHOT", repository=None):
+    base = [str(ROOT / "gradlew"), "-p", str(ROOT / "consumers"), f"-Popencc.profile={profile}", f"-Popencc.group={group}", f"-Popencc.version={version}"]
+    if repository is not None: base.append(f"-Popencc.repository={repository.resolve()}")
     subprocess.run(base + [":kit:stageResources"], check=True)
     directory = ROOT / f"consumers/build/profiles/{profile}/kit/fixture.bundle"
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(CorsResources, directory=str(directory)))
@@ -51,6 +52,9 @@ def verify(profile, tasks):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="one", choices=["one", "multi", "full"])
+    parser.add_argument("--group", default="io.github.opencckmp")
+    parser.add_argument("--version", default="0.1.0-SNAPSHOT")
+    parser.add_argument("--repository", type=Path)
     parser.add_argument("tasks", nargs="*", default=[":kit:jvmTest", ":kit:jsNodeTest", ":kit:wasmJsNodeTest", ":kit:iosSimulatorArm64Test", ":android:assembleRelease"])
     args = parser.parse_args()
-    verify(args.profile, args.tasks)
+    verify(args.profile, args.tasks, args.group, args.version, args.repository)

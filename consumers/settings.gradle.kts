@@ -4,8 +4,8 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         exclusiveContent {
-            forRepository { maven { url = uri("../.cache/maven") } }
-            filter { includeGroup("io.github.opencckmp") }
+            forRepository { maven { url = uri(providers.gradleProperty("opencc.repository").orElse("../.cache/maven").get()) } }
+            filter { includeGroup(providers.gradleProperty("opencc.group").orElse("io.github.opencckmp").get()) }
         }
         google(); mavenCentral()
     }

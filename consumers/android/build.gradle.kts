@@ -18,6 +18,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
 }
+val openccGroup = providers.gradleProperty("opencc.group").orElse("io.github.opencckmp").get()
+val openccVersion = providers.gradleProperty("opencc.version").orElse("0.1.0-SNAPSHOT").get()
 val profile = providers.gradleProperty("opencc.profile").orElse("one").get()
 val pack = when (profile) {
     "one" -> "opencc-data-s2t"
@@ -27,7 +29,7 @@ val pack = when (profile) {
     else -> error("Unknown profile $profile")
 }
 val dataResources by configurations.creating { isTransitive = false }
-if (pack != null) dependencies.add(dataResources.name, "io.github.opencckmp:$pack:0.1.0-SNAPSHOT:resources@zip")
+if (pack != null) dependencies.add(dataResources.name, "$openccGroup:$pack:$openccVersion:resources@zip")
 val stageResources by tasks.registering(StageResources::class) {
     bundles.from(dataResources)
     outputDirectory.set(layout.buildDirectory.dir("generated/assets"))
@@ -55,8 +57,8 @@ androidComponents {
     }
 }
 dependencies {
-    if (profile != "baseline") implementation("io.github.opencckmp:opencc-core:0.1.0-SNAPSHOT")
-    if (pack != null) implementation("io.github.opencckmp:opencc-platform:0.1.0-SNAPSHOT")
+    if (profile != "baseline") implementation("$openccGroup:opencc-core:$openccVersion")
+    if (pack != null) implementation("$openccGroup:opencc-platform:$openccVersion")
 }
 
 tasks.register("reportDependencyDownloads") {
@@ -66,7 +68,7 @@ tasks.register("reportDependencyDownloads") {
             "coordinate" to coordinate, "file" to file.name, "bytes" to file.length(),
             "sha256" to MessageDigest.getInstance("SHA-256").digest(file.readBytes()).joinToString("") { "%02x".format(it) })
         val records = runtime.map { item(it.moduleVersion.id.toString(), it.file) } +
-            dataResources.files.map { item("io.github.opencckmp:$pack:0.1.0-SNAPSHOT:resources@zip", it) }
+            dataResources.files.map { item("$openccGroup:$pack:$openccVersion:resources@zip", it) }
         layout.buildDirectory.file("reports/dependency-downloads.json").get().asFile.apply {
             parentFile.mkdirs()
             writeText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(records.sortedBy { it["coordinate"].toString() })))

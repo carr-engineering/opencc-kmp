@@ -1,0 +1,51 @@
+public final class io/github/opencckmp/interop/OpenCCInspection {
+	public final fun getInput ()Ljava/lang/String;
+	public final fun getOutput ()Ljava/lang/String;
+	public final fun getPipelineStages ()[Lio/github/opencckmp/interop/OpenCCInspection;
+	public final fun getSegments ()[Ljava/lang/String;
+	public final fun getStages ()[Lio/github/opencckmp/interop/OpenCCInspectionStage;
+}
+
+public final class io/github/opencckmp/interop/OpenCCInspectionStage {
+	public final fun getIndex ()I
+	public final fun getSegments ()[Ljava/lang/String;
+}
+
+public final class io/github/opencckmp/interop/OpenCCMappedResult {
+	public final fun getOutput ()Ljava/lang/String;
+	public final fun getSegments ()[Lio/github/opencckmp/interop/OpenCCSegment;
+}
+
+public final class io/github/opencckmp/interop/OpenCCResources {
+	public fun <init> ()V
+	public final fun clear ()V
+	public final fun load (Ljava/lang/String;Z)Lio/github/opencckmp/interop/OpenCCSession;
+	public final fun loadJson (Ljava/lang/String;Ljava/lang/String;Z)Lio/github/opencckmp/interop/OpenCCSession;
+	public final fun put (Ljava/lang/String;[B)V
+	public final fun putText (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun remove (Ljava/lang/String;)Z
+}
+
+public final class io/github/opencckmp/interop/OpenCCSegment {
+	public final fun getSourceEnd ()I
+	public final fun getSourceStart ()I
+	public final fun getTargetEnd ()I
+	public final fun getTargetStart ()I
+}
+
+public final class io/github/opencckmp/interop/OpenCCSession {
+	public final fun close ()V
+	public final fun convert (Ljava/lang/String;)Ljava/lang/String;
+	public final fun convertPrefix (Ljava/lang/String;I)Ljava/lang/String;
+	public final fun convertRange (Ljava/lang/String;II)Ljava/lang/String;
+	public final fun convertUtf8 ([B)[B
+	public final fun convertWithSegments (Ljava/lang/String;)Lio/github/opencckmp/interop/OpenCCMappedResult;
+	public final fun inspect (Ljava/lang/String;)Lio/github/opencckmp/interop/OpenCCInspection;
+	public final fun stream (I)Lio/github/opencckmp/interop/OpenCCStream;
+}
+
+public final class io/github/opencckmp/interop/OpenCCStream {
+	public final fun convertChunk (Ljava/lang/String;)Ljava/lang/String;
+	public final fun finish (Ljava/lang/String;)Ljava/lang/String;
+}
+

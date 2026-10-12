@@ -12,8 +12,8 @@ plugins {
 }
 
 allprojects {
-    group = "io.github.opencckmp"
-    version = "0.1.0-SNAPSHOT"
+    group = providers.gradleProperty("opencc.group").orElse("io.github.opencckmp").get()
+    version = providers.gradleProperty("opencc.version").orElse("0.1.0-SNAPSHOT").get()
 }
 
 val requestedTargets = providers.gradleProperty("opencc.targets").orNull?.split(',')?.toSet()
@@ -86,6 +86,7 @@ subprojects {
         }
     }
     apply(from = rootProject.file("gradle/notices.gradle.kts"))
+    apply(from = rootProject.file("gradle/release.gradle.kts"))
     if (name == "opencc-data" || name.startsWith("opencc-data-")) {
         val generateDataIdentity = tasks.register("generateDataIdentity") {
             val destination = layout.buildDirectory.file("generated/kotlin/DataIdentity.kt")

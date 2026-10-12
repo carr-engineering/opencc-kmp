@@ -2,6 +2,8 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 
 plugins { kotlin("multiplatform") }
 
+val openccGroup = providers.gradleProperty("opencc.group").orElse("io.github.opencckmp").get()
+val openccVersion = providers.gradleProperty("opencc.version").orElse("0.1.0-SNAPSHOT").get()
 val profile = providers.gradleProperty("opencc.profile").orElse("one").get()
 val smallBinary = providers.gradleProperty("opencc.native.smallBinary").orElse("false").get().toBooleanStrict()
 val buildProfile = profile + if (smallBinary) "-small" else ""
@@ -14,7 +16,7 @@ val pack = when (profile) {
     else -> error("Unknown opencc.profile $profile")
 }
 val resources by configurations.creating { isTransitive = false }
-if (pack != null) dependencies.add(resources.name, "io.github.opencckmp:$pack:0.1.0-SNAPSHOT:resources@zip")
+if (pack != null) dependencies.add(resources.name, "$openccGroup:$pack:$openccVersion:resources@zip")
 val stageResources by tasks.registering(Sync::class) {
     from({ resources.map { zipTree(it) } })
     into(layout.buildDirectory.dir("fixture.bundle"))
@@ -52,8 +54,8 @@ kotlin {
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
-            if (profile != "baseline") implementation("io.github.opencckmp:opencc-core:0.1.0-SNAPSHOT")
-            if (pack != null) implementation("io.github.opencckmp:opencc-platform:0.1.0-SNAPSHOT")
+            if (profile != "baseline") implementation("$openccGroup:opencc-core:$openccVersion")
+            if (pack != null) implementation("$openccGroup:opencc-platform:$openccVersion")
         }
         commonMain {
             kotlin.srcDir(if (pack == null) "src/$profile/kotlin" else "src/data/kotlin")
@@ -65,8 +67,8 @@ kotlin {
         }
         commonTest.dependencies { implementation(kotlin("test")) }
         commonTest { kotlin.srcDir(layout.buildDirectory.dir("generatedTest/kotlin")) }
-        if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-cache:0.1.0-SNAPSHOT") }
-        if (profile != "baseline") commonTest.dependencies { implementation("io.github.opencckmp:opencc-jieba:0.1.0-SNAPSHOT") }
+        if (profile != "baseline") commonTest.dependencies { implementation("$openccGroup:opencc-cache:$openccVersion") }
+        if (profile != "baseline") commonTest.dependencies { implementation("$openccGroup:opencc-jieba:$openccVersion") }
         if (profile != "baseline") commonTest { kotlin.srcDir("src/engineTest/kotlin") }
         commonMain { resources.srcDir(layout.buildDirectory.dir("fixture.bundle")) }
     }

@@ -13,12 +13,13 @@ SUFFIXES={'jvm':'-jvm','android':'-android','js':'-js','wasmJs':'-wasm-js','maco
 
 def target_coordinates(module,targets):
     return {module+SUFFIXES[target] for target in targets
-            if module!='opencc-cli' or target in {'jvm','macosArm64','macosX64','linuxX64','mingwX64'}}
+            if (module!='opencc-cli' or target in {'jvm','macosArm64','macosX64','linuxX64','mingwX64'})
+            and (module!='opencc-interop' or target in {'jvm','js','iosArm64','iosSimulatorArm64','iosX64','macosArm64','macosX64'})}
 
 
-def check_root_variants(module,data,targets):
+def check_root_variants(module,data,targets,group="io.github.opencckmp"):
     redirects={variant['available-at']['module'] for variant in data['variants']
-               if variant.get('available-at',{}).get('group')=='io.github.opencckmp'}
+               if variant.get('available-at',{}).get('group')==group}
     required=target_coordinates(module,targets)
     assert required.issubset(redirects),(module,'Root metadata omits target variants',sorted(required-redirects))
 
@@ -39,7 +40,7 @@ def check_artifact(path,module):
             assert artifact.read(prefix+name)==(ROOT/name).read_bytes(),(path,name,'stale notice')
         provenance=json.loads(artifact.read(prefix+'provenance.json'))
         assert provenance['upstream']==LOCK,(path,'upstream')
-        if module=='opencc-core':
+        if module in ['opencc-core','opencc-interop']:
             assert all(prefix+name in names for name in ['licenses/marisa.txt','licenses/rapidjson.txt']),path
         elif module=='opencc-dictionary-tools':
             assert all(prefix+name in names for name in ['licenses/marisa.txt','licenses/darts-clone.txt']),path
@@ -50,21 +51,23 @@ def check_artifact(path,module):
                 assert all(info.compress_type==zipfile.ZIP_STORED for info in classes.infolist()),(path,'nested class compression')
 
 
-def verify(repository,targets):
+def verify(repository,targets,group="io.github.opencckmp",version=None):
     assert set(targets).issubset(SUFFIXES),('Unknown targets',targets)
-    group=repository/'io/github/opencckmp'
+    group_path=repository.joinpath(*group.split('.'))
     checked=[]
     # Match Wasm before JS: '-wasm-js' also ends in '-js'.
     suffixes=sorted(SUFFIXES.values(),key=len,reverse=True)
-    for directory in sorted(group.iterdir()):
+    for directory in sorted(group_path.iterdir()):
         suffix=next((suffix for suffix in suffixes if directory.name.endswith(suffix)),None)
         if suffix is not None and suffix not in [SUFFIXES[target] for target in targets]: continue
-        metadata=list(directory.glob('*/*.module'))
+        metadata=list(directory.glob((version or '*')+'/*.module'))
         if not metadata: continue
         latest=max(metadata,key=lambda path:path.stat().st_mtime_ns)
         data=json.loads(latest.read_text())
+        assert data['component']['group']==group,(latest,'group mismatch')
+        if version is not None: assert data['component']['version']==version,(latest,'version mismatch')
         module=directory.name[:-len(suffix)] if suffix else directory.name
-        if suffix is None: check_root_variants(module,data,targets)
+        if suffix is None: check_root_variants(module,data,targets,group)
         files={file['name']:file for variant in data['variants'] for file in variant.get('files',[])}
         for name,spec in files.items():
             path=latest.parent/spec['url']
@@ -77,11 +80,14 @@ def verify(repository,targets):
                 if algorithm in spec: assert hashlib.new(algorithm,content).hexdigest()==spec[algorithm],(path,algorithm)
             if path.suffix in ['.jar','.aar','.klib','.zip']: check_artifact(path,module)
         all_dependencies=[dependency for variant in data['variants'] for dependency in variant.get('dependencies',[])]
-        dependencies=[dependency['module'] for dependency in all_dependencies if dependency.get('group')=='io.github.opencckmp']
+        if version is not None:
+            assert all(dependency.get('version',{}).get('requires')==version
+                       for dependency in all_dependencies if dependency.get('group')==group),(directory,'internal version mismatch')
+        dependencies=[dependency['module'] for dependency in all_dependencies if dependency.get('group')==group]
         if module=='opencc-core':
             assert all(dependency['group']=='org.jetbrains.kotlin' and dependency['module']=='kotlin-stdlib'
                        for dependency in all_dependencies),(directory,'core must remain stdlib-only',all_dependencies)
-        if module in ['opencc-platform','opencc-cache','opencc-jieba','opencc-zip','opencc-detect']:
+        if module in ['opencc-platform','opencc-cache','opencc-jieba','opencc-zip','opencc-detect','opencc-interop']:
             assert all(name.startswith('opencc-core') for name in dependencies),(directory,dependencies)
         if module=='opencc-all':
             required={'opencc-core','opencc-platform','opencc-cache','opencc-jieba','opencc-zip','opencc-dictionary-tools','opencc-data','opencc-phrase-extract'}
@@ -93,7 +99,7 @@ def verify(repository,targets):
     expected=set(modules)
     for module in modules: expected.update(target_coordinates(module,targets))
     assert expected.issubset(coordinates),('Missing publications',sorted(expected-coordinates))
-    report={'schema_version':1,'targets':targets,'publications':checked,'upstream':LOCK}
+    report={'schema_version':1,'group':group,'version':version,'targets':targets,'publications':checked,'upstream':LOCK}
     destination=ROOT/'.cache/publications-verification.json';destination.write_text(json.dumps(report,sort_keys=True,indent=2)+'\n')
     print(json.dumps({'publications':len(checked),'artifacts':sum(len(row['artifacts']) for row in checked)}))
     return report
@@ -103,4 +109,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repository',type=Path,default=ROOT/'.cache/maven')
     parser.add_argument('--targets',default='jvm,android,js,wasmJs,macosArm64,iosSimulatorArm64')
-    args=parser.parse_args();verify(args.repository,args.targets.split(','))
+    parser.add_argument('--group',default='io.github.opencckmp')
+    parser.add_argument('--version')
+    args=parser.parse_args();verify(args.repository,args.targets.split(','),args.group,args.version)

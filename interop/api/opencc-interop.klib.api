@@ -1,0 +1,72 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, macosArm64, macosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.opencckmp:opencc-interop>
+final class io.github.opencckmp.interop/OpenCCInspection { // io.github.opencckmp.interop/OpenCCInspection|null[0]
+    final val input // io.github.opencckmp.interop/OpenCCInspection.input|{}input[0]
+        final fun <get-input>(): kotlin/String // io.github.opencckmp.interop/OpenCCInspection.input.<get-input>|<get-input>(){}[0]
+    final val output // io.github.opencckmp.interop/OpenCCInspection.output|{}output[0]
+        final fun <get-output>(): kotlin/String // io.github.opencckmp.interop/OpenCCInspection.output.<get-output>|<get-output>(){}[0]
+    final val pipelineStages // io.github.opencckmp.interop/OpenCCInspection.pipelineStages|{}pipelineStages[0]
+        final fun <get-pipelineStages>(): kotlin/Array<io.github.opencckmp.interop/OpenCCInspection> // io.github.opencckmp.interop/OpenCCInspection.pipelineStages.<get-pipelineStages>|<get-pipelineStages>(){}[0]
+    final val segments // io.github.opencckmp.interop/OpenCCInspection.segments|{}segments[0]
+        final fun <get-segments>(): kotlin/Array<kotlin/String> // io.github.opencckmp.interop/OpenCCInspection.segments.<get-segments>|<get-segments>(){}[0]
+    final val stages // io.github.opencckmp.interop/OpenCCInspection.stages|{}stages[0]
+        final fun <get-stages>(): kotlin/Array<io.github.opencckmp.interop/OpenCCInspectionStage> // io.github.opencckmp.interop/OpenCCInspection.stages.<get-stages>|<get-stages>(){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCInspectionStage { // io.github.opencckmp.interop/OpenCCInspectionStage|null[0]
+    final val index // io.github.opencckmp.interop/OpenCCInspectionStage.index|{}index[0]
+        final fun <get-index>(): kotlin/Int // io.github.opencckmp.interop/OpenCCInspectionStage.index.<get-index>|<get-index>(){}[0]
+    final val segments // io.github.opencckmp.interop/OpenCCInspectionStage.segments|{}segments[0]
+        final fun <get-segments>(): kotlin/Array<kotlin/String> // io.github.opencckmp.interop/OpenCCInspectionStage.segments.<get-segments>|<get-segments>(){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCMappedResult { // io.github.opencckmp.interop/OpenCCMappedResult|null[0]
+    final val output // io.github.opencckmp.interop/OpenCCMappedResult.output|{}output[0]
+        final fun <get-output>(): kotlin/String // io.github.opencckmp.interop/OpenCCMappedResult.output.<get-output>|<get-output>(){}[0]
+    final val segments // io.github.opencckmp.interop/OpenCCMappedResult.segments|{}segments[0]
+        final fun <get-segments>(): kotlin/Array<io.github.opencckmp.interop/OpenCCSegment> // io.github.opencckmp.interop/OpenCCMappedResult.segments.<get-segments>|<get-segments>(){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCResources { // io.github.opencckmp.interop/OpenCCResources|null[0]
+    constructor <init>() // io.github.opencckmp.interop/OpenCCResources.<init>|<init>(){}[0]
+
+    final fun clear() // io.github.opencckmp.interop/OpenCCResources.clear|clear(){}[0]
+    final fun load(kotlin/String, kotlin/Boolean): io.github.opencckmp.interop/OpenCCSession // io.github.opencckmp.interop/OpenCCResources.load|load(kotlin.String;kotlin.Boolean){}[0]
+    final fun loadJson(kotlin/String, kotlin/String, kotlin/Boolean): io.github.opencckmp.interop/OpenCCSession // io.github.opencckmp.interop/OpenCCResources.loadJson|loadJson(kotlin.String;kotlin.String;kotlin.Boolean){}[0]
+    final fun put(kotlin/String, kotlin/ByteArray) // io.github.opencckmp.interop/OpenCCResources.put|put(kotlin.String;kotlin.ByteArray){}[0]
+    final fun putText(kotlin/String, kotlin/String) // io.github.opencckmp.interop/OpenCCResources.putText|putText(kotlin.String;kotlin.String){}[0]
+    final fun remove(kotlin/String): kotlin/Boolean // io.github.opencckmp.interop/OpenCCResources.remove|remove(kotlin.String){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCSegment { // io.github.opencckmp.interop/OpenCCSegment|null[0]
+    final val sourceEnd // io.github.opencckmp.interop/OpenCCSegment.sourceEnd|{}sourceEnd[0]
+        final fun <get-sourceEnd>(): kotlin/Int // io.github.opencckmp.interop/OpenCCSegment.sourceEnd.<get-sourceEnd>|<get-sourceEnd>(){}[0]
+    final val sourceStart // io.github.opencckmp.interop/OpenCCSegment.sourceStart|{}sourceStart[0]
+        final fun <get-sourceStart>(): kotlin/Int // io.github.opencckmp.interop/OpenCCSegment.sourceStart.<get-sourceStart>|<get-sourceStart>(){}[0]
+    final val targetEnd // io.github.opencckmp.interop/OpenCCSegment.targetEnd|{}targetEnd[0]
+        final fun <get-targetEnd>(): kotlin/Int // io.github.opencckmp.interop/OpenCCSegment.targetEnd.<get-targetEnd>|<get-targetEnd>(){}[0]
+    final val targetStart // io.github.opencckmp.interop/OpenCCSegment.targetStart|{}targetStart[0]
+        final fun <get-targetStart>(): kotlin/Int // io.github.opencckmp.interop/OpenCCSegment.targetStart.<get-targetStart>|<get-targetStart>(){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCSession { // io.github.opencckmp.interop/OpenCCSession|null[0]
+    final fun close() // io.github.opencckmp.interop/OpenCCSession.close|close(){}[0]
+    final fun convert(kotlin/String): kotlin/String // io.github.opencckmp.interop/OpenCCSession.convert|convert(kotlin.String){}[0]
+    final fun convertPrefix(kotlin/String, kotlin/Int): kotlin/String // io.github.opencckmp.interop/OpenCCSession.convertPrefix|convertPrefix(kotlin.String;kotlin.Int){}[0]
+    final fun convertRange(kotlin/String, kotlin/Int, kotlin/Int): kotlin/String // io.github.opencckmp.interop/OpenCCSession.convertRange|convertRange(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun convertUtf8(kotlin/ByteArray): kotlin/ByteArray // io.github.opencckmp.interop/OpenCCSession.convertUtf8|convertUtf8(kotlin.ByteArray){}[0]
+    final fun convertWithSegments(kotlin/String): io.github.opencckmp.interop/OpenCCMappedResult // io.github.opencckmp.interop/OpenCCSession.convertWithSegments|convertWithSegments(kotlin.String){}[0]
+    final fun inspect(kotlin/String): io.github.opencckmp.interop/OpenCCInspection // io.github.opencckmp.interop/OpenCCSession.inspect|inspect(kotlin.String){}[0]
+    final fun stream(kotlin/Int): io.github.opencckmp.interop/OpenCCStream // io.github.opencckmp.interop/OpenCCSession.stream|stream(kotlin.Int){}[0]
+}
+
+final class io.github.opencckmp.interop/OpenCCStream { // io.github.opencckmp.interop/OpenCCStream|null[0]
+    final fun convertChunk(kotlin/String): kotlin/String // io.github.opencckmp.interop/OpenCCStream.convertChunk|convertChunk(kotlin.String){}[0]
+    final fun finish(kotlin/String): kotlin/String // io.github.opencckmp.interop/OpenCCStream.finish|finish(kotlin.String){}[0]
+}

@@ -33,6 +33,7 @@ jobs:
           python3 -m compileall -q tools
           python3 tools/lint_workflows.py
           python3 tools/test_publication_notices.py
+          python3 tools/test_release.py
           git show --format= --check HEAD
       - name: Portable tests and Linux Native execution
         run: ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs jvmTest linuxX64Test jsNodeTest wasmJsNodeTest
@@ -40,7 +41,7 @@ jobs:
         run: >-
           ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs
           upstreamConformance upstreamWriterConformance upstreamPhraseConformance
-          upstreamJiebaConformance upstreamDataDetection
+          upstreamJiebaConformance upstreamDataDetection resourceConformance
       - name: Complete and selective data acceptance
         run: python3 tools/test_data.py
       - name: Build local publications and CLI distributions
@@ -52,10 +53,14 @@ jobs:
         run: |
           python3 tools/verify_publications.py --targets jvm,linuxX64,js,wasmJs
           python3 tools/test_consumers.py --profile full :kit:jvmTest :kit:jsNodeTest :kit:wasmJsNodeTest
+      - name: Published-engine JMH workloads and whole-output native comparison
+        run: python3 tools/run_benchmarks.py --probes-ready
       - name: Tool processes and unpacked distributions
         run: |
           python3 tools/test_cli.py --backend jvm
           python3 tools/test_cli.py --backend native --native-target linuxX64
+          python3 tools/test_cli_upstream.py --backend jvm
+          python3 tools/test_cli_upstream.py --backend native --native-target linuxX64
           python3 tools/test_cli_distributions.py jvm linuxX64
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: always()
@@ -65,10 +70,38 @@ jobs:
           path: |
             **/build/reports/tests/**
             .cache/cli-contract/report-*.json
+            .cache/cli-upstream/report-*.json
             .cache/cli-contract/differences-*.json
             .cache/cli-unpacked/report.json
             .cache/publications-verification.json
             .cache/oracle-build.log
+            .cache/benchmarks/**
+
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - name: Prepare Android runtime and real published variants
+        run: |
+          sudo chmod 666 /dev/kvm
+          sdkmanager 'platforms;android-36' 'platform-tools' 'emulator' 'system-images;android-35;google_apis;x86_64'
+          ./gradlew -Popencc.targets=android publishAllPublicationsToConsumerRepository
+      - name: Execute R8 release applications using shipped resources
+        run: python3 tools/test_android_runtime.py --emulator
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: android-runtime
+          include-hidden-files: true
+          path: .cache/android-runtime/**
 
   windows:
     runs-on: windows-2022
@@ -121,13 +154,17 @@ jobs:
           xcrun simctl list runtimes
           sdkmanager 'platforms;android-36'
       - name: All-target compilation, API compatibility and reference docs
-        run: ./gradlew checkKotlinAbi dokkaGenerate jvmTest macosArm64Test iosSimulatorArm64Test
+        run: ./gradlew checkKotlinAbi dokkaGenerate jvmTest macosArm64Test iosSimulatorArm64Test resourceConformance
       - name: Publish every KMP variant locally
         run: ./gradlew publishAllPublicationsToConsumerRepository
       - name: Every target artifact and independent consumers
         run: |
           python3 tools/verify_publications.py --targets jvm,android,js,wasmJs,iosArm64,iosSimulatorArm64,iosX64,macosArm64,macosX64,linuxX64,mingwX64
           python3 tools/test_consumers.py --profile full :kit:jvmTest :kit:jsNodeTest :kit:wasmJsNodeTest :kit:iosSimulatorArm64Test :android:assembleRelease
+      - name: Focused exports, ABI and direct host-language consumers
+        run: |
+          ./gradlew -p interop checkKotlinAbi jvmTest jsNodeTest macosArm64Test iosSimulatorArm64Test linkReleaseFrameworkMacosArm64 jsBrowserProductionLibraryDistribution
+          python3 tools/test_exports.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: always()
         with:
@@ -137,6 +174,7 @@ jobs:
             **/build/reports/tests/**
             build/dokka/html/**
             .cache/publications-verification.json
+            .cache/exports/report.json
 
   size:
     runs-on: macos-15
@@ -176,3 +214,13 @@ jobs:
           path: |
             .cache/measurements/*-current.json
             .cache/consumer-xcode/*.log
+
+  release:
+    needs: [linux, windows, apple, android, size]
+    if: startsWith(github.ref, 'refs/tags/v') && vars.OPENCC_PUBLIC_RELEASE_ENABLED == 'true'
+    uses: ./.github/workflows/release.yml
+    permissions:
+      contents: write
+    with:
+      release_tag: ${{ github.ref_name }}
+    secrets: inherit
