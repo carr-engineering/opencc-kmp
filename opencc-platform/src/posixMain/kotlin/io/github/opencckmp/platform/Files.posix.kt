@@ -31,3 +31,11 @@ actual fun writeFileBytes(path: String, bytes: ByteArray) {
     } finally { fclose(file) }
 }
 
+
+internal actual fun environmentDataDirectory(): String? = getenv("OPENCC_DATA_DIR")?.toKString()
+
+internal actual fun canReadConfigPath(path: String): Boolean {
+    val file = fopen(path, "rb") ?: return false
+    fclose(file)
+    return true
+}

@@ -5,11 +5,23 @@ public final class io/github/opencckmp/platform/ClasspathResourceProvider : io/g
 	public fun read (Ljava/lang/String;)[B
 }
 
-public final class io/github/opencckmp/platform/FileResourceProvider : io/github/opencckmp/ResourceProvider {
+public final class io/github/opencckmp/platform/FileConfigLoader {
+	public fun <init> ()V
+	public fun <init> (Lio/github/opencckmp/ResourceProvider;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;)V
+	public synthetic fun <init> (Lio/github/opencckmp/ResourceProvider;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lio/github/opencckmp/DictionaryCache;Ljava/lang/Object;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun newFromFile (Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
+	public static synthetic fun newFromFile$default (Lio/github/opencckmp/platform/FileConfigLoader;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
+	public final fun newFromString (Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
+	public static synthetic fun newFromString$default (Lio/github/opencckmp/platform/FileConfigLoader;Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
+}
+
+public final class io/github/opencckmp/platform/FileResourceProvider : io/github/opencckmp/ResourceMetadataProvider {
 	public fun <init> ()V
 	public fun <init> (Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getResource (Ljava/lang/String;)Lio/github/opencckmp/Resource;
 	public fun read (Ljava/lang/String;)[B
+	public fun resolve (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class io/github/opencckmp/platform/Files_jvmKt {

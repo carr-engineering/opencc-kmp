@@ -7,10 +7,19 @@
 // - Show declarations: true
 
 // Library unique name: <io.github.opencckmp:opencc-platform>
-final class io.github.opencckmp.platform/FileResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.platform/FileResourceProvider|null[0]
+final class io.github.opencckmp.platform/FileConfigLoader { // io.github.opencckmp.platform/FileConfigLoader|null[0]
+    constructor <init>(io.github.opencckmp/ResourceProvider? = ..., kotlin.collections/List<kotlin/String> = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<io.github.opencckmp/DictionaryReader> = ..., kotlin.collections/Map<kotlin/String, io.github.opencckmp/SegmentationFactory> = ..., kotlin/Function1<io.github.opencckmp/ConfigWarning, kotlin/Unit>? = ..., io.github.opencckmp/DictionaryCache? = ..., kotlin/Any? = ...) // io.github.opencckmp.platform/FileConfigLoader.<init>|<init>(io.github.opencckmp.ResourceProvider?;kotlin.collections.List<kotlin.String>;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.collections.List<io.github.opencckmp.DictionaryReader>;kotlin.collections.Map<kotlin.String,io.github.opencckmp.SegmentationFactory>;kotlin.Function1<io.github.opencckmp.ConfigWarning,kotlin.Unit>?;io.github.opencckmp.DictionaryCache?;kotlin.Any?){}[0]
+
+    final fun newFromFile(kotlin/String, io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp.platform/FileConfigLoader.newFromFile|newFromFile(kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
+    final fun newFromString(kotlin/String, kotlin/String = ..., io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp.platform/FileConfigLoader.newFromString|newFromString(kotlin.String;kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
+}
+
+final class io.github.opencckmp.platform/FileResourceProvider : io.github.opencckmp/ResourceMetadataProvider { // io.github.opencckmp.platform/FileResourceProvider|null[0]
     constructor <init>(kotlin.collections/List<kotlin/String> = ...) // io.github.opencckmp.platform/FileResourceProvider.<init>|<init>(kotlin.collections.List<kotlin.String>){}[0]
 
+    final fun getResource(kotlin/String): io.github.opencckmp/Resource // io.github.opencckmp.platform/FileResourceProvider.getResource|getResource(kotlin.String){}[0]
     final fun read(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/FileResourceProvider.read|read(kotlin.String){}[0]
+    final fun resolve(kotlin/String): kotlin/String // io.github.opencckmp.platform/FileResourceProvider.resolve|resolve(kotlin.String){}[0]
 }
 
 final fun io.github.opencckmp.platform/readFileBytes(kotlin/String): kotlin/ByteArray // io.github.opencckmp.platform/readFileBytes|readFileBytes(kotlin.String){}[0]

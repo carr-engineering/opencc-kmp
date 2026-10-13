@@ -38,7 +38,7 @@ class NumericContractTest {
         assertEquals(Double.POSITIVE_INFINITY, cDoubleComplete("inf"))
         assertTrue(assertNotNull(cDoubleComplete("nan(payload)")).isNaN())
         assertEquals(1.0, cDoubleComplete("1\u0000tail"))
-        for (input in listOf("1 ", "1tail", "1e+", "0x", "", "\u00a01"))
+        for (input in listOf("1 ", "1tail", "1e+", "0x", "", "\u00a01", "ınf"))
             assertNull(cDoubleComplete(input), input)
     }
 }

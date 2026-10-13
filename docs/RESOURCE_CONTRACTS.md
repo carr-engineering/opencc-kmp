@@ -1,5 +1,8 @@
 # Resource operations
 
+For local configuration discovery and separate configuration/dictionary providers,
+see [filesystem configuration loading](FILE_CONFIG_CONTRACTS.md).
+
 The mapping targets OpenCC `ver.1.4.2`, commit
 `025f371dc76b598d77384fbdab90c937471844d8`. It preserves resource operations and
 observable lookup behaviour with Kotlin ownership. The engine still depends only

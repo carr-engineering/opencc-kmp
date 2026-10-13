@@ -99,6 +99,7 @@ public final class io/github/opencckmp/Config {
 	public final fun newFromFile (Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
 	public static synthetic fun newFromFile$default (Lio/github/opencckmp/Config;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
 	public final fun newFromString (Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;)Lio/github/opencckmp/Converter;
+	public final fun newFromString (Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;Ljava/lang/String;)Lio/github/opencckmp/Converter;
 	public static synthetic fun newFromString$default (Lio/github/opencckmp/Config;Ljava/lang/String;Ljava/lang/String;Lio/github/opencckmp/ConfigLoadOptions;ILjava/lang/Object;)Lio/github/opencckmp/Converter;
 }
 
@@ -368,6 +369,11 @@ public final class io/github/opencckmp/EncodedAnnotatedConversion {
 	public final fun getSources ()Ljava/util/List;
 }
 
+public final class io/github/opencckmp/EncodedCandidatesKt {
+	public static final fun getAllConversionsUtf8 (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;)Ljava/util/List;
+	public static synthetic fun getAllConversionsUtf8$default (Lio/github/opencckmp/Converter;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)Ljava/util/List;
+}
+
 public final class io/github/opencckmp/EncodedInputMode : java/lang/Enum {
 	public static final field LengthDelimited Lio/github/opencckmp/EncodedInputMode;
 	public static final field NullTerminated Lio/github/opencckmp/EncodedInputMode;
@@ -539,6 +545,39 @@ public class io/github/opencckmp/PipelineConverter : io/github/opencckmp/Convert
 	public fun getSegmentation ()Lio/github/opencckmp/Segmentation;
 	public fun inspect (Ljava/lang/String;)Lio/github/opencckmp/ConversionInspectionResult;
 	public fun inspectUtf8 ([BIILio/github/opencckmp/EncodedInputMode;)Lio/github/opencckmp/EncodedInspectionResult;
+}
+
+public final class io/github/opencckmp/PrefixScan {
+	public fun <init> (Lio/github/opencckmp/Dict;)V
+	public final fun skipUnmatchable (Ljava/lang/String;II)I
+	public static synthetic fun skipUnmatchable$default (Lio/github/opencckmp/PrefixScan;Ljava/lang/String;IIILjava/lang/Object;)I
+	public final fun skipUnmatchableUtf8 ([BII)I
+	public static synthetic fun skipUnmatchableUtf8$default (Lio/github/opencckmp/PrefixScan;[BIIILjava/lang/Object;)I
+}
+
+public final class io/github/opencckmp/PrefixScanKt {
+	public static final fun skipUnmatchable (Lio/github/opencckmp/Dict;Ljava/lang/String;II)I
+	public static synthetic fun skipUnmatchable$default (Lio/github/opencckmp/Dict;Ljava/lang/String;IIILjava/lang/Object;)I
+	public static final fun skipUnmatchableUtf8 (Lio/github/opencckmp/Dict;[BII)I
+	public static synthetic fun skipUnmatchableUtf8$default (Lio/github/opencckmp/Dict;[BIIILjava/lang/Object;)I
+}
+
+public class io/github/opencckmp/Resource {
+	public fun <init> (Ljava/lang/String;[BLjava/lang/Object;)V
+	public final fun getBytes ()[B
+	public final fun getCacheKey ()Ljava/lang/Object;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSize ()I
+}
+
+public final class io/github/opencckmp/ResourceMetadataKt {
+	public static final fun getResource (Lio/github/opencckmp/ResourceProvider;Ljava/lang/String;)Lio/github/opencckmp/Resource;
+	public static final fun resolve (Lio/github/opencckmp/ResourceProvider;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract interface class io/github/opencckmp/ResourceMetadataProvider : io/github/opencckmp/ResourceProvider {
+	public abstract fun getResource (Ljava/lang/String;)Lio/github/opencckmp/Resource;
+	public abstract fun resolve (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract interface class io/github/opencckmp/ResourceProvider {
@@ -746,5 +785,41 @@ public final class io/github/opencckmp/Utf8ConverterStream {
 	public static synthetic fun finish$default (Lio/github/opencckmp/Utf8ConverterStream;[BILjava/lang/Object;)[B
 	public final fun getConverter ()Lio/github/opencckmp/Converter;
 	public final fun getMaxKeepChars ()I
+}
+
+public final class io/github/opencckmp/Utf8UtilitiesKt {
+	public static final fun byteMap (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;)[I
+	public static final fun byteMap (Lio/github/opencckmp/UTF8Util;[BIILio/github/opencckmp/EncodedInputMode;)[I
+	public static synthetic fun byteMap$default (Lio/github/opencckmp/UTF8Util;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[I
+	public static final fun commonPrefixEnd (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;Ljava/lang/String;)I
+	public static final fun containsVariationSelector (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;)Z
+	public static final fun containsVariationSelector (Lio/github/opencckmp/UTF8Util;[BII)Z
+	public static synthetic fun containsVariationSelector$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)Z
+	public static final fun encodedLength (Lio/github/opencckmp/UTF8Util;[BIILio/github/opencckmp/EncodedInputMode;)I
+	public static synthetic fun encodedLength$default (Lio/github/opencckmp/UTF8Util;[BIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)I
+	public static final fun findNextInline (Lio/github/opencckmp/UTF8Util;[BBII)I
+	public static synthetic fun findNextInline$default (Lio/github/opencckmp/UTF8Util;[BBIIILjava/lang/Object;)I
+	public static final fun ideographicDescriptionByteEnd (Lio/github/opencckmp/UTF8Util;[BII)I
+	public static synthetic fun ideographicDescriptionByteEnd$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)I
+	public static final fun ideographicDescriptionEnd (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;II)I
+	public static synthetic fun ideographicDescriptionEnd$default (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;IIILjava/lang/Object;)I
+	public static final fun ideographicDescriptionOperatorArity (Lio/github/opencckmp/UTF8Util;I)I
+	public static final fun isIncompleteIdeographicDescriptionBytePrefix (Lio/github/opencckmp/UTF8Util;[BII)Z
+	public static synthetic fun isIncompleteIdeographicDescriptionBytePrefix$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)Z
+	public static final fun isIncompleteIdeographicDescriptionPrefix (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;II)Z
+	public static synthetic fun isIncompleteIdeographicDescriptionPrefix$default (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;IIILjava/lang/Object;)Z
+	public static final fun isVariationSelector (Lio/github/opencckmp/UTF8Util;I)Z
+	public static final fun nextByteIndex (Lio/github/opencckmp/UTF8Util;[BII)I
+	public static synthetic fun nextByteIndex$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)I
+	public static final fun nextByteLength (Lio/github/opencckmp/UTF8Util;[BI)I
+	public static final fun nextByteLengthOrZero (Lio/github/opencckmp/UTF8Util;[BI)I
+	public static final fun previousByteIndex (Lio/github/opencckmp/UTF8Util;[BI)I
+	public static final fun previousIndex (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;I)I
+	public static final fun reverseCompare (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;Ljava/lang/String;)I
+	public static final fun skipBom (Lio/github/opencckmp/UTF8Util;[BII)I
+	public static synthetic fun skipBom$default (Lio/github/opencckmp/UTF8Util;[BIIILjava/lang/Object;)I
+	public static final fun truncate (Lio/github/opencckmp/UTF8Util;Ljava/lang/String;I)Ljava/lang/String;
+	public static final fun truncateUtf8 (Lio/github/opencckmp/UTF8Util;[BIIILio/github/opencckmp/EncodedInputMode;)[B
+	public static synthetic fun truncateUtf8$default (Lio/github/opencckmp/UTF8Util;[BIIILio/github/opencckmp/EncodedInputMode;ILjava/lang/Object;)[B
 }
 

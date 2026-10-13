@@ -109,6 +109,11 @@ abstract interface io.github.opencckmp/DictionaryReader { // io.github.opencckmp
     abstract fun read(kotlin/ByteArray): io.github.opencckmp/Dict // io.github.opencckmp/DictionaryReader.read|read(kotlin.ByteArray){}[0]
 }
 
+abstract interface io.github.opencckmp/ResourceMetadataProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp/ResourceMetadataProvider|null[0]
+    abstract fun getResource(kotlin/String): io.github.opencckmp/Resource // io.github.opencckmp/ResourceMetadataProvider.getResource|getResource(kotlin.String){}[0]
+    abstract fun resolve(kotlin/String): kotlin/String // io.github.opencckmp/ResourceMetadataProvider.resolve|resolve(kotlin.String){}[0]
+}
+
 abstract interface io.github.opencckmp/Segmentation { // io.github.opencckmp/Segmentation|null[0]
     abstract fun segment(kotlin/String): io.github.opencckmp/Segments // io.github.opencckmp/Segmentation.segment|segment(kotlin.String){}[0]
     open fun segmentUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/Segmentation.segmentUtf8|segmentUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
@@ -217,6 +222,7 @@ final class io.github.opencckmp/Config { // io.github.opencckmp/Config|null[0]
 
     final fun newFromFile(kotlin/String, io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp/Config.newFromFile|newFromFile(kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
     final fun newFromString(kotlin/String, kotlin/String = ..., io.github.opencckmp/ConfigLoadOptions = ...): io.github.opencckmp/Converter // io.github.opencckmp/Config.newFromString|newFromString(kotlin.String;kotlin.String;io.github.opencckmp.ConfigLoadOptions){}[0]
+    final fun newFromString(kotlin/String, kotlin/String, io.github.opencckmp/ConfigLoadOptions, kotlin/String?): io.github.opencckmp/Converter // io.github.opencckmp/Config.newFromString|newFromString(kotlin.String;kotlin.String;io.github.opencckmp.ConfigLoadOptions;kotlin.String?){}[0]
 }
 
 final class io.github.opencckmp/ConfigBasedConverter : io.github.opencckmp/PipelineConverter { // io.github.opencckmp/ConfigBasedConverter|null[0]
@@ -557,6 +563,13 @@ final class io.github.opencckmp/OpenCCHandle { // io.github.opencckmp/OpenCCHand
     final fun convertUtf8To(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/Int? // io.github.opencckmp/OpenCCHandle.convertUtf8To|convertUtf8To(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
 }
 
+final class io.github.opencckmp/PrefixScan { // io.github.opencckmp/PrefixScan|null[0]
+    constructor <init>(io.github.opencckmp/Dict) // io.github.opencckmp/PrefixScan.<init>|<init>(io.github.opencckmp.Dict){}[0]
+
+    final fun skipUnmatchable(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/PrefixScan.skipUnmatchable|skipUnmatchable(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun skipUnmatchableUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/PrefixScan.skipUnmatchableUtf8|skipUnmatchableUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
 final class io.github.opencckmp/SegmentMapEntry { // io.github.opencckmp/SegmentMapEntry|null[0]
     constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int) // io.github.opencckmp/SegmentMapEntry.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 
@@ -770,6 +783,19 @@ open class io.github.opencckmp/PipelineConverter : io.github.opencckmp/Converter
     open fun inspectUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int, io.github.opencckmp/EncodedInputMode): io.github.opencckmp/EncodedInspectionResult // io.github.opencckmp/PipelineConverter.inspectUtf8|inspectUtf8(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
 }
 
+open class io.github.opencckmp/Resource { // io.github.opencckmp/Resource|null[0]
+    constructor <init>(kotlin/String, kotlin/ByteArray, kotlin/Any) // io.github.opencckmp/Resource.<init>|<init>(kotlin.String;kotlin.ByteArray;kotlin.Any){}[0]
+
+    final val bytes // io.github.opencckmp/Resource.bytes|{}bytes[0]
+        final fun <get-bytes>(): kotlin/ByteArray // io.github.opencckmp/Resource.bytes.<get-bytes>|<get-bytes>(){}[0]
+    final val cacheKey // io.github.opencckmp/Resource.cacheKey|{}cacheKey[0]
+        final fun <get-cacheKey>(): kotlin/Any // io.github.opencckmp/Resource.cacheKey.<get-cacheKey>|<get-cacheKey>(){}[0]
+    final val name // io.github.opencckmp/Resource.name|{}name[0]
+        final fun <get-name>(): kotlin/String // io.github.opencckmp/Resource.name.<get-name>|<get-name>(){}[0]
+    final val size // io.github.opencckmp/Resource.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.opencckmp/Resource.size.<get-size>|<get-size>(){}[0]
+}
+
 final object io.github.opencckmp/DartsDictionaryReader : io.github.opencckmp/DictionaryReader { // io.github.opencckmp/DartsDictionaryReader|null[0]
     final val type // io.github.opencckmp/DartsDictionaryReader.type|{}type[0]
         final fun <get-type>(): kotlin/String // io.github.opencckmp/DartsDictionaryReader.type.<get-type>|<get-type>(){}[0]
@@ -809,5 +835,32 @@ final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithAmbigui
 final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithAmbiguitiesUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): io.github.opencckmp/EncodedAnnotatedConversion // io.github.opencckmp/convertWithAmbiguitiesUtf8|convertWithAmbiguitiesUtf8@io.github.opencckmp.Converter(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
 final fun (io.github.opencckmp/Converter).io.github.opencckmp/convertWithMap(kotlin/String): io.github.opencckmp/MappedConversion // io.github.opencckmp/convertWithMap|convertWithMap@io.github.opencckmp.Converter(kotlin.String){}[0]
 final fun (io.github.opencckmp/Converter).io.github.opencckmp/getAllConversions(kotlin/String): kotlin.collections/List<kotlin/String> // io.github.opencckmp/getAllConversions|getAllConversions@io.github.opencckmp.Converter(kotlin.String){}[0]
+final fun (io.github.opencckmp/Converter).io.github.opencckmp/getAllConversionsUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin.collections/List<kotlin/ByteArray> // io.github.opencckmp/getAllConversionsUtf8|getAllConversionsUtf8@io.github.opencckmp.Converter(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+final fun (io.github.opencckmp/Dict).io.github.opencckmp/skipUnmatchable(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/skipUnmatchable|skipUnmatchable@io.github.opencckmp.Dict(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/Dict).io.github.opencckmp/skipUnmatchableUtf8(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/skipUnmatchableUtf8|skipUnmatchableUtf8@io.github.opencckmp.Dict(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/ResourceProvider).io.github.opencckmp/getResource(kotlin/String): io.github.opencckmp/Resource // io.github.opencckmp/getResource|getResource@io.github.opencckmp.ResourceProvider(kotlin.String){}[0]
+final fun (io.github.opencckmp/ResourceProvider).io.github.opencckmp/resolve(kotlin/String): kotlin/String // io.github.opencckmp/resolve|resolve@io.github.opencckmp.ResourceProvider(kotlin.String){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/byteMap(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/IntArray // io.github.opencckmp/byteMap|byteMap@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/byteMap(kotlin/String): kotlin/IntArray // io.github.opencckmp/byteMap|byteMap@io.github.opencckmp.UTF8Util(kotlin.String){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/commonPrefixEnd(kotlin/String, kotlin/String): kotlin/Int // io.github.opencckmp/commonPrefixEnd|commonPrefixEnd@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.String){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/containsVariationSelector(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Boolean // io.github.opencckmp/containsVariationSelector|containsVariationSelector@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/containsVariationSelector(kotlin/String): kotlin/Boolean // io.github.opencckmp/containsVariationSelector|containsVariationSelector@io.github.opencckmp.UTF8Util(kotlin.String){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/encodedLength(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/Int // io.github.opencckmp/encodedLength|encodedLength@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/findNextInline(kotlin/ByteArray, kotlin/Byte, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/findNextInline|findNextInline@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Byte;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/ideographicDescriptionByteEnd(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/ideographicDescriptionByteEnd|ideographicDescriptionByteEnd@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/ideographicDescriptionEnd(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/ideographicDescriptionEnd|ideographicDescriptionEnd@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/ideographicDescriptionOperatorArity(kotlin/Int): kotlin/Int // io.github.opencckmp/ideographicDescriptionOperatorArity|ideographicDescriptionOperatorArity@io.github.opencckmp.UTF8Util(kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/isIncompleteIdeographicDescriptionBytePrefix(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Boolean // io.github.opencckmp/isIncompleteIdeographicDescriptionBytePrefix|isIncompleteIdeographicDescriptionBytePrefix@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/isIncompleteIdeographicDescriptionPrefix(kotlin/String, kotlin/Int = ..., kotlin/Int = ...): kotlin/Boolean // io.github.opencckmp/isIncompleteIdeographicDescriptionPrefix|isIncompleteIdeographicDescriptionPrefix@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/isVariationSelector(kotlin/Int): kotlin/Boolean // io.github.opencckmp/isVariationSelector|isVariationSelector@io.github.opencckmp.UTF8Util(kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/nextByteIndex(kotlin/ByteArray, kotlin/Int, kotlin/Int = ...): kotlin/Int // io.github.opencckmp/nextByteIndex|nextByteIndex@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/nextByteLength(kotlin/ByteArray, kotlin/Int): kotlin/Int // io.github.opencckmp/nextByteLength|nextByteLength@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/nextByteLengthOrZero(kotlin/ByteArray, kotlin/Int): kotlin/Int // io.github.opencckmp/nextByteLengthOrZero|nextByteLengthOrZero@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/previousByteIndex(kotlin/ByteArray, kotlin/Int): kotlin/Int // io.github.opencckmp/previousByteIndex|previousByteIndex@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/previousIndex(kotlin/String, kotlin/Int): kotlin/Int // io.github.opencckmp/previousIndex|previousIndex@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/reverseCompare(kotlin/String, kotlin/String): kotlin/Int // io.github.opencckmp/reverseCompare|reverseCompare@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.String){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/skipBom(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // io.github.opencckmp/skipBom|skipBom@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/truncate(kotlin/String, kotlin/Int): kotlin/String // io.github.opencckmp/truncate|truncate@io.github.opencckmp.UTF8Util(kotlin.String;kotlin.Int){}[0]
+final fun (io.github.opencckmp/UTF8Util).io.github.opencckmp/truncateUtf8(kotlin/ByteArray, kotlin/Int, kotlin/Int = ..., kotlin/Int = ..., io.github.opencckmp/EncodedInputMode = ...): kotlin/ByteArray // io.github.opencckmp/truncateUtf8|truncateUtf8@io.github.opencckmp.UTF8Util(kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int;io.github.opencckmp.EncodedInputMode){}[0]
 final fun io.github.opencckmp/resolveResource(kotlin/String, kotlin/String): kotlin/String // io.github.opencckmp/resolveResource|resolveResource(kotlin.String;kotlin.String){}[0]
 final suspend fun io.github.opencckmp/prepareConfig(kotlin/String, io.github.opencckmp/AsyncResourceProvider, io.github.opencckmp/ConfigLoadOptions = ..., kotlin.collections/List<io.github.opencckmp/DictionaryReader> = ..., kotlin.collections/Map<kotlin/String, io.github.opencckmp/SegmentationFactory> = ..., io.github.opencckmp/DictionaryCache? = ..., kotlin/Any = ..., kotlin/Function1<io.github.opencckmp/ConfigWarning, kotlin/Unit>? = ...): io.github.opencckmp/Converter // io.github.opencckmp/prepareConfig|prepareConfig(kotlin.String;io.github.opencckmp.AsyncResourceProvider;io.github.opencckmp.ConfigLoadOptions;kotlin.collections.List<io.github.opencckmp.DictionaryReader>;kotlin.collections.Map<kotlin.String,io.github.opencckmp.SegmentationFactory>;io.github.opencckmp.DictionaryCache?;kotlin.Any;kotlin.Function1<io.github.opencckmp.ConfigWarning,kotlin.Unit>?){}[0]

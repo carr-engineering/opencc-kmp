@@ -92,6 +92,25 @@ checkbox is completed only when its implementation and relevant checks exist.
   iOS simulator checks are queued with integration. No hosted CI, device or public release success
   is claimed; this checkout still has no configured Git remote or release credentials.
 
+### Integrated API closure and published verification
+
+- Added owned encoded candidate enumeration, exact child-group matching and accepted zero-candidate
+  binary layouts. Five-runtime checks pass 2,224 native candidate expectations and nine binary layouts.
+- Added immutable reusable PrefixScan and UTF-16/byte skip operations; 2,790 native skip distances
+  and 21 explicit prefix/skip assertions pass all five runtimes.
+- Added FileConfigLoader for native filesystem/provider precedence and verbatim declared names,
+  while preserving common logical-provider loading. Fifteen native config cases (39 result/error
+  comparisons), 38 provider comparisons and all 11 adapter targets pass.
+- Corrected synchronous/asynchronous facade literal filename and bare-alias precedence; dictionary
+  and parse errors never trigger config alias retries. Six new common regressions pass with the
+  existing loading-order checks across all five runtimes.
+- All module ABI checks and five-runtime suites pass; local publication verification passes 158
+  publication records / 383 artifact files, including the opt-in seven-target export module.
+  Interop iOS simulator/JVM 17, rendered KDoc and publication checks pass, as do refreshed direct
+  Node/Swift consumers. Final size and full benchmark reports are being collected against these bytes.
+- Case audit at this checkpoint records 129 literal ports and 58 reviewed equivalents; 86 native
+  cases still require assertion review. Separate agents are closing those remaining proof gaps.
+
 ## Execution log
 
 ### Foundation

@@ -11,14 +11,28 @@ class SimpleConverter private constructor(internal val delegate: Converter) : Co
         cacheIdentity: Any = provider,
         segmentationFactories: Map<String, SegmentationFactory> = emptyMap(),
     ) : this(Config(provider, readers, segmentationFactories, dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)
-        .newFromFile(configResourceName(configName), options))
+        .loadFacadeConfiguration(configName, options))
 
     companion object {
         fun fromConfig(converter: Converter): SimpleConverter = SimpleConverter(converter)
     }
 }
 
-internal fun configResourceName(name: String): String = if (name.endsWith(".json")) name else "$name.json"
+private fun isConfigAlias(name: String): Boolean = name.isNotEmpty() && name.none { it in ".\\/:" }
+
+/** Explicit filenames and paths remain literal; only bare convenience aliases acquire a suffix. */
+internal fun configResourceName(name: String): String = if (isConfigAlias(name)) "$name.json" else name
+
+private fun Config.loadFacadeConfiguration(name: String, options: ConfigLoadOptions = ConfigLoadOptions()): Converter {
+    if (!isConfigAlias(name)) return newFromFile(name, options)
+    return try {
+        newFromFile(name, options)
+    } catch (error: FileNotFound) {
+        // Do not retry after a referenced dictionary/model fails: preserve its loading error.
+        if (error.resourceName != name && !error.resourceName.startsWith("$name (searched: ")) throw error
+        newFromFile(configResourceName(name), options)
+    }
+}
 
 /** Caller-owned C-style context. Last error is scoped to this context, with no global state. */
 class OpenCC(private val loader: Config) {
@@ -26,7 +40,7 @@ class OpenCC(private val loader: Config) {
         private set
 
     fun open(configName: String = "s2t"): OpenCCHandle? = capture {
-        OpenCCHandle(loader.newFromFile(configResourceName(configName)), this)
+        OpenCCHandle(loader.loadFacadeConfiguration(configName), this)
     }
     fun error(): String? = lastError?.message
     internal fun <T> capture(block: () -> T): T? = try {
@@ -75,8 +89,14 @@ suspend fun prepareConfig(
     cacheIdentity: Any = provider,
     warningSink: ((ConfigWarning) -> Unit)? = null,
 ): Converter {
-    val name = configResourceName(configName).replace('\\', '/')
-    val bytes = provider.read(name)
+    var name = configName.replace('\\', '/')
+    val bytes = try {
+        provider.read(name)
+    } catch (error: FileNotFound) {
+        if (!isConfigAlias(configName)) throw error
+        name = configResourceName(configName)
+        provider.read(name)
+    }
     val directory = name.substringBeforeLast('/', "")
     return Config(readers = readers, segmentationFactories = segmentationFactories, warningSink = warningSink,
         dictionaryCache = dictionaryCache, cacheIdentity = cacheIdentity)

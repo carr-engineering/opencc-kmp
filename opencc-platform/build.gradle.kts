@@ -1,4 +1,5 @@
 kotlin {
+    sourceSets.findByName("jvmTest")?.dependencies { implementation(project(":opencc-zip")) }
     sourceSets.commonMain.dependencies {
         api(project(":opencc-core"))
     }
@@ -20,7 +21,7 @@ kotlin {
 }
 
 tasks.withType<Test>().configureEach {
-    if (name == "jvmTest") exclude("**/UpstreamResourceTest*")
+    if (name == "jvmTest") exclude("**/Upstream*Test*")
 }
 tasks.register<Test>("resourceConformance") {
     dependsOn(":prepareNativeProbes", "jvmTestClasses")
@@ -28,6 +29,7 @@ tasks.register<Test>("resourceConformance") {
     testClassesDirs = standard.get().testClassesDirs
     classpath = standard.get().classpath
     include("**/UpstreamResourceTest*")
+    include("**/UpstreamFileConfigTest*")
     systemProperty("opencc.projectRoot", rootDir.absolutePath)
     outputs.upToDateWhen { false }
 }

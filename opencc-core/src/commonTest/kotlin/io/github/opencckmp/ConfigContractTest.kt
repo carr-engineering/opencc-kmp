@@ -65,7 +65,7 @@ class ConfigContractTest {
             override val context = EmptyCoroutineContext
             override fun resumeWith(result: Result<Converter>) { outcome = result }
         })
-        assertEquals(listOf("c.json"), requests.map { it.first })
+        assertEquals(listOf("c"), requests.map { it.first })
         assertNull(outcome)
         val json = """{"name":"async","conversion_chain":[
           {"dict":{"type":"text","file":"d.txt"}},
@@ -74,7 +74,7 @@ class ConfigContractTest {
           {"dict":{"type":"unknown","may_output_tofu":true,"file":5}}
         ]}""" + '\u0000' + "ignored suffix"
         requests[0].second.resume(json.encodeToByteArray())
-        assertEquals(listOf("c.json", "d.txt"), requests.map { it.first })
+        assertEquals(listOf("c", "d.txt"), requests.map { it.first })
         assertNull(outcome)
         requests[1].second.resume("汉\t漢\n".encodeToByteArray())
         assertEquals("漢literal", assertNotNull(outcome).getOrThrow().convert("汉file"))
@@ -117,6 +117,6 @@ class ConfigContractTest {
             override fun resumeWith(result: Result<Converter>) { outcome = result }
         })
         assertEquals("汉", assertNotNull(outcome).getOrThrow().convert("汉"))
-        assertEquals(listOf("c.json", "extra.txt"), reads)
+        assertEquals(listOf("c", "c.json", "extra.txt"), reads)
     }
 }

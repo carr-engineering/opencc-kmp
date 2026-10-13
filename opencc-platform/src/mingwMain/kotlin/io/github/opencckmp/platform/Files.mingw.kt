@@ -44,3 +44,18 @@ actual fun writeFileBytes(path: String, bytes: ByteArray): Unit = memScoped {
     } finally { fclose(file) }
 }
 
+
+internal actual fun environmentDataDirectory(): String? = memScoped {
+    val size = platform.windows.GetEnvironmentVariableW("OPENCC_DATA_DIR", null, 0u)
+    if (size == 0u || size > Int.MAX_VALUE.toUInt()) return@memScoped null
+    val buffer = allocArray<UShortVar>(size.toInt())
+    val length = platform.windows.GetEnvironmentVariableW("OPENCC_DATA_DIR", buffer, size)
+    if (length == 0u || length >= size) return@memScoped null
+    buildString { for (index in 0 until length.toInt()) append(buffer[index].toInt().toChar()) }
+}
+
+internal actual fun canReadConfigPath(path: String): Boolean = memScoped {
+    val file = _wfopen(path.wcstr.ptr, "rb".wcstr.ptr) ?: return@memScoped false
+    fclose(file)
+    true
+}

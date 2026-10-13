@@ -46,8 +46,8 @@ val trace = converter.inspect("汉字")
 ```
 
 Text and upstream `.ocd` / `.ocd2` dictionary resources can be supplied through `ResourceProvider`.
-Pure Kotlin format builders/writers are available in `opencc-dictionary-tools`; final consumer
-resource packaging is still in progress. [API mappings](docs/API.md) distinguish implemented
+Pure Kotlin format builders/writers are available in `opencc-dictionary-tools`. Published-resource
+consumer fixtures cover Android, Apple, JVM, JS and Wasm. [API mappings](docs/API.md) distinguish implemented
 capabilities from remaining parity work. `upstreamConformance` builds the native reference using
 CMake and checks all upstream answer pairs, golden corpora and all 16 configurations using text
 dictionaries and original `.ocd2` dictionaries. It also verifies all 22 binary dictionaries in both
@@ -132,8 +132,14 @@ bytes. [Cache identity and ownership](docs/CACHES_AND_OWNERSHIP.md) explains ini
 eviction, close/clear behavior, async preparation and resource verification.
 Physical-device performance, complete memory profiling and release gates remain in progress.
 
-The full data distribution includes experimental Jieba assets. The Kotlin Jieba segmentation port
-is still pending; adding its resources alone does not enable those configurations.
+The full data distribution includes experimental Jieba assets. Register `JiebaSegmentationFactory`
+to enable those configurations; raw encoded model/base/user resources are supported through owned
+ByteArray loaders. See [resource contracts](docs/JIEBA_RESOURCE_CONTRACTS.md).
+
+[Focused Swift and JavaScript exports](interop/README.md) provide an opt-in facade with binary
+resource injection and synchronous conversion after host preparation. Kotlin clients retain the
+complete module APIs. [Performance workloads](docs/PERFORMANCE.md) run against published artifacts
+and the pinned native engine on the same 1 MiB corpus; host averages do not prove device p95 targets.
 
 ## Provenance
 

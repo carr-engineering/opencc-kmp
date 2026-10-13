@@ -1,15 +1,13 @@
-public final class io/github/opencckmp/zip/ZipResource {
+public final class io/github/opencckmp/zip/ZipResource : io/github/opencckmp/Resource {
 	public fun <init> (Ljava/lang/String;[BLjava/lang/Object;)V
-	public final fun getBytes ()[B
-	public final fun getCacheKey ()Ljava/lang/Object;
-	public final fun getName ()Ljava/lang/String;
 }
 
-public final class io/github/opencckmp/zip/ZipResourceProvider : io/github/opencckmp/ResourceProvider {
+public final class io/github/opencckmp/zip/ZipResourceProvider : io/github/opencckmp/ResourceMetadataProvider {
 	public fun <init> ([BLjava/lang/String;)V
 	public synthetic fun <init> ([BLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getResource (Ljava/lang/String;)Lio/github/opencckmp/zip/ZipResource;
+	public synthetic fun getResource (Ljava/lang/String;)Lio/github/opencckmp/Resource;
+	public fun getResource (Ljava/lang/String;)Lio/github/opencckmp/zip/ZipResource;
 	public fun read (Ljava/lang/String;)[B
-	public final fun resolve (Ljava/lang/String;)Ljava/lang/String;
+	public fun resolve (Ljava/lang/String;)Ljava/lang/String;
 }
 

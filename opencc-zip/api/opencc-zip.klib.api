@@ -6,18 +6,11 @@
 // - Show declarations: true
 
 // Library unique name: <io.github.opencckmp:opencc-zip>
-final class io.github.opencckmp.zip/ZipResource { // io.github.opencckmp.zip/ZipResource|null[0]
+final class io.github.opencckmp.zip/ZipResource : io.github.opencckmp/Resource { // io.github.opencckmp.zip/ZipResource|null[0]
     constructor <init>(kotlin/String, kotlin/ByteArray, kotlin/Any) // io.github.opencckmp.zip/ZipResource.<init>|<init>(kotlin.String;kotlin.ByteArray;kotlin.Any){}[0]
-
-    final val bytes // io.github.opencckmp.zip/ZipResource.bytes|{}bytes[0]
-        final fun <get-bytes>(): kotlin/ByteArray // io.github.opencckmp.zip/ZipResource.bytes.<get-bytes>|<get-bytes>(){}[0]
-    final val cacheKey // io.github.opencckmp.zip/ZipResource.cacheKey|{}cacheKey[0]
-        final fun <get-cacheKey>(): kotlin/Any // io.github.opencckmp.zip/ZipResource.cacheKey.<get-cacheKey>|<get-cacheKey>(){}[0]
-    final val name // io.github.opencckmp.zip/ZipResource.name|{}name[0]
-        final fun <get-name>(): kotlin/String // io.github.opencckmp.zip/ZipResource.name.<get-name>|<get-name>(){}[0]
 }
 
-final class io.github.opencckmp.zip/ZipResourceProvider : io.github.opencckmp/ResourceProvider { // io.github.opencckmp.zip/ZipResourceProvider|null[0]
+final class io.github.opencckmp.zip/ZipResourceProvider : io.github.opencckmp/ResourceMetadataProvider { // io.github.opencckmp.zip/ZipResourceProvider|null[0]
     constructor <init>(kotlin/ByteArray, kotlin/String = ...) // io.github.opencckmp.zip/ZipResourceProvider.<init>|<init>(kotlin.ByteArray;kotlin.String){}[0]
 
     final fun getResource(kotlin/String): io.github.opencckmp.zip/ZipResource // io.github.opencckmp.zip/ZipResourceProvider.getResource|getResource(kotlin.String){}[0]

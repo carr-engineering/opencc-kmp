@@ -35,7 +35,17 @@ class Config(
     }
 
     fun newFromString(json: String, configDirectory: String = "", options: ConfigLoadOptions = ConfigLoadOptions()): Converter {
-        val session = LoadSession(json, configDirectory, options, provider)
+        return newFromString(json, configDirectory, options, configDirectory)
+    }
+
+    /**
+     * [configDirectory] supplies plugin metadata. [resourceBaseDirectory] resolves dictionary names;
+     * null passes names unchanged to an already-rooted provider, such as a filesystem search provider.
+     * The original overload uses the configuration directory as the logical resource base.
+     */
+    fun newFromString(json: String, configDirectory: String, options: ConfigLoadOptions,
+                      resourceBaseDirectory: String?): Converter {
+        val session = LoadSession(json, configDirectory, options, provider, resourceBaseDirectory)
         check(session.advance() == null) { "Synchronous resource loading unexpectedly requested preparation" }
         return session.result!!
     }
@@ -59,7 +69,8 @@ class Config(
     /** An ordered load transaction. Only resource acquisition differs between sync/async drivers. */
     private inner class LoadSession(json: String, private val configDirectory: String,
                                     private val options: ConfigLoadOptions,
-                                    private val pluginProvider: ResourceProvider?) {
+                                    private val pluginProvider: ResourceProvider?,
+                                    private val resourceBaseDirectory: String? = configDirectory) {
         private val root = parseConfiguration(json)
         private val loaded = mutableMapOf<String, Dict>()
         private var next: (() -> Unit)? = { segmentation() }
@@ -147,7 +158,8 @@ class Config(
                 next = { member(0) }
                 return
             }
-            val file = resolveResource(configDirectory, doc.string("file"))
+            val declaredFile = doc.string("file")
+            val file = resourceBaseDirectory?.let { resolveResource(it, declaredFile) } ?: declaredFile
             val reader = readers[type] ?: throw InvalidFormat("Unknown dictionary type: $type")
             val identity = type + "\n" + file
             val existing = loaded[identity]

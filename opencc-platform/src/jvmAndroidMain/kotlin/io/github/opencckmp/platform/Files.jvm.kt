@@ -25,3 +25,12 @@ class ClasspathResourceProvider(
     override fun read(name: String): ByteArray = classLoader?.getResourceAsStream(prefix + name)?.use { it.readBytes() }
         ?: throw FileNotFound(name)
 }
+
+internal actual fun environmentDataDirectory(): String? = System.getenv("OPENCC_DATA_DIR")
+
+internal actual fun canReadConfigPath(path: String): Boolean = try {
+    val file = File(path)
+    // POSIX ifstream can open directories; config loading rejects them after discovery.
+    if (File.separatorChar == '/' && file.isDirectory) file.canRead()
+    else file.inputStream().use { true }
+} catch (_: IOException) { false }

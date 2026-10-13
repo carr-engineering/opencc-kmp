@@ -8,3 +8,7 @@ actual fun writeFileBytes(path: String, bytes: ByteArray): Unit = throw FileNotW
 internal actual fun resourceFileMetadata(path: String): String? = null
 internal actual fun isAbsoluteResourcePath(path: String): Boolean = path.startsWith('/') || path.startsWith('\\')
 
+
+internal actual fun environmentDataDirectory(): String? = null
+
+internal actual fun canReadConfigPath(path: String): Boolean = false

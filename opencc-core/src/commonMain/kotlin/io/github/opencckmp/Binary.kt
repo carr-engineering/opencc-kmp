@@ -64,7 +64,6 @@ class SerializedValues private constructor(private val stored: List<List<String>
             var offset = 0
             val values = List(items) {
                 val count = cursor.count(2)
-                if (count == 0) throw InvalidFormat("Dictionary entry has no values")
                 List(count) {
                     val length = cursor.count(2, data.size)
                     if (length == 0 || length > data.size - offset || data[offset + length - 1] != 0.toByte()) {
@@ -96,7 +95,6 @@ class BinaryDict private constructor(override val lexicon: Lexicon) : Dict by Te
             val entries = List(count) {
                 val size = cursor.count(width)
                 val key = nullTerminatedString(keys, cursor.count(width, keys.size))
-                if (size == 0) throw InvalidFormat("Dictionary entry has no values")
                 val candidates = List(size) { nullTerminatedString(values, cursor.count(width, values.size)) }
                 DictEntry(key, candidates)
             }

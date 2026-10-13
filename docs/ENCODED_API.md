@@ -76,3 +76,16 @@ context is the logical suffix within that operation's supplied byte range, endin
 returns a copy. Offsets refer to the failing stage buffer, which can be normalized/converted text.
 Ordinary exception messages remain Kotlin strings. Strict text-decoder failures need not supply byte
 context. No operation reads past Kotlin array/range bounds to reproduce a native diagnostic pointer.
+
+Experimental `getAllConversionsUtf8` returns discovery-ordered, deduplicated owned ByteArray candidates.
+It normalizes the supplied byte range first, tries exact matches in child order, and uses native prefix
+fallback between stages. It requires an exact main-stage match; otherwise the result is empty.
+This preserves truncated/noncanonical input without forcing it through the strict String decoder.
+The same `EncodedInputMode` selects length-delimited or NUL-terminated input. The reproducible
+candidate audit covers 2,224 native cases and nine accepted zero-candidate binary layouts.
+
+`PrefixScan` is a caller-owned first-character index for repeated scans. Its String method returns a
+UTF-16 skip distance; its encoded method counts bytes, using native leading-byte/masked-BMP rules
+and stopping conservatively at invalid/truncated characters, candidate starts and IDS. Construction
+reads dictionary keys once; scanning allocates no substrings or per-character objects. Convenience
+extensions on Dict construct a new index; retain PrefixScan when repeatedly scanning one dictionary.
