@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-10-13T00:43:38.367195+00:00",
+  "scope": "Build and static packaging verification only; no device or performance measurement",
+  "project": "benchmarks/android",
+  "agp": "8.13.2",
+  "kotlin": "2.4.0",
+  "compile_sdk": 36,
+  "min_sdk": 23,
+  "apk": {
+    "file": "opencc-android-performance-release.apk",
+    "bytes": 566966,
+    "sha256": "3270e3938e7831528cc17277990feafe993da9887496b4a32647aae776e6fd5d"
+  },
+  "r8": {
+    "enabled": true,
+    "mapping_sha256": "d9737c43d0a1bad1fd0dcb7a262a34cd71b0ae4e6685ea8aa85808d12d3e4639",
+    "configuration_sha256": "041b77b8b19fa28b6a619d0c63b9177bb0c2fa090bd438d8713e6314f15542b7",
+    "dex": [
+      {
+        "name": "classes.dex",
+        "raw_bytes": 68636,
+        "zip_compressed_bytes": 32317,
+        "sha256": "8c7f1143f44bd23adf493820189ec6bca2f4dc48de31ab1318053393f79cff84"
+      }
+    ]
+  },
+  "dependency_artifacts": [
+    {
+      "coordinate": "io.github.opencckmp:opencc-core-android:0.1.0-SNAPSHOT",
+      "file": "opencc-core-android-0.1.0-SNAPSHOT.aar",
+      "bytes": 175525,
+      "sha256": "aaea8777a9e0c212037050c25b05117d7aaedabfd01e7f043eb6a0a9af1e9436"
+    },
+    {
+      "coordinate": "io.github.opencckmp:opencc-data-s2t:0.1.0-SNAPSHOT:resources@zip",
+      "file": "opencc-data-s2t-0.1.0-20261013.001810-13-resources.zip",
+      "bytes": 506470,
+      "sha256": "4e648dc5c968fac7fd5a92b44844ddc90dddbc86e8f267110f3e4e585e6f5b26"
+    },
+    {
+      "coordinate": "io.github.opencckmp:opencc-platform-android:0.1.0-SNAPSHOT",
+      "file": "opencc-platform-android-0.1.0-SNAPSHOT.aar",
+      "bytes": 16199,
+      "sha256": "ef7915298b969433d60243afd63cfde519cfcf3baa85e196c5001adf3bfb8977"
+    },
+    {
+      "coordinate": "org.jetbrains.kotlin:kotlin-stdlib:2.4.0",
+      "file": "kotlin-stdlib-2.4.0.jar",
+      "bytes": 1841929,
+      "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+    },
+    {
+      "coordinate": "org.jetbrains:annotations:13.0",
+      "file": "annotations-13.0.jar",
+      "bytes": 17536,
+      "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+    }
+  ],
+  "required_s2t_dictionaries": [
+    "CJK_Compatibility_Ideographs.ocd2",
+    "STCharacters.ocd2",
+    "STPhrases.ocd2",
+    "STPhrases_GeneratedFromRegionalPhrases.ocd2"
+  ],
+  "unrelated_dictionaries": [],
+  "resource_files": [
+    {
+      "name": "AUTHORS",
+      "raw_bytes": 310,
+      "zip_compressed_bytes": 209,
+      "sha256": "c9c94437ca9b62a1eb2a5c15b08f833964dc7489855fbc87d37168150dd7912a",
+      "conversion_resource": false
+    },
+    {
+      "name": "CJK_Compatibility_Ideographs.ocd2",
+      "raw_bytes": 13843,
+      "zip_compressed_bytes": 4547,
+      "sha256": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
+      "conversion_resource": true
+    },
+    {
+      "name": "LICENSE",
+      "raw_bytes": 9165,
+      "zip_compressed_bytes": 3318,
+      "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308",
+      "conversion_resource": false
+    },
+    {
+      "name": "NOTICE",
+      "raw_bytes": 1557,
+      "zip_compressed_bytes": 797,
+      "sha256": "7a1dea6c3ad10933e0bf61fd6652bcf7968fa1095b0999296fe091dc3cf5fa74",
+      "conversion_resource": false
+    },
+    {
+      "name": "STCharacters.ocd2",
+      "raw_bytes": 45879,
+      "zip_compressed_bytes": 17056,
+      "sha256": "94639fe1d2bbeb3dcb4f29a297cda70ecfd26425b8a935f4b6bac0746c3987f2",
+      "conversion_resource": true
+    },
+    {
+      "name": "STPhrases.ocd2",
+      "raw_bytes": 927077,
+      "zip_compressed_bytes": 466389,
+      "sha256": "c472f936ab624e8887ed48c2572d0af68b904f0be72d98e237a6b8c1f5de024d",
+      "conversion_resource": true
+    },
+    {
+      "name": "STPhrases_GeneratedFromRegionalPhrases.ocd2",
+      "raw_bytes": 19885,
+      "zip_compressed_bytes": 11637,
+      "sha256": "815bbb98c644095fb0bfd76dbf259b9da4350a19d4927b2342e7928fb26b20e2",
+      "conversion_resource": true
+    },
+    {
+      "name": "licenses/cppjieba.txt",
+      "raw_bytes": 1066,
+      "zip_compressed_bytes": 628,
+      "sha256": "ba898a14f729ba5e9965da34e3eecd5edd3795f2cc5d7c923b815ba79bb851b0",
+      "conversion_resource": false
+    },
+    {
+      "name": "licenses/darts-clone.txt",
+      "raw_bytes": 1320,
+      "zip_compressed_bytes": 693,
+      "sha256": "c6ab19db56ed127201dfb05346ea702ab53c4e387f43eafc343a7f4c2f2ae91e",
+      "conversion_resource": false
+    },
+    {
+      "name": "licenses/marisa.txt",
+      "raw_bytes": 2275,
+      "zip_compressed_bytes": 1146,
+      "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1",
+      "conversion_resource": false
+    },
+    {
+      "name": "s2t.json",
+      "raw_bytes": 676,
+      "zip_compressed_bytes": 280,
+      "sha256": "a188392af5ca23e1d602c5a93651f1d852fccdaa24c2b29abed7a0c8ac359048",
+      "conversion_resource": true
+    }
+  ],
+  "resource_manifest_sha256": "f490936bf2d956c85aa29e10d28c39ae74f109ddb3614da075cc2333c19f646e",
+  "native_reference": {
+    "upstream": {
+      "repository": "https://github.com/BYVoid/OpenCC",
+      "tag": "ver.1.4.2",
+      "tag_object": "d5e960a8f60aa62fb252f48a23a577acb242f3f0",
+      "commit": "025f371dc76b598d77384fbdab90c937471844d8",
+      "archive_url": "https://codeload.github.com/BYVoid/OpenCC/tar.gz/025f371dc76b598d77384fbdab90c937471844d8",
+      "archive_sha256": "8b27931630abab1136b7c3ee920e4a95e78cb84a3cab4670198172bc82104844"
+    },
+    "config": "s2t",
+    "include_tofu_risk_dictionaries": true,
+    "input_characters": 1000,
+    "input_sha256": "a0c68b3ce9ebecb1ef84cc82f642c81186f9626a5e085612b8d10dcaef480a3e",
+    "expected_sha256": "e4d92caccc7a4a294fe2bc63e068c66c9a6916618ba24720da54e12e7b774222"
+  },
+  "benchmark_source_hashes": {
+    "benchmarks/android/README.md": "33d26acb6f8f9b3a47727a7c4e74688952c75bf996d2a7db60b26ce73efea7bd",
+    "benchmarks/android/build.gradle.kts": "08f083d97b829b8e529f0497e001ef995fcfa40aa1166a8f5619841472f262e8",
+    "benchmarks/android/gradle.properties": "496a6daf2ad5a72c1e8d5eaecb776cf2cd0e3879d039e92dd685e8717b41b6a8",
+    "benchmarks/android/settings.gradle.kts": "3a886695491098f82679ce8aed952c4217351edc13a62468e8731732afd48752",
+    "benchmarks/android/src/main/AndroidManifest.xml": "9bf70cb5769ded20de748deaf8e90008b3e57e1c30f16c7d958ba7cdbe9df492",
+    "benchmarks/android/src/main/assets/benchmark-expected.txt": "e4d92caccc7a4a294fe2bc63e068c66c9a6916618ba24720da54e12e7b774222",
+    "benchmarks/android/src/main/assets/benchmark-input.txt": "a0c68b3ce9ebecb1ef84cc82f642c81186f9626a5e085612b8d10dcaef480a3e",
+    "benchmarks/android/src/main/assets/benchmark-reference.json": "50de037d3182215f04711195dfdc1f68cd4b160a259c152b261f054555a09935",
+    "benchmarks/android/src/main/kotlin/io/github/opencckmp/androidbenchmark/MainActivity.kt": "7328258b0e265eb581e5a886c7867ef146fd754b771fa4b8ee3cf4c66f44520a"
+  }
+}

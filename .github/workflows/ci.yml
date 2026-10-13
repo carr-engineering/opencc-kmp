@@ -43,7 +43,9 @@ jobs:
           upstreamConformance upstreamWriterConformance upstreamPhraseConformance
           upstreamJiebaConformance upstreamDataDetection resourceConformance
       - name: Complete and selective data acceptance
-        run: python3 tools/test_data.py
+        run: |
+          python3 tools/test_data.py
+          python3 tools/test_upstream_data_invariants.py
       - name: Build local publications and CLI distributions
         run: >-
           ./gradlew -Popencc.targets=jvm,linuxX64,js,wasmJs
@@ -96,12 +98,19 @@ jobs:
           ./gradlew -Popencc.targets=android publishAllPublicationsToConsumerRepository
       - name: Execute R8 release applications using shipped resources
         run: python3 tools/test_android_runtime.py --emulator
+      - name: Build and verify the physical-device benchmark APK
+        run: |
+          ./gradlew -p benchmarks/android assembleRelease reportBenchmarkDependencies
+          python3 tools/verify_android_benchmark.py --output .cache/benchmarks/android-build.json
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: always()
         with:
           name: android-runtime
           include-hidden-files: true
-          path: .cache/android-runtime/**
+          path: |
+            .cache/android-runtime/**
+            .cache/benchmarks/android-build.json
+            benchmarks/android/build/outputs/apk/release/*.apk
 
   windows:
     runs-on: windows-2022
@@ -203,6 +212,9 @@ jobs:
       - name: Production JS/Wasm delivered-byte budgets and browser execution
         if: success() || failure()
         run: python3 tools/measure_web.py --check
+      - name: Desktop Wasm warmed conversion and fresh-browser startup evidence
+        if: success() || failure()
+        run: python3 tools/run_web_benchmark.py --check-target --output .cache/measurements/web-performance-current.json
       - name: Swift release application budgets and simulator execution
         if: success() || failure()
         run: python3 tools/measure_apple.py --check --small-binary

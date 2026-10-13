@@ -1,0 +1,15 @@
+{
+  "upstream": {
+    "repository": "https://github.com/BYVoid/OpenCC",
+    "tag": "ver.1.4.2",
+    "tag_object": "d5e960a8f60aa62fb252f48a23a577acb242f3f0",
+    "commit": "025f371dc76b598d77384fbdab90c937471844d8",
+    "archive_url": "https://codeload.github.com/BYVoid/OpenCC/tar.gz/025f371dc76b598d77384fbdab90c937471844d8",
+    "archive_sha256": "8b27931630abab1136b7c3ee920e4a95e78cb84a3cab4670198172bc82104844"
+  },
+  "config": "s2t",
+  "include_tofu_risk_dictionaries": true,
+  "input_characters": 1000,
+  "input_sha256": "a0c68b3ce9ebecb1ef84cc82f642c81186f9626a5e085612b8d10dcaef480a3e",
+  "expected_sha256": "e4d92caccc7a4a294fe2bc63e068c66c9a6916618ba24720da54e12e7b774222"
+}
