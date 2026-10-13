@@ -42,4 +42,32 @@ class InteropTest {
         assertTrue(resources.remove("dict.txt"))
         assertFailsWith<Exception> { resources.load("missing",true) }
     }
+
+    @Test fun literalFilenamesWinAndBareAliasesFallBackOnlyForMissingRoots() {
+        val resources = OpenCCResources()
+        for (name in listOf("settings.conf", "custom/config", "./literal", "")) {
+            resources.putText(name, inline)
+            assertEquals("漢", resources.load(name, true).convert("汉"))
+        }
+        resources.putText("literal", inline)
+        resources.putText("literal.json", inline.replace("漢", "wrong"))
+        assertEquals("漢", resources.load("literal", true).convert("汉"))
+        resources.putText("alias.json", inline)
+        assertEquals("漢", resources.load("alias", true).convert("汉"))
+        for (name in listOf("missing.conf", "custom/missing")) {
+            val error = assertFailsWith<io.github.opencckmp.FileNotFound> { resources.load(name, true) }
+            assertEquals(name, error.resourceName)
+        }
+    }
+
+    @Test fun rootParseAndDictionaryFailuresNeverRetryJsonAlias() {
+        val resources = OpenCCResources()
+        resources.putText("bad", "broken")
+        resources.putText("bad.json", inline)
+        assertFailsWith<io.github.opencckmp.InvalidFormat> { resources.load("bad", true) }
+        resources.putText("literal", """{"conversion_chain":[{"dict":{"type":"text","file":"missing.txt"}}]}""")
+        resources.putText("literal.json", inline)
+        val error = assertFailsWith<io.github.opencckmp.FileNotFound> { resources.load("literal", true) }
+        assertEquals("missing.txt", error.resourceName)
+    }
 }

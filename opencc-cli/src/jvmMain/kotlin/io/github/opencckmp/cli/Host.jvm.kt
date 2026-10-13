@@ -26,7 +26,7 @@ class JvmCliHost : CliHost {
     override fun openOutput(path: String): CliOutput = try { Output(FileOutputStream(path), path, true) } catch (_: IOException) { throw FileNotWritable(path) }
     override fun sameFile(first: String, second: String): Boolean = runCatching { Files.isSameFile(Path.of(first), Path.of(second)) }.getOrDefault(false)
     override fun realPath(path: String): String = runCatching { Path.of(path).toRealPath().toString() }.getOrDefault(path)
-    override fun multipleLinks(path: String): Boolean = runCatching { (Files.getAttribute(Path.of(path), "unix:nlink") as Number).toInt() > 1 }.getOrDefault(false)
+    override fun multipleLinks(path: String): Boolean = jvmMultipleLinks(path, windows)
     override fun temporaryNear(path: String): String = try {
         val target = Path.of(path).toAbsolutePath()
         Files.createTempFile(target.parent, target.fileName.toString() + ".opencc-", ".tmp").toString()
@@ -63,5 +63,15 @@ class JvmCliHost : CliHost {
         override fun write(bytes: ByteArray) { try { stream.write(bytes) } catch (_: IOException) { throw FileNotWritable(name) } }
         override fun flush() { try { stream.flush() } catch (_: IOException) { throw FileNotWritable(name) } }
         override fun close() { if (owned) stream.close() else flush() }
+    }
+}
+
+/** Windows NIO has no portable hard-link count; an unknown count cannot authorize replacement. */
+internal fun jvmMultipleLinks(path: String, windows: Boolean,
+    readCount: (Path) -> Number = { Files.getAttribute(it, "unix:nlink") as Number }): Boolean {
+    val result = runCatching { readCount(Path.of(path)).toInt() > 1 }
+    return result.getOrElse {
+        if (windows) throw CliFailure("JVM --in-place on Windows cannot verify the file's hard-link count; use the shipped Native Windows CLI.")
+        false
     }
 }

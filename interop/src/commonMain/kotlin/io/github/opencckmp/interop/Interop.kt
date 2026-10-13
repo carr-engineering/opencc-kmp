@@ -25,7 +25,10 @@ class OpenCCResources {
     /** Load synchronously after the host has prepared resources. No networking or data is bundled. */
     @Throws(Exception::class)
     fun load(configName: String, includeTofuRiskDictionaries: Boolean): OpenCCSession {
-        val name = if (configName.endsWith(".json")) configName else "$configName.json"
+        val literal = configName.replace('\\', '/')
+        val alias = literal.isNotEmpty() && literal.none { it in ".\\/:" }
+        // Resolve the root before loading so dictionary/model/parse failures never trigger fallback.
+        val name = if (!alias || bytes.containsKey(literal)) literal else "$literal.json"
         return OpenCCSession(loader().newFromFile(name, ConfigLoadOptions(includeTofuRiskDictionaries)))
     }
 

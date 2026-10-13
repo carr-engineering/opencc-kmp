@@ -62,8 +62,25 @@ unpacked by build/host tooling. The common Jieba factory retains all seven exper
 
 --in-place updates a nearby temporary file, closes streams before replacement, follows symlink
 identity and preserves owner/group/mode on POSIX. Multiple hard links are rejected by the Native
-file-identity adapter and POSIX JVM filesystem attributes. Windows JVM link-count parity still
-requires validation beyond its available standard filesystem attributes; it is not a verified gate.
+file-identity adapter and POSIX JVM filesystem attributes. **Windows JVM `--in-place` is unavailable
+when the filesystem provider cannot supply the hard-link count.** The CLI reports a typed failure
+before creating a temporary file or changing the original, including for ordinary same-file
+replacement. Use the shipped Native Windows CLI for this operation. The default JDK 17 Windows
+provider's supported views exclude `unix`; see the
+[OpenJDK source](https://raw.githubusercontent.com/openjdk/jdk17u/master/src/java.base/windows/classes/sun/nio/fs/WindowsFileSystem.java).
+The Native Windows adapter queries `GetFileInformationByHandle.nNumberOfLinks`, matching the pinned
+upstream implementation. Its path adapter now resolves the opened file handle with
+`GetFinalPathNameByHandleW` and `FILE_NAME_NORMALIZED | VOLUME_NAME_DOS`, preserving upstream's
+resolved symlink target and extended-length path spelling. The Windows smoke harness verifies real
+file replacement through alternate path spelling and, when symlink creation is permitted, target
+conversion without replacing the symlink. Temporary files retain the Windows namespace and use
+exclusive `CreateFileW(CREATE_NEW)` creation with the pinned process/tick/attempt name and 100-attempt
+limit. This avoids `GetTempFileNameW`'s directory-length limit. The smoke harness also exercises
+Unicode paths longer than 260 characters when the host supports their creation. These Windows
+runtime checks have not run on the local macOS host. The 37-case native process comparison runs on
+Linux/macOS, with the pinned hard-link assertion guarded for POSIX. Complete Windows JVM
+in-place compatibility remains a shipping gate; no native bridge or system-shell workaround has
+been implemented or validated.
 Failure cleanup retains the original input and removes the owned temporary file.
 
 opencc_dict preserves repeatable -i/--input, -o/--output, -f/--from and -t/--to, all five input

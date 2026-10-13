@@ -26,16 +26,33 @@ internal actual fun sameNative(first: String, second: String): Boolean {
 }
 internal actual fun linksNative(path: String): Boolean = (identity(path)?.links ?: 0u) > 1u
 internal actual fun realNative(path: String): String = memScoped {
-    val size = GetFullPathNameW(path, 0u, null, null)
-    if (size == 0u) return@memScoped path
-    val output = allocArray<UShortVar>(size.toInt())
-    if (GetFullPathNameW(path, size, output, null) == 0u) path else output.toKStringFromUtf16()
+    val handle = CreateFileW(path, 0u, (FILE_SHARE_READ or FILE_SHARE_WRITE or FILE_SHARE_DELETE).toUInt(),
+        null, OPEN_EXISTING.toUInt(), FILE_ATTRIBUTE_NORMAL.toUInt(), null)
+    if (handle == INVALID_HANDLE_VALUE) return@memScoped path
+    try {
+        val flags = (FILE_NAME_NORMALIZED or VOLUME_NAME_DOS).toUInt()
+        val required = GetFinalPathNameByHandleW(handle, null, 0u, flags)
+        if (required == 0u || required >= Int.MAX_VALUE.toUInt()) return@memScoped path
+        val capacity = required + 1u
+        val output = allocArray<UShortVar>(capacity.toInt())
+        val copied = GetFinalPathNameByHandleW(handle, output, capacity, flags)
+        if (copied == 0u || copied >= capacity) path else output.toKStringFromUtf16()
+    } finally { CloseHandle(handle) }
 }
 internal actual fun temporaryNative(path: String): String = memScoped {
-    val parent = path.replace('\\', '/').substringBeforeLast('/', ".")
-    val output = allocArray<UShortVar>(260)
-    if (GetTempFileNameW(parent, "occ", 0u, output) == 0u) throw FileNotWritable("temporary file")
-    output.toKStringFromUtf16()
+    val slash = path.indexOfLast { it == '\\' || it == '/' }
+    val parent = if (slash < 0) ".\\" else path.substring(0, slash + 1)
+    val process = GetCurrentProcessId()
+    val tick = GetTickCount64()
+    repeat(100) { index ->
+        val candidate = "$parent.opencc-$process-$tick-$index.tmp"
+        val handle = CreateFileW(candidate, GENERIC_WRITE.toUInt(), 0u, null, CREATE_NEW.toUInt(),
+            FILE_ATTRIBUTE_NORMAL.toUInt(), null)
+        if (handle != INVALID_HANDLE_VALUE) {
+            try { return@memScoped candidate } finally { CloseHandle(handle) }
+        }
+    }
+    throw FileNotWritable("temporary file")
 }
 internal actual fun metadataNative(source: String, target: String) {}
 internal actual fun replaceNative(source: String, target: String) = memScoped {
