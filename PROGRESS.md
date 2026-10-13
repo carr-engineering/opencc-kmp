@@ -5,25 +5,41 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 ## Milestones
 
-- [ ] 1. KMP modules/targets, pinned upstream identity, API inventory, resource delivery, consumer fixtures.
-- [ ] 2. Text dictionaries, config parsing, segmentation, normalization, conversion and API contracts.
+- [x] 1. KMP modules/targets, pinned upstream identity, API inventory, resource delivery, consumer fixtures.
+- [x] 2. Text dictionaries, config parsing, segmentation, normalization, conversion and API contracts.
 - [x] 3. Interoperable `.ocd` / `.ocd2` readers and writers, legacy layouts and byte orders.
-- [ ] 4. Reproducible complete/selective data, manifests, closure, deduplication and measured budgets.
+- [x] 4. Reproducible complete/selective data, manifests, closure, deduplication and measured budgets.
 - [ ] 5. Facades, streaming, inspection, tooling, phrase extraction, CLI and differential tests.
 - [x] 6. Segment mapping and optional detection.
 - [ ] 7. Benchmarks, consumer shrinking, documentation, CI and release readiness.
 
 ## Current acceptance priorities
 
-1. Continue startup/memory profiling after the primitive-array builder and owned caches. Initial
-   published consumers and package-size baselines exist across Android, Swift/iOS and JS/Wasm;
-   physical-device performance, broader peak-memory evidence and production delivery gates remain.
-2. Complete the upstream utility inventory and malformed-resource audits. JSON/schema and encoded conversion,
-   inspection, streaming and equivalent text/map/NUL operations now have differential coverage.
-3. Broader CLI argument/filesystem failure and custom Jieba resource/numeric audits, plus
-   Windows/Linux execution and executable-release verification.
-4. Selective published data packs, CI size budgets/shrinking/performance, API compatibility and release
-   infrastructure/documentation. Public publication requires configured ownership and credentials.
+1. Measure physical Android p95 startup/conversion and peak memory, plus robust desktop-browser Wasm
+   p50/p95. Host benchmarks and production size fixtures do not establish those device targets.
+2. Execute hosted Linux/Windows/Android CI against the final commit and review platform-bound
+   filesystem behavior. Local macOS execution and workflow/task-graph checks cannot substitute.
+3. Complete final public API/release review and configure the owned Maven namespace, GitHub repository,
+   reporting contacts and release credentials. Public publication remains disabled.
+
+The chronological entries below retain their checkpoint counts; the latest verified state supersedes
+earlier pending inventory and size results.
+
+### Completed upstream assertion audit
+
+- All 273 discovered cases now have concrete evidence: 193 direct assertion ports and 80 reviewed
+  equivalents, with zero cases requiring review. The latter explicitly document Kotlin ownership,
+  offset units, host integration and legacy serialization adaptations.
+- The final common suite passes 211 core and 16 dictionary-tool tests per runtime on JVM, JS, Wasm,
+  macOS ARM64 and iOS simulator ARM64. This includes 600 native reference-loop fuzz inputs, nested
+  ambiguity composition, configuration contracts and the bounded malformed-binary matrix.
+- Native binary FILE/buffer audits pass 66 observations across 33 crafted profiles. Legacy-to-current
+  dictionary export passes the native reader. Core/Jieba conformance passes 17/6 test methods,
+  including the added facade and literal plugin-resource assertions; ten dictionary-data invariants pass.
+- All 37 named CLI assertions pass against native processes on both JVM and macOS Native, including
+  556 golden outputs across 16 configurations. One of 43 upstream Jieba source golden outputs is
+  stale (`慰借` versus the pinned native engine's `慰藉`); the checked-in fixture audit preserves both
+  values and tests the actual native result. Production conversion was not changed for that drift.
 
 ### Parallel completion work: resource operations
 

@@ -26,6 +26,7 @@ class PhraseExtractTest {
         for ((word, count) in mapOf("四" to 6L, "十" to 6L, "是" to 4L, "四十" to 3L, "是四十" to 2L, "是四" to 2L, "四是" to 2L))
             assertEquals(count, source.frequency(word))
         near(-2.0149030205422647, source.logProbability("四"))
+        near(-2.0149030205422647, source.logProbability("十"))
         near(-2.4203681286504288, source.logProbability("是"))
         near(-2.7080502011022096, source.logProbability("四十"))
         near(-3.8066624897703196, source.logProbability("是十十"))
@@ -47,11 +48,13 @@ class PhraseExtractTest {
         near(1.0114042647073518, source.suffixEntropy("四"))
         near(0.69314718055994529, source.suffixEntropy("十四"))
         near(0.69314718055994529, source.suffixEntropy("十是"))
+        near(0.0, source.suffixEntropy("四十"))
         source.calculatePrefixEntropy()
         near(1.0114042647073516, source.prefixEntropy("十"))
         near(1.0549201679861442, source.prefixEntropy("四"))
         near(0.69314718055994529, source.prefixEntropy("十四"))
         near(0.63651416829481278, source.prefixEntropy("四十"))
+        near(0.0, source.prefixEntropy("十是"))
         for (word in listOf("四是四", "十是十")) {
             near(0.0, source.prefixEntropy(word)); near(0.0, source.suffixEntropy(word))
         }

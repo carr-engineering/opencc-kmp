@@ -36,7 +36,7 @@ FAMILY = {
  'ConfigBasedConverter':'ConfigBasedConverter(normalization, main) / convert / inspect / segmentation / conversionChain / normalization',
  'Conversion':'Conversion(dict) / convert / appendConverted / dict',
  'ConversionAmbiguities':'convertWithAmbiguities / AnnotatedConversion / AmbiguousSpan / AmbiguityStream (experimental)',
- 'ConversionCandidates':'Converter.getAllConversions (experimental)',
+ 'ConversionCandidates':'Converter.getAllConversions(String) / getAllConversionsUtf8(ByteArray) (experimental; owned discovery-ordered candidates)',
  'ConversionChain':'ConversionChain / convert / convertWithTrace / conversions; Appendable.append(chain.convert(segment))',
  'ConversionInspection':'ConversionInspectionStage / ConversionInspectionResult matching named properties',
  'Converter':'Converter.convert / inspect / segmentation / conversionChain; ConverterStream',
@@ -75,7 +75,7 @@ def mapping(header, operation):
         return 'Kotlin-managed lifetime and value/reference assignment; no manual destruction/copy ownership', 'ownership'
     if stem == 'UTF8Util': return UTF8[symbol], 'mapped'
     if stem == 'UTF8StringSlice': return SLICE[symbol], 'mapped'
-    if symbol in ('SupportsFastPrefixMatch', 'MatchPrefixValue', 'MatchPrefixView', 'SkipUnmatchable', 'EnumerateKeys', 'IsLexiconReconstructed', 'LooksLikeLegacy64Field'):
+    if symbol in ('SupportsFastPrefixMatch', 'MatchPrefixValue', 'MatchPrefixView', 'EnumerateKeys', 'IsLexiconReconstructed', 'LooksLikeLegacy64Field'):
         return 'Dict prefix/lexicon operations and format readers; native optimization state is not a client contract', 'implementation'
     specific = {
         'Key': 'DictEntry.key', 'KeyView': 'DictEntry.key', 'GetDefault': 'DictEntry.defaultValue',
@@ -97,6 +97,7 @@ def mapping(header, operation):
         'GetResource': 'ResourceProvider.getResource; ResourceMetadataProvider.getResource for host metadata',
         'Name': 'Resource.name', 'Data': 'Resource.bytes (defensive ByteArray copy)', 'Size': 'Resource.size',
         'CacheKey': 'Resource.cacheKey (opaque Any; provider-owned version identity)',
+        'SkipUnmatchable': 'Dict.skipUnmatchable(String, UTF16 ranges) / skipUnmatchableUtf8(ByteArray); reusable immutable PrefixScan index',
         'AppendConvertedSegment': 'output.append(chain.convert(segment)); substringBefore(NUL) for native C-string overload',
         'ToString': 'toString() on the equivalent Kotlin entry/segments value',
     }

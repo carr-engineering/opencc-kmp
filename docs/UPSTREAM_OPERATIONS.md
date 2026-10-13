@@ -44,6 +44,24 @@ pinned native descriptor's creation/segment/free/destroy operations map to facto
 segmentation results and Kotlin-managed ownership. This preserves extension capabilities without
 requiring dynamic native code loading on browsers or mobile targets.
 
+## Prefix scan operation
+
+`Dict.skipUnmatchable` returns a UTF16 distance for a half-open String range;
+`skipUnmatchableUtf8` returns the corresponding byte distance without decoding. Both preserve
+upstream's conservative candidate-first-character stop policy: a potential key start stops even
+when the entire key would not match. BMP first characters use character granularity; supplementary
+and legacy encoded characters use leading-byte filtering. All recognized IDS operators stop scans;
+invalid or truncated encoded sequences stop without throwing. Bounded encoded scans include NUL.
+
+Retain `PrefixScan(dict)` for repeated operations. It owns an immutable first-character index,
+creates no global cache, and allocates no substrings/results while scanning. Convenience extensions
+create that index per call. Native table/fast-path state and pointer-alias requirements map to
+immutable Kotlin dictionary values; MARISA decoding currently materializes its packed lookup
+snapshot at load, so a native lexicon-reconstruction flag has no Kotlin API counterpart.
+`audit_prefix_scan.py` generates 2,790 native skip-distance expectations across nine dictionary
+backends. `NativePrefixScanTest` ports the 21 upstream prefix/skip test cases, recording the native
+reconstruction-state case as an implementation adaptation rather than asserting native storage.
+
 ## Scope and evidence
 
 `python3 tools/audit_upstream.py` regenerates [upstream-inventory.json](upstream-inventory.json)
@@ -66,13 +84,7 @@ consult the linked contract documents for offset, error and optional-module requ
 Native fast-prefix/support-table/reconstruction-state operations represent lookup optimizations;
 Kotlin exposes equivalent lookup and dictionary data, not the native optimizer's storage state.
 
-The same inventory records 273 native cases in 31 test files, including source hashes and candidate
-Kotlin suites. The 17 `UTF8UtilTest.cpp` cases have explicit
-`UpstreamUtf8UtilTest` assertion ports. The remaining 256 are marked `requires-case-review`:
-suite-level candidate paths are traceability aids, not proof that each assertion has been ported. The remaining release audit
-must check each native assertion against equivalent Kotlin tests or differential evidence, then
-record its reviewed status. Native-only build integration (Bazel, plugin descriptor ABI) maps to
-published-artifact consumers or factory tests rather than literal native integration.
+The same inventory records 273 native cases in 31 test files. It records 193 direct assertion ports, 80 assertion-equivalent reviews, and 0 cases still requiring review. Each reviewed entry names concrete test methods/files or a named process case. Generation validates evidence references; suite-level candidate paths alone never establish coverage. Kotlin range/ownership and platform integration adaptations are recorded per case. These statuses record source review; runtime execution evidence remains in PROGRESS.md and build reports.
 
 ## Source operation crosswalk
 
@@ -161,7 +173,7 @@ published-artifact consumers or factory tests rather than literal native integra
 
 | Upstream operation | Kotlin equivalent | Mapping |
 | --- | --- | --- |
-| `GetAllConversions` | Converter.getAllConversions (experimental) | family-mapped |
+| `GetAllConversions` | Converter.getAllConversions(String) / getAllConversionsUtf8(ByteArray) (experimental; owned discovery-ordered candidates) | family-mapped |
 
 ### `src/ConversionChain.hpp`
 
@@ -444,7 +456,7 @@ published-artifact consumers or factory tests rather than literal native integra
 | `PrefixMatch::~PrefixMatch` | Kotlin-managed lifetime and value/reference assignment; no manual destruction/copy ownership | ownership |
 | `PrefixMatch::MatchPrefix` | Dict.matchPrefix / matchPrefixUtf8; nullable DictEntry supplies key/defaultValue and lengths | family-mapped |
 | `PrefixMatch::MatchPrefixView` | Dict prefix/lexicon operations and format readers; native optimization state is not a client contract | implementation |
-| `PrefixMatch::SkipUnmatchable` | Dict prefix/lexicon operations and format readers; native optimization state is not a client contract | implementation |
+| `PrefixMatch::SkipUnmatchable` | Dict.skipUnmatchable(String, UTF16 ranges) / skipUnmatchableUtf8(ByteArray); reusable immutable PrefixScan index | mapped |
 
 ### `src/ResourceProvider.hpp`
 

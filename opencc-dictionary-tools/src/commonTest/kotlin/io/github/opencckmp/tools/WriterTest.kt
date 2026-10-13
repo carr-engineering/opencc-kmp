@@ -20,6 +20,9 @@ class WriterTest {
             assertEquals(lexicon.entries.map { it.values }, decoded.values)
         }
         assertEquals(0, DartsDict.fromBytes(DictionaryWriters.ocd(TextDict(Lexicon(emptyList())))).lexicon.size)
+        val emptyPayload = DictionaryWriters.binaryPayload(Lexicon(emptyList()))
+        assertEquals(12, emptyPayload.size)
+        assertEquals(0, BinaryDict.fromBytes(emptyPayload).lexicon.size)
     }
     @Test fun marisaNestedTrieAndEndiannessRoundTrip() {
         val source = TextDict.fromText("a\tA B\nab\tX\nabc\tY Z\nlong_shared_prefix_one_suffix\tone\nlong_shared_prefix_two_suffix\ttwo\n汉\t漢\n汉字\t漢字\n𠀀\t甲 乙\n😀\tsmile\n")

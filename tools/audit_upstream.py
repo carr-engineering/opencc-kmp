@@ -2,6 +2,8 @@
 """Generate a deterministic source/config inventory from the verified release."""
 import hashlib
 import json
+import re
+from collections import Counter
 from upstream import ROOT, LOCK, fetch
 from upstream_operations import public_declarations
 from operation_mapping import mapping
@@ -63,6 +65,15 @@ if __name__ == "__main__":
     if document.exists():
         marker = "## Source operation crosswalk"
         intro = document.read_text().split(marker, 1)[0]
+        cases = [case for group in result["upstream_test_cases"].values() for case in group["cases"]]
+        status = Counter(case["port_review"] for case in cases)
+        summary = (f"The same inventory records {len(cases)} native cases in {len(result['upstream_test_cases'])} test files. "
+                   f"It records {status['ported-assertions']} direct assertion ports, {status['reviewed-equivalent']} assertion-equivalent reviews, "
+                   f"and {status['requires-case-review']} cases still requiring review. Each reviewed entry names concrete test methods/files "
+                   "or a named process case. Generation validates evidence references; suite-level candidate paths alone never establish coverage. "
+                   "Kotlin range/ownership and platform integration adaptations are recorded per case. These statuses record source review; "
+                   "runtime execution evidence remains in PROGRESS.md and build reports.\n\n")
+        intro = re.sub(r"The same inventory records.*?\n\n(?=##|$)", summary, intro, flags=re.S)
         rows = [intro + marker + "\n\n"]
         for header, records in result["public_declarations"].items():
             if not records:

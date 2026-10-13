@@ -1,0 +1,15 @@
+{
+  "upstream": "ver.1.4.2",
+  "source_cases": 20,
+  "pairs": 43,
+  "native_source_fixture_mismatches": [
+    [
+      "tw2sp",
+      "奶茶店慰藉著旅者的味蕾",
+      "奶茶店慰借着旅者的味蕾",
+      "奶茶店慰藉着旅者的味蕾"
+    ]
+  ],
+  "source_sha256": "962babe39228b398f425b039c99255941a62c232815727da92c231159aee52f6",
+  "verification": "UpstreamJiebaLiteralTest.convertFromJsonCases compares all43source pairs to pinned C++ process output; retains both source and native values for the single drift."
+}
