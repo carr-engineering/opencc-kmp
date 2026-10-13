@@ -1,5 +1,20 @@
 # Production web and Swift consumer evidence
 
+The final operation/resource audit passes every unchanged size gate. Current production evidence
+is recorded in [web-parallel-completion.json](../measurements/web-parallel-completion.json) and
+[apple-parallel-completion.json](../measurements/apple-parallel-completion.json):
+
+| Profile | JS incremental gzip bytes | Wasm incremental gzip bytes | Swift app incremental ZIP bytes |
+| --- | ---: | ---: | ---: |
+| Engine | 27,458 | 17,742 | 98,838 |
+| s2t | 535,006 | 535,457 | 627,170 |
+| s2t + t2s | 569,419 | 569,883 | 662,483 |
+| Complete bundle | 6,606,618 | 6,607,081 | 6,705,837 |
+
+Apple uses the explicitly evaluated `smallBinary` option. Every profile executes successfully;
+these three-launch fixture measurements retain the limited timing/memory scope described below.
+The original baselines and budgets remain unchanged.
+
 The independent consumer build resolves locally published KMP artifacts. Each profile has a
 separate output directory, preventing stale dictionaries from influencing smaller profiles.
 Production web distributions omit source maps, use JS dead-code elimination/minification or Wasm

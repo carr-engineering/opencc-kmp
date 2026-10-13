@@ -15,8 +15,9 @@ checkbox is completed only when its implementation and relevant checks exist.
 
 ## Current acceptance priorities
 
-1. Measure physical Android p95 startup/conversion and peak memory, plus robust desktop-browser Wasm
-   p50/p95. Host benchmarks and production size fixtures do not establish those device targets.
+1. Measure physical Android p95 startup/conversion and peak memory, and complete broader memory
+   acceptance. Desktop-browser Wasm p50/p95 now has 30-launch evidence on the recorded host;
+   neither those results nor JVM averages establish physical-phone targets.
 2. Execute hosted Linux/Windows/Android CI against the final commit and review platform-bound
    filesystem behavior. Local macOS execution and workflow/task-graph checks cannot substitute.
 3. Complete final public API/release review and configure the owned Maven namespace, GitHub repository,
@@ -40,6 +41,34 @@ earlier pending inventory and size results.
   556 golden outputs across 16 configurations. One of 43 upstream Jieba source golden outputs is
   stale (`慰借` versus the pinned native engine's `慰藉`); the checked-in fixture audit preserves both
   values and tests the actual native result. Production conversion was not changed for that drift.
+
+### Final integration, exports and size gates
+
+- Final root ABI checks, five-runtime module tests and all local publications pass after the new
+  assertion batch. Publication verification covers 158 records / 383 artifact files and all eleven
+  runtime targets. Focused interop passes five tests each on JVM/JS/macOS/iOS simulator, rendered
+  KDoc, ABI checks and refreshed direct/unpacked Node/Swift consumers.
+- All unchanged Android, production JS/Wasm and installed Apple size budgets pass. Current reports
+  are the three `measurements/*-parallel-completion.json` files. Android engine APK/dependency
+  increments are 17,999/175,525 bytes; JS/Wasm engine gzip increments are 27,458/17,742 bytes;
+  Apple engine ZIP increment is 98,838 bytes with the explicitly measured smallBinary option.
+- The isolated published-artifact JVM JMH main run passes nine workloads and complete native-output
+  checks; `measurements/jvm-performance.json` records averages, iteration data, dependency/source hashes
+  and native comparisons. Host averages are not phone p95 evidence.
+- The independent Android R8 benchmark APK builds and statically verifies exact selected s2t
+  closure and artifact hashes. The explicit-serial driver requires at least 30 fresh processes;
+  no device has been selected or measured. See `measurements/android-benchmark-build-validation.json`.
+- Windows JVM now refuses same-file replacement when link-count metadata is unavailable, before
+  any mutation. Two real-file/linked-input regression tests pass locally. The Native Windows CLI
+  provides the equivalent operation; full Windows JVM parity and hosted Windows runtime evidence
+  remain open. Native handle-based canonicalization and exclusive temporary-file creation now
+  compile for MinGW, pass the unchanged CLI ABI baseline and publish locally. Added alternate-path,
+  symlink-retention and long-Unicode-path smoke cases explicitly report unrun Windows capabilities.
+- Standalone production Wasm passes 30 fresh Chrome processes and 9,000 complete native-output
+  checks. Warm p50/p95 are about 0.1/0.2 ms; startup p95 is 100 ms on the recorded ARM64 desktop.
+  `measurements/web-performance.json` retains all runs, artifact/source hashes and the 0.1 ms timer
+  resolution. Sampled JS heap excludes Wasm linear-memory and process peaks. CI collects both full
+  JVM benchmark and Wasm latency reports; hosted execution remains unverified.
 
 ### Parallel completion work: resource operations
 

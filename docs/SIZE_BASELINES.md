@@ -1,5 +1,19 @@
 # Initial release APK size evidence
 
+After the complete operation/resource audit, all unchanged Android budgets pass in
+[android-parallel-completion.json](../measurements/android-parallel-completion.json):
+
+| Profile | Incremental release APK bytes | Incremental dependency artifact bytes |
+| --- | ---: | ---: |
+| Engine | 17,999 | 175,525 |
+| s2t | 537,256 | 698,194 |
+| s2t + t2s | 572,584 | 733,011 |
+| Complete offline bundle | 6,713,074 | 6,774,606 |
+
+These reports use the same independently published consumers and byte accounting below. They do
+not measure Google Play splits or physical-device performance. The original baseline remains the
+CI reference; no allowance was increased to accommodate the additional API operations.
+
 `measurements/android-initial.json` records the first independently resolved, release-shrunk
 consumer profiles. Android APKs use the same Activity/Kotlin baseline, SDK 36/min SDK 23 and default
 R8 optimization, with no OpenCC keep rules. Data is staged from published ZIP classifiers. The

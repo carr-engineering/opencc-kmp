@@ -140,6 +140,8 @@ ByteArray loaders. See [resource contracts](docs/JIEBA_RESOURCE_CONTRACTS.md).
 resource injection and synchronous conversion after host preparation. Kotlin clients retain the
 complete module APIs. [Performance workloads](docs/PERFORMANCE.md) run against published artifacts
 and the pinned native engine on the same 1 MiB corpus; host averages do not prove device p95 targets.
+Checked-in full JVM and 30-launch desktop Wasm reports are linked there. The standalone R8 Android
+benchmark APK and explicit-device runner are ready; physical-phone measurements remain required.
 
 ## Provenance
 
