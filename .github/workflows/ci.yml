@@ -64,7 +64,7 @@ jobs:
           python3 tools/test_cli_upstream.py --backend jvm
           python3 tools/test_cli_upstream.py --backend native --native-target linuxX64
           python3 tools/test_cli_distributions.py jvm linuxX64
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: linux-conformance
@@ -102,7 +102,7 @@ jobs:
         run: |
           ./gradlew -p benchmarks/android assembleRelease reportBenchmarkDependencies
           python3 tools/verify_android_benchmark.py --output .cache/benchmarks/android-build.json
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: android-runtime
@@ -135,7 +135,7 @@ jobs:
           :opencc-cli:linkOpencc_phrase_extractReleaseExecutableMingwX64
       - name: Unicode paths, conversion, in-place output and binary writer smoke
         run: python tools/test_cli_smoke.py --native-target mingwX64
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: windows-tests
@@ -174,7 +174,7 @@ jobs:
         run: |
           ./gradlew -p interop checkKotlinAbi jvmTest jsNodeTest macosArm64Test iosSimulatorArm64Test linkReleaseFrameworkMacosArm64 jsBrowserProductionLibraryDistribution
           python3 tools/test_exports.py
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: apple-api-and-consumers
@@ -218,7 +218,7 @@ jobs:
       - name: Swift release application budgets and simulator execution
         if: success() || failure()
         run: python3 tools/measure_apple.py --check --small-binary
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: size-and-runtime-evidence
