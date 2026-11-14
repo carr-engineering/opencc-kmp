@@ -39,7 +39,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Verify tag and build CLI distribution
         shell: bash
         env:
@@ -75,7 +75,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Require owner metadata and exact release tag
         run: |
           test -n "$OPENCC_GROUP" && test -n "$OPENCC_REPOSITORY_URL"
