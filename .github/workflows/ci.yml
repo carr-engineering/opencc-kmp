@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Syntax and publication payload checks
         run: |
           python3 -m compileall -q tools
@@ -90,7 +90,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Prepare Android runtime and real published variants
         run: |
           sudo chmod 666 /dev/kvm
@@ -126,7 +126,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Windows common/runtime tests and all three executables
         run: >-
           .\gradlew.bat '-Popencc.targets=jvm,mingwX64' jvmTest mingwX64Test
@@ -155,7 +155,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Select Xcode 26 and record host tools
         run: |
           python3 tools/select_ci_xcode.py
@@ -199,7 +199,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      - uses: gradle/actions/setup-gradle@445a164ce8dd7af4e36840ca2f5aa4e1faf842f2 # v6
       - name: Prepare SDKs and attributed local publications
         run: |
           python3 tools/select_ci_xcode.py
